@@ -10,8 +10,8 @@ async function seed() {
     console.log('🌱 Seeding database...');
 
     // Create super admin user
-    const adminEmail = 'admin@nidiaflow.com';
-    const adminPassword = 'SuperAdmin123!';
+    const adminEmail = 'nidia.dev.co@gmail.com';
+    const adminPassword = 'nidia123';
 
     const existingAdmin = await prisma.user.findUnique({
       where: { email: adminEmail },
@@ -24,8 +24,8 @@ async function seed() {
         data: {
           email: adminEmail,
           passwordHash: hashedPassword,
-          firstName: 'Super',
-          lastName: 'Admin',
+          firstName: 'Camilo',
+          lastName: 'Bastidas',
           systemRole: 'super_admin',
           emailVerified: true,
           isActive: true,
@@ -37,13 +37,14 @@ async function seed() {
       console.log('✅ Super admin user created:', {
         id: admin.id,
         email: admin.email,
+        name: `${admin.firstName} ${admin.lastName}`,
         role: admin.systemRole,
       });
     } else {
       console.log('ℹ️  Super admin user already exists');
     }
 
-    // Create default plans
+    // Create default plans (prices in Colombian Pesos - COP)
     const plans = [
       {
         name: 'free',
@@ -51,6 +52,7 @@ async function seed() {
         description: 'Plan básico para empezar',
         priceMonthly: 0,
         priceYearly: 0,
+        currency: 'COP',
         maxUsers: 2,
         maxStorageGb: 1,
         maxMonthlyEmails: 100,
@@ -65,8 +67,9 @@ async function seed() {
         name: 'basic',
         displayName: 'Plan Básico',
         description: 'Para pequeñas empresas',
-        priceMonthly: 29.99,
-        priceYearly: 299.99,
+        priceMonthly: 120000,
+        priceYearly: 1200000,
+        currency: 'COP',
         maxUsers: 5,
         maxStorageGb: 5,
         maxMonthlyEmails: 1000,
@@ -81,8 +84,9 @@ async function seed() {
         name: 'professional',
         displayName: 'Plan Profesional',
         description: 'Para empresas en crecimiento',
-        priceMonthly: 79.99,
-        priceYearly: 799.99,
+        priceMonthly: 320000,
+        priceYearly: 3200000,
+        currency: 'COP',
         maxUsers: 15,
         maxStorageGb: 20,
         maxMonthlyEmails: 5000,
@@ -107,6 +111,164 @@ async function seed() {
         console.log(`✅ Plan created: ${planData.displayName}`);
       } else {
         console.log(`ℹ️  Plan already exists: ${planData.displayName}`);
+      }
+    }
+
+    // Create system settings
+    const systemSettings = [
+      {
+        key: 'app_name',
+        value: 'NIDIA Flow',
+        description: 'Application name',
+        isPublic: true,
+      },
+      {
+        key: 'app_version',
+        value: '1.0.0',
+        description: 'Application version',
+        isPublic: true,
+      },
+      {
+        key: 'maintenance_mode',
+        value: false,
+        description: 'Maintenance mode flag',
+        isPublic: true,
+      },
+      {
+        key: 'max_tenants',
+        value: 1000,
+        description: 'Maximum number of tenants allowed',
+        isPublic: false,
+      },
+      {
+        key: 'default_trial_days',
+        value: 30,
+        description: 'Default trial period in days',
+        isPublic: false,
+      },
+    ];
+
+    for (const settingData of systemSettings) {
+      const existingSetting = await prisma.systemSetting.findUnique({
+        where: { key: settingData.key },
+      });
+
+      if (!existingSetting) {
+        await prisma.systemSetting.create({
+          data: {
+            key: settingData.key,
+            value: settingData.value,
+            description: settingData.description,
+            isPublic: settingData.isPublic,
+          },
+        });
+        console.log(`✅ System setting created: ${settingData.key}`);
+      } else {
+        console.log(`ℹ️  System setting already exists: ${settingData.key}`);
+      }
+    }
+
+    // Create coupons (in Colombian Pesos - COP)
+    const coupons = [
+      {
+        code: 'WELCOME30',
+        name: 'Bienvenida 30%',
+        description: 'Descuento de bienvenida del 30%',
+        discountType: 'percentage',
+        discountValue: 30.00,
+        currency: 'COP',
+        appliesTo: 'all',
+        applicablePlanIds: [],
+        maxRedemptions: 1000,
+        maxRedemptionsPerTenant: 1,
+        duration: 'once',
+        durationInMonths: null,
+        validFrom: new Date(),
+        validUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
+        isActive: true,
+      },
+      {
+        code: 'FIRST3MONTHS',
+        name: 'Primeros 3 Meses',
+        description: 'Descuento para los primeros 3 meses',
+        discountType: 'percentage',
+        discountValue: 50.00,
+        currency: 'COP',
+        appliesTo: 'all',
+        applicablePlanIds: [],
+        maxRedemptions: 500,
+        maxRedemptionsPerTenant: 1,
+        duration: 'repeating',
+        durationInMonths: 3,
+        validFrom: new Date(),
+        validUntil: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000), // 6 months from now
+        isActive: true,
+      },
+    ];
+
+    for (const couponData of coupons) {
+      const existingCoupon = await prisma.coupon.findUnique({
+        where: { code: couponData.code },
+      });
+
+      if (!existingCoupon) {
+        await prisma.coupon.create({
+          data: couponData,
+        });
+        console.log(`✅ Coupon created: ${couponData.code} - ${couponData.name}`);
+      } else {
+        console.log(`ℹ️  Coupon already exists: ${couponData.code}`);
+      }
+    }
+
+    // Create feature flags
+    const featureFlags = [
+      {
+        name: 'whatsapp_integration',
+        description: 'WhatsApp Business API Integration',
+        isEnabled: true,
+        rolloutPercentage: 100,
+        enabledForTenants: [],
+        metadata: {},
+      },
+      {
+        name: 'advanced_analytics',
+        description: 'Advanced Analytics Dashboard',
+        isEnabled: false,
+        rolloutPercentage: 0,
+        enabledForTenants: [],
+        metadata: {},
+      },
+      {
+        name: 'mobile_app',
+        description: 'Mobile Application Access',
+        isEnabled: true,
+        rolloutPercentage: 100,
+        enabledForTenants: [],
+        metadata: {},
+      },
+      {
+        name: 'ai_insights',
+        description: 'AI-Powered Business Insights',
+        isEnabled: false,
+        rolloutPercentage: 10,
+        enabledForTenants: [],
+        metadata: {},
+      },
+    ];
+
+    for (const flagData of featureFlags) {
+      const existingFlag = await prisma.featureFlag.findUnique({
+        where: { name: flagData.name },
+      });
+
+      if (!existingFlag) {
+        await prisma.featureFlag.create({
+          data: flagData,
+        });
+        console.log(`✅ Feature flag created: ${flagData.name}`);
+      } else {
+        console.log(`ℹ️  Feature flag already exists: ${flagData.name}`);
       }
     }
 
