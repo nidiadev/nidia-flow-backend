@@ -6,14 +6,45 @@ import { JwtService } from '@nestjs/jwt';
 import { WebSocketEvent, BusinessEventTypes } from './business-events';
 
 /**
+ * Parse allowed WebSocket CORS origins from environment variables
+ * Uses the same logic as main.ts for consistency
+ */
+function getWebSocketOrigins(): string[] | string | boolean {
+  const corsOrigins = process.env.CORS_ORIGINS;
+  const frontendUrl = process.env.FRONTEND_URL;
+  
+  if (corsOrigins) {
+    const origins = corsOrigins
+      .split(',')
+      .map(origin => origin.trim())
+      .filter(origin => origin.length > 0);
+    
+    if (origins.length > 0) {
+      return origins;
+    }
+  }
+  
+  if (frontendUrl) {
+    return frontendUrl;
+  }
+  
+  if (process.env.NODE_ENV === 'development') {
+    return ['http://localhost:4002', 'http://localhost:3000'];
+  }
+  
+  return false;
+}
+
+/**
  * Servicio para manejar eventos WebSocket y broadcasting en tiempo real
  * Integra con el sistema de eventos para propagar cambios a los clientes conectados
  */
 @Injectable()
 @WebSocketGateway({
   cors: {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: getWebSocketOrigins(),
     credentials: true,
+    methods: ['GET', 'POST'],
   },
   namespace: '/events',
 })
