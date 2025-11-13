@@ -1,4 +1,4 @@
- el // NIDIA Flow - SuperAdmin Database Schema
+// NIDIA Flow - SuperAdmin Database Schema
 // This schema manages all tenants and NIDIA's business operations
 
 generator client {
