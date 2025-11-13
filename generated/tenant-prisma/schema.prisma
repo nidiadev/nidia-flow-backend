@@ -1,0 +1,1026 @@
+// NIDIA Flow - Tenant Database Schema
+// This schema is deployed to each tenant's dedicated database
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/tenant-prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER MANAGEMENT (TENANT INTERNAL)
+// ============================================
+
+model User {
+  id           String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email        String  @unique @db.VarChar(255)
+  passwordHash String  @map("password_hash") @db.VarChar(255)
+  firstName    String? @map("first_name") @db.VarChar(100)
+  lastName     String? @map("last_name") @db.VarChar(100)
+  phone        String? @db.VarChar(20)
+  avatarUrl    String? @map("avatar_url") @db.VarChar(500)
+
+  // Role within tenant (different from system role)
+  role        String  @default("user") @db.VarChar(50) // admin, manager, sales, operator, accountant, viewer
+  department  String? @db.VarChar(100)
+  position    String? @db.VarChar(100)
+  permissions Json    @default("[]") @map("permissions") // Array de permisos específicos
+
+  // Status
+  isActive    Boolean   @default(true) @map("is_active")
+  lastLoginAt DateTime? @map("last_login_at")
+
+  // Employment info
+  hireDate   DateTime? @map("hire_date") @db.Date
+  employeeId String?   @map("employee_id") @db.VarChar(50)
+
+  // Audit
+  createdBy String?  @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdByUser             User?               @relation("UserCreatedBy", fields: [createdBy], references: [id])
+  usersCreated              User[]              @relation("UserCreatedBy")
+  customersCreated          Customer[]          @relation("CustomerCreatedBy")
+  customersAssigned         Customer[]          @relation("CustomerAssignedTo")
+  interactions              Interaction[]
+  ordersCreated             Order[]             @relation("OrderCreatedBy")
+  ordersAssigned            Order[]             @relation("OrderAssignedTo")
+  tasksCreated              Task[]              @relation("TaskCreatedBy")
+  tasksAssigned             Task[]              @relation("TaskAssignedTo")
+  paymentsCreated           Payment[]           @relation("PaymentCreatedBy")
+  productsCreated           Product[]           @relation("ProductCreatedBy")
+  messageTemplatesCreated   MessageTemplate[]   @relation("MessageTemplateCreatedBy")
+  notifications             Notification[]
+  filesUploaded             File[]              @relation("FileUploadedBy")
+  savedReportsCreated       SavedReport[]       @relation("SavedReportCreatedBy")
+  inventoryMovementsCreated InventoryMovement[] @relation("InventoryMovementCreatedBy")
+  transactionsCreated       Transaction[]       @relation("TransactionCreatedBy")
+  taskChecklistsCompleted   TaskChecklist[]     @relation("TaskChecklistCompletedBy")
+  auditLogsUser             AuditLog[]          @relation("AuditLogUser")
+  companySettingsUpdated    CompanySetting[]    @relation("CompanySettingUpdatedBy")
+
+  @@index([email])
+  @@index([role])
+  @@index([isActive])
+  @@map("users")
+}
+
+model Role {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String   @unique @db.VarChar(100)
+  description  String?  @db.Text
+  permissions  Json     @default("[]") @map("permissions") // Array de permisos del rol
+  isSystemRole Boolean  @default(false) @map("is_system_role") // Roles predefinidos no editables
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([name])
+  @@map("roles")
+}
+
+// ============================================
+// CRM - CUSTOMER MANAGEMENT
+// ============================================
+
+model Customer {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Type and source
+  type       String  @default("lead") @db.VarChar(50) // lead, prospect, active, inactive, churned
+  leadSource String? @map("lead_source") @db.VarChar(100) // website, referral, whatsapp, cold_call
+  leadScore  Int     @default(0) @map("lead_score") // 0-100
+
+  // Basic info
+  firstName   String? @map("first_name") @db.VarChar(100)
+  lastName    String? @map("last_name") @db.VarChar(100)
+  companyName String? @map("company_name") @db.VarChar(255)
+  email       String? @db.VarChar(255)
+  phone       String? @db.VarChar(20)
+  mobile      String? @db.VarChar(20)
+  whatsapp    String? @db.VarChar(20)
+
+  // Address
+  addressLine1 String?  @map("address_line1") @db.Text
+  addressLine2 String?  @map("address_line2") @db.Text
+  city         String?  @db.VarChar(100)
+  state        String?  @db.VarChar(100)
+  postalCode   String?  @map("postal_code") @db.VarChar(20)
+  country      String   @default("CO") @db.VarChar(2)
+  latitude     Decimal? @db.Decimal(10, 8)
+  longitude    Decimal? @db.Decimal(11, 8)
+
+  // Business info
+  industry String? @db.VarChar(100)
+  segment  String? @db.VarChar(50) // B2B, B2C, Government, etc
+  taxId    String? @map("tax_id") @db.VarChar(50) // NIT/RFC
+
+  // Financial
+  creditLimit  Decimal? @map("credit_limit") @db.Decimal(10, 2)
+  paymentTerms Int      @default(0) @map("payment_terms") // Días de crédito
+
+  // Status and tracking
+  status              String    @default("active") @db.VarChar(50)
+  isActive            Boolean   @default(true) @map("is_active")
+  convertedFromLeadAt DateTime? @map("converted_from_lead_at")
+  firstPurchaseAt     DateTime? @map("first_purchase_at")
+  lastPurchaseAt      DateTime? @map("last_purchase_at")
+  lastContactAt       DateTime? @map("last_contact_at")
+
+  // Tags and notes
+  tags         String[] @map("tags")
+  notes        String?  @db.Text
+  customFields Json     @default("{}") @map("custom_fields")
+  metadata     Json     @default("{}") @map("metadata")
+
+  // Assignment
+  assignedTo String?  @map("assigned_to") @db.Uuid
+  createdBy  String   @map("created_by") @db.Uuid
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  assignedToUser User?             @relation("CustomerAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser  User              @relation("CustomerCreatedBy", fields: [createdBy], references: [id])
+  contacts       CustomerContact[]
+  interactions   Interaction[]
+  orders         Order[]
+  tasks          Task[]
+  messageLogs    MessageLog[]
+
+  @@index([type])
+  @@index([email])
+  @@index([phone])
+  @@index([assignedTo])
+  @@index([status])
+  @@index([type, status])
+  @@index([createdAt])
+  @@map("customers")
+}
+
+model CustomerContact {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customerId String   @map("customer_id") @db.Uuid
+  firstName  String   @map("first_name") @db.VarChar(100)
+  lastName   String?  @map("last_name") @db.VarChar(100)
+  position   String?  @db.VarChar(100)
+  department String?  @db.VarChar(100)
+  email      String?  @db.VarChar(255)
+  phone      String?  @db.VarChar(20)
+  mobile     String?  @db.VarChar(20)
+  isPrimary  Boolean  @default(false) @map("is_primary")
+  isActive   Boolean  @default(true) @map("is_active")
+  notes      String?  @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([email])
+  @@map("customer_contacts")
+}
+
+model Interaction {
+  id         String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customerId String @map("customer_id") @db.Uuid
+
+  // Interaction details
+  type      String  @db.VarChar(50) // call, email, whatsapp, meeting, note, task
+  direction String? @db.VarChar(20) // inbound, outbound
+  subject   String? @db.VarChar(255)
+  content   String  @db.Text
+  status    String? @db.VarChar(50) // completed, scheduled, cancelled
+
+  // Scheduling
+  scheduledAt     DateTime? @map("scheduled_at")
+  durationMinutes Int?      @map("duration_minutes")
+
+  // Results
+  outcome        String?   @db.VarChar(100) // interested, not_interested, callback, closed
+  nextAction     String?   @map("next_action") @db.VarChar(255)
+  nextActionDate DateTime? @map("next_action_date")
+
+  // References
+  relatedOrderId String? @map("related_order_id") @db.Uuid
+  relatedTaskId  String? @map("related_task_id") @db.Uuid
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata") // Email headers, call recording URL, etc
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  createdByUser User     @relation(fields: [createdBy], references: [id])
+
+  @@index([customerId])
+  @@index([type])
+  @@index([createdBy])
+  @@index([scheduledAt])
+  @@index([createdAt])
+  @@map("interactions")
+}
+
+// ============================================
+// PRODUCT CATALOG
+// ============================================
+
+model Category {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  parentId    String? @map("parent_id") @db.Uuid
+
+  // Display
+  imageUrl  String? @map("image_url") @db.VarChar(500)
+  sortOrder Int     @default(0) @map("sort_order")
+  isActive  Boolean @default(true) @map("is_active")
+
+  // Metadata
+  metadata  Json     @default("{}") @map("metadata")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+  products Product[]
+
+  @@index([parentId])
+  @@index([isActive])
+  @@index([sortOrder])
+  @@map("categories")
+}
+
+model Product {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Type and basic info
+  type        String  @db.VarChar(50) // product, service, combo
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  sku         String  @unique @db.VarChar(100)
+  barcode     String? @db.VarChar(100)
+
+  // Category and branding
+  categoryId String?  @map("category_id") @db.Uuid
+  brand      String?  @db.VarChar(100)
+  tags       String[] @map("tags")
+
+  // Pricing
+  price              Decimal  @db.Decimal(10, 2)
+  cost               Decimal? @db.Decimal(10, 2) // Costo para cálculo de rentabilidad
+  taxRate            Decimal  @default(19.00) @map("tax_rate") @db.Decimal(5, 2) // IVA en Colombia
+  discountPercentage Decimal  @default(0) @map("discount_percentage") @db.Decimal(5, 2)
+
+  // Inventory
+  trackInventory Boolean @default(false) @map("track_inventory")
+  stockQuantity  Int     @default(0) @map("stock_quantity")
+  stockMin       Int     @default(0) @map("stock_min") // Alerta de stock bajo
+  stockUnit      String  @default("unit") @map("stock_unit") @db.VarChar(20) // unit, kg, liter, hour
+
+  // Services
+  durationMinutes    Int?    @map("duration_minutes") // Para servicios
+  requiresScheduling Boolean @default(false) @map("requires_scheduling")
+
+  // Media
+  imageUrl String?  @map("image_url") @db.VarChar(500)
+  images   String[] @map("images") // Array de URLs
+
+  // Status
+  isActive   Boolean @default(true) @map("is_active")
+  isFeatured Boolean @default(false) @map("is_featured")
+
+  // Metadata
+  customFields Json @default("{}") @map("custom_fields")
+  metadata     Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String?  @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  category            Category?           @relation(fields: [categoryId], references: [id])
+  createdByUser       User?               @relation("ProductCreatedBy", fields: [createdBy], references: [id])
+  variants            ProductVariant[]
+  inventoryMovements  InventoryMovement[]
+  orderItems          OrderItem[]
+  comboItemsAsCombo   ComboItem[]         @relation("ComboProduct")
+  comboItemsAsProduct ComboItem[]         @relation("ComboItemProduct")
+  stockAlerts         StockAlert[]
+
+  @@index([sku])
+  @@index([categoryId])
+  @@index([type])
+  @@index([isActive])
+  @@index([type, isActive])
+  @@map("products")
+}
+
+model ProductVariant {
+  id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId String @map("product_id") @db.Uuid
+
+  // Variant info
+  name String @db.VarChar(255) // Talla M, Color Rojo, etc
+  sku  String @unique @db.VarChar(100)
+
+  // Pricing
+  priceAdjustment Decimal @default(0) @map("price_adjustment") @db.Decimal(10, 2) // Ajuste sobre precio base
+
+  // Inventory
+  stockQuantity Int @default(0) @map("stock_quantity")
+
+  // Options
+  option1Name  String? @map("option1_name") @db.VarChar(50) // Color
+  option1Value String? @map("option1_value") @db.VarChar(50) // Rojo
+  option2Name  String? @map("option2_name") @db.VarChar(50) // Talla
+  option2Value String? @map("option2_value") @db.VarChar(50) // M
+
+  // Status
+  isActive Boolean @default(true) @map("is_active")
+
+  // Metadata
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  product            Product             @relation(fields: [productId], references: [id], onDelete: Cascade)
+  inventoryMovements InventoryMovement[]
+  orderItems         OrderItem[]
+
+  @@index([productId])
+  @@index([sku])
+  @@map("product_variants")
+}
+
+model ComboItem {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  comboId   String   @map("combo_id") @db.Uuid // Product con type=combo
+  productId String   @map("product_id") @db.Uuid
+  quantity  Decimal  @default(1) @db.Decimal(10, 2)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  combo   Product @relation("ComboProduct", fields: [comboId], references: [id], onDelete: Cascade)
+  product Product @relation("ComboItemProduct", fields: [productId], references: [id])
+
+  @@index([comboId])
+  @@index([productId])
+  @@map("combo_items")
+}
+
+model InventoryMovement {
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId        String  @map("product_id") @db.Uuid
+  productVariantId String? @map("product_variant_id") @db.Uuid
+
+  // Movement details
+  movementType     String   @map("movement_type") @db.VarChar(50) // in, out, adjustment
+  quantity         Decimal  @db.Decimal(10, 2)
+  previousQuantity Decimal? @map("previous_quantity") @db.Decimal(10, 2)
+  newQuantity      Decimal? @map("new_quantity") @db.Decimal(10, 2)
+
+  // Reference
+  referenceType String? @map("reference_type") @db.VarChar(50) // order, purchase, adjustment
+  referenceId   String? @map("reference_id") @db.Uuid
+  reason        String? @db.Text
+
+  // Cost tracking
+  costPerUnit Decimal? @map("cost_per_unit") @db.Decimal(10, 2)
+  totalCost   Decimal? @map("total_cost") @db.Decimal(10, 2)
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  product        Product         @relation(fields: [productId], references: [id])
+  productVariant ProductVariant? @relation(fields: [productVariantId], references: [id])
+  createdByUser  User            @relation("InventoryMovementCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([productId])
+  @@index([movementType])
+  @@index([createdAt])
+  @@map("inventory_movements")
+}
+
+// ============================================
+// ORDER MANAGEMENT
+// ============================================
+
+model Order {
+  id          String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orderNumber String @unique @map("order_number") @db.VarChar(50) // ORD-20251010-000001
+
+  // Customer and type
+  customerId String @map("customer_id") @db.Uuid
+  type       String @db.VarChar(50) // service, delivery, installation, rental, etc
+
+  // Status
+  status String @default("pending") @db.VarChar(50) // pending, confirmed, in_progress, completed, cancelled
+
+  // Amounts
+  subtotal       Decimal @db.Decimal(10, 2)
+  discountAmount Decimal @default(0) @map("discount_amount") @db.Decimal(10, 2)
+  taxAmount      Decimal @default(0) @map("tax_amount") @db.Decimal(10, 2)
+  total          Decimal @db.Decimal(10, 2)
+
+  // Payment
+  paymentStatus String  @default("pending") @map("payment_status") @db.VarChar(50) // pending, partial, paid, refunded
+  paymentMethod String? @map("payment_method") @db.VarChar(50) // cash, card, transfer, credit
+  paidAmount    Decimal @default(0) @map("paid_amount") @db.Decimal(10, 2)
+
+  // Scheduling
+  scheduledDate      DateTime? @map("scheduled_date")
+  scheduledTimeStart DateTime? @map("scheduled_time_start") @db.Time
+  scheduledTimeEnd   DateTime? @map("scheduled_time_end") @db.Time
+  startedAt          DateTime? @map("started_at")
+  completedAt        DateTime? @map("completed_at")
+
+  // Service location
+  serviceAddress   String?  @map("service_address") @db.Text
+  serviceCity      String?  @map("service_city") @db.VarChar(100)
+  serviceLatitude  Decimal? @map("service_latitude") @db.Decimal(10, 8)
+  serviceLongitude Decimal? @map("service_longitude") @db.Decimal(11, 8)
+
+  // Assignment
+  assignedTo String? @map("assigned_to") @db.Uuid // Técnico/operario asignado
+
+  // Notes
+  customerNotes String? @map("customer_notes") @db.Text // Notas del cliente
+  internalNotes String? @map("internal_notes") @db.Text // Notas internas
+
+  // Cancellation
+  cancelledAt        DateTime? @map("cancelled_at")
+  cancellationReason String?   @map("cancellation_reason") @db.Text
+
+  // Metadata
+  customFields Json @default("{}") @map("custom_fields")
+  metadata     Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  customer       Customer    @relation(fields: [customerId], references: [id])
+  createdByUser  User        @relation("OrderCreatedBy", fields: [createdBy], references: [id])
+  assignedToUser User?       @relation("OrderAssignedTo", fields: [assignedTo], references: [id])
+  items          OrderItem[]
+  tasks          Task[]
+  payments       Payment[]
+
+  @@index([orderNumber])
+  @@index([customerId])
+  @@index([status])
+  @@index([paymentStatus])
+  @@index([assignedTo])
+  @@index([scheduledDate])
+  @@index([createdAt])
+  @@index([status, scheduledDate])
+  @@map("orders")
+}
+
+model OrderItem {
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orderId          String  @map("order_id") @db.Uuid
+  productId        String? @map("product_id") @db.Uuid
+  productVariantId String? @map("product_variant_id") @db.Uuid
+
+  // Item details
+  description        String   @db.VarChar(255)
+  quantity           Decimal  @db.Decimal(10, 2)
+  unitPrice          Decimal  @map("unit_price") @db.Decimal(10, 2)
+  discountPercentage Decimal  @default(0) @map("discount_percentage") @db.Decimal(5, 2)
+  taxRate            Decimal  @default(0) @map("tax_rate") @db.Decimal(5, 2)
+  subtotal           Decimal  @db.Decimal(10, 2)
+  total              Decimal  @db.Decimal(10, 2)
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  // Relations
+  order          Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product        Product?        @relation(fields: [productId], references: [id])
+  productVariant ProductVariant? @relation(fields: [productVariantId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
+}
+
+// ============================================
+// TASK MANAGEMENT
+// ============================================
+
+model Task {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Relations
+  orderId    String? @map("order_id") @db.Uuid // NULL si es tarea independiente
+  customerId String? @map("customer_id") @db.Uuid
+
+  // Basic info
+  title       String  @db.VarChar(255)
+  description String? @db.Text
+  type        String  @db.VarChar(50) // delivery, installation, maintenance, visit, call
+  status      String  @default("pending") @db.VarChar(50) // pending, assigned, in_progress, completed, cancelled
+  priority    String  @default("medium") @db.VarChar(20) // low, medium, high, urgent
+
+  // Assignment
+  assignedTo String?   @map("assigned_to") @db.Uuid
+  assignedAt DateTime? @map("assigned_at")
+
+  // Scheduling
+  scheduledStart           DateTime? @map("scheduled_start")
+  scheduledEnd             DateTime? @map("scheduled_end")
+  estimatedDurationMinutes Int?      @map("estimated_duration_minutes")
+  startedAt                DateTime? @map("started_at")
+  completedAt              DateTime? @map("completed_at")
+  actualDurationMinutes    Int?      @map("actual_duration_minutes")
+
+  // Location
+  locationAddress   String?  @map("location_address") @db.Text
+  locationCity      String?  @map("location_city") @db.VarChar(100)
+  locationLatitude  Decimal? @map("location_latitude") @db.Decimal(10, 8)
+  locationLongitude Decimal? @map("location_longitude") @db.Decimal(11, 8)
+
+  // Check-in/out
+  checkinTime       DateTime? @map("checkin_time")
+  checkinLatitude   Decimal?  @map("checkin_latitude") @db.Decimal(10, 8)
+  checkinLongitude  Decimal?  @map("checkin_longitude") @db.Decimal(11, 8)
+  checkoutTime      DateTime? @map("checkout_time")
+  checkoutLatitude  Decimal?  @map("checkout_latitude") @db.Decimal(10, 8)
+  checkoutLongitude Decimal?  @map("checkout_longitude") @db.Decimal(11, 8)
+
+  // Evidence
+  photos       String[] @map("photos") // Array de URLs de fotos
+  signatureUrl String?  @map("signature_url") @db.VarChar(500) // Firma digital del cliente
+
+  // Notes
+  notes           String? @db.Text
+  completionNotes String? @map("completion_notes") @db.Text
+
+  // Cancellation
+  cancelledAt        DateTime? @map("cancelled_at")
+  cancellationReason String?   @map("cancellation_reason") @db.Text
+
+  // Metadata
+  customFields Json @default("{}") @map("custom_fields")
+  metadata     Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  order          Order?           @relation(fields: [orderId], references: [id])
+  customer       Customer?        @relation(fields: [customerId], references: [id])
+  assignedToUser User?            @relation("TaskAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser  User             @relation("TaskCreatedBy", fields: [createdBy], references: [id])
+  checklists     TaskChecklist[]
+  dependencies   TaskDependency[] @relation("TaskDependencies")
+  dependentTasks TaskDependency[] @relation("DependentTasks")
+
+  @@index([orderId])
+  @@index([customerId])
+  @@index([assignedTo])
+  @@index([status])
+  @@index([scheduledStart])
+  @@index([type])
+  @@index([status, assignedTo])
+  @@index([status, scheduledStart])
+  @@map("tasks")
+}
+
+model TaskChecklist {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  taskId      String    @map("task_id") @db.Uuid
+  item        String    @db.VarChar(255)
+  isCompleted Boolean   @default(false) @map("is_completed")
+  completedAt DateTime? @map("completed_at")
+  completedBy String?   @map("completed_by") @db.Uuid
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  task            Task  @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  completedByUser User? @relation("TaskChecklistCompletedBy", fields: [completedBy], references: [id])
+
+  @@index([taskId])
+  @@map("task_checklists")
+}
+
+model TaskDependency {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  taskId          String   @map("task_id") @db.Uuid
+  dependsOnTaskId String   @map("depends_on_task_id") @db.Uuid
+  dependencyType  String   @default("finish_to_start") @map("dependency_type") @db.VarChar(50) // finish_to_start, start_to_start
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  task          Task @relation("TaskDependencies", fields: [taskId], references: [id], onDelete: Cascade)
+  dependsOnTask Task @relation("DependentTasks", fields: [dependsOnTaskId], references: [id])
+
+  @@index([taskId])
+  @@index([dependsOnTaskId])
+  @@map("task_dependencies")
+}
+
+// ============================================
+// PAYMENT MANAGEMENT
+// ============================================
+
+model Payment {
+  id            String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orderId       String @map("order_id") @db.Uuid
+  paymentNumber String @unique @map("payment_number") @db.VarChar(50)
+
+  // Payment details
+  amount        Decimal @db.Decimal(10, 2)
+  paymentMethod String  @map("payment_method") @db.VarChar(50)
+  status        String  @default("completed") @db.VarChar(50) // completed, pending, failed, refunded
+
+  // References
+  transactionId   String? @map("transaction_id") @db.VarChar(255) // ID del procesador de pago
+  referenceNumber String? @map("reference_number") @db.VarChar(255)
+
+  // Dates
+  paymentDate DateTime @map("payment_date")
+
+  // Refunds
+  refundedAmount Decimal   @default(0) @map("refunded_amount") @db.Decimal(10, 2)
+  refundedAt     DateTime? @map("refunded_at")
+  refundReason   String?   @map("refund_reason") @db.Text
+
+  // Notes
+  notes String? @db.Text
+
+  // Audit
+  createdBy String?  @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  order         Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  createdByUser User? @relation("PaymentCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([orderId])
+  @@index([paymentNumber])
+  @@index([status])
+  @@index([paymentDate])
+  @@map("payments")
+}
+
+// ============================================
+// ACCOUNTING & TRANSACTIONS
+// ============================================
+
+model Transaction {
+  id                String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  transactionNumber String  @unique @map("transaction_number") @db.VarChar(50)
+  type              String  @db.VarChar(50) // income, expense
+  category          String  @db.VarChar(100) // sales, services, supplies, salaries, rent, utilities
+  subcategory       String? @db.VarChar(100)
+  amount            Decimal @db.Decimal(10, 2)
+  description       String  @db.Text
+
+  // Reference
+  referenceType String? @map("reference_type") @db.VarChar(50) // order, payment, manual
+  referenceId   String? @map("reference_id") @db.Uuid // ID de la orden o pago relacionado
+
+  // Payment details
+  paymentMethod   String?   @map("payment_method") @db.VarChar(50)
+  transactionDate DateTime  @map("transaction_date") @db.Date
+  dueDate         DateTime? @map("due_date") @db.Date // Para cuentas por pagar
+
+  // Supplier/Customer
+  supplierCustomerName String? @map("supplier_customer_name") @db.VarChar(255)
+
+  // Status
+  status String @default("completed") @db.VarChar(50) // completed, pending, cancelled
+
+  // Invoice details
+  invoiceNumber String? @map("invoice_number") @db.VarChar(100)
+  receiptUrl    String? @map("receipt_url") @db.VarChar(500)
+
+  // Tax
+  isTaxable Boolean @default(false) @map("is_taxable")
+  taxAmount Decimal @default(0) @map("tax_amount") @db.Decimal(10, 2)
+
+  // Notes
+  notes String? @db.Text
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  createdByUser User @relation("TransactionCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([transactionNumber])
+  @@index([type])
+  @@index([category])
+  @@index([transactionDate])
+  @@index([status])
+  @@index([type, transactionDate])
+  @@index([category, transactionDate])
+  @@map("transactions")
+}
+
+model BankAccount {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  accountName    String   @map("account_name") @db.VarChar(255)
+  bankName       String   @map("bank_name") @db.VarChar(255)
+  accountNumber  String?  @map("account_number") @db.VarChar(100)
+  accountType    String?  @map("account_type") @db.VarChar(50) // checking, savings
+  currency       String   @default("COP") @db.VarChar(3)
+  initialBalance Decimal  @default(0) @map("initial_balance") @db.Decimal(10, 2)
+  currentBalance Decimal  @default(0) @map("current_balance") @db.Decimal(10, 2)
+  isActive       Boolean  @default(true) @map("is_active")
+  isPrimary      Boolean  @default(false) @map("is_primary")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@index([isActive])
+  @@map("bank_accounts")
+}
+
+model BudgetCategory {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String   @db.VarChar(100)
+  type          String   @db.VarChar(50) // income, expense
+  monthlyBudget Decimal? @map("monthly_budget") @db.Decimal(10, 2)
+  isActive      Boolean  @default(true) @map("is_active")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("budget_categories")
+}
+
+// ============================================
+// COMMUNICATIONS
+// ============================================
+
+model MessageTemplate {
+  id                   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String  @db.VarChar(255)
+  channel              String  @db.VarChar(50) // email, whatsapp, sms
+  type                 String  @db.VarChar(100) // order_confirmation, payment_reminder, task_assigned
+  subject              String? @db.VarChar(255) // Para emails
+  body                 String  @db.Text // Puede contener variables {{customerName}}
+  whatsappTemplateName String? @map("whatsapp_template_name") @db.VarChar(255)
+  whatsappLanguage     String  @default("es") @map("whatsapp_language") @db.VarChar(10)
+  isActive             Boolean @default(true) @map("is_active")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  createdByUser User @relation("MessageTemplateCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([channel])
+  @@index([type])
+  @@index([isActive])
+  @@map("message_templates")
+}
+
+model MessageLog {
+  id                String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customerId        String? @map("customer_id") @db.Uuid
+  channel           String  @db.VarChar(50)
+  type              String? @db.VarChar(100)
+  recipient         String  @db.VarChar(255) // Email o teléfono
+  subject           String? @db.VarChar(255)
+  body              String? @db.Text
+  status            String  @default("pending") @db.VarChar(50) // pending, sent, delivered, failed, read
+  provider          String? @db.VarChar(50) // sendgrid, twilio, 360dialog
+  providerMessageId String? @map("provider_message_id") @db.VarChar(255)
+
+  // Timestamps
+  sentAt      DateTime? @map("sent_at")
+  deliveredAt DateTime? @map("delivered_at")
+  readAt      DateTime? @map("read_at")
+  failedAt    DateTime? @map("failed_at")
+
+  // Error handling
+  errorMessage String? @map("error_message") @db.Text
+
+  // Cost tracking
+  cost Decimal? @db.Decimal(10, 4) // Costo del mensaje
+
+  // Metadata
+  metadata  Json     @default("{}") @map("metadata")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  customer Customer? @relation(fields: [customerId], references: [id])
+
+  @@index([customerId])
+  @@index([channel])
+  @@index([status])
+  @@index([createdAt])
+  @@index([channel, status])
+  @@map("message_logs")
+}
+
+model Notification {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  type       String    @db.VarChar(50) // order_created, task_assigned, payment_received
+  title      String    @db.VarChar(255)
+  message    String?   @db.Text
+  entityType String?   @map("entity_type") @db.VarChar(50)
+  entityId   String?   @map("entity_id") @db.Uuid
+  actionUrl  String?   @map("action_url") @db.VarChar(500) // URL para abrir en la app
+  isRead     Boolean   @default(false) @map("is_read")
+  readAt     DateTime? @map("read_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isRead])
+  @@index([createdAt])
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+// ============================================
+// FILES & MEDIA
+// ============================================
+
+model File {
+  id               String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  filename         String  @db.VarChar(255)
+  originalFilename String  @map("original_filename") @db.VarChar(255)
+  filePath         String  @map("file_path") @db.VarChar(500)
+  fileUrl          String  @map("file_url") @db.VarChar(500)
+  mimeType         String? @map("mime_type") @db.VarChar(100)
+  fileSize         Int?    @map("file_size") // Bytes
+  entityType       String? @map("entity_type") @db.VarChar(50) // order, task, customer, product
+  entityId         String? @map("entity_id") @db.Uuid
+  fileType         String? @map("file_type") @db.VarChar(50) // image, document, video
+  storageProvider  String  @default("s3") @map("storage_provider") @db.VarChar(50)
+  bucketName       String? @map("bucket_name") @db.VarChar(255)
+  metadata         Json    @default("{}") @map("metadata")
+
+  // Audit
+  uploadedBy String   @map("uploaded_by") @db.Uuid
+  uploadedAt DateTime @default(now()) @map("uploaded_at")
+
+  uploadedByUser User @relation("FileUploadedBy", fields: [uploadedBy], references: [id])
+
+  @@index([entityType])
+  @@index([entityId])
+  @@index([uploadedBy])
+  @@index([uploadedAt])
+  @@map("files")
+}
+
+// ============================================
+// REPORTS & ANALYTICS
+// ============================================
+
+model SavedReport {
+  id                 String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String    @db.VarChar(255)
+  reportType         String    @map("report_type") @db.VarChar(100) // sales, tasks, customers, financials
+  filters            Json      @default("{}") @map("filters")
+  isScheduled        Boolean   @default(false) @map("is_scheduled")
+  scheduleFrequency  String?   @map("schedule_frequency") @db.VarChar(50) // daily, weekly, monthly
+  scheduleDayOfWeek  Int?      @map("schedule_day_of_week") // 0-6
+  scheduleDayOfMonth Int?      @map("schedule_day_of_month") // 1-31
+  scheduleTime       DateTime? @map("schedule_time") @db.Time
+  emailRecipients    String[]  @map("email_recipients") // Array de emails
+  isActive           Boolean   @default(true) @map("is_active")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  createdByUser User              @relation("SavedReportCreatedBy", fields: [createdBy], references: [id])
+  executions    ReportExecution[]
+
+  @@index([reportType])
+  @@index([createdBy])
+  @@map("saved_reports")
+}
+
+model ReportExecution {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  savedReportId String?   @map("saved_report_id") @db.Uuid
+  status        String?   @db.VarChar(50) // running, completed, failed
+  startedAt     DateTime? @map("started_at")
+  completedAt   DateTime? @map("completed_at")
+  resultFileUrl String?   @map("result_file_url") @db.VarChar(500)
+  errorMessage  String?   @map("error_message") @db.Text
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  savedReport SavedReport? @relation(fields: [savedReportId], references: [id], onDelete: Cascade)
+
+  @@index([savedReportId])
+  @@index([status])
+  @@index([startedAt])
+  @@map("report_executions")
+}
+
+// ============================================
+// INVENTORY MANAGEMENT
+// ============================================
+
+model StockAlert {
+  id                String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId         String    @map("product_id") @db.Uuid
+  alertType         String?   @map("alert_type") @db.VarChar(50) // low_stock, out_of_stock
+  currentQuantity   Decimal   @map("current_quantity") @db.Decimal(10, 2)
+  thresholdQuantity Decimal   @map("threshold_quantity") @db.Decimal(10, 2)
+  isResolved        Boolean   @default(false) @map("is_resolved")
+  resolvedAt        DateTime? @map("resolved_at")
+  createdAt         DateTime  @default(now()) @map("created_at")
+
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([productId])
+  @@index([isResolved])
+  @@index([createdAt])
+  @@map("stock_alerts")
+}
+
+// ============================================
+// SETTINGS & CONFIGURATION
+// ============================================
+
+model CompanySetting {
+  id          String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  companyName String  @map("company_name") @db.VarChar(255)
+  legalName   String? @map("legal_name") @db.VarChar(255)
+  taxId       String? @map("tax_id") @db.VarChar(50)
+  phone       String? @db.VarChar(20)
+  email       String? @db.VarChar(255)
+  website     String? @db.VarChar(255)
+  address     String? @db.Text
+  city        String? @db.VarChar(100)
+  state       String? @db.VarChar(100)
+  postalCode  String? @map("postal_code") @db.VarChar(20)
+  country     String  @default("CO") @db.VarChar(2)
+  logoUrl     String? @map("logo_url") @db.VarChar(500)
+
+  // Visual settings
+  primaryColor   String @default("#3B82F6") @map("primary_color") @db.VarChar(7)
+  secondaryColor String @default("#10B981") @map("secondary_color") @db.VarChar(7)
+
+  // Business settings
+  businessHours  Json    @default("{}") @map("business_hours") // Horarios por día
+  timezone       String  @default("America/Bogota") @db.VarChar(50)
+  currency       String  @default("COP") @db.VarChar(3)
+  locale         String  @default("es-CO") @db.VarChar(10)
+  defaultTaxRate Decimal @default(19.00) @map("default_tax_rate") @db.Decimal(5, 2)
+
+  // API Keys
+  whatsappApiKey    String? @map("whatsapp_api_key") @db.VarChar(255)
+  whatsappPhoneId   String? @map("whatsapp_phone_id") @db.VarChar(50)
+  sendgridApiKey    String? @map("sendgrid_api_key") @db.VarChar(255)
+  sendgridFromEmail String? @map("sendgrid_from_email") @db.VarChar(255)
+  googleMapsApiKey  String? @map("google_maps_api_key") @db.VarChar(255)
+
+  // Features enabled
+  enabledModules String[] @map("enabled_modules") // Array de módulos activos
+  settings       Json     @default("{}") @map("settings")
+
+  // Audit
+  updatedBy String?  @map("updated_by") @db.Uuid
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  updatedByUser User? @relation("CompanySettingUpdatedBy", fields: [updatedBy], references: [id])
+
+  @@map("company_settings")
+}
+
+model AuditLog {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId     String?  @map("user_id") @db.Uuid
+  action     String   @db.VarChar(100)
+  entityType String?  @map("entity_type") @db.VarChar(100)
+  entityId   String?  @map("entity_id") @db.Uuid
+  changes    Json?    @map("changes") // Cambios antes/después
+  ipAddress  String?  @map("ip_address") @db.VarChar(45)
+  userAgent  String?  @map("user_agent") @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User? @relation("AuditLogUser", fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([action])
+  @@index([entityType])
+  @@index([createdAt])
+  @@map("audit_logs")
+}

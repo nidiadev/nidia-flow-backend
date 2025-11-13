@@ -1,0 +1,26 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "NIDIA SuperAdmin DB",
+            "Group": "NIDIA Flow",
+            "Host": "superadmin-db",
+            "Port": 5432,
+            "MaintenanceDB": "nidia_superadmin",
+            "Username": "postgres",
+            "Password": "password",
+            "SSLMode": "prefer",
+            "Comment": "Base de datos principal de NIDIA Flow para gestión de tenants"
+        },
+        "2": {
+            "Name": "NIDIA Tenant Demo DB",
+            "Group": "NIDIA Flow",
+            "Host": "tenant-db",
+            "Port": 5432,
+            "MaintenanceDB": "tenant_demo_empresa_prod",
+            "Username": "postgres",
+            "Password": "password",
+            "SSLMode": "prefer",
+            "Comment": "Base de datos de ejemplo para tenant Demo Empresa"
+        }
+    }
+}
