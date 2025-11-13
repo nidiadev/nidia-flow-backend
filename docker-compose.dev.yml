@@ -1,0 +1,88 @@
+services:
+  # PostgreSQL SuperAdmin Database
+  superadmin-db:
+    image: postgres:16-alpine
+    container_name: nidia-superadmin-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: nidia_superadmin
+    ports:
+      - "5432:5432"
+    volumes:
+      - superadmin_db_data:/var/lib/postgresql/data
+      - ./scripts/init-superadmin.sql:/docker-entrypoint-initdb.d/01-init-superadmin.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nidia_superadmin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nidia-network
+
+  # PostgreSQL Tenant Database (for development - simulates a tenant)
+  tenant-db:
+    image: postgres:16-alpine
+    container_name: nidia-tenant-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tenant_demo_empresa_prod
+    ports:
+      - "5433:5432"
+    volumes:
+      - tenant_db_data:/var/lib/postgresql/data
+      - ./scripts/init-tenant.sql:/docker-entrypoint-initdb.d/01-init-tenant.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tenant_demo_empresa_prod"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nidia-network
+
+  # Redis for caching and job queues
+  redis:
+    image: redis:7-alpine
+    container_name: nidia-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nidia-network
+
+  # pgAdmin for database management (optional)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: nidia-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@nidia.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ./scripts/pgadmin-servers.json:/pgadmin4/servers.json
+    depends_on:
+      - superadmin-db
+      - tenant-db
+    networks:
+      - nidia-network
+
+volumes:
+  superadmin_db_data:
+  tenant_db_data:
+  redis_data:
+  pgadmin_data:
+
+networks:
+  nidia-network:
+    driver: bridge
