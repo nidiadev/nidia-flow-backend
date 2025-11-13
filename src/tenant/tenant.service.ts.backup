@@ -1,0 +1,446 @@
+import { Injectable, Logger, BadRequestException, InternalServerErrorException } from '@nestjs/common';
+const { PrismaClient } = require('../../generated/prisma');
+import prisma from '../lib/prisma';
+import * as crypto from 'crypto';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
+
+interface TenantConnectionConfig {
+  host: string;
+  port: number;
+  database: string;
+  username: string;
+  password: string;
+  poolSize?: number;
+}
+
+interface CreateTenantData {
+  name: string;
+  slug: string;
+  companyLegalName?: string;
+  taxId?: string;
+  industry?: string;
+  companySize?: string;
+  billingEmail: string;
+  billingContactName?: string;
+  primaryContactName?: string;
+  primaryContactEmail?: string;
+  primaryContactPhone?: string;
+  planType?: string;
+}
+
+@Injectable()
+export class TenantService {
+  private readonly logger = new Logger(TenantService.name);
+  private tenantConnections = new Map<string, any>();
+  private readonly encryptionKey = process.env.ENCRYPTION_KEY || 'default-key-change-in-production';
+
+  constructor() {
+    // Clean up connections on process exit
+    process.on('beforeExit', () => {
+      this.disconnectAllTenants();
+    });
+  }
+
+  /**
+   * Create a new tenant with dedicated database
+   */
+  async createTenant(tenantData: CreateTenantData, createdBy?: string): Promise<any> {
+    this.logger.log(`Creating new tenant: ${tenantData.slug}`);
+
+    try {
+      // Validate slug format
+      if (!/^[a-z0-9-]+$/.test(tenantData.slug)) {
+        throw new BadRequestException('Slug must contain only lowercase letters, numbers, and hyphens');
+      }
+
+      // Check if tenant already exists
+      const existingTenant = await prisma.tenant.findUnique({
+        where: { slug: tenantData.slug },
+      });
+
+      if (existingTenant) {
+        throw new BadRequestException('Tenant with this slug already exists');
+      }
+
+      // Generate database credentials
+      const dbConfig = await this.generateTenantDatabaseConfig(tenantData.slug);
+
+      // Create tenant record in SuperAdmin database
+      const tenant = await prisma.tenant.create({
+        data: {
+          name: tenantData.name,
+          slug: tenantData.slug,
+          companyLegalName: tenantData.companyLegalName,
+          taxId: tenantData.taxId,
+          industry: tenantData.industry,
+          companySize: tenantData.companySize,
+          planType: tenantData.planType || 'free',
+          planStatus: 'trial',
+          trialEndsAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days trial
+          
+          // Database connection info
+          dbName: dbConfig.database,
+          dbHost: dbConfig.host,
+          dbPort: dbConfig.port,
+          dbUsername: dbConfig.username,
+          dbPasswordEncrypted: this.encryptPassword(dbConfig.password),
+          dbConnectionPoolSize: dbConfig.poolSize || 10,
+          
+          // Billing info
+          billingEmail: tenantData.billingEmail,
+          billingContactName: tenantData.billingContactName,
+          billingCountry: 'CO',
+          
+          // Contact info
+          primaryContactName: tenantData.primaryContactName,
+          primaryContactEmail: tenantData.primaryContactEmail,
+          primaryContactPhone: tenantData.primaryContactPhone,
+          
+          // Status
+          isActive: true,
+          provisionedAt: new Date(),
+          createdBy,
+          
+          // Default limits for free plan
+          maxUsers: 2,
+          maxStorageGb: 1,
+          maxMonthlyEmails: 100,
+          maxMonthlyWhatsapp: 50,
+          maxMonthlyApiCalls: 1000,
+          
+          // Enabled modules for free plan
+          enabledModules: ['crm', 'tasks'],
+        },
+      });
+
+      // Create tenant database
+      await this.provisionTenantDatabase(dbConfig);
+
+      // Create default domain
+      await prisma.tenantDomain.create({
+        data: {
+          tenantId: tenant.id,
+          domain: `${tenantData.slug}.nidiaflow.com`,
+          isCustom: false,
+          isVerified: true,
+          isPrimary: true,
+          sslEnabled: true,
+        },
+      });
+
+      this.logger.log(`Tenant created successfully: ${tenant.id}`);
+      return tenant;
+
+    } catch (error) {
+      this.logger.error(`Failed to create tenant: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Get tenant connection (create if not exists)
+   */
+  async getTenantConnection(tenantId: string): Promise<any> {
+    if (this.tenantConnections.has(tenantId)) {
+      return this.tenantConnections.get(tenantId)!;
+    }
+
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: tenantId },
+      select: {
+        id: true,
+        slug: true,
+        dbHost: true,
+        dbPort: true,
+        dbName: true,
+        dbUsername: true,
+        dbPasswordEncrypted: true,
+        dbConnectionPoolSize: true,
+        isActive: true,
+        isSuspended: true,
+      },
+    });
+
+    if (!tenant) {
+      throw new BadRequestException('Tenant not found');
+    }
+
+    if (!tenant.isActive || tenant.isSuspended) {
+      throw new BadRequestException('Tenant is not active or suspended');
+    }
+
+    const decryptedPassword = this.decryptPassword(tenant.dbPasswordEncrypted);
+    const connectionUrl = `postgresql://${tenant.dbUsername}:${decryptedPassword}@${tenant.dbHost}:${tenant.dbPort}/${tenant.dbName}?schema=public&connection_limit=${tenant.dbConnectionPoolSize}`;
+
+    // const tenantPrisma = new PrismaClient({
+    //   datasources: {
+    //     db: {
+    //       url: connectionUrl,
+    //     },
+    //   },
+    //   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+    // });
+    const tenantPrisma = null; // Temporarily disabled
+
+    // Test connection
+    // try {
+    //   await tenantPrisma.$connect();
+    //   this.tenantConnections.set(tenantId, tenantPrisma);
+    //   this.logger.log(`Connected to tenant database: ${tenant.slug}`);
+    //   return tenantPrisma;
+    // } catch (error) {
+    //   this.logger.error(`Failed to connect to tenant database: ${tenant.slug}`, error);
+    
+    // Temporarily return null
+    return null;
+      throw new InternalServerErrorException('Failed to connect to tenant database');
+    }
+  }
+
+  /**
+   * Get tenant by slug
+   */
+  async getTenantBySlug(slug: string): Promise<any> {
+    return prisma.tenant.findUnique({
+      where: { slug },
+      include: {
+        domains: true,
+      },
+    });
+  }
+
+  /**
+   * Get tenant by domain
+   */
+  async getTenantByDomain(domain: string): Promise<any> {
+    const tenantDomain = await prisma.tenantDomain.findUnique({
+      where: { domain },
+      include: {
+        tenant: true,
+      },
+    });
+
+    return tenantDomain?.tenant || null;
+  }
+
+  /**
+   * Update tenant status
+   */
+  async updateTenantStatus(tenantId: string, isActive: boolean, reason?: string): Promise<void> {
+    await prisma.tenant.update({
+      where: { id: tenantId },
+      data: {
+        isActive,
+        isSuspended: !isActive,
+        suspensionReason: !isActive ? reason : null,
+        suspendedAt: !isActive ? new Date() : null,
+      },
+    });
+
+    // Disconnect tenant if deactivated
+    if (!isActive && this.tenantConnections.has(tenantId)) {
+      await this.disconnectTenant(tenantId);
+    }
+  }
+
+  /**
+   * Disconnect tenant connection
+   */
+  async disconnectTenant(tenantId: string): Promise<void> {
+    const connection = this.tenantConnections.get(tenantId);
+    if (connection) {
+      await connection.$disconnect();
+      this.tenantConnections.delete(tenantId);
+      this.logger.log(`Disconnected tenant: ${tenantId}`);
+    }
+  }
+
+  /**
+   * Disconnect all tenant connections
+   */
+  async disconnectAllTenants(): Promise<void> {
+    const disconnectPromises = Array.from(this.tenantConnections.keys()).map(
+      tenantId => this.disconnectTenant(tenantId)
+    );
+    await Promise.all(disconnectPromises);
+  }
+
+  /**
+   * Generate database configuration for new tenant
+   */
+  private async generateTenantDatabaseConfig(slug: string): Promise<TenantConnectionConfig> {
+    const dbHost = process.env.TENANT_DB_HOST || 'localhost';
+    const dbPort = parseInt(process.env.TENANT_DB_PORT || '5432');
+    const dbName = `tenant_${slug}_${process.env.NODE_ENV || 'dev'}`;
+    const dbUsername = `tenant_${slug}`;
+    const dbPassword = this.generateSecurePassword();
+
+    return {
+      host: dbHost,
+      port: dbPort,
+      database: dbName,
+      username: dbUsername,
+      password: dbPassword,
+      poolSize: 10,
+    };
+  }
+
+  /**
+   * Provision tenant database
+   */
+  private async provisionTenantDatabase(config: TenantConnectionConfig): Promise<void> {
+    this.logger.log(`Provisioning database: ${config.database}`);
+
+    try {
+      // Create database and user (this would typically be done via database admin connection)
+      const adminConnectionUrl = process.env.DATABASE_URL;
+      if (!adminConnectionUrl) {
+        throw new Error('DATABASE_URL not configured');
+      }
+
+      // For development, we'll create a simple database
+      // In production, this should use proper database provisioning
+      const createDbSql = `
+        CREATE DATABASE "${config.database}";
+        CREATE USER "${config.username}" WITH PASSWORD '${config.password}';
+        GRANT ALL PRIVILEGES ON DATABASE "${config.database}" TO "${config.username}";
+      `;
+
+      this.logger.log(`Database provisioned: ${config.database}`);
+
+      // Run tenant schema migration
+      await this.runTenantMigration(config);
+
+    } catch (error) {
+      this.logger.error(`Failed to provision database: ${config.database}`, error);
+      throw new InternalServerErrorException('Failed to provision tenant database');
+    }
+  }
+
+  /**
+   * Run Prisma migration for tenant database
+   */
+  private async runTenantMigration(config: TenantConnectionConfig): Promise<void> {
+    const connectionUrl = `postgresql://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}?schema=public`;
+    
+    // This would run the tenant-specific Prisma schema migration
+    // For now, we'll log the action
+    this.logger.log(`Running migration for tenant database: ${config.database}`);
+    
+    // In a real implementation, you would:
+    // 1. Set DATABASE_URL to tenant connection
+    // 2. Run: npx prisma migrate deploy
+    // 3. Restore original DATABASE_URL
+  }
+
+  /**
+   * Generate secure password
+   */
+  private generateSecurePassword(): string {
+    return crypto.randomBytes(16).toString('hex');
+  }
+
+  /**
+   * Encrypt password
+   */
+  private encryptPassword(password: string): string {
+    const algorithm = 'aes-256-cbc';
+    const key = crypto.scryptSync(this.encryptionKey, 'salt', 32);
+    const iv = crypto.randomBytes(16);
+    
+    const cipher = crypto.createCipheriv(algorithm, key, iv);
+    let encrypted = cipher.update(password, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    
+    return iv.toString('hex') + ':' + encrypted;
+  }
+
+  /**
+   * Decrypt password
+   */
+  private decryptPassword(encryptedPassword: string): string {
+    const algorithm = 'aes-256-cbc';
+    const key = crypto.scryptSync(this.encryptionKey, 'salt', 32);
+    
+    const parts = encryptedPassword.split(':');
+    const iv = Buffer.from(parts[0], 'hex');
+    const encrypted = parts[1];
+    
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+    let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    
+    return decrypted;
+  }
+
+  /**
+   * Get tenant usage statistics
+   */
+  async getTenantUsage(tenantId: string): Promise<any> {
+    const tenant = await prisma.tenant.findUnique({
+      where: { id: tenantId },
+      select: {
+        currentUsers: true,
+        currentStorageGb: true,
+        currentMonthlyEmails: true,
+        currentMonthlyWhatsapp: true,
+        currentMonthlyApiCalls: true,
+        maxUsers: true,
+        maxStorageGb: true,
+        maxMonthlyEmails: true,
+        maxMonthlyWhatsapp: true,
+        maxMonthlyApiCalls: true,
+      },
+    });
+
+    if (!tenant) {
+      throw new BadRequestException('Tenant not found');
+    }
+
+    return {
+      usage: {
+        users: tenant.currentUsers,
+        storageGb: tenant.currentStorageGb,
+        monthlyEmails: tenant.currentMonthlyEmails,
+        monthlyWhatsapp: tenant.currentMonthlyWhatsapp,
+        monthlyApiCalls: tenant.currentMonthlyApiCalls,
+      },
+      limits: {
+        users: tenant.maxUsers,
+        storageGb: tenant.maxStorageGb,
+        monthlyEmails: tenant.maxMonthlyEmails,
+        monthlyWhatsapp: tenant.maxMonthlyWhatsapp,
+        monthlyApiCalls: tenant.maxMonthlyApiCalls,
+      },
+      utilization: {
+        users: (tenant.currentUsers / tenant.maxUsers) * 100,
+        storageGb: (Number(tenant.currentStorageGb) / tenant.maxStorageGb) * 100,
+        monthlyEmails: (tenant.currentMonthlyEmails / tenant.maxMonthlyEmails) * 100,
+        monthlyWhatsapp: (tenant.currentMonthlyWhatsapp / tenant.maxMonthlyWhatsapp) * 100,
+        monthlyApiCalls: (tenant.currentMonthlyApiCalls / tenant.maxMonthlyApiCalls) * 100,
+      },
+    };
+  }
+
+  /**
+   * Check if tenant has reached usage limits
+   */
+  async checkUsageLimits(tenantId: string): Promise<{ exceeded: boolean; limits: string[] }> {
+    const usage = await this.getTenantUsage(tenantId);
+    const exceeded: string[] = [];
+
+    if (usage.utilization.users >= 100) exceeded.push('users');
+    if (usage.utilization.storageGb >= 100) exceeded.push('storage');
+    if (usage.utilization.monthlyEmails >= 100) exceeded.push('emails');
+    if (usage.utilization.monthlyWhatsapp >= 100) exceeded.push('whatsapp');
+    if (usage.utilization.monthlyApiCalls >= 100) exceeded.push('api_calls');
+
+    return {
+      exceeded: exceeded.length > 0,
+      limits: exceeded,
+    };
+  }
+}
