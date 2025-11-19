@@ -70,9 +70,9 @@ export class PermissionsGuard implements CanActivate {
    * should be stored in the database and managed via the roles system.
    */
   private getRolePermissions(role: string): string[] {
-    // Admin gets all permissions including view_all
-    if (role === 'admin') {
-      return ['*', 'view_all', '*:view_all'];
+    // Super admin and admin get all permissions including view_all
+    if (role === 'admin' || role === 'super_admin') {
+      return ['*', 'view_all', '*:view_all', 'dashboard:read', 'reports:read'];
     }
 
     // Default role permissions (can be overridden by individual user permissions)
