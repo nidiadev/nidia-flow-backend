@@ -91,8 +91,8 @@ export class TenantGuard implements CanActivate {
       return;
     }
 
-    // Tenant admins can only access their own tenant
-    if (user.systemRole === 'tenant_admin') {
+    // Tenant admins and tenant users can only access their own tenant
+    if (user.systemRole === 'tenant_admin' || user.systemRole === 'tenant_user') {
       if (user.tenantId !== tenantId) {
         throw new ForbiddenException('Access denied to this tenant');
       }
