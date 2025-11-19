@@ -2,9 +2,9 @@ import { Module, forwardRef } from '@nestjs/common';
 import { SettingsController } from '../controllers/settings.controller';
 import { CompanySettingService } from '../services/settings/company-setting.service';
 import { AuditLogService } from '../services/audit/audit-log.service';
-import { TenantPrismaService } from '../services/tenant-prisma.service';
-import { TenantService } from '../tenant.service';
 import { PlansModule } from '../../plans/plans.module';
+// TenantPrismaService, TenantProvisioningService, TenantService se obtienen del TenantModule (global)
+// No deben registrarse aquí para evitar múltiples instancias con scope REQUEST
 
 @Module({
   imports: [forwardRef(() => PlansModule)],
@@ -12,8 +12,6 @@ import { PlansModule } from '../../plans/plans.module';
   providers: [
     CompanySettingService,
     AuditLogService,
-    TenantPrismaService,
-    TenantService,
   ],
   exports: [CompanySettingService],
 })

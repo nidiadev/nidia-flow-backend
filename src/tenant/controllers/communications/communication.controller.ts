@@ -9,6 +9,8 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  Req,
+  ForbiddenException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -22,6 +24,10 @@ import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 import { TenantGuard } from '../../guards/tenant.guard';
 import { PermissionsGuard } from '../../../auth/guards/permissions.guard';
 import { RequirePermissions } from '../../../auth/decorators/permissions.decorator';
+import { CheckLimit, LimitType } from '../../decorators/check-limit.decorator';
+import { PlanLimitsGuard } from '../../guards/plan-limits.guard';
+import { TenantModulesService } from '../../services/modules.service';
+import { Request } from 'express';
 import { MessageLogService } from '../../services/communications/message-log.service';
 import { MessageTemplateService } from '../../services/communications/message-template.service';
 import {
@@ -38,11 +44,12 @@ import {
 @ApiTags('Communications')
 @ApiBearerAuth()
 @Controller('communications')
-@UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
+@UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard, PlanLimitsGuard)
 export class CommunicationController {
   constructor(
     private readonly messageLogService: MessageLogService,
     private readonly messageTemplateService: MessageTemplateService,
+    private readonly tenantModulesService: TenantModulesService,
   ) {}
 
   @Post('send')
@@ -56,7 +63,7 @@ export class CommunicationController {
     status: 400,
     description: 'Invalid message data or template',
   })
-  async sendMessage(@Body() sendMessageDto: SendMessageDto) {
+  async sendMessage(@Body() sendMessageDto: SendMessageDto, @Req() request: Request) {
     const { templateId, recipient, variables, customerId, scheduleAt } = sendMessageDto;
 
     // Get and render template
@@ -65,6 +72,23 @@ export class CommunicationController {
       templateId,
       variables,
     );
+
+    // Check limits based on channel
+    const tenantId = (request as any).user?.tenantId;
+    
+    if (tenantId) {
+      if (template.channel === 'email') {
+        const emailCheck = await this.tenantModulesService.canSendEmail(tenantId);
+        if (!emailCheck.allowed) {
+          throw new ForbiddenException(emailCheck.reason || 'Límite de emails mensuales alcanzado');
+        }
+      } else if (template.channel === 'whatsapp') {
+        const whatsappCheck = await this.tenantModulesService.canSendWhatsApp(tenantId);
+        if (!whatsappCheck.allowed) {
+          throw new ForbiddenException(whatsappCheck.reason || 'Límite de mensajes de WhatsApp mensuales alcanzado');
+        }
+      }
+    }
 
     // Create message log entry
     const messageLog = await this.messageLogService.create({

@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { TenantPrismaService } from '../tenant/services/tenant-prisma.service';
+import { DataScopeService } from '../tenant/services/data-scope.service';
 import { BusinessEventEmitterService } from '../common/events/event-emitter.service';
 import { BusinessEventTypes } from '../common/events/business-events';
 import { CreateOrderDto, OrderStatus } from './dto/create-order.dto';
@@ -9,6 +10,7 @@ import { UpdateOrderDto, UpdateOrderStatusDto } from './dto/update-order.dto';
 export class OrdersService {
   constructor(
     private readonly prisma: TenantPrismaService,
+    private readonly dataScope: DataScopeService,
     private readonly eventEmitter: BusinessEventEmitterService,
   ) {}
 
@@ -106,47 +108,62 @@ export class OrdersService {
     return order;
   }
 
-  async findAll(filters?: {
-    status?: OrderStatus;
-    customerId?: string;
-    assignedTo?: string;
-    dateFrom?: string;
-    dateTo?: string;
-    page?: number;
-    limit?: number;
-  }) {
+  /**
+   * Find orders with filters and pagination
+   * Automatically applies data scope based on user permissions
+   */
+  async findAll(
+    filters?: {
+      status?: OrderStatus;
+      customerId?: string;
+      assignedTo?: string;
+      dateFrom?: string;
+      dateTo?: string;
+      page?: number;
+      limit?: number;
+    },
+    userId?: string,
+    userPermissions?: string[],
+  ) {
     const client = await this.prisma.getTenantClient();
     const page = filters?.page || 1;
     const limit = filters?.limit || 20;
     const skip = (page - 1) * limit;
 
-    const where: any = {};
+    // Build user filters
+    const userFilters: any = {};
 
     if (filters?.status) {
-      where.status = filters.status;
+      userFilters.status = filters.status;
     }
 
     if (filters?.customerId) {
-      where.customerId = filters.customerId;
+      userFilters.customerId = filters.customerId;
     }
 
     if (filters?.assignedTo) {
-      where.assignedTo = filters.assignedTo;
+      userFilters.assignedTo = filters.assignedTo;
     }
 
     if (filters?.dateFrom || filters?.dateTo) {
-      where.createdAt = {};
+      userFilters.createdAt = {};
       if (filters.dateFrom) {
-        where.createdAt.gte = new Date(filters.dateFrom);
+        userFilters.createdAt.gte = new Date(filters.dateFrom);
       }
       if (filters.dateTo) {
-        where.createdAt.lte = new Date(filters.dateTo);
+        userFilters.createdAt.lte = new Date(filters.dateTo);
       }
     }
 
+    // Apply data scope based on user permissions
+    // This automatically filters to show only user's own orders if they don't have 'view_all'
+    const scopeFilter = userId && userPermissions
+      ? this.dataScope.getOrderScope(userPermissions, userId, userFilters)
+      : userFilters;
+
     const [orders, total] = await Promise.all([
       client.order.findMany({
-        where,
+        where: scopeFilter as any,
         include: {
           customer: {
             select: {
@@ -191,7 +208,7 @@ export class OrdersService {
         skip,
         take: limit,
       }),
-      client.order.count({ where }),
+      client.order.count({ where: scopeFilter as any }),
     ]);
 
     return {
@@ -440,7 +457,7 @@ export class OrdersService {
     return { message: 'Order deleted successfully' };
   }
 
-  async getStatistics(filters?: { dateFrom?: string; dateTo?: string }) {
+  async getStatistics(filters?: { dateFrom?: string; dateTo?: string; assignedTo?: string }) {
     const client = await this.prisma.getTenantClient();
 
     const where: any = {};
@@ -452,6 +469,9 @@ export class OrdersService {
       if (filters.dateTo) {
         where.createdAt.lte = new Date(filters.dateTo);
       }
+    }
+    if (filters?.assignedTo) {
+      where.assignedTo = filters.assignedTo;
     }
 
     const [
@@ -487,7 +507,7 @@ export class OrdersService {
     };
   }
 
-  async getOrdersByStatus(filters?: { dateFrom?: string; dateTo?: string }) {
+  async getOrdersByStatus(filters?: { dateFrom?: string; dateTo?: string; assignedTo?: string }) {
     const client = await this.prisma.getTenantClient();
 
     const where: any = {};
@@ -499,6 +519,9 @@ export class OrdersService {
       if (filters.dateTo) {
         where.createdAt.lte = new Date(filters.dateTo);
       }
+    }
+    if (filters?.assignedTo) {
+      where.assignedTo = filters.assignedTo;
     }
 
     const statusCounts = await client.order.groupBy({
@@ -518,7 +541,8 @@ export class OrdersService {
   async getRevenueStatistics(filters?: { 
     dateFrom?: string; 
     dateTo?: string; 
-    groupBy?: 'day' | 'week' | 'month' 
+    groupBy?: 'day' | 'week' | 'month';
+    assignedTo?: string;
   }) {
     const client = await this.prisma.getTenantClient();
     const groupBy = filters?.groupBy || 'day';
@@ -550,19 +574,48 @@ export class OrdersService {
         dateFormat = 'YYYY-MM-DD';
     }
 
-    const results = await client.$queryRaw`
+    // Build WHERE conditions dynamically
+    const conditions: string[] = [];
+    const params: any[] = [];
+    let paramIndex = 1;
+
+    conditions.push(`status != $${paramIndex}`);
+    params.push(OrderStatus.CANCELLED);
+    paramIndex++;
+
+    if (filters?.dateFrom) {
+      conditions.push(`created_at >= $${paramIndex}::timestamp`);
+      params.push(new Date(filters.dateFrom));
+      paramIndex++;
+    }
+
+    if (filters?.dateTo) {
+      conditions.push(`created_at <= $${paramIndex}::timestamp`);
+      params.push(new Date(filters.dateTo));
+      paramIndex++;
+    }
+
+    const whereClause = conditions.join(' AND ');
+
+    // dateFormat is a safe, predefined string (only predefined values), so we can safely interpolate it
+    const query = `
       SELECT 
-        TO_CHAR(created_at, ${dateFormat}) as period,
+        TO_CHAR(created_at, '${dateFormat}') as period,
         COUNT(*)::int as order_count,
         SUM(total)::decimal as total_revenue,
         AVG(total)::decimal as avg_order_value
       FROM orders 
-      WHERE status != ${OrderStatus.CANCELLED}
-        ${filters?.dateFrom ? `AND created_at >= ${new Date(filters.dateFrom)}::timestamp` : ''}
-        ${filters?.dateTo ? `AND created_at <= ${new Date(filters.dateTo)}::timestamp` : ''}
-      GROUP BY TO_CHAR(created_at, ${dateFormat})
+      WHERE ${whereClause}
+      GROUP BY TO_CHAR(created_at, '${dateFormat}')
       ORDER BY period ASC
     `;
+
+    const results = await client.$queryRawUnsafe(query, ...params) as Array<{
+      period: string;
+      order_count: number;
+      total_revenue: number;
+      avg_order_value: number;
+    }>;
 
     return results;
   }

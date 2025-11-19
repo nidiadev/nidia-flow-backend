@@ -22,10 +22,14 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto, CheckInDto, CheckOutDto, LocationUpdateDto, TaskSearchDto, UploadPhotosDto, CaptureSignatureDto } from './dto/update-task.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { TenantGuard } from '../tenant/guards/tenant.guard';
+import { PermissionsGuard } from '../auth/guards/permissions.guard';
+import { RequirePermissions } from '../auth/decorators/permissions.decorator';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { UserPermissions } from '../common/decorators/user-permissions.decorator';
 
 @ApiTags('Tasks - Advanced Operations API')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, TenantGuard)
+@UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(
@@ -35,14 +39,19 @@ export class TasksController {
   ) {}
 
   @Post()
+  @RequirePermissions('tasks:write', 'tasks:create')
   @ApiOperation({ summary: 'Create a new task' })
   @ApiResponse({ status: 201, description: 'Task created successfully' })
   @ApiResponse({ status: 400, description: 'Bad request' })
-  async create(@Body() createTaskDto: CreateTaskDto, @Request() req: any) {
-    return this.tasksService.create(createTaskDto, req.user.userId);
+  async create(
+    @Body() createTaskDto: CreateTaskDto,
+    @CurrentUser('userId') userId: string,
+  ) {
+    return this.tasksService.create(createTaskDto, userId);
   }
 
   @Get()
+  @RequirePermissions('tasks:read')
   @ApiOperation({ summary: 'Get all tasks with filters' })
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
   async findAll(
@@ -56,6 +65,8 @@ export class TasksController {
     @Query('dateTo') dateTo?: string,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
+    @CurrentUser('userId') userId?: string,
+    @UserPermissions() userPermissions?: string[],
   ) {
     const filters = {
       status: status as any,
@@ -70,10 +81,11 @@ export class TasksController {
       limit: limit ? parseInt(limit) : undefined,
     };
 
-    return this.tasksService.findAll(filters);
+    return this.tasksService.findAll(filters, userId, userPermissions);
   }
 
   @Get(':id')
+  @RequirePermissions('tasks:read')
   @ApiOperation({ summary: 'Get task by ID' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
@@ -82,15 +94,16 @@ export class TasksController {
   }
 
   @Patch(':id')
+  @RequirePermissions('tasks:write', 'tasks:update')
   @ApiOperation({ summary: 'Update task' })
   @ApiResponse({ status: 200, description: 'Task updated successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
   async update(
     @Param('id') id: string,
     @Body() updateTaskDto: UpdateTaskDto,
-    @Request() req: any,
+    @CurrentUser('userId') userId: string,
   ) {
-    return this.tasksService.update(id, updateTaskDto, req.user.userId);
+    return this.tasksService.update(id, updateTaskDto, userId);
   }
 
   @Post(':id/assign/:userId')
@@ -133,6 +146,7 @@ export class TasksController {
   }
 
   @Delete(':id')
+  @RequirePermissions('tasks:delete')
   @ApiOperation({ summary: 'Delete task' })
   @ApiResponse({ status: 200, description: 'Task deleted successfully' })
   @ApiResponse({ status: 400, description: 'Cannot delete task' })

@@ -16,13 +16,30 @@ import { PlansService } from './plans.service';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { CreatePlanDto } from './dto/create-plan.dto';
 import { UpdatePlanDto } from './dto/update-plan.dto';
+import { Public } from '../common/decorators/public.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Plans')
 @Controller('plans')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class PlansController {
   constructor(private readonly plansService: PlansService) {}
+
+  @Get('public')
+  @Public()
+  @ApiOperation({ summary: 'List all visible plans (Public endpoint)' })
+  @ApiResponse({
+    status: 200,
+    description: 'Plans retrieved successfully',
+  })
+  async findPublicPlans() {
+    const plans = await this.plansService.findVisiblePlans();
+    return {
+      success: true,
+      data: plans,
+    };
+  }
 
   @Get()
   @ApiOperation({ summary: 'List all active plans (Super Admin only)' })

@@ -23,8 +23,28 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: JwtPayload) {
-    // Usar Prisma directamente para evitar dependencias circulares
-    // Esto consulta la SuperAdmin DB donde están los usuarios del sistema
+    // Si es usuario de tenant (tenant_user), validar en BD del tenant
+    if (payload.systemRole === 'tenant_user') {
+      // Para usuarios de tenant, confiar en el JWT ya que validamos en login
+      // No necesitamos consultar la BD en cada request (mejora performance)
+      // Solo validamos que el payload tenga la información necesaria
+      if (!payload.tenantId || !payload.dbName) {
+        throw new UnauthorizedException('Invalid token: missing tenant information');
+      }
+      
+      return {
+        id: payload.sub,
+        email: payload.email,
+        tenantId: payload.tenantId,
+        systemRole: payload.systemRole,
+        role: payload.role || 'user', // Incluir role del JWT
+        permissions: payload.permissions || [], // Incluir permissions del JWT
+        firstName: null, // No disponible en JWT para tenant_user
+        lastName: null, // No disponible en JWT para tenant_user
+      };
+    }
+
+    // Para usuarios de SuperAdmin (super_admin, tenant_admin), validar en SuperAdmin DB
     const user = await prisma.user.findUnique({
       where: { id: payload.sub },
       select: {
@@ -56,6 +76,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       email: user.email,
       tenantId: user.tenantId,
       systemRole: user.systemRole,
+      role: payload.role || (user.systemRole === 'super_admin' ? 'super_admin' : 'admin'), // Incluir role del JWT o inferir
+      permissions: payload.permissions || [], // Incluir permissions del JWT
       firstName: user.firstName,
       lastName: user.lastName,
     };

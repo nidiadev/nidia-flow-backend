@@ -1,9 +1,13 @@
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { PermissionResolverService } from '../services/permission-resolver.service';
 
 @Injectable()
 export class PermissionsGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(
+    private reflector: Reflector,
+    private permissionResolver: PermissionResolverService,
+  ) {}
 
   canActivate(context: ExecutionContext): boolean {
     // Get permission requirements from decorator
@@ -24,22 +28,19 @@ export class PermissionsGuard implements CanActivate {
       throw new ForbiddenException('User not authenticated');
     }
 
-    // Admin role bypasses all permission checks
-    if (user.role === 'admin') {
-      return true;
-    }
-
     // Get user permissions (from role + individual permissions)
     const userPermissions = this.getUserPermissions(user);
     
-    // Check if user has any of the required permissions
-    const hasRequiredPermission = requiredPermissions.some(permission => 
-      userPermissions.includes(permission)
+    // Check if user has any of the required permissions (OR logic)
+    // Uses the new PermissionResolverService for hierarchical permission checking
+    const hasRequiredPermission = this.permissionResolver.hasAnyPermission(
+      userPermissions,
+      requiredPermissions,
     );
 
     if (!hasRequiredPermission) {
       throw new ForbiddenException(
-        `Insufficient permissions. Required: ${requiredPermissions.join(' or ')}`,
+        `Insufficient permissions. Required one of: ${requiredPermissions.join(' or ')}`,
       );
     }
 
@@ -49,11 +50,13 @@ export class PermissionsGuard implements CanActivate {
   private getUserPermissions(user: any): string[] {
     const permissions: string[] = [];
 
-    // Add role-based permissions
+    // Add role-based permissions (for backward compatibility)
+    // Note: In the future, roles should be stored in DB with their permissions
     const rolePermissions = this.getRolePermissions(user.role);
     permissions.push(...rolePermissions);
 
-    // Add individual permissions
+    // Add individual permissions (from user.permissions array)
+    // These take precedence over role permissions
     if (user.permissions && Array.isArray(user.permissions)) {
       permissions.push(...user.permissions);
     }
@@ -61,18 +64,19 @@ export class PermissionsGuard implements CanActivate {
     return [...new Set(permissions)]; // Remove duplicates
   }
 
+  /**
+   * Get default permissions for a role
+   * This is for backward compatibility. In production, roles and their permissions
+   * should be stored in the database and managed via the roles system.
+   */
   private getRolePermissions(role: string): string[] {
+    // Admin gets all permissions including view_all
+    if (role === 'admin') {
+      return ['*', 'view_all', '*:view_all'];
+    }
+
+    // Default role permissions (can be overridden by individual user permissions)
     const rolePermissionMap: Record<string, string[]> = {
-      admin: [
-        'crm:read', 'crm:write', 'crm:delete', 'crm:export', 'crm:assign',
-        'orders:read', 'orders:write', 'orders:delete', 'orders:assign', 'orders:approve',
-        'tasks:read', 'tasks:write', 'tasks:delete', 'tasks:assign', 'tasks:complete',
-        'products:read', 'products:write', 'products:delete', 'products:manage_inventory',
-        'accounting:read', 'accounting:write', 'accounting:delete', 'accounting:reports',
-        'reports:read', 'reports:create', 'reports:schedule', 'reports:export',
-        'users:read', 'users:write', 'users:delete', 'users:invite', 'users:manage_roles',
-        'settings:read', 'settings:write', 'settings:integrations',
-      ],
       manager: [
         'crm:read', 'crm:write', 'crm:export', 'crm:assign',
         'orders:read', 'orders:write', 'orders:assign', 'orders:approve',
@@ -81,13 +85,16 @@ export class PermissionsGuard implements CanActivate {
         'accounting:read', 'accounting:reports',
         'reports:read', 'reports:create', 'reports:export',
         'users:read', 'users:write', 'users:invite',
+        'view_all', // Managers can view all data
       ],
       sales: [
-        'crm:read', 'crm:write', 'crm:export',
+        'crm:customers:read', 'crm:customers:write', 'crm:customers:export',
+        'crm:interactions:read', 'crm:interactions:write',
         'orders:read', 'orders:write',
         'tasks:read', 'tasks:write',
         'products:read',
         'reports:read',
+        // Note: sales does NOT have 'view_all', so they only see their own data
       ],
       operator: [
         'crm:read',
@@ -100,6 +107,7 @@ export class PermissionsGuard implements CanActivate {
         'orders:read',
         'accounting:read', 'accounting:write', 'accounting:reports',
         'reports:read', 'reports:create', 'reports:export',
+        'view_all', // Accountants can view all financial data
       ],
       viewer: [
         'crm:read',

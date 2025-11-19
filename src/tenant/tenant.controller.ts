@@ -11,7 +11,6 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { TenantService } from './tenant.service';
 import { TenantGuard } from './guards/tenant.guard';
@@ -19,10 +18,12 @@ import { CurrentUser } from '../common/decorators/current-user.decorator';
 import { CurrentTenant, TenantId } from './decorators/tenant.decorator';
 import { CreateTenantDto } from './dto/create-tenant.dto';
 import { UpdateTenantDto } from './dto/update-tenant.dto';
+import { Public } from '../common/decorators/public.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Tenants')
 @Controller('tenants')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class TenantController {
   constructor(private tenantService: TenantService) {}
@@ -85,6 +86,29 @@ export class TenantController {
       success: true,
       data: result.data,
       pagination: result.pagination,
+    };
+  }
+
+  @Get('validate-slug/:slug')
+  @Public()
+  @ApiOperation({ summary: 'Validate if slug is available (Public endpoint)' })
+  @ApiParam({ name: 'slug', description: 'Slug to validate' })
+  @ApiResponse({
+    status: 200,
+    description: 'Slug validation result',
+    schema: {
+      type: 'object',
+      properties: {
+        available: { type: 'boolean' },
+        message: { type: 'string' },
+      },
+    },
+  })
+  async validateSlug(@Param('slug') slug: string) {
+    const existingTenant = await this.tenantService.getTenantBySlug(slug);
+    return {
+      available: !existingTenant,
+      message: existingTenant ? 'Este identificador ya está en uso' : 'Identificador disponible',
     };
   }
 

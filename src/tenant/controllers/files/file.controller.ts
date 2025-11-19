@@ -17,6 +17,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiQuery, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
 import { TenantGuard } from '../../guards/tenant.guard';
+import { PlanLimitsGuard } from '../../guards/plan-limits.guard';
+import { CheckLimit, LimitType } from '../../decorators/check-limit.decorator';
 import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 import { FileService } from '../../services/files/file.service';
 import { 
@@ -29,11 +31,12 @@ import {
 @ApiTags('Files')
 @ApiBearerAuth()
 @Controller('files')
-@UseGuards(JwtAuthGuard, TenantGuard)
+@UseGuards(JwtAuthGuard, TenantGuard, PlanLimitsGuard)
 export class FileController {
   constructor(private readonly fileService: FileService) {}
 
   @Post('upload')
+  @CheckLimit(LimitType.STORAGE)
   @ApiOperation({ summary: 'Upload a file to S3 storage' })
   @ApiConsumes('multipart/form-data')
   @ApiResponse({ 
@@ -42,6 +45,7 @@ export class FileController {
     type: FileResponseDto 
   })
   @ApiResponse({ status: 400, description: 'Bad request - Invalid file or data' })
+  @ApiResponse({ status: 403, description: 'Storage limit exceeded' })
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: any,

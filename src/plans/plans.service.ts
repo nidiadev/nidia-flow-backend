@@ -29,6 +29,10 @@ export class PlansService {
           maxMonthlyApiCalls: true,
           features: true,
           enabledModules: true,
+          badge: true,
+          badgeColor: true,
+          accentColor: true,
+          featuredFeatures: true,
           isActive: true,
           isVisible: true,
           sortOrder: true,
@@ -40,6 +44,57 @@ export class PlansService {
       return plans;
     } catch (error) {
       this.logger.error('Error listing plans:', error);
+      throw error;
+    }
+  }
+
+  async findVisiblePlans(): Promise<any[]> {
+    try {
+      const plans = await prisma.plan.findMany({
+        where: {
+          isActive: true,
+          isVisible: true,
+        },
+        orderBy: {
+          sortOrder: 'asc',
+        },
+        include: {
+          moduleAssignments: {
+            where: { isEnabled: true },
+            include: {
+              module: {
+                select: {
+                  id: true,
+                  name: true,
+                  displayName: true,
+                  description: true,
+                  icon: true,
+                  path: true,
+                },
+              },
+            },
+          },
+          subModuleAssignments: {
+            where: { isEnabled: true },
+            include: {
+              subModule: {
+                select: {
+                  id: true,
+                  name: true,
+                  displayName: true,
+                  description: true,
+                  icon: true,
+                  path: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      this.logger.log(`Found ${plans.length} visible plans for public`);
+      return plans;
+    } catch (error) {
+      this.logger.error('Error listing visible plans:', error);
       throw error;
     }
   }
@@ -63,13 +118,67 @@ export class PlansService {
           maxMonthlyApiCalls: true,
           features: true,
           enabledModules: true,
+          badge: true,
+          badgeColor: true,
+          accentColor: true,
+          featuredFeatures: true,
           isActive: true,
           isVisible: true,
           sortOrder: true,
+          stripePriceIdMonthly: true,
+          stripePriceIdYearly: true,
           createdAt: true,
           updatedAt: true,
         },
       });
+
+      if (!plan) {
+        return null;
+      }
+
+      // Obtener los módulos habilitados desde ModulePlanAssignment para sincronizar
+      const assignments = await prisma.modulePlanAssignment.findMany({
+        where: {
+          planId: id,
+          isEnabled: true,
+        },
+        include: {
+          module: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      });
+
+      // Extraer los nombres de módulos desde las asignaciones
+      const enabledModuleNames = assignments
+        .map((a) => a.module.name)
+        .filter(Boolean) as string[];
+
+      // Si hay diferencia entre enabledModules del plan y las asignaciones, sincronizar
+      const currentModules = Array.isArray(plan.enabledModules)
+        ? (plan.enabledModules as string[])
+        : [];
+      
+      // Comparar sin importar el orden
+      const currentSet = new Set(currentModules);
+      const assignedSet = new Set(enabledModuleNames);
+      const modulesMatch =
+        currentSet.size === assignedSet.size &&
+        [...currentSet].every((name) => assignedSet.has(name));
+
+      // Si no coinciden y hay asignaciones, actualizar enabledModules del plan
+      if (!modulesMatch && enabledModuleNames.length >= 0) {
+        await prisma.plan.update({
+          where: { id },
+          data: {
+            enabledModules: enabledModuleNames,
+          },
+        });
+        plan.enabledModules = enabledModuleNames;
+      }
+
       return plan;
     } catch (error) {
       this.logger.error(`Error finding plan ${id}:`, error);
@@ -96,6 +205,10 @@ export class PlansService {
           maxMonthlyApiCalls: true,
           features: true,
           enabledModules: true,
+          badge: true,
+          badgeColor: true,
+          accentColor: true,
+          featuredFeatures: true,
           isActive: true,
           isVisible: true,
           sortOrder: true,
@@ -127,6 +240,10 @@ export class PlansService {
           maxMonthlyApiCalls: data.maxMonthlyApiCalls,
           features: data.features || {},
           enabledModules: data.enabledModules || [],
+          badge: data.badge,
+          badgeColor: data.badgeColor,
+          accentColor: data.accentColor,
+          featuredFeatures: data.featuredFeatures ? (Array.isArray(data.featuredFeatures) ? data.featuredFeatures : []) : null,
           stripePriceIdMonthly: data.stripePriceIdMonthly,
           stripePriceIdYearly: data.stripePriceIdYearly,
           isActive: data.isActive !== undefined ? data.isActive : true,
@@ -134,6 +251,12 @@ export class PlansService {
           sortOrder: data.sortOrder || 0,
         },
       });
+
+      // Sincronizar asignaciones de módulos si se proporcionaron
+      if (data.enabledModules && Array.isArray(data.enabledModules) && data.enabledModules.length > 0) {
+        await this.syncModuleAssignments(plan.id, data.enabledModules);
+      }
+
       this.logger.log(`Plan created: ${plan.name}`);
       return plan;
     } catch (error) {
@@ -159,6 +282,12 @@ export class PlansService {
           ...(data.maxMonthlyApiCalls !== undefined && { maxMonthlyApiCalls: data.maxMonthlyApiCalls }),
           ...(data.features !== undefined && { features: data.features }),
           ...(data.enabledModules !== undefined && { enabledModules: data.enabledModules }),
+          ...(data.badge !== undefined && { badge: data.badge }),
+          ...(data.badgeColor !== undefined && { badgeColor: data.badgeColor }),
+          ...(data.accentColor !== undefined && { accentColor: data.accentColor }),
+          ...(data.featuredFeatures !== undefined && { 
+            featuredFeatures: Array.isArray(data.featuredFeatures) ? data.featuredFeatures : null 
+          }),
           ...(data.stripePriceIdMonthly !== undefined && { stripePriceIdMonthly: data.stripePriceIdMonthly }),
           ...(data.stripePriceIdYearly !== undefined && { stripePriceIdYearly: data.stripePriceIdYearly }),
           ...(data.isActive !== undefined && { isActive: data.isActive }),
@@ -166,11 +295,97 @@ export class PlansService {
           ...(data.sortOrder !== undefined && { sortOrder: data.sortOrder }),
         },
       });
+
+      // Sincronizar asignaciones de módulos si se proporcionaron
+      if (data.enabledModules !== undefined) {
+        const moduleNames = Array.isArray(data.enabledModules) ? data.enabledModules : [];
+        await this.syncModuleAssignments(plan.id, moduleNames);
+      }
+
       this.logger.log(`Plan updated: ${plan.name}`);
       return plan;
     } catch (error) {
       this.logger.error(`Error updating plan ${id}:`, error);
       throw error;
+    }
+  }
+
+  /**
+   * Sincroniza las asignaciones de módulos a un plan
+   * @param planId ID del plan
+   * @param moduleNames Array de nombres de módulos (strings) que deben estar habilitados
+   */
+  private async syncModuleAssignments(planId: string, moduleNames: string[]): Promise<void> {
+    try {
+      // Obtener todos los módulos por nombre
+      const modules = await prisma.moduleDefinition.findMany({
+        where: {
+          name: {
+            in: moduleNames,
+          },
+        },
+      });
+
+      // Obtener todas las asignaciones actuales del plan
+      const currentAssignments = await prisma.modulePlanAssignment.findMany({
+        where: {
+          planId,
+        },
+      });
+
+      // Crear un mapa de módulos por nombre para acceso rápido
+      const moduleMap = new Map(modules.map((m) => [m.name, m.id]));
+
+      // Identificar módulos que deben estar habilitados
+      const modulesToEnable = new Set<string>();
+      moduleNames.forEach((name) => {
+        const moduleId = moduleMap.get(name);
+        if (moduleId && typeof moduleId === 'string') {
+          modulesToEnable.add(moduleId);
+        }
+      });
+
+      // Crear o actualizar asignaciones para módulos que deben estar habilitados
+      for (const moduleId of modulesToEnable) {
+        await prisma.modulePlanAssignment.upsert({
+          where: {
+            moduleId_planId: {
+              moduleId,
+              planId,
+            },
+          },
+          create: {
+            moduleId,
+            planId,
+            isEnabled: true,
+          },
+          update: {
+            isEnabled: true,
+          },
+        });
+      }
+
+      // Deshabilitar asignaciones para módulos que no están en la lista
+      const currentModuleIds = new Set<string>(currentAssignments.map((a) => a.moduleId as string));
+      for (const moduleId of currentModuleIds) {
+        if (moduleId && typeof moduleId === 'string' && !modulesToEnable.has(moduleId)) {
+          await prisma.modulePlanAssignment.updateMany({
+            where: {
+              moduleId,
+              planId,
+            },
+            data: {
+              isEnabled: false,
+            },
+          });
+        }
+      }
+
+      this.logger.log(`Synchronized ${modulesToEnable.size} module assignments for plan ${planId}`);
+    } catch (error) {
+      this.logger.error(`Error syncing module assignments for plan ${planId}:`, error);
+      // No lanzar error para no romper la creación/actualización del plan
+      // Las asignaciones se pueden actualizar manualmente después
     }
   }
 

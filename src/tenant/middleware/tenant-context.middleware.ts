@@ -2,6 +2,7 @@ import { Injectable, NestMiddleware, Logger, UnauthorizedException } from '@nest
 import { Request, Response, NextFunction } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { TenantPrismaService } from '../services/tenant-prisma.service';
+import { TenantService } from '../tenant.service';
 
 interface JwtPayload {
   sub?: string; // User ID (from JwtStrategy)
@@ -19,7 +20,7 @@ interface TenantRequest extends Request {
   tenant?: {
     tenantId: string;
     userId: string;
-    dbName: string;
+    dbName: string; // SIEMPRE presente: "tenant_{slug}_prod"
     role: string;
     permissions: string[];
   };
@@ -32,18 +33,28 @@ export class TenantContextMiddleware implements NestMiddleware {
   constructor(
     private readonly jwtService: JwtService,
     private readonly tenantPrismaService: TenantPrismaService,
+    private readonly tenantService: TenantService,
   ) {}
 
   async use(req: TenantRequest, res: Response, next: NextFunction) {
     try {
-      // Skip tenant resolution for certain paths
-      if (this.shouldSkipTenantResolution(req.path)) {
+      // Normalize path (remove /api/v1 prefix if present)
+      const normalizedPath = req.path.replace(/^\/api\/v1/, '') || req.path;
+      
+      // Skip tenant resolution for certain paths (check both normalized and original path)
+      if (this.shouldSkipTenantResolution(normalizedPath) || this.shouldSkipTenantResolution(req.path)) {
+        this.logger.debug(`Skipping tenant resolution for path: ${req.path} (normalized: ${normalizedPath})`);
         return next();
       }
 
       // Extract JWT token from Authorization header
       const token = this.extractTokenFromHeader(req);
       if (!token) {
+        // For public endpoints, allow without token
+        if (normalizedPath.includes('/public') || req.path.includes('/public')) {
+          this.logger.debug(`Allowing public endpoint without token: ${req.path}`);
+          return next();
+        }
         throw new UnauthorizedException('No authentication token provided');
       }
 
@@ -59,7 +70,12 @@ export class TenantContextMiddleware implements NestMiddleware {
       // Validate required fields for non-superadmin users
       const userId = payload.sub || payload.userId;
       if (!userId || !payload.tenantId || !payload.dbName) {
-        throw new UnauthorizedException('Invalid token payload: missing required fields for tenant context');
+        throw new UnauthorizedException('Invalid token payload: missing required fields (tenantId, dbName) for tenant context');
+      }
+      
+      // Validar formato de dbName: debe ser "tenant_{uuid}_{env}" (UUID sin guiones)
+      if (!payload.dbName.startsWith('tenant_') || (!payload.dbName.endsWith('_prod') && !payload.dbName.endsWith('_dev') && !payload.dbName.endsWith('_development') && !payload.dbName.endsWith('_production'))) {
+        throw new UnauthorizedException(`Invalid dbName format: ${payload.dbName}. Expected format: tenant_{uuid}_{env}`);
       }
       
       // Set tenant context in request
@@ -167,10 +183,19 @@ export class TenantContextMiddleware implements NestMiddleware {
       '/superadmin',
       '/docs',
       '/swagger',
+      '/tenants/validate-slug',
+      // Public API endpoints (check both with and without /api/v1 prefix)
+      '/plans/public',
+      '/api/v1/plans/public',
+      '/modules/public',
+      '/api/v1/modules/public',
+      // Also skip all /plans routes (they're handled by PlansModule which has its own guards)
+      '/plans',
+      '/api/v1/plans',
     ];
 
     // Also skip for /tenants endpoint when accessed by superadmin (handled in use method)
     // This is a fallback in case the path check happens before token verification
-    return skipPaths.some(skipPath => path.startsWith(skipPath));
+    return skipPaths.some(skipPath => path.startsWith(skipPath) || path.includes(skipPath));
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
 import { TenantPrismaService } from '../tenant-prisma.service';
+import { DataScopeService } from '../data-scope.service';
 import {
   CreateInteractionDto,
   UpdateInteractionDto,
@@ -18,7 +19,10 @@ import {
 export class InteractionService {
   private readonly logger = new Logger(InteractionService.name);
 
-  constructor(private readonly tenantPrisma: TenantPrismaService) { }
+  constructor(
+    private readonly tenantPrisma: TenantPrismaService,
+    private readonly dataScope: DataScopeService,
+  ) {}
 
   /**
    * Create a new interaction
@@ -97,8 +101,14 @@ export class InteractionService {
 
   /**
    * Find interactions with filtering and pagination
+   * Automatically applies data scope based on user permissions
+   * Note: Interactions are linked to customers, so scope is applied through customer ownership
    */
-  async findMany(filterDto: InteractionFilterDto): Promise<{ data: InteractionResponseDto[]; pagination: any }> {
+  async findMany(
+    filterDto: InteractionFilterDto,
+    userId?: string,
+    userPermissions?: string[],
+  ): Promise<{ data: InteractionResponseDto[]; pagination: any }> {
     try {
       const prisma = await this.tenantPrisma.getTenantClient();
 
@@ -106,13 +116,34 @@ export class InteractionService {
       const limit = filterDto.limit || 20;
       const skip = (page - 1) * limit;
 
-      const where = this.buildWhereClause(filterDto);
+      // Build user filters
+      const userFilters = this.buildWhereClause(filterDto);
+
+      // Apply data scope: filter by customer ownership OR interaction creator
+      // This ensures users see interactions for their customers OR interactions they created
+      let scopeFilter = userFilters;
+      if (userId && userPermissions && !this.dataScope.canViewAll(userPermissions)) {
+        // Get customer scope to filter interactions by customer ownership
+        const customerScope = this.dataScope.getCustomerScope(userPermissions, userId, {});
+        
+        // Also include interactions created by the user
+        scopeFilter = {
+          ...userFilters,
+          OR: [
+            // Interactions for customers owned by user
+            { customer: customerScope as any },
+            // Interactions created by user
+            { createdBy: userId },
+          ],
+        };
+      }
+
       const orderBy = this.buildOrderByClause(filterDto);
 
       // Execute queries
       const [interactions, total] = await Promise.all([
         prisma.interaction.findMany({
-          where,
+          where: scopeFilter,
           orderBy,
           skip,
           take: limit,
@@ -136,7 +167,7 @@ export class InteractionService {
             },
           },
         }),
-        prisma.interaction.count({ where }),
+        prisma.interaction.count({ where: scopeFilter }),
       ]);
 
       return {

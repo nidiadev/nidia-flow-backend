@@ -286,7 +286,28 @@ export class TenantHealthService {
     const startTime = Date.now();
     
     try {
-      const client = await this.tenantPrismaService.getTenantClientById(tenantId);
+      // Get tenant info from SuperAdmin DB
+      const tenant = await prisma.tenant.findUnique({
+        where: { id: tenantId },
+        select: {
+          id: true,
+          dbName: true,
+        },
+      });
+
+      if (!tenant || !tenant.dbName) {
+        throw new Error(`Tenant ${tenantId} not found or missing dbName`);
+      }
+
+      // Set tenant context
+      this.tenantPrismaService.setTenantContext({
+        tenantId: tenant.id,
+        userId: 'system', // System user for health checks
+        dbName: tenant.dbName,
+      });
+
+      // Get client and test connection
+      const client = await this.tenantPrismaService.getTenantClient();
       
       // Test with a simple query
       await client.$queryRaw`SELECT 1 as connection_test`;
@@ -300,7 +321,7 @@ export class TenantHealthService {
         responseTime,
         timestamp: new Date(),
       };
-    } catch (error) {
+    } catch (error: any) {
       return {
         service: `tenant_${tenantId}`,
         status: 'unhealthy',

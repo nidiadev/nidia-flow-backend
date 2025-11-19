@@ -1,22 +1,56 @@
-import { Injectable, Logger, BadRequestException, ConflictException } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException, ConflictException, InternalServerErrorException, Optional, Inject } from '@nestjs/common';
 import prisma from '../lib/prisma';
 import { CreateTenantDto } from './dto/create-tenant.dto';
 import { PlansService } from '../plans/plans.service';
+import { TenantProvisioningService } from './services/tenant-provisioning.service';
+import * as crypto from 'crypto';
 
+/**
+ * TenantService - Gestión de tenants
+ * 
+ * CONTEXTO DE EJECUCIÓN:
+ * - SUPERADMIN: Operaciones de gestión de tenants (crear, actualizar, eliminar)
+ *   Estas operaciones se ejecutan en la base de datos SuperAdmin (nidia_superadmin)
+ * 
+ * - TENANT: Operaciones de consulta de información del tenant actual
+ *   Estas operaciones se ejecutan en la base de datos del tenant específico
+ * 
+ * IMPORTANTE: Este servicio se usa tanto en contexto SuperAdmin como Tenant
+ */
 @Injectable()
 export class TenantService {
   private readonly logger = new Logger(TenantService.name);
 
-  constructor(private readonly plansService: PlansService) {
+  constructor(
+    private readonly plansService: PlansService,
+    @Optional() @Inject(TenantProvisioningService) private readonly provisioningService?: TenantProvisioningService,
+  ) {
     this.logger.log('TenantService initialized');
   }
 
-  // Simplified methods that return null/empty for now
+  /**
+   * Obtener tenant por slug (SUPERADMIN)
+   * Consulta en base de datos SuperAdmin
+   */
   async getTenantBySlug(slug: string): Promise<any> {
-    this.logger.warn(`getTenantBySlug called with ${slug} - returning null (simple mode)`);
-    return null;
+    return await prisma.tenant.findUnique({
+      where: { slug },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        dbName: true,
+        isActive: true,
+        planType: true,
+        planStatus: true,
+      },
+    });
   }
 
+  /**
+   * Obtener tenant por ID (SUPERADMIN)
+   * Consulta en base de datos SuperAdmin
+   */
   async getTenantById(id: string): Promise<any> {
     try {
       const tenant = await prisma.tenant.findUnique({
@@ -34,6 +68,11 @@ export class TenantService {
           trialEndsAt: true,
           subscriptionStartsAt: true,
           subscriptionEndsAt: true,
+          dbName: true, // ⬅️ CRÍTICO: Necesario para JWT
+          dbHost: true,
+          dbPort: true,
+          dbUsername: true,
+          dbPasswordEncrypted: true, // ⬅️ CRÍTICO: Necesario para provisioning y conexiones
           billingEmail: true,
           billingContactName: true,
           billingAddress: true,
@@ -107,7 +146,10 @@ export class TenantService {
     return { exceeded: false, limits: [] };
   }
 
-  // Additional methods expected by other services
+  /**
+   * Crear nuevo tenant (SUPERADMIN ONLY)
+   * Crea registro en SuperAdmin DB y provisiona base de datos del tenant
+   */
   async createTenant(data: CreateTenantDto, userId?: string): Promise<any> {
     try {
       this.logger.log(`Creating tenant: ${data.name} (${data.slug})`);
@@ -121,7 +163,7 @@ export class TenantService {
         throw new ConflictException(`Tenant with slug "${data.slug}" already exists`);
       }
 
-      // Obtener el plan para establecer límites
+      // Obtener el plan para establecer límites y modelo de tenancy
       let plan: any = null;
       if (data.planType) {
         try {
@@ -131,14 +173,21 @@ export class TenantService {
         }
       }
 
-      // Generar configuración de base de datos
-      // Por ahora usamos valores por defecto para desarrollo
-      const dbName = `tenant_${data.slug}_${process.env.NODE_ENV || 'dev'}`;
-      const dbHost = process.env.TENANT_DB_HOST || 'localhost';
-      const dbPort = parseInt(process.env.TENANT_DB_PORT || '5432');
-      const dbUsername = process.env.TENANT_DB_USERNAME || 'postgres';
-      // En producción, esto debería estar encriptado
-      const dbPasswordEncrypted = process.env.TENANT_DB_PASSWORD || 'postgres';
+      // Generar UUID para el tenant (se usará para el nombre de BD)
+      const tenantId = crypto.randomUUID();
+      
+      // Configuración de base de datos - TODOS los tenants tienen su propia BD
+      const env = process.env.NODE_ENV || 'prod';
+      const dbName = `tenant_${tenantId.replace(/-/g, '')}_${env}`; // UUID sin guiones para nombre de BD
+      const dbHost = process.env.TENANT_DB_HOST || process.env.DATABASE_HOST || 'localhost';
+      const dbPort = parseInt(process.env.TENANT_DB_PORT || process.env.DATABASE_PORT || '5432');
+      const dbUsername = process.env.TENANT_DB_USERNAME || process.env.DATABASE_USER || 'postgres';
+      
+      // Generar password seguro para el tenant
+      const dbPassword = this.generateSecurePassword();
+      const dbPasswordEncrypted = this.encryptPassword(dbPassword);
+      
+      this.logger.log(`Provisioning dedicated database: ${dbName}`);
 
       // Establecer límites basados en el plan
       const maxUsers = plan?.maxUsers ?? 5;
@@ -148,53 +197,94 @@ export class TenantService {
       const maxMonthlyApiCalls = plan?.maxMonthlyApiCalls ?? 10000;
       const enabledModules = (plan?.enabledModules as string[]) || ['crm', 'tasks'];
 
-      // Crear el tenant
-      const tenant = await prisma.tenant.create({
-        data: {
-          name: data.name,
-          slug: data.slug,
-          companyLegalName: data.companyLegalName,
-          taxId: data.taxId,
-          industry: data.industry,
-          companySize: data.companySize,
-          planType: data.planType || 'free',
-          planStatus: 'trial',
-          billingEmail: data.billingEmail,
-          billingContactName: data.billingContactName,
-          billingAddress: data.billingAddress,
-          billingCity: data.billingCity,
-          billingState: data.billingState,
-          billingCountry: data.billingCountry || 'CO',
-          billingPostalCode: data.billingPostalCode,
-          paymentMethod: data.paymentMethod,
-          primaryContactName: data.primaryContactName,
-          primaryContactEmail: data.primaryContactEmail,
-          primaryContactPhone: data.primaryContactPhone,
-          referralSource: data.referralSource,
-          notes: data.notes,
-          // Database connection info
-          dbName,
-          dbHost,
-          dbPort,
-          dbUsername,
-          dbPasswordEncrypted,
-          dbConnectionPoolSize: 10,
-          // Usage limits from plan
-          maxUsers,
-          maxStorageGb,
-          maxMonthlyEmails,
-          maxMonthlyWhatsapp,
-          maxMonthlyApiCalls,
-          // Enabled modules from plan
-          enabledModules,
-          // Status
-          isActive: true,
-          isSuspended: false,
-          provisionedAt: new Date(),
-          // Metadata
-          createdBy: userId,
-        },
-      });
+      // Crear el tenant en SuperAdmin DB primero
+      let tenant;
+      try {
+        tenant = await prisma.tenant.create({
+          data: {
+            id: tenantId,
+            name: data.name,
+            slug: data.slug,
+            companyLegalName: data.companyLegalName,
+            taxId: data.taxId,
+            industry: data.industry,
+            companySize: data.companySize,
+            planType: data.planType || 'free',
+            planStatus: 'trial',
+            billingEmail: data.billingEmail,
+            billingContactName: data.billingContactName,
+            billingAddress: data.billingAddress,
+            billingCity: data.billingCity,
+            billingState: data.billingState,
+            billingCountry: data.billingCountry || 'CO',
+            billingPostalCode: data.billingPostalCode,
+            paymentMethod: data.paymentMethod,
+            primaryContactName: data.primaryContactName,
+            primaryContactEmail: data.primaryContactEmail,
+            primaryContactPhone: data.primaryContactPhone,
+            referralSource: data.referralSource,
+            notes: data.notes,
+            // Database connection info
+            dbName,
+            dbHost,
+            dbPort,
+            dbUsername,
+            dbPasswordEncrypted,
+            dbConnectionPoolSize: 10,
+            // Usage limits from plan
+            maxUsers,
+            maxStorageGb,
+            maxMonthlyEmails,
+            maxMonthlyWhatsapp,
+            maxMonthlyApiCalls,
+            // Enabled modules from plan
+            enabledModules,
+            // Status
+            isActive: true,
+            isSuspended: false,
+            // Metadata
+            createdBy: userId,
+          },
+        });
+
+        // Provisionar la base de datos del tenant (SUPERADMIN - solo si provisioningService está disponible)
+        if (this.provisioningService) {
+          await this.provisionTenantDatabase({
+            tenantId: tenant.id,
+            dbName,
+            dbHost,
+            dbPort,
+            dbUsername,
+            dbPassword,
+          });
+        } else {
+          this.logger.warn('TenantProvisioningService not available, skipping database provisioning');
+        }
+
+        // Actualizar provisionedAt después de que la BD esté lista
+        await prisma.tenant.update({
+          where: { id: tenant.id },
+          data: { provisionedAt: new Date() },
+        });
+
+        this.logger.log(`Tenant database provisioned successfully: ${dbName}`);
+      } catch (provisionError) {
+        this.logger.error(`Failed to provision tenant database: ${provisionError.message}`, provisionError.stack);
+        
+        // Rollback: eliminar tenant de SuperAdmin si existe
+        if (tenant?.id) {
+          try {
+            await prisma.tenant.delete({ where: { id: tenant.id } });
+            this.logger.log(`Rollback: Tenant ${tenant.id} deleted from SuperAdmin`);
+          } catch (rollbackError) {
+            this.logger.error(`Failed to rollback tenant deletion: ${rollbackError.message}`);
+          }
+        }
+        
+        throw new InternalServerErrorException(
+          `Failed to provision tenant database: ${provisionError.message}`
+        );
+      }
 
       // Crear dominio por defecto
       try {
@@ -898,6 +988,86 @@ export class TenantService {
       this.logger.error(`Failed to get dashboard stats: ${error.message}`, error.stack);
       throw new BadRequestException(`Failed to get dashboard stats: ${error.message}`);
     }
+  }
+
+  /**
+   * Provision tenant database (SUPERADMIN ONLY)
+   * Crea la base de datos física del tenant y ejecuta migraciones
+   */
+  private async provisionTenantDatabase(config: {
+    tenantId: string;
+    dbName: string;
+    dbHost: string;
+    dbPort: number;
+    dbUsername: string;
+    dbPassword: string;
+  }): Promise<void> {
+    if (!this.provisioningService) {
+      throw new InternalServerErrorException('TenantProvisioningService not available');
+    }
+
+    this.logger.log(`Provisioning database: ${config.dbName} for tenant ${config.tenantId}`);
+
+    try {
+      await this.provisioningService.createTenantDatabase({
+        host: config.dbHost,
+        port: config.dbPort,
+        database: config.dbName,
+        username: config.dbUsername,
+        password: config.dbPassword,
+      });
+
+      await this.provisioningService.runTenantMigration({
+        host: config.dbHost,
+        port: config.dbPort,
+        database: config.dbName,
+        username: config.dbUsername,
+        password: config.dbPassword,
+      });
+
+      const dbExists = await this.provisioningService.databaseExists(config.dbName);
+      if (!dbExists) {
+        throw new Error(`Database ${config.dbName} was not created successfully`);
+      }
+
+      this.logger.log(`Database ${config.dbName} provisioned and verified successfully`);
+    } catch (error) {
+      this.logger.error(`Failed to provision database ${config.dbName}:`, error);
+      throw error;
+    }
+  }
+
+  private generateSecurePassword(): string {
+    return crypto.randomBytes(32).toString('hex');
+  }
+
+  private encryptPassword(password: string): string {
+    const encryptionKey = process.env.ENCRYPTION_KEY || 'default-key-change-in-production';
+    
+    // Generate a random IV for each encryption
+    const iv = crypto.randomBytes(16);
+    const key = crypto.scryptSync(encryptionKey, 'salt', 32);
+    const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+    let encrypted = cipher.update(password, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    return iv.toString('hex') + ':' + encrypted;
+  }
+
+  private decryptPassword(encryptedPassword: string): string {
+    const encryptionKey = process.env.ENCRYPTION_KEY || 'default-key-change-in-production';
+    const parts = encryptedPassword.split(':');
+    if (parts.length !== 2) {
+      throw new Error('Invalid encrypted password format');
+    }
+    
+    const iv = Buffer.from(parts[0], 'hex');
+    const encrypted = parts[1];
+    const key = crypto.scryptSync(encryptionKey, 'salt', 32);
+    
+    const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+    let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
   }
 
 }

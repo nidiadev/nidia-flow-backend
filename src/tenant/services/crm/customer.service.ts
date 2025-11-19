@@ -1,5 +1,6 @@
-import { Injectable, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException, NotFoundException, Scope } from '@nestjs/common';
 import { TenantPrismaService } from '../tenant-prisma.service';
+import { DataScopeService } from '../data-scope.service';
 import { BusinessEventEmitterService } from '../../../common/events/event-emitter.service';
 import { BusinessEventTypes } from '../../../common/events/business-events';
 import {
@@ -15,12 +16,13 @@ import {
 } from '../../dto/crm/customer.dto';
 import { PaginationDto, ApiResponseDto } from '../../dto/base/base.dto';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class CustomerService {
   private readonly logger = new Logger(CustomerService.name);
 
   constructor(
     private readonly tenantPrisma: TenantPrismaService,
+    private readonly dataScope: DataScopeService,
     private readonly eventEmitter: BusinessEventEmitterService,
   ) {}
 
@@ -79,8 +81,13 @@ export class CustomerService {
 
   /**
    * Find customers with filters and pagination
+   * Automatically applies data scope based on user permissions
    */
-  async findMany(filterDto: CustomerFilterDto): Promise<{
+  async findMany(
+    filterDto: CustomerFilterDto,
+    userId: string,
+    userPermissions: string[],
+  ): Promise<{
     data: CustomerResponseDto[];
     pagination: {
       page: number;
@@ -96,16 +103,20 @@ export class CustomerService {
       const limit = filterDto.limit || 10;
       const skip = (page - 1) * limit;
 
-      // Build where clause
-      const where = this.buildWhereClause(filterDto);
+      // Build where clause with user filters
+      const userFilters = this.buildWhereClause(filterDto);
+
+      // Apply data scope based on user permissions
+      // This automatically filters to show only user's own data if they don't have 'view_all'
+      const scopeFilter = this.dataScope.getCustomerScope(userPermissions, userId, userFilters);
 
       // Build order by clause
       const orderBy = this.buildOrderByClause(filterDto);
 
-      // Execute queries
+      // Execute queries with scope filter
       const [customers, total] = await Promise.all([
         prisma.customer.findMany({
-          where,
+          where: scopeFilter as any,
           orderBy,
           skip,
           take: limit,
@@ -126,7 +137,7 @@ export class CustomerService {
             },
           },
         }),
-        prisma.customer.count({ where }),
+        prisma.customer.count({ where: scopeFilter as any }),
       ]);
 
       const totalPages = Math.ceil(total / limit);

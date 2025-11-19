@@ -91,7 +91,7 @@ async function main() {
   log('\n📁 Verificando archivos requeridos...', 'blue');
   const requiredFiles = [
     { path: '.env', desc: 'Archivo .env existe' },
-    { path: 'prisma/schema.prisma', desc: 'Schema SuperAdmin existe' },
+    { path: 'prisma/superadmin-schema.prisma', desc: 'Schema SuperAdmin existe' },
     { path: 'prisma/tenant-schema.prisma', desc: 'Schema Tenant existe' },
     { path: 'docker-compose.dev.yml', desc: 'Docker Compose config existe' },
     { path: 'package.json', desc: 'package.json existe' }

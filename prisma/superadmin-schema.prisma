@@ -32,7 +32,8 @@ model Tenant {
   subscriptionEndsAt   DateTime? @map("subscription_ends_at")
 
   // Database connection info
-  dbName               String @unique @map("db_name") @db.VarChar(100)
+  // Cada tenant tiene su propia base de datos: tenant_{slug}_{env}
+  dbName               String @unique @map("db_name") @db.VarChar(100) // tenant_{slug}_prod
   dbHost               String @map("db_host") @db.VarChar(255)
   dbPort               Int    @default(5432) @map("db_port")
   dbUsername           String @map("db_username") @db.VarChar(100)
@@ -68,14 +69,17 @@ model Tenant {
   currentMonthlyApiCalls Int     @default(0) @map("current_monthly_api_calls")
 
   // Status & health
-  isActive         Boolean   @default(true) @map("is_active")
-  isSuspended      Boolean   @default(false) @map("is_suspended")
-  suspensionReason String?   @map("suspension_reason") @db.Text
-  suspendedAt      DateTime? @map("suspended_at")
-  provisionedAt    DateTime? @map("provisioned_at")
-  lastActivityAt   DateTime? @map("last_activity_at")
-  lastBillingDate  DateTime? @map("last_billing_date")
-  nextBillingDate  DateTime? @map("next_billing_date")
+  isActive             Boolean   @default(false) @map("is_active") // false hasta que termine provisioning
+  isSuspended          Boolean   @default(false) @map("is_suspended")
+  suspensionReason     String?   @map("suspension_reason") @db.Text
+  suspendedAt          DateTime? @map("suspended_at")
+  provisionedAt        DateTime? @map("provisioned_at")
+  provisioningStatus   String    @default("pending") @map("provisioning_status") @db.VarChar(50) // pending, provisioning, completed, failed
+  provisioningError    String?   @map("provisioning_error") @db.Text
+  provisioningAttempts Int       @default(0) @map("provisioning_attempts")
+  lastActivityAt       DateTime? @map("last_activity_at")
+  lastBillingDate      DateTime? @map("last_billing_date")
+  nextBillingDate      DateTime? @map("next_billing_date")
 
   // Contact info
   primaryContactName  String? @map("primary_contact_name") @db.VarChar(255)
@@ -100,21 +104,23 @@ model Tenant {
   updatedAt      DateTime @updatedAt @map("updated_at")
 
   // Relations
-  domains             TenantDomain[]
-  users               User[]
-  subscriptions       Subscription[]
-  invoices            Invoice[]
-  paymentMethods      PaymentMethod[]
-  couponRedemptions   CouponRedemption[]
-  licenses            License[]
-  usageDaily          TenantUsageDaily[]
-  activityLogs        TenantActivityLog[]
-  supportTickets      SupportTicket[]
-  systemNotifications SystemNotification[]
-  auditLogs           AuditLog[]
-  gdprRequests        GdprRequest[]
-  webhookEndpoints    WebhookEndpoint[]
-  createdByUser       User?                @relation("TenantCreatedBy", fields: [createdBy], references: [id])
+  domains                    TenantDomain[]
+  users                      User[]
+  subscriptions              Subscription[]
+  invoices                   Invoice[]
+  paymentMethods             PaymentMethod[]
+  couponRedemptions          CouponRedemption[]
+  licenses                   License[]
+  usageDaily                 TenantUsageDaily[]
+  activityLogs               TenantActivityLog[]
+  supportTickets             SupportTicket[]
+  systemNotifications        SystemNotification[]
+  auditLogs                  AuditLog[]
+  gdprRequests               GdprRequest[]
+  webhookEndpoints           WebhookEndpoint[]
+  moduleTenantAssignments    ModuleTenantAssignment[]
+  subModuleTenantAssignments SubModuleTenantAssignment[]
+  createdByUser              User?                       @relation("TenantCreatedBy", fields: [createdBy], references: [id])
 
   @@index([slug])
   @@index([planType])
@@ -188,17 +194,19 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  tenant                     Tenant?              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  sessions                   UserSession[]
-  supportTicketsCreated      SupportTicket[]      @relation("TicketCreatedBy")
-  supportTicketsAssigned     SupportTicket[]      @relation("TicketAssignedTo")
-  ticketMessages             TicketMessage[]
-  systemNotificationsCreated SystemNotification[] @relation("NotificationCreatedBy")
-  emailCampaignsCreated      EmailCampaign[]      @relation("CampaignCreatedBy")
-  auditLogsUser              AuditLog[]           @relation("AuditLogUser")
-  gdprRequestsUser           GdprRequest[]        @relation("GdprRequestUser")
-  systemSettingsUpdated      SystemSetting[]      @relation("SettingUpdatedBy")
-  tenantsCreated             Tenant[]             @relation("TenantCreatedBy")
+  tenant                            Tenant?                     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  sessions                          UserSession[]
+  supportTicketsCreated             SupportTicket[]             @relation("TicketCreatedBy")
+  supportTicketsAssigned            SupportTicket[]             @relation("TicketAssignedTo")
+  ticketMessages                    TicketMessage[]
+  systemNotificationsCreated        SystemNotification[]        @relation("NotificationCreatedBy")
+  emailCampaignsCreated             EmailCampaign[]             @relation("CampaignCreatedBy")
+  auditLogsUser                     AuditLog[]                  @relation("AuditLogUser")
+  gdprRequestsUser                  GdprRequest[]               @relation("GdprRequestUser")
+  systemSettingsUpdated             SystemSetting[]             @relation("SettingUpdatedBy")
+  tenantsCreated                    Tenant[]                    @relation("TenantCreatedBy")
+  moduleTenantAssignmentsCreated    ModuleTenantAssignment[]    @relation("ModuleTenantAssignedBy")
+  subModuleTenantAssignmentsCreated SubModuleTenantAssignment[] @relation("SubModuleTenantAssignedBy")
 
   @@unique([tenantId, email])
   @@index([email])
@@ -251,6 +259,12 @@ model Plan {
   // Features
   features       Json     @map("features")
   enabledModules String[] @map("enabled_modules")
+  
+  // Display & Marketing
+  badge           String?  @db.VarChar(50) // e.g., "Popular", "Recomendado", "Nuevo"
+  badgeColor      String?  @map("badge_color") @db.VarChar(20) // e.g., "blue", "green", "purple"
+  accentColor     String?  @map("accent_color") @db.VarChar(20) // Color para bordes y acentos
+  featuredFeatures Json?   @map("featured_features") // Array de características destacadas
 
   // Stripe
   stripePriceIdMonthly String? @map("stripe_price_id_monthly") @db.VarChar(255)
@@ -262,12 +276,152 @@ model Plan {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  subscriptions Subscription[]
+  subscriptions        Subscription[]
+  moduleAssignments    ModulePlanAssignment[]
+  subModuleAssignments SubModulePlanAssignment[]
 
   @@index([name])
   @@index([isActive])
   @@index([isVisible])
   @@map("plans")
+}
+
+model ModuleDefinition {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @unique @db.VarChar(100) // e.g., 'crm', 'products', 'orders'
+  displayName String   @map("display_name") @db.VarChar(255)
+  description String?  @db.Text
+  icon        String?  @db.VarChar(100) // Icon name from lucide-react
+  path        String   @db.VarChar(255) // Frontend path, e.g., '/crm'
+  category    String?  @db.VarChar(50) // Optional category grouping
+  sortOrder   Int      @default(0) @map("sort_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  isVisible   Boolean  @default(true) @map("is_visible") // Show in sidebar even if not enabled
+  metadata    Json?    @map("metadata") // Additional config (permissions, features, etc.)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  planAssignments   ModulePlanAssignment[]
+  tenantAssignments ModuleTenantAssignment[]
+  subModules        SubModuleDefinition[]
+
+  @@index([name])
+  @@index([isActive])
+  @@index([isVisible])
+  @@index([category])
+  @@map("module_definitions")
+}
+
+model SubModuleDefinition {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  moduleId    String   @map("module_id") @db.Uuid
+  name        String   @db.VarChar(100) // e.g., 'customers', 'interactions', 'contacts'
+  displayName String   @map("display_name") @db.VarChar(255)
+  description String?  @db.Text
+  icon        String?  @db.VarChar(100) // Icon name from lucide-react
+  path        String?  @db.VarChar(255) // Frontend path, e.g., '/crm/customers'
+  sortOrder   Int      @default(0) @map("sort_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  isVisible   Boolean  @default(true) @map("is_visible")
+  permissions Json?    @map("permissions") // Array of permission strings, e.g., ['read', 'write', 'delete']
+  metadata    Json?    @map("metadata") // Additional config
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  module            ModuleDefinition            @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  planAssignments   SubModulePlanAssignment[]
+  tenantAssignments SubModuleTenantAssignment[]
+
+  @@unique([moduleId, name])
+  @@index([moduleId])
+  @@index([name])
+  @@index([isActive])
+  @@index([isVisible])
+  @@map("submodule_definitions")
+}
+
+model ModulePlanAssignment {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  moduleId  String   @map("module_id") @db.Uuid
+  planId    String   @map("plan_id") @db.Uuid
+  isEnabled Boolean  @default(true) @map("is_enabled")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  module ModuleDefinition @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  plan   Plan             @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@unique([moduleId, planId])
+  @@index([moduleId])
+  @@index([planId])
+  @@map("module_plan_assignments")
+}
+
+model SubModulePlanAssignment {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  subModuleId String   @map("submodule_id") @db.Uuid
+  planId      String   @map("plan_id") @db.Uuid
+  isEnabled   Boolean  @default(true) @map("is_enabled")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  subModule SubModuleDefinition @relation(fields: [subModuleId], references: [id], onDelete: Cascade)
+  plan      Plan                @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+  @@unique([subModuleId, planId])
+  @@index([subModuleId])
+  @@index([planId])
+  @@map("submodule_plan_assignments")
+}
+
+// Asignación directa de módulos a tenants (independiente de planes)
+model ModuleTenantAssignment {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  moduleId   String    @map("module_id") @db.Uuid
+  tenantId   String    @map("tenant_id") @db.Uuid
+  isEnabled  Boolean   @default(true) @map("is_enabled")
+  startsAt   DateTime? @map("starts_at") // Fecha de inicio de la asignación
+  endsAt     DateTime? @map("ends_at") // Fecha de fin de la asignación (null = permanente)
+  reason     String?   @db.Text // Razón de la asignación (ej: "Promoción especial", "Prueba")
+  assignedBy String?   @map("assigned_by") @db.Uuid // Usuario que hizo la asignación
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  module         ModuleDefinition @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tenant         Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assignedByUser User?            @relation("ModuleTenantAssignedBy", fields: [assignedBy], references: [id])
+
+  @@unique([moduleId, tenantId])
+  @@index([moduleId])
+  @@index([tenantId])
+  @@index([isEnabled])
+  @@index([endsAt])
+  @@map("module_tenant_assignments")
+}
+
+// Asignación directa de submódulos a tenants (independiente de planes)
+model SubModuleTenantAssignment {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  subModuleId String    @map("submodule_id") @db.Uuid
+  tenantId    String    @map("tenant_id") @db.Uuid
+  isEnabled   Boolean   @default(true) @map("is_enabled")
+  startsAt    DateTime? @map("starts_at") // Fecha de inicio de la asignación
+  endsAt      DateTime? @map("ends_at") // Fecha de fin de la asignación (null = permanente)
+  reason      String?   @db.Text // Razón de la asignación
+  assignedBy  String?   @map("assigned_by") @db.Uuid // Usuario que hizo la asignación
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  subModule      SubModuleDefinition @relation(fields: [subModuleId], references: [id], onDelete: Cascade)
+  tenant         Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assignedByUser User?               @relation("SubModuleTenantAssignedBy", fields: [assignedBy], references: [id])
+
+  @@unique([subModuleId, tenantId])
+  @@index([subModuleId])
+  @@index([tenantId])
+  @@index([isEnabled])
+  @@index([endsAt])
+  @@map("submodule_tenant_assignments")
 }
 
 model Subscription {

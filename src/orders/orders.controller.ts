@@ -23,24 +23,33 @@ import {
 } from './dto/order-responses.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { TenantGuard } from '../tenant/guards/tenant.guard';
+import { PermissionsGuard } from '../auth/guards/permissions.guard';
+import { RequirePermissions } from '../auth/decorators/permissions.decorator';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { UserPermissions } from '../common/decorators/user-permissions.decorator';
 
 @ApiTags('Orders')
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard, TenantGuard)
+@UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
+  @RequirePermissions('orders:write', 'orders:create')
   @ApiOperation({ summary: 'Create a new order' })
   @ApiResponse({ status: 201, description: 'Order created successfully' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async create(@Body() createOrderDto: CreateOrderDto, @Request() req: any) {
-    return this.ordersService.create(createOrderDto, req.user.userId);
+  async create(
+    @Body() createOrderDto: CreateOrderDto,
+    @CurrentUser('userId') userId: string,
+  ) {
+    return this.ordersService.create(createOrderDto, userId);
   }
 
   @Get()
+  @RequirePermissions('orders:read')
   @ApiOperation({ summary: 'Get all orders with filters' })
   @ApiResponse({ status: 200, description: 'Orders retrieved successfully' })
   async findAll(
@@ -51,6 +60,8 @@ export class OrdersController {
     @Query('dateTo') dateTo?: string,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
+    @CurrentUser('userId') userId?: string,
+    @UserPermissions() userPermissions?: string[],
   ) {
     const filters = {
       status: status as any,
@@ -62,10 +73,11 @@ export class OrdersController {
       limit: limit ? parseInt(limit) : undefined,
     };
 
-    return this.ordersService.findAll(filters);
+    return this.ordersService.findAll(filters, userId, userPermissions);
   }
 
   @Get(':id')
+  @RequirePermissions('orders:read')
   @ApiOperation({ summary: 'Get order by ID' })
   @ApiResponse({ status: 200, description: 'Order retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Order not found' })
@@ -74,18 +86,20 @@ export class OrdersController {
   }
 
   @Patch(':id')
+  @RequirePermissions('orders:write', 'orders:update')
   @ApiOperation({ summary: 'Update order' })
   @ApiResponse({ status: 200, description: 'Order updated successfully' })
   @ApiResponse({ status: 404, description: 'Order not found' })
   async update(
     @Param('id') id: string,
     @Body() updateOrderDto: UpdateOrderDto,
-    @Request() req: any,
+    @CurrentUser('userId') userId: string,
   ) {
-    return this.ordersService.update(id, updateOrderDto, req.user.userId);
+    return this.ordersService.update(id, updateOrderDto, userId);
   }
 
   @Patch(':id/status')
+  @RequirePermissions('orders:write', 'orders:update')
   @ApiOperation({ summary: 'Update order status' })
   @ApiResponse({ status: 200, description: 'Order status updated successfully' })
   @ApiResponse({ status: 400, description: 'Invalid status transition' })
@@ -93,12 +107,13 @@ export class OrdersController {
   async updateStatus(
     @Param('id') id: string,
     @Body() updateStatusDto: UpdateOrderStatusDto,
-    @Request() req: any,
+    @CurrentUser('userId') userId: string,
   ) {
-    return this.ordersService.updateStatus(id, updateStatusDto, req.user.userId);
+    return this.ordersService.updateStatus(id, updateStatusDto, userId);
   }
 
   @Delete(':id')
+  @RequirePermissions('orders:delete')
   @ApiOperation({ summary: 'Delete order' })
   @ApiResponse({ status: 200, description: 'Order deleted successfully' })
   @ApiResponse({ status: 400, description: 'Cannot delete order' })

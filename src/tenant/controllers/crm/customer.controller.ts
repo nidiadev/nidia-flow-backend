@@ -27,6 +27,7 @@ import { TenantGuard } from '../../guards/tenant.guard';
 import { PermissionsGuard } from '../../../auth/guards/permissions.guard';
 import { RequirePermissions } from '../../../auth/decorators/permissions.decorator';
 import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+import { UserPermissions } from '../../../common/decorators/user-permissions.decorator';
 import { CustomerService } from '../../services/crm/customer.service';
 import {
   CreateCustomerDto,
@@ -43,13 +44,13 @@ import { ApiResponseDto } from '../../dto/base/base.dto';
 
 @ApiTags('CRM - Customers')
 @ApiBearerAuth()
-@Controller('customers')
+@Controller('crm/customers')
 @UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Post()
-  @RequirePermissions('crm:write')
+  @RequirePermissions('crm:write', 'crm:customers:write')
   @ApiOperation({ 
     summary: 'Create a new customer',
     description: 'Creates a new customer (lead, prospect, or active customer) with all provided information'
@@ -81,7 +82,7 @@ export class CustomerController {
   }
 
   @Get()
-  @RequirePermissions('crm:read')
+  @RequirePermissions('crm:read', 'crm:customers:read')
   @ApiOperation({ 
     summary: 'Get customers with filtering and pagination',
     description: 'Retrieves a paginated list of customers with optional filtering by type, status, assigned user, etc.'
@@ -122,8 +123,10 @@ export class CustomerController {
   })
   async findMany(
     @Query(ValidationPipe) filterDto: CustomerFilterDto,
+    @CurrentUser('userId') userId: string,
+    @UserPermissions() userPermissions: string[],
   ): Promise<ApiResponseDto<CustomerResponseDto[]>> {
-    const result = await this.customerService.findMany(filterDto);
+    const result = await this.customerService.findMany(filterDto, userId, userPermissions);
     return {
       success: true,
       data: result.data,
@@ -261,7 +264,7 @@ export class CustomerController {
   }
 
   @Delete(':id')
-  @RequirePermissions('crm:delete')
+  @RequirePermissions('crm:delete', 'crm:customers:delete')
   @ApiOperation({ 
     summary: 'Delete customer',
     description: 'Soft deletes a customer (sets isActive to false)'

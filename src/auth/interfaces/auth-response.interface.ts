@@ -1,7 +1,12 @@
 export interface AuthResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: {
+  message?: string;
+  status?: 'success' | 'provisioning' | 'failed';
+  accessToken?: string;
+  refreshToken?: string;
+  tenantId?: string;
+  email?: string;
+  estimatedTime?: string;
+  user?: {
     id: string;
     email: string;
     firstName?: string;

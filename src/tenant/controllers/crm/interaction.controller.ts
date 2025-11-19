@@ -25,6 +25,7 @@ import { TenantGuard } from '../../guards/tenant.guard';
 import { PermissionsGuard } from '../../../auth/guards/permissions.guard';
 import { RequirePermissions } from '../../../auth/decorators/permissions.decorator';
 import { CurrentUser } from '../../../common/decorators/current-user.decorator';
+import { UserPermissions } from '../../../common/decorators/user-permissions.decorator';
 import { InteractionService } from '../../services/crm/interaction.service';
 import {
   CreateInteractionDto,
@@ -43,13 +44,13 @@ import { ApiResponseDto } from '../../dto/base/base.dto';
 
 @ApiTags('CRM - Interactions')
 @ApiBearerAuth()
-@Controller('interactions')
+@Controller('crm/interactions')
 @UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
 export class InteractionController {
   constructor(private readonly interactionService: InteractionService) {}
 
   @Post()
-  @RequirePermissions('crm:write')
+  @RequirePermissions('crm:write', 'crm:interactions:write')
   @ApiOperation({ 
     summary: 'Create a new interaction',
     description: 'Creates a new interaction record for a customer (call, email, meeting, note, etc.)'
@@ -109,7 +110,7 @@ export class InteractionController {
   }
 
   @Get()
-  @RequirePermissions('crm:read')
+  @RequirePermissions('crm:read', 'crm:interactions:read')
   @ApiOperation({ 
     summary: 'Get interactions with filtering and pagination',
     description: 'Retrieves a paginated list of interactions with optional filtering by customer, type, status, etc.'
@@ -150,8 +151,10 @@ export class InteractionController {
   })
   async findMany(
     @Query(ValidationPipe) filterDto: InteractionFilterDto,
+    @CurrentUser('userId') userId?: string,
+    @UserPermissions() userPermissions?: string[],
   ): Promise<ApiResponseDto<InteractionResponseDto[]>> {
-    const result = await this.interactionService.findMany(filterDto);
+    const result = await this.interactionService.findMany(filterDto, userId, userPermissions);
     return {
       success: true,
       data: result.data,
@@ -160,7 +163,7 @@ export class InteractionController {
   }
 
   @Get('customer/:customerId')
-  @RequirePermissions('crm:read')
+  @RequirePermissions('crm:read', 'crm:interactions:read')
   @ApiOperation({ 
     summary: 'Get customer interactions timeline',
     description: 'Retrieves all interactions for a specific customer in chronological order'
@@ -197,6 +200,8 @@ export class InteractionController {
     @Query('page') page?: number,
     @Query('limit') limit?: number,
     @Query('type') type?: InteractionType,
+    @CurrentUser('userId') userId?: string,
+    @UserPermissions() userPermissions?: string[],
   ): Promise<ApiResponseDto<InteractionResponseDto[]>> {
     const filterDto: InteractionFilterDto = {
       customerId,
@@ -207,7 +212,7 @@ export class InteractionController {
       sortOrder: 'desc',
     };
 
-    const result = await this.interactionService.findMany(filterDto);
+    const result = await this.interactionService.findMany(filterDto, userId, userPermissions);
     return {
       success: true,
       data: result.data,
@@ -217,7 +222,7 @@ export class InteractionController {
   }
 
   @Get('upcoming')
-  @RequirePermissions('crm:read')
+  @RequirePermissions('crm:read', 'crm:interactions:read')
   @ApiOperation({ 
     summary: 'Get upcoming scheduled interactions',
     description: 'Retrieves all scheduled interactions for the current user or all users (if admin)'
@@ -233,6 +238,7 @@ export class InteractionController {
     @CurrentUser('userId') userId: string,
     @Query('days') days?: number,
     @Query('assignedTo') assignedTo?: string,
+    @UserPermissions() userPermissions?: string[],
   ): Promise<ApiResponseDto<InteractionResponseDto[]>> {
     const daysAhead = days || 7;
     const startDate = new Date();
@@ -251,7 +257,7 @@ export class InteractionController {
       limit: 100,
     };
 
-    const result = await this.interactionService.findMany(filterDto);
+    const result = await this.interactionService.findMany(filterDto, userId, userPermissions);
     return {
       success: true,
       data: result.data,
@@ -286,7 +292,7 @@ export class InteractionController {
   }
 
   @Put(':id')
-  @RequirePermissions('crm:write')
+  @RequirePermissions('crm:write', 'crm:interactions:write')
   @ApiOperation({ 
     summary: 'Update interaction',
     description: 'Updates interaction information with provided data'
@@ -316,7 +322,7 @@ export class InteractionController {
   }
 
   @Put(':id/complete')
-  @RequirePermissions('crm:write')
+  @RequirePermissions('crm:write', 'crm:interactions:write')
   @ApiOperation({ 
     summary: 'Complete a scheduled interaction',
     description: 'Marks a scheduled interaction as completed and updates outcome and next actions'

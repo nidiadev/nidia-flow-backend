@@ -11,7 +11,7 @@ interface ModelInfo {
 }
 
 function parseSchema(): ModelInfo[] {
-  const schemaPath = join(__dirname, '../prisma/schema.prisma');
+  const schemaPath = join(__dirname, '../prisma/superadmin-schema.prisma');
   const schemaContent = readFileSync(schemaPath, 'utf-8');
   
   const models: ModelInfo[] = [];

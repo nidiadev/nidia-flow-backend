@@ -16,14 +16,16 @@ import {
   NotificationService,
 } from '../services/communications';
 
-import { TenantPrismaService } from '../services/tenant-prisma.service';
-import { TenantService } from '../tenant.service';
 import { WebSocketEventService } from '../../common/events/websocket-event.service';
 import { PlansModule } from '../../plans/plans.module';
+import { TenantModule } from '../tenant.module';
+// TenantPrismaService, TenantProvisioningService, TenantService se obtienen del TenantModule (global)
+// No deben registrarse aquí para evitar múltiples instancias con scope REQUEST
 
 @Module({
   imports: [
     forwardRef(() => PlansModule),
+    forwardRef(() => TenantModule), // Import TenantModule to access TenantModulesService
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'default-secret',
       signOptions: { expiresIn: '15m' },
@@ -39,8 +41,6 @@ import { PlansModule } from '../../plans/plans.module';
     MessageTemplateService,
     MessageLogService,
     NotificationService,
-    TenantPrismaService,
-    TenantService,
     WebSocketEventService,
   ],
   exports: [
