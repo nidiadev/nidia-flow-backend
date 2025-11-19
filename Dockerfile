@@ -21,8 +21,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Generate Prisma Client
-RUN npx prisma generate
+# Generate Prisma Clients for both schemas
+RUN npx prisma generate --schema=prisma/superadmin-schema.prisma && \
+    npx prisma generate --schema=prisma/tenant-schema.prisma
 
 # Build the application
 RUN \
