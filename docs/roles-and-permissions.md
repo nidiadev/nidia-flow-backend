@@ -1,8 +1,6 @@
-# NIDIA Flow - Sistema de Roles y Permisos
+# Sistema de Roles y Permisos - NIDIA Flow
 
-## Descripción General
-
-NIDIA Flow implementa un sistema completo de control de acceso basado en roles (RBAC) y permisos granulares que proporciona seguridad y flexibilidad para gestionar el acceso a diferentes funcionalidades del sistema.
+Este documento describe el sistema de control de acceso basado en roles (RBAC) y permisos granulares implementado en NIDIA Flow.
 
 ## Arquitectura del Sistema
 

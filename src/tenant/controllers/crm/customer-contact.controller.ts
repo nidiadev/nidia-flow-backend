@@ -36,7 +36,7 @@ import { ApiResponseDto } from '../../dto/base/base.dto';
 
 @ApiTags('CRM - Customer Contacts')
 @ApiBearerAuth()
-@Controller('customers/:customerId/contacts')
+@Controller('crm/customers/:customerId/contacts')
 @UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
 export class CustomerContactController {
   constructor(private readonly customerContactService: CustomerContactService) {}

@@ -52,7 +52,7 @@ async function main() {
 
   // Check required files
   const requiredFiles = [
-    { path: 'prisma/schema.prisma', desc: 'Schema SuperAdmin encontrado' },
+    { path: 'prisma/superadmin-schema.prisma', desc: 'Schema SuperAdmin encontrado' },
     { path: 'prisma/tenant-schema.prisma', desc: 'Schema Tenant encontrado' },
     { path: '.env', desc: 'Archivo .env encontrado' }
   ];
@@ -89,7 +89,7 @@ async function main() {
 
   // Generate Prisma clients
   execCommand(
-    'npx prisma generate --schema=prisma/schema.prisma',
+    'npx prisma generate --schema=prisma/superadmin-schema.prisma',
     'Generando cliente Prisma SuperAdmin'
   );
 
@@ -103,7 +103,7 @@ async function main() {
 
   // SuperAdmin schema
   execCommand(
-    'npx prisma db push --schema=prisma/schema.prisma --accept-data-loss',
+    'npx prisma db push --schema=prisma/superadmin-schema.prisma --accept-data-loss',
     'Sincronizando schema SuperAdmin'
   );
 
@@ -116,7 +116,7 @@ async function main() {
   // Create directories for generated clients
   const generatedDirs = [
     'generated/prisma',
-    'generated/tenant-prisma'
+    'generated/tenant-prisma',
   ];
 
   for (const dir of generatedDirs) {
@@ -131,9 +131,9 @@ async function main() {
   log('', 'reset');
   log('📚 Comandos útiles:', 'cyan');
   log('  SuperAdmin Studio: npm run db:studio', 'yellow');
-  log('  Tenant Studio: DATABASE_URL="$TENANT_DATABASE_URL" npx prisma studio --schema=prisma/tenant-schema.prisma', 'yellow');
-  log('  Reset SuperAdmin: npx prisma migrate reset --schema=prisma/schema.prisma', 'yellow');
-  log('  Reset Tenant: DATABASE_URL="$TENANT_DATABASE_URL" npx prisma migrate reset --schema=prisma/tenant-schema.prisma', 'yellow');
+  log('  Tenant Studio: npm run db:studio:tenant', 'yellow');
+  log('  Reset SuperAdmin: npm run db:reset', 'yellow');
+  log('  Reset Tenant: npm run db:reset:tenant', 'yellow');
   log('', 'reset');
 }
 

@@ -5,10 +5,10 @@ import { CustomerContactController } from '../controllers/crm/customer-contact.c
 import { CustomerService } from '../services/crm/customer.service';
 import { InteractionService } from '../services/crm/interaction.service';
 import { CustomerContactService } from '../services/crm/customer-contact.service';
-import { TenantPrismaService } from '../services/tenant-prisma.service';
-import { TenantService } from '../tenant.service';
-import { BusinessEventEmitterService } from '../../common/events/event-emitter.service';
 import { PlansModule } from '../../plans/plans.module';
+// TenantPrismaService, TenantProvisioningService, TenantService se obtienen del TenantModule (global)
+// BusinessEventEmitterService se obtiene del EventsModule (global)
+// No deben registrarse aquí para evitar múltiples instancias con scope REQUEST
 
 @Module({
   imports: [forwardRef(() => PlansModule)],
@@ -21,9 +21,6 @@ import { PlansModule } from '../../plans/plans.module';
     CustomerService,
     InteractionService,
     CustomerContactService,
-    TenantPrismaService,
-    TenantService,
-    BusinessEventEmitterService,
   ],
   exports: [
     CustomerService,

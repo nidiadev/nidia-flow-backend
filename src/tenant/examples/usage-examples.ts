@@ -143,6 +143,9 @@ export class CustomerService {
 
   async getCustomerStats() {
     const context = this.tenantPrisma.getTenantContext();
+    if (!context) {
+      throw new Error('Tenant context not available');
+    }
     console.log(`Getting stats for tenant: ${context.tenantId}`);
 
     return this.tenantPrisma.executeRawQuery(`

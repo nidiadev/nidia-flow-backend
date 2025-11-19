@@ -10,18 +10,12 @@ export class RegisterDto {
   email: string;
 
   @ApiProperty({
-    description: 'User password (min 8 characters, must contain uppercase, lowercase, number and special character)',
-    example: 'SecurePassword123!',
+    description: 'User password (minimum 8 characters)',
+    example: 'SecurePassword123',
     minLength: 8,
   })
   @IsString()
-  @MinLength(8)
-  @Matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-    {
-      message: 'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character',
-    },
-  )
+  @MinLength(8, { message: 'Password must be at least 8 characters long' })
   password: string;
 
   @ApiProperty({
@@ -55,4 +49,29 @@ export class RegisterDto {
   @IsOptional()
   @IsString()
   timezone?: string;
+
+  @ApiProperty({
+    description: 'Company/tenant name',
+    example: 'ACME Corp',
+  })
+  @IsString()
+  companyName: string;
+
+  @ApiProperty({
+    description: 'Tenant slug (unique identifier)',
+    example: 'acme',
+  })
+  @IsString()
+  @Matches(/^[a-z0-9-]+$/, {
+    message: 'Slug must contain only lowercase letters, numbers and hyphens',
+  })
+  slug: string;
+
+  @ApiPropertyOptional({
+    description: 'User phone number with country code',
+    example: '+57 300 123 4567',
+  })
+  @IsOptional()
+  @IsString()
+  phone?: string;
 }

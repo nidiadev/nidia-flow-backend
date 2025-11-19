@@ -18,18 +18,21 @@ import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto, UpdatePasswordDto, InviteUserDto } from './dto';
 import { TenantGuard } from '../tenant/guards/tenant.guard';
 import { PermissionsGuard } from '../auth/guards/permissions.guard';
+import { PlanLimitsGuard } from '../tenant/guards/plan-limits.guard';
 import { RequirePermissions } from '../auth/decorators/permissions.decorator';
+import { CheckLimit, LimitType } from '../tenant/decorators/check-limit.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 
 @ApiTags('Users')
 @Controller('users')
-@UseGuards(AuthGuard('jwt'), TenantGuard, PermissionsGuard)
+@UseGuards(AuthGuard('jwt'), TenantGuard, PermissionsGuard, PlanLimitsGuard)
 @ApiBearerAuth()
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post()
   @RequirePermissions('users:write')
+  @CheckLimit(LimitType.USERS)
   @ApiOperation({ 
     summary: 'Create a new user',
     description: 'Create a new user within the tenant with specified role and permissions'
@@ -60,8 +63,9 @@ export class UsersController {
     @Body() createUserDto: CreateUserDto,
     @CurrentUser('tenantId') tenantId: string,
     @CurrentUser('id') createdBy: string,
+    @CurrentUser('email') createdByEmail?: string,
   ) {
-    return this.usersService.createTenantUser(createUserDto, tenantId, createdBy);
+    return this.usersService.createTenantUser(createUserDto, tenantId, createdBy, createdByEmail);
   }
 
   @Get()

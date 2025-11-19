@@ -6,9 +6,9 @@ import {
   InventoryService,
   StockAlertService,
 } from '../services/products';
-import { TenantPrismaService } from '../services/tenant-prisma.service';
-import { TenantService } from '../tenant.service';
 import { PlansModule } from '../../plans/plans.module';
+// TenantPrismaService, TenantProvisioningService, TenantService se obtienen del TenantModule (global)
+// No deben registrarse aquí para evitar múltiples instancias con scope REQUEST
 
 @Module({
   imports: [forwardRef(() => PlansModule)],
@@ -18,8 +18,6 @@ import { PlansModule } from '../../plans/plans.module';
     CategoryService,
     InventoryService,
     StockAlertService,
-    TenantPrismaService,
-    TenantService,
   ],
   exports: [
     ProductService,

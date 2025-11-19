@@ -7,7 +7,7 @@ function generateMigrationSQL() {
   console.log('🔄 Generating SQL migration for SuperAdmin schema...');
   
   try {
-    const schemaPath = join(__dirname, '../prisma/schema.prisma');
+    const schemaPath = join(__dirname, '../prisma/superadmin-schema.prisma');
     const schemaContent = readFileSync(schemaPath, 'utf-8');
     
     console.log('\n📝 SuperAdmin Database Migration SQL:');

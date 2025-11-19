@@ -101,5 +101,30 @@ export class CreatePlanDto {
   @IsOptional()
   @IsNumber()
   sortOrder?: number;
+
+  @ApiPropertyOptional({ description: 'Badge text (e.g., "Popular", "Recomendado", "Nuevo")' })
+  @IsOptional()
+  @IsString()
+  badge?: string;
+
+  @ApiPropertyOptional({ description: 'Badge color (e.g., "blue", "green", "purple")' })
+  @IsOptional()
+  @IsString()
+  badgeColor?: string;
+
+  @ApiPropertyOptional({ description: 'Accent color for borders and highlights (e.g., "blue", "green", "purple")' })
+  @IsOptional()
+  @IsString()
+  accentColor?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Featured features array (JSON array of strings)',
+    type: Array,
+    example: ['Base de datos dedicada', 'Soporte prioritario', 'API avanzado']
+  })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  featuredFeatures?: string[];
 }
 

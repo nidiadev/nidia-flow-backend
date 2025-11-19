@@ -111,13 +111,13 @@ fi
 
 # Generate Prisma clients
 print_status "Generando clientes de Prisma..."
-npx prisma generate --schema=prisma/schema.prisma
+npx prisma generate --schema=prisma/superadmin-schema.prisma
 npx prisma generate --schema=prisma/tenant-schema.prisma
 print_success "Clientes de Prisma generados ✓"
 
 # Run SuperAdmin migrations
 print_status "Ejecutando migraciones de SuperAdmin..."
-npx prisma db push --schema=prisma/schema.prisma --accept-data-loss
+npx prisma db push --schema=prisma/superadmin-schema.prisma --accept-data-loss
 print_success "Migraciones de SuperAdmin completadas ✓"
 
 # Run Tenant migrations

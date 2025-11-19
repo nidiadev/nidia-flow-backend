@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { TenantPrismaService } from '../tenant/services/tenant-prisma.service';
+import { DataScopeService } from '../tenant/services/data-scope.service';
 import { BusinessEventEmitterService } from '../common/events/event-emitter.service';
 import { BusinessEventTypes } from '../common/events/business-events';
 import { CreateTaskDto, TaskStatus, TaskPriority } from './dto/create-task.dto';
@@ -10,6 +11,7 @@ import { TaskDependencyService } from './task-dependency.service';
 export class TasksService {
   constructor(
     private readonly prisma: TenantPrismaService,
+    private readonly dataScope: DataScopeService,
     private readonly eventEmitter: BusinessEventEmitterService,
     private readonly taskDependencyService: TaskDependencyService,
   ) {}
@@ -106,62 +108,77 @@ export class TasksService {
     return task;
   }
 
-  async findAll(filters?: {
-    status?: TaskStatus;
-    assignedTo?: string;
-    customerId?: string;
-    orderId?: string;
-    type?: string;
-    priority?: TaskPriority;
-    dateFrom?: string;
-    dateTo?: string;
-    page?: number;
-    limit?: number;
-  }) {
+  /**
+   * Find tasks with filters and pagination
+   * Automatically applies data scope based on user permissions
+   */
+  async findAll(
+    filters?: {
+      status?: TaskStatus;
+      assignedTo?: string;
+      customerId?: string;
+      orderId?: string;
+      type?: string;
+      priority?: TaskPriority;
+      dateFrom?: string;
+      dateTo?: string;
+      page?: number;
+      limit?: number;
+    },
+    userId?: string,
+    userPermissions?: string[],
+  ) {
     const client = await this.prisma.getTenantClient();
     const page = filters?.page || 1;
     const limit = filters?.limit || 20;
     const skip = (page - 1) * limit;
 
-    const where: any = {};
+    // Build user filters
+    const userFilters: any = {};
 
     if (filters?.status) {
-      where.status = filters.status;
+      userFilters.status = filters.status;
     }
 
     if (filters?.assignedTo) {
-      where.assignedTo = filters.assignedTo;
+      userFilters.assignedTo = filters.assignedTo;
     }
 
     if (filters?.customerId) {
-      where.customerId = filters.customerId;
+      userFilters.customerId = filters.customerId;
     }
 
     if (filters?.orderId) {
-      where.orderId = filters.orderId;
+      userFilters.orderId = filters.orderId;
     }
 
     if (filters?.type) {
-      where.type = filters.type;
+      userFilters.type = filters.type;
     }
 
     if (filters?.priority) {
-      where.priority = filters.priority;
+      userFilters.priority = filters.priority;
     }
 
     if (filters?.dateFrom || filters?.dateTo) {
-      where.scheduledStart = {};
+      userFilters.scheduledStart = {};
       if (filters.dateFrom) {
-        where.scheduledStart.gte = new Date(filters.dateFrom);
+        userFilters.scheduledStart.gte = new Date(filters.dateFrom);
       }
       if (filters.dateTo) {
-        where.scheduledStart.lte = new Date(filters.dateTo);
+        userFilters.scheduledStart.lte = new Date(filters.dateTo);
       }
     }
 
+    // Apply data scope based on user permissions
+    // This automatically filters to show only user's own tasks if they don't have 'view_all'
+    const scopeFilter = userId && userPermissions
+      ? this.dataScope.getTaskScope(userPermissions, userId, userFilters)
+      : userFilters;
+
     const [tasks, total] = await Promise.all([
       client.task.findMany({
-        where,
+        where: scopeFilter as any,
         include: {
           customer: {
             select: {
@@ -210,7 +227,7 @@ export class TasksService {
         skip,
         take: limit,
       }),
-      client.task.count({ where }),
+      client.task.count({ where: scopeFilter as any }),
     ]);
 
     return {

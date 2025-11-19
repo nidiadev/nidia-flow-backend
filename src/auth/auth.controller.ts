@@ -18,11 +18,17 @@ import { AuthResponse } from './interfaces/auth-response.interface';
 import { RateLimitGuard } from '../common/guards/rate-limit.guard';
 import { TenantGuard } from '../tenant/guards/tenant.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { TenantModulesService } from '../tenant/services/modules.service';
+import { Inject, forwardRef } from '@nestjs/common';
 
 @ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    @Inject(forwardRef(() => TenantModulesService))
+    private tenantModulesService: TenantModulesService,
+  ) {}
 
   @Post('login')
   @UseGuards(RateLimitGuard) // Rate limiting: 5 attempts per 15 minutes
@@ -153,7 +159,7 @@ export class AuthController {
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get current user profile' })
+  @ApiOperation({ summary: 'Get current user profile with modules and limits' })
   @ApiResponse({
     status: 200,
     description: 'User profile retrieved successfully',
@@ -168,7 +174,34 @@ export class AuthController {
       console.error('Error updating user activity:', error);
     }
     
-    return user;
+    // For super admins, return user as is
+    if (user.systemRole === 'super_admin') {
+      return {
+        ...user,
+        modules: [],
+        limits: null,
+      };
+    }
+
+    // For tenant users, include modules and limits
+    try {
+      const modules = await this.tenantModulesService.getTenantModules(user.tenantId);
+      const limits = await this.tenantModulesService.getTenantLimits(user.tenantId);
+
+      return {
+        ...user,
+        modules,
+        limits,
+      };
+    } catch (error) {
+      // If modules service fails, return user without modules
+      console.error('Error fetching modules and limits:', error);
+      return {
+        ...user,
+        modules: [],
+        limits: null,
+      };
+    }
   }
 
   @Get('sessions')

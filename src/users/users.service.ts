@@ -43,6 +43,36 @@ export class UsersService {
   async findByEmail(email: string): Promise<User | null> {
     return prisma.user.findUnique({
       where: { email },
+      select: {
+        id: true,
+        email: true,
+        passwordHash: true,
+        firstName: true,
+        lastName: true,
+        phone: true,
+        avatarUrl: true,
+        systemRole: true,
+        emailVerified: true,
+        emailVerifiedAt: true,
+        emailVerificationToken: true,
+        mfaEnabled: true,
+        mfaSecret: true,
+        resetToken: true,
+        resetTokenExpiresAt: true,
+        isActive: true,
+        isLocked: true,
+        lockedReason: true,
+        lockedAt: true,
+        lastLoginAt: true,
+        lastLoginIp: true,
+        loginAttempts: true,
+        language: true,
+        timezone: true,
+        metadata: true,
+        tenantId: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
   }
 
@@ -256,7 +286,7 @@ export class UsersService {
   // TENANT-SPECIFIC USER MANAGEMENT
   // ============================================
 
-  async createTenantUser(createUserDto: CreateUserDto, tenantId: string, createdBy: string) {
+  async createTenantUser(createUserDto: CreateUserDto, tenantId: string, createdBy: string, createdByEmail?: string) {
     if (!this.tenantPrisma) {
       throw new BadRequestException('TenantPrismaService is not available');
     }
@@ -269,6 +299,33 @@ export class UsersService {
 
     if (existingUser) {
       throw new ConflictException('User with this email already exists');
+    }
+
+    // Resolve createdBy: buscar el usuario del tenant por ID o por email
+    // Si createdBy es un ID de SuperAdmin (tenant_admin), buscar el usuario del tenant por email
+    let resolvedCreatedBy: string | null = null;
+    
+    if (createdBy) {
+      // Primero intentar encontrar el usuario por ID en la BD del tenant
+      const tenantUserById = await prisma.user.findUnique({
+        where: { id: createdBy },
+        select: { id: true },
+      });
+      
+      if (tenantUserById) {
+        resolvedCreatedBy = createdBy;
+      } else if (createdByEmail) {
+        // Si no existe por ID, buscar por email (para tenant_admin que crea usuarios)
+        const tenantUserByEmail = await prisma.user.findUnique({
+          where: { email: createdByEmail },
+          select: { id: true },
+        });
+        
+        if (tenantUserByEmail) {
+          resolvedCreatedBy = tenantUserByEmail.id;
+        }
+      }
+      // Si no se encuentra, resolvedCreatedBy queda null (campo opcional)
     }
 
     // Hash password
@@ -288,7 +345,7 @@ export class UsersService {
         hireDate: createUserDto.hireDate ? new Date(createUserDto.hireDate) : null,
         permissions: createUserDto.permissions || [],
         isActive: createUserDto.isActive !== undefined ? createUserDto.isActive : true,
-        createdBy,
+        createdBy: resolvedCreatedBy,
       },
       select: {
         id: true,

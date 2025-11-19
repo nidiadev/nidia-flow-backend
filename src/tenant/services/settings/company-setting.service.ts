@@ -17,26 +17,47 @@ export class CompanySettingService {
    * Get company settings (creates default if not exists)
    */
   async getSettings(): Promise<CompanySettingResponseDto> {
-    const client = await this.getClient();
-    let settings = await client.companySetting.findFirst({
-      include: {
-        updatedByUser: {
-          select: {
-            id: true,
-            email: true,
-            firstName: true,
-            lastName: true,
+    try {
+      const client = await this.getClient();
+      
+      // First, check if the table exists by trying a simple query
+      try {
+        await client.$queryRaw`SELECT 1 FROM company_settings LIMIT 1`;
+      } catch (tableError: any) {
+        // If table doesn't exist, it means the schema wasn't applied correctly
+        throw new BadRequestException(
+          `The company_settings table does not exist in the tenant database. ` +
+          `Please ensure the database schema was applied correctly during provisioning. ` +
+          `Error: ${tableError.message}`
+        );
+      }
+      
+      let settings = await client.companySetting.findFirst({
+        include: {
+          updatedByUser: {
+            select: {
+              id: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+            },
           },
         },
-      },
-    });
+      });
 
-    // Create default settings if none exist
-    if (!settings) {
-      settings = await this.createDefaultSettings();
+      // Create default settings if none exist
+      if (!settings) {
+        settings = await this.createDefaultSettings();
+      }
+
+      return this.mapToResponseDto(settings);
+    } catch (error: any) {
+      // If it's already a BadRequestException, re-throw it
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      throw new BadRequestException(`Failed to get company settings: ${error.message}`);
     }
-
-    return this.mapToResponseDto(settings);
   }
 
   /**
@@ -298,32 +319,46 @@ export class CompanySettingService {
    * Create default company settings
    */
   private async createDefaultSettings(): Promise<any> {
-    const client = await this.getClient();
-    const defaultSettings = await client.companySetting.create({
-      data: {
-        companyName: 'Mi Empresa',
-        country: 'CO',
-        primaryColor: '#3B82F6',
-        secondaryColor: '#10B981',
-        businessHours: {
-          monday: { open: '08:00', close: '18:00', isOpen: true },
-          tuesday: { open: '08:00', close: '18:00', isOpen: true },
-          wednesday: { open: '08:00', close: '18:00', isOpen: true },
-          thursday: { open: '08:00', close: '18:00', isOpen: true },
-          friday: { open: '08:00', close: '18:00', isOpen: true },
-          saturday: { open: '08:00', close: '14:00', isOpen: true },
-          sunday: { open: '00:00', close: '00:00', isOpen: false },
+    try {
+      const client = await this.getClient();
+      const defaultSettings = await client.companySetting.create({
+        data: {
+          companyName: 'Mi Empresa',
+          country: 'CO',
+          primaryColor: '#3B82F6',
+          secondaryColor: '#10B981',
+          businessHours: {
+            monday: { open: '08:00', close: '18:00', isOpen: true },
+            tuesday: { open: '08:00', close: '18:00', isOpen: true },
+            wednesday: { open: '08:00', close: '18:00', isOpen: true },
+            thursday: { open: '08:00', close: '18:00', isOpen: true },
+            friday: { open: '08:00', close: '18:00', isOpen: true },
+            saturday: { open: '08:00', close: '14:00', isOpen: true },
+            sunday: { open: '00:00', close: '00:00', isOpen: false },
+          },
+          timezone: 'America/Bogota',
+          currency: 'COP',
+          locale: 'es-CO',
+          defaultTaxRate: 19.00,
+          enabledModules: ['crm', 'orders', 'tasks', 'accounting'],
+          settings: {},
         },
-        timezone: 'America/Bogota',
-        currency: 'COP',
-        locale: 'es-CO',
-        defaultTaxRate: 19.00,
-        enabledModules: ['crm', 'orders', 'tasks', 'accounting'],
-        settings: {},
-      },
-    });
+        include: {
+          updatedByUser: {
+            select: {
+              id: true,
+              email: true,
+              firstName: true,
+              lastName: true,
+            },
+          },
+        },
+      });
 
-    return defaultSettings;
+      return defaultSettings;
+    } catch (error: any) {
+      throw new BadRequestException(`Failed to create default company settings: ${error.message}. Please ensure the company_settings table exists in the tenant database.`);
+    }
   }  /*
 *
    * Mask API key for security (show only first 4 and last 4 characters)

@@ -8,7 +8,7 @@ import { SystemUsersController } from './system-users.controller';
 import { TenantModule } from '../tenant/tenant.module';
 
 @Module({
-  imports: [forwardRef(() => TenantModule)], // Usar forwardRef para evitar dependencia circular
+  imports: [forwardRef(() => TenantModule)], // Usar forwardRef para evitar dependencia circular - TenantModule exporta PlanLimitsGuard
   providers: [UsersService, RolesService, SystemUsersService],
   controllers: [UsersController, RolesController, SystemUsersController],
   exports: [UsersService, RolesService, SystemUsersService],

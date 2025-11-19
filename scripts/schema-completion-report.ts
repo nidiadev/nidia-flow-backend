@@ -8,7 +8,7 @@ function generateCompletionReport() {
   console.log('='.repeat(60));
   
   try {
-    const schemaPath = join(__dirname, '../prisma/schema.prisma');
+    const schemaPath = join(__dirname, '../prisma/superadmin-schema.prisma');
     const schemaContent = readFileSync(schemaPath, 'utf-8');
     
     // Task requirements check

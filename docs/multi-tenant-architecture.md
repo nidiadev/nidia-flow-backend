@@ -1,8 +1,10 @@
-# NIDIA Flow Multi-Tenant Architecture
+# Arquitectura Multi-Tenant - NIDIA Flow
 
-## Overview
+Este documento detalla la implementación del modelo multi-tenant Database-per-Tenant utilizado en NIDIA Flow.
 
-NIDIA Flow implements a **database-per-tenant** multi-tenancy model where each tenant gets their own dedicated PostgreSQL database. This approach provides maximum data isolation, security, and scalability.
+## Resumen
+
+NIDIA Flow implementa un modelo multi-tenant **Database-per-Tenant** donde cada tenant tiene su propia base de datos PostgreSQL dedicada. Este enfoque proporciona máximo aislamiento de datos, seguridad y escalabilidad.
 
 ## Architecture Components
 
