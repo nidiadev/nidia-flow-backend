@@ -19,11 +19,28 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     }),
     // Configurar BullMQ con Redis
     BullModule.forRoot({
-      connection: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT || '6379'),
-        password: process.env.REDIS_PASSWORD || undefined,
-      },
+      connection: (() => {
+        // Si hay REDIS_URL, usarla (prioridad)
+        if (process.env.REDIS_URL) {
+          try {
+            const redisUrl = new URL(process.env.REDIS_URL);
+            return {
+              host: redisUrl.hostname,
+              port: parseInt(redisUrl.port || '6379'),
+              password: redisUrl.password || undefined,
+              username: redisUrl.username || undefined,
+            };
+          } catch (error) {
+            console.warn('Invalid REDIS_URL format, falling back to individual variables');
+          }
+        }
+        // Fallback a variables individuales
+        return {
+          host: process.env.REDIS_HOST || 'localhost',
+          port: parseInt(process.env.REDIS_PORT || '6379'),
+          password: process.env.REDIS_PASSWORD || undefined,
+        };
+      })(),
     }),
     // Registrar queue de provisioning
     BullModule.registerQueue({
