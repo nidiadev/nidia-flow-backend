@@ -12,6 +12,7 @@ import {
   HttpStatus,
   ParseUUIDPipe,
   ValidationPipe,
+  UnauthorizedException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -126,7 +127,7 @@ export class CustomerController {
   })
   async findMany(
     @Query(ValidationPipe) filterDto: CustomerFilterDto,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser('id') userId: string,
     @UserPermissions() userPermissions: string[],
   ): Promise<ApiResponseDto<CustomerResponseDto[]>> {
     const result = await this.customerService.findMany(filterDto, userId, userPermissions);
@@ -256,7 +257,7 @@ export class CustomerController {
   async update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body(ValidationPipe) updateCustomerDto: UpdateCustomerDto,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser('id') userId: string,
   ): Promise<ApiResponseDto<CustomerResponseDto>> {
     const customer = await this.customerService.update(id, updateCustomerDto, userId);
     return {
@@ -283,7 +284,7 @@ export class CustomerController {
   })
   async delete(
     @Param('id', ParseUUIDPipe) id: string,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser('id') userId: string,
   ): Promise<ApiResponseDto<null>> {
     await this.customerService.delete(id, userId);
     return {
@@ -313,7 +314,7 @@ export class CustomerController {
   async assign(
     @Param('id', ParseUUIDPipe) id: string,
     @Body(ValidationPipe) assignDto: AssignCustomerDto,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser('id') userId: string,
   ): Promise<ApiResponseDto<CustomerResponseDto>> {
     const customer = await this.customerService.assign(id, assignDto, userId);
     return {
@@ -347,7 +348,7 @@ export class CustomerController {
   async convertLead(
     @Param('id', ParseUUIDPipe) id: string,
     @Body(ValidationPipe) convertDto: ConvertLeadDto,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser('id') userId: string,
   ): Promise<ApiResponseDto<CustomerResponseDto>> {
     const customer = await this.customerService.convertLead(id, convertDto, userId);
     return {
@@ -385,7 +386,7 @@ export class CustomerController {
   async updateLeadScore(
     @Param('id', ParseUUIDPipe) id: string,
     @Body('score') score: number,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser('id') userId: string,
   ): Promise<ApiResponseDto<CustomerResponseDto>> {
     const customer = await this.customerService.updateLeadScore(id, score, userId);
     return {
