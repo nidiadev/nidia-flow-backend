@@ -9,7 +9,7 @@ import { Redis } from 'ioredis';
 
 async function cleanupDuplicateJobs() {
   // Configurar Redis connection
-  const redisConnection = process.env.REDIS_URL
+  const redisConnection: string | { host: string; port: number; password?: string } = process.env.REDIS_URL
     ? process.env.REDIS_URL
     : {
         host: process.env.REDIS_HOST || 'localhost',
@@ -18,10 +18,16 @@ async function cleanupDuplicateJobs() {
       };
 
   const queue = new Queue('activity-reminders', {
-    connection: redisConnection,
+    connection: redisConnection as any, // BullMQ accepts both string and object
   });
 
-  const redis = new Redis(redisConnection);
+  const redis = process.env.REDIS_URL 
+    ? new Redis(process.env.REDIS_URL)
+    : new Redis({
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+        password: process.env.REDIS_PASSWORD || undefined,
+      });
 
   try {
     console.log('🔍 Buscando jobs repetitivos duplicados...');
