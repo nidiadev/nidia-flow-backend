@@ -756,6 +756,38 @@ exports.Prisma.WorkflowExecutionScalarFieldEnum = {
   nextStepAt: 'nextStepAt'
 };
 
+exports.Prisma.WebFormScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  fields: 'fields',
+  settings: 'settings',
+  styles: 'styles',
+  embedCode: 'embedCode',
+  embedUrl: 'embedUrl',
+  recaptchaEnabled: 'recaptchaEnabled',
+  recaptchaSiteKey: 'recaptchaSiteKey',
+  viewCount: 'viewCount',
+  submissionCount: 'submissionCount',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WebFormSubmissionScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  data: 'data',
+  sourceUrl: 'sourceUrl',
+  userAgent: 'userAgent',
+  ipAddress: 'ipAddress',
+  customerId: 'customerId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.WorkflowExecutionLogScalarFieldEnum = {
   id: 'id',
   executionId: 'executionId',
@@ -952,6 +984,8 @@ exports.Prisma.ModelName = {
   LeadScoreHistory: 'LeadScoreHistory',
   Workflow: 'Workflow',
   WorkflowExecution: 'WorkflowExecution',
+  WebForm: 'WebForm',
+  WebFormSubmission: 'WebFormSubmission',
   WorkflowExecutionLog: 'WorkflowExecutionLog',
   Notification: 'Notification',
   File: 'File',

@@ -189,6 +189,16 @@ export type Workflow = $Result.DefaultSelection<Prisma.$WorkflowPayload>
  */
 export type WorkflowExecution = $Result.DefaultSelection<Prisma.$WorkflowExecutionPayload>
 /**
+ * Model WebForm
+ * 
+ */
+export type WebForm = $Result.DefaultSelection<Prisma.$WebFormPayload>
+/**
+ * Model WebFormSubmission
+ * 
+ */
+export type WebFormSubmission = $Result.DefaultSelection<Prisma.$WebFormSubmissionPayload>
+/**
  * Model WorkflowExecutionLog
  * 
  */
@@ -696,6 +706,26 @@ export class PrismaClient<
     * ```
     */
   get workflowExecution(): Prisma.WorkflowExecutionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.webForm`: Exposes CRUD operations for the **WebForm** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WebForms
+    * const webForms = await prisma.webForm.findMany()
+    * ```
+    */
+  get webForm(): Prisma.WebFormDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.webFormSubmission`: Exposes CRUD operations for the **WebFormSubmission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WebFormSubmissions
+    * const webFormSubmissions = await prisma.webFormSubmission.findMany()
+    * ```
+    */
+  get webFormSubmission(): Prisma.WebFormSubmissionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.workflowExecutionLog`: Exposes CRUD operations for the **WorkflowExecutionLog** model.
@@ -1251,6 +1281,8 @@ export namespace Prisma {
     LeadScoreHistory: 'LeadScoreHistory',
     Workflow: 'Workflow',
     WorkflowExecution: 'WorkflowExecution',
+    WebForm: 'WebForm',
+    WebFormSubmission: 'WebFormSubmission',
     WorkflowExecutionLog: 'WorkflowExecutionLog',
     Notification: 'Notification',
     File: 'File',
@@ -1277,7 +1309,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "activityReminder" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "conversation" | "message" | "conversationNote" | "smartList" | "smartListMember" | "leadScoringRule" | "leadScoreHistory" | "workflow" | "workflowExecution" | "workflowExecutionLog" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
+      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "activityReminder" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "conversation" | "message" | "conversationNote" | "smartList" | "smartListMember" | "leadScoringRule" | "leadScoreHistory" | "workflow" | "workflowExecution" | "webForm" | "webFormSubmission" | "workflowExecutionLog" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3871,6 +3903,154 @@ export namespace Prisma {
           }
         }
       }
+      WebForm: {
+        payload: Prisma.$WebFormPayload<ExtArgs>
+        fields: Prisma.WebFormFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WebFormFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WebFormFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>
+          }
+          findFirst: {
+            args: Prisma.WebFormFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WebFormFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>
+          }
+          findMany: {
+            args: Prisma.WebFormFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>[]
+          }
+          create: {
+            args: Prisma.WebFormCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>
+          }
+          createMany: {
+            args: Prisma.WebFormCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WebFormCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>[]
+          }
+          delete: {
+            args: Prisma.WebFormDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>
+          }
+          update: {
+            args: Prisma.WebFormUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>
+          }
+          deleteMany: {
+            args: Prisma.WebFormDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WebFormUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WebFormUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>[]
+          }
+          upsert: {
+            args: Prisma.WebFormUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormPayload>
+          }
+          aggregate: {
+            args: Prisma.WebFormAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWebForm>
+          }
+          groupBy: {
+            args: Prisma.WebFormGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WebFormGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WebFormCountArgs<ExtArgs>
+            result: $Utils.Optional<WebFormCountAggregateOutputType> | number
+          }
+        }
+      }
+      WebFormSubmission: {
+        payload: Prisma.$WebFormSubmissionPayload<ExtArgs>
+        fields: Prisma.WebFormSubmissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WebFormSubmissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WebFormSubmissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>
+          }
+          findFirst: {
+            args: Prisma.WebFormSubmissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WebFormSubmissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>
+          }
+          findMany: {
+            args: Prisma.WebFormSubmissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>[]
+          }
+          create: {
+            args: Prisma.WebFormSubmissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>
+          }
+          createMany: {
+            args: Prisma.WebFormSubmissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WebFormSubmissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>[]
+          }
+          delete: {
+            args: Prisma.WebFormSubmissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>
+          }
+          update: {
+            args: Prisma.WebFormSubmissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.WebFormSubmissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WebFormSubmissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.WebFormSubmissionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>[]
+          }
+          upsert: {
+            args: Prisma.WebFormSubmissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFormSubmissionPayload>
+          }
+          aggregate: {
+            args: Prisma.WebFormSubmissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWebFormSubmission>
+          }
+          groupBy: {
+            args: Prisma.WebFormSubmissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WebFormSubmissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WebFormSubmissionCountArgs<ExtArgs>
+            result: $Utils.Optional<WebFormSubmissionCountAggregateOutputType> | number
+          }
+        }
+      }
       WorkflowExecutionLog: {
         payload: Prisma.$WorkflowExecutionLogPayload<ExtArgs>
         fields: Prisma.WorkflowExecutionLogFieldRefs
@@ -4594,6 +4774,8 @@ export namespace Prisma {
     leadScoreHistory?: LeadScoreHistoryOmit
     workflow?: WorkflowOmit
     workflowExecution?: WorkflowExecutionOmit
+    webForm?: WebFormOmit
+    webFormSubmission?: WebFormSubmissionOmit
     workflowExecutionLog?: WorkflowExecutionLogOmit
     notification?: NotificationOmit
     file?: FileOmit
@@ -4710,6 +4892,7 @@ export namespace Prisma {
     smartListsCreated: number
     leadScoringRulesCreated: number
     workflowsCreated: number
+    webFormsCreated: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4741,6 +4924,7 @@ export namespace Prisma {
     smartListsCreated?: boolean | UserCountOutputTypeCountSmartListsCreatedArgs
     leadScoringRulesCreated?: boolean | UserCountOutputTypeCountLeadScoringRulesCreatedArgs
     workflowsCreated?: boolean | UserCountOutputTypeCountWorkflowsCreatedArgs
+    webFormsCreated?: boolean | UserCountOutputTypeCountWebFormsCreatedArgs
   }
 
   // Custom InputTypes
@@ -4950,6 +5134,13 @@ export namespace Prisma {
     where?: WorkflowWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWebFormsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebFormWhereInput
+  }
+
 
   /**
    * Count Type CustomerCountOutputType
@@ -4965,6 +5156,7 @@ export namespace Prisma {
     conversations: number
     smartListMembers: number
     leadScoreHistory: number
+    WebFormSubmission: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4977,6 +5169,7 @@ export namespace Prisma {
     conversations?: boolean | CustomerCountOutputTypeCountConversationsArgs
     smartListMembers?: boolean | CustomerCountOutputTypeCountSmartListMembersArgs
     leadScoreHistory?: boolean | CustomerCountOutputTypeCountLeadScoreHistoryArgs
+    WebFormSubmission?: boolean | CustomerCountOutputTypeCountWebFormSubmissionArgs
   }
 
   // Custom InputTypes
@@ -5051,6 +5244,13 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountLeadScoreHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LeadScoreHistoryWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountWebFormSubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebFormSubmissionWhereInput
   }
 
 
@@ -5620,6 +5820,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type WebFormCountOutputType
+   */
+
+  export type WebFormCountOutputType = {
+    submissions: number
+  }
+
+  export type WebFormCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    submissions?: boolean | WebFormCountOutputTypeCountSubmissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * WebFormCountOutputType without action
+   */
+  export type WebFormCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormCountOutputType
+     */
+    select?: WebFormCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * WebFormCountOutputType without action
+   */
+  export type WebFormCountOutputTypeCountSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebFormSubmissionWhereInput
+  }
+
+
+  /**
    * Count Type SavedReportCountOutputType
    */
 
@@ -5947,6 +6178,7 @@ export namespace Prisma {
     smartListsCreated?: boolean | User$smartListsCreatedArgs<ExtArgs>
     leadScoringRulesCreated?: boolean | User$leadScoringRulesCreatedArgs<ExtArgs>
     workflowsCreated?: boolean | User$workflowsCreatedArgs<ExtArgs>
+    webFormsCreated?: boolean | User$webFormsCreatedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -6046,6 +6278,7 @@ export namespace Prisma {
     smartListsCreated?: boolean | User$smartListsCreatedArgs<ExtArgs>
     leadScoringRulesCreated?: boolean | User$leadScoringRulesCreatedArgs<ExtArgs>
     workflowsCreated?: boolean | User$workflowsCreatedArgs<ExtArgs>
+    webFormsCreated?: boolean | User$webFormsCreatedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6087,6 +6320,7 @@ export namespace Prisma {
       smartListsCreated: Prisma.$SmartListPayload<ExtArgs>[]
       leadScoringRulesCreated: Prisma.$LeadScoringRulePayload<ExtArgs>[]
       workflowsCreated: Prisma.$WorkflowPayload<ExtArgs>[]
+      webFormsCreated: Prisma.$WebFormPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6530,6 +6764,7 @@ export namespace Prisma {
     smartListsCreated<T extends User$smartListsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$smartListsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leadScoringRulesCreated<T extends User$leadScoringRulesCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$leadScoringRulesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workflowsCreated<T extends User$workflowsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$workflowsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkflowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    webFormsCreated<T extends User$webFormsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$webFormsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7661,6 +7896,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WorkflowScalarFieldEnum | WorkflowScalarFieldEnum[]
+  }
+
+  /**
+   * User.webFormsCreated
+   */
+  export type User$webFormsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    where?: WebFormWhereInput
+    orderBy?: WebFormOrderByWithRelationInput | WebFormOrderByWithRelationInput[]
+    cursor?: WebFormWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WebFormScalarFieldEnum | WebFormScalarFieldEnum[]
   }
 
   /**
@@ -9176,6 +9435,7 @@ export namespace Prisma {
     conversations?: boolean | Customer$conversationsArgs<ExtArgs>
     smartListMembers?: boolean | Customer$smartListMembersArgs<ExtArgs>
     leadScoreHistory?: boolean | Customer$leadScoreHistoryArgs<ExtArgs>
+    WebFormSubmission?: boolean | Customer$WebFormSubmissionArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -9319,6 +9579,7 @@ export namespace Prisma {
     conversations?: boolean | Customer$conversationsArgs<ExtArgs>
     smartListMembers?: boolean | Customer$smartListMembersArgs<ExtArgs>
     leadScoreHistory?: boolean | Customer$leadScoreHistoryArgs<ExtArgs>
+    WebFormSubmission?: boolean | Customer$WebFormSubmissionArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9344,6 +9605,7 @@ export namespace Prisma {
       conversations: Prisma.$ConversationPayload<ExtArgs>[]
       smartListMembers: Prisma.$SmartListMemberPayload<ExtArgs>[]
       leadScoreHistory: Prisma.$LeadScoreHistoryPayload<ExtArgs>[]
+      WebFormSubmission: Prisma.$WebFormSubmissionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9789,6 +10051,7 @@ export namespace Prisma {
     conversations<T extends Customer$conversationsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     smartListMembers<T extends Customer$smartListMembersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$smartListMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leadScoreHistory<T extends Customer$leadScoreHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Customer$leadScoreHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    WebFormSubmission<T extends Customer$WebFormSubmissionArgs<ExtArgs> = {}>(args?: Subset<T, Customer$WebFormSubmissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10484,6 +10747,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LeadScoreHistoryScalarFieldEnum | LeadScoreHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * Customer.WebFormSubmission
+   */
+  export type Customer$WebFormSubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    where?: WebFormSubmissionWhereInput
+    orderBy?: WebFormSubmissionOrderByWithRelationInput | WebFormSubmissionOrderByWithRelationInput[]
+    cursor?: WebFormSubmissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WebFormSubmissionScalarFieldEnum | WebFormSubmissionScalarFieldEnum[]
   }
 
   /**
@@ -50695,6 +50982,2401 @@ export namespace Prisma {
 
 
   /**
+   * Model WebForm
+   */
+
+  export type AggregateWebForm = {
+    _count: WebFormCountAggregateOutputType | null
+    _avg: WebFormAvgAggregateOutputType | null
+    _sum: WebFormSumAggregateOutputType | null
+    _min: WebFormMinAggregateOutputType | null
+    _max: WebFormMaxAggregateOutputType | null
+  }
+
+  export type WebFormAvgAggregateOutputType = {
+    viewCount: number | null
+    submissionCount: number | null
+  }
+
+  export type WebFormSumAggregateOutputType = {
+    viewCount: number | null
+    submissionCount: number | null
+  }
+
+  export type WebFormMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isActive: boolean | null
+    embedCode: string | null
+    embedUrl: string | null
+    recaptchaEnabled: boolean | null
+    recaptchaSiteKey: string | null
+    viewCount: number | null
+    submissionCount: number | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WebFormMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isActive: boolean | null
+    embedCode: string | null
+    embedUrl: string | null
+    recaptchaEnabled: boolean | null
+    recaptchaSiteKey: string | null
+    viewCount: number | null
+    submissionCount: number | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WebFormCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    isActive: number
+    fields: number
+    settings: number
+    styles: number
+    embedCode: number
+    embedUrl: number
+    recaptchaEnabled: number
+    recaptchaSiteKey: number
+    viewCount: number
+    submissionCount: number
+    metadata: number
+    createdBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WebFormAvgAggregateInputType = {
+    viewCount?: true
+    submissionCount?: true
+  }
+
+  export type WebFormSumAggregateInputType = {
+    viewCount?: true
+    submissionCount?: true
+  }
+
+  export type WebFormMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    embedCode?: true
+    embedUrl?: true
+    recaptchaEnabled?: true
+    recaptchaSiteKey?: true
+    viewCount?: true
+    submissionCount?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WebFormMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    embedCode?: true
+    embedUrl?: true
+    recaptchaEnabled?: true
+    recaptchaSiteKey?: true
+    viewCount?: true
+    submissionCount?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WebFormCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    fields?: true
+    settings?: true
+    styles?: true
+    embedCode?: true
+    embedUrl?: true
+    recaptchaEnabled?: true
+    recaptchaSiteKey?: true
+    viewCount?: true
+    submissionCount?: true
+    metadata?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WebFormAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebForm to aggregate.
+     */
+    where?: WebFormWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebForms to fetch.
+     */
+    orderBy?: WebFormOrderByWithRelationInput | WebFormOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WebFormWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebForms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebForms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WebForms
+    **/
+    _count?: true | WebFormCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WebFormAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WebFormSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WebFormMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WebFormMaxAggregateInputType
+  }
+
+  export type GetWebFormAggregateType<T extends WebFormAggregateArgs> = {
+        [P in keyof T & keyof AggregateWebForm]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWebForm[P]>
+      : GetScalarType<T[P], AggregateWebForm[P]>
+  }
+
+
+
+
+  export type WebFormGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebFormWhereInput
+    orderBy?: WebFormOrderByWithAggregationInput | WebFormOrderByWithAggregationInput[]
+    by: WebFormScalarFieldEnum[] | WebFormScalarFieldEnum
+    having?: WebFormScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WebFormCountAggregateInputType | true
+    _avg?: WebFormAvgAggregateInputType
+    _sum?: WebFormSumAggregateInputType
+    _min?: WebFormMinAggregateInputType
+    _max?: WebFormMaxAggregateInputType
+  }
+
+  export type WebFormGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    isActive: boolean
+    fields: JsonValue
+    settings: JsonValue
+    styles: JsonValue
+    embedCode: string | null
+    embedUrl: string | null
+    recaptchaEnabled: boolean
+    recaptchaSiteKey: string | null
+    viewCount: number
+    submissionCount: number
+    metadata: JsonValue
+    createdBy: string
+    createdAt: Date
+    updatedAt: Date
+    _count: WebFormCountAggregateOutputType | null
+    _avg: WebFormAvgAggregateOutputType | null
+    _sum: WebFormSumAggregateOutputType | null
+    _min: WebFormMinAggregateOutputType | null
+    _max: WebFormMaxAggregateOutputType | null
+  }
+
+  type GetWebFormGroupByPayload<T extends WebFormGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WebFormGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WebFormGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WebFormGroupByOutputType[P]>
+            : GetScalarType<T[P], WebFormGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WebFormSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    fields?: boolean
+    settings?: boolean
+    styles?: boolean
+    embedCode?: boolean
+    embedUrl?: boolean
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: boolean
+    viewCount?: boolean
+    submissionCount?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    submissions?: boolean | WebForm$submissionsArgs<ExtArgs>
+    _count?: boolean | WebFormCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webForm"]>
+
+  export type WebFormSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    fields?: boolean
+    settings?: boolean
+    styles?: boolean
+    embedCode?: boolean
+    embedUrl?: boolean
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: boolean
+    viewCount?: boolean
+    submissionCount?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webForm"]>
+
+  export type WebFormSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    fields?: boolean
+    settings?: boolean
+    styles?: boolean
+    embedCode?: boolean
+    embedUrl?: boolean
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: boolean
+    viewCount?: boolean
+    submissionCount?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["webForm"]>
+
+  export type WebFormSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    fields?: boolean
+    settings?: boolean
+    styles?: boolean
+    embedCode?: boolean
+    embedUrl?: boolean
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: boolean
+    viewCount?: boolean
+    submissionCount?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WebFormOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "fields" | "settings" | "styles" | "embedCode" | "embedUrl" | "recaptchaEnabled" | "recaptchaSiteKey" | "viewCount" | "submissionCount" | "metadata" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["webForm"]>
+  export type WebFormInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    submissions?: boolean | WebForm$submissionsArgs<ExtArgs>
+    _count?: boolean | WebFormCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type WebFormIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type WebFormIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $WebFormPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WebForm"
+    objects: {
+      createdByUser: Prisma.$UserPayload<ExtArgs>
+      submissions: Prisma.$WebFormSubmissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      isActive: boolean
+      fields: Prisma.JsonValue
+      settings: Prisma.JsonValue
+      styles: Prisma.JsonValue
+      embedCode: string | null
+      embedUrl: string | null
+      recaptchaEnabled: boolean
+      recaptchaSiteKey: string | null
+      viewCount: number
+      submissionCount: number
+      metadata: Prisma.JsonValue
+      createdBy: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["webForm"]>
+    composites: {}
+  }
+
+  type WebFormGetPayload<S extends boolean | null | undefined | WebFormDefaultArgs> = $Result.GetResult<Prisma.$WebFormPayload, S>
+
+  type WebFormCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WebFormFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WebFormCountAggregateInputType | true
+    }
+
+  export interface WebFormDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WebForm'], meta: { name: 'WebForm' } }
+    /**
+     * Find zero or one WebForm that matches the filter.
+     * @param {WebFormFindUniqueArgs} args - Arguments to find a WebForm
+     * @example
+     * // Get one WebForm
+     * const webForm = await prisma.webForm.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WebFormFindUniqueArgs>(args: SelectSubset<T, WebFormFindUniqueArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WebForm that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WebFormFindUniqueOrThrowArgs} args - Arguments to find a WebForm
+     * @example
+     * // Get one WebForm
+     * const webForm = await prisma.webForm.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WebFormFindUniqueOrThrowArgs>(args: SelectSubset<T, WebFormFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebForm that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormFindFirstArgs} args - Arguments to find a WebForm
+     * @example
+     * // Get one WebForm
+     * const webForm = await prisma.webForm.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WebFormFindFirstArgs>(args?: SelectSubset<T, WebFormFindFirstArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebForm that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormFindFirstOrThrowArgs} args - Arguments to find a WebForm
+     * @example
+     * // Get one WebForm
+     * const webForm = await prisma.webForm.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WebFormFindFirstOrThrowArgs>(args?: SelectSubset<T, WebFormFindFirstOrThrowArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebForms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WebForms
+     * const webForms = await prisma.webForm.findMany()
+     * 
+     * // Get first 10 WebForms
+     * const webForms = await prisma.webForm.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const webFormWithIdOnly = await prisma.webForm.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WebFormFindManyArgs>(args?: SelectSubset<T, WebFormFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WebForm.
+     * @param {WebFormCreateArgs} args - Arguments to create a WebForm.
+     * @example
+     * // Create one WebForm
+     * const WebForm = await prisma.webForm.create({
+     *   data: {
+     *     // ... data to create a WebForm
+     *   }
+     * })
+     * 
+     */
+    create<T extends WebFormCreateArgs>(args: SelectSubset<T, WebFormCreateArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WebForms.
+     * @param {WebFormCreateManyArgs} args - Arguments to create many WebForms.
+     * @example
+     * // Create many WebForms
+     * const webForm = await prisma.webForm.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WebFormCreateManyArgs>(args?: SelectSubset<T, WebFormCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WebForms and returns the data saved in the database.
+     * @param {WebFormCreateManyAndReturnArgs} args - Arguments to create many WebForms.
+     * @example
+     * // Create many WebForms
+     * const webForm = await prisma.webForm.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WebForms and only return the `id`
+     * const webFormWithIdOnly = await prisma.webForm.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WebFormCreateManyAndReturnArgs>(args?: SelectSubset<T, WebFormCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WebForm.
+     * @param {WebFormDeleteArgs} args - Arguments to delete one WebForm.
+     * @example
+     * // Delete one WebForm
+     * const WebForm = await prisma.webForm.delete({
+     *   where: {
+     *     // ... filter to delete one WebForm
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WebFormDeleteArgs>(args: SelectSubset<T, WebFormDeleteArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WebForm.
+     * @param {WebFormUpdateArgs} args - Arguments to update one WebForm.
+     * @example
+     * // Update one WebForm
+     * const webForm = await prisma.webForm.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WebFormUpdateArgs>(args: SelectSubset<T, WebFormUpdateArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WebForms.
+     * @param {WebFormDeleteManyArgs} args - Arguments to filter WebForms to delete.
+     * @example
+     * // Delete a few WebForms
+     * const { count } = await prisma.webForm.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WebFormDeleteManyArgs>(args?: SelectSubset<T, WebFormDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebForms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WebForms
+     * const webForm = await prisma.webForm.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WebFormUpdateManyArgs>(args: SelectSubset<T, WebFormUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebForms and returns the data updated in the database.
+     * @param {WebFormUpdateManyAndReturnArgs} args - Arguments to update many WebForms.
+     * @example
+     * // Update many WebForms
+     * const webForm = await prisma.webForm.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WebForms and only return the `id`
+     * const webFormWithIdOnly = await prisma.webForm.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WebFormUpdateManyAndReturnArgs>(args: SelectSubset<T, WebFormUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WebForm.
+     * @param {WebFormUpsertArgs} args - Arguments to update or create a WebForm.
+     * @example
+     * // Update or create a WebForm
+     * const webForm = await prisma.webForm.upsert({
+     *   create: {
+     *     // ... data to create a WebForm
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WebForm we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WebFormUpsertArgs>(args: SelectSubset<T, WebFormUpsertArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WebForms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormCountArgs} args - Arguments to filter WebForms to count.
+     * @example
+     * // Count the number of WebForms
+     * const count = await prisma.webForm.count({
+     *   where: {
+     *     // ... the filter for the WebForms we want to count
+     *   }
+     * })
+    **/
+    count<T extends WebFormCountArgs>(
+      args?: Subset<T, WebFormCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WebFormCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WebForm.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WebFormAggregateArgs>(args: Subset<T, WebFormAggregateArgs>): Prisma.PrismaPromise<GetWebFormAggregateType<T>>
+
+    /**
+     * Group by WebForm.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WebFormGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WebFormGroupByArgs['orderBy'] }
+        : { orderBy?: WebFormGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WebFormGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWebFormGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WebForm model
+   */
+  readonly fields: WebFormFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WebForm.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WebFormClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdByUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    submissions<T extends WebForm$submissionsArgs<ExtArgs> = {}>(args?: Subset<T, WebForm$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WebForm model
+   */
+  interface WebFormFieldRefs {
+    readonly id: FieldRef<"WebForm", 'String'>
+    readonly name: FieldRef<"WebForm", 'String'>
+    readonly description: FieldRef<"WebForm", 'String'>
+    readonly isActive: FieldRef<"WebForm", 'Boolean'>
+    readonly fields: FieldRef<"WebForm", 'Json'>
+    readonly settings: FieldRef<"WebForm", 'Json'>
+    readonly styles: FieldRef<"WebForm", 'Json'>
+    readonly embedCode: FieldRef<"WebForm", 'String'>
+    readonly embedUrl: FieldRef<"WebForm", 'String'>
+    readonly recaptchaEnabled: FieldRef<"WebForm", 'Boolean'>
+    readonly recaptchaSiteKey: FieldRef<"WebForm", 'String'>
+    readonly viewCount: FieldRef<"WebForm", 'Int'>
+    readonly submissionCount: FieldRef<"WebForm", 'Int'>
+    readonly metadata: FieldRef<"WebForm", 'Json'>
+    readonly createdBy: FieldRef<"WebForm", 'String'>
+    readonly createdAt: FieldRef<"WebForm", 'DateTime'>
+    readonly updatedAt: FieldRef<"WebForm", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WebForm findUnique
+   */
+  export type WebFormFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * Filter, which WebForm to fetch.
+     */
+    where: WebFormWhereUniqueInput
+  }
+
+  /**
+   * WebForm findUniqueOrThrow
+   */
+  export type WebFormFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * Filter, which WebForm to fetch.
+     */
+    where: WebFormWhereUniqueInput
+  }
+
+  /**
+   * WebForm findFirst
+   */
+  export type WebFormFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * Filter, which WebForm to fetch.
+     */
+    where?: WebFormWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebForms to fetch.
+     */
+    orderBy?: WebFormOrderByWithRelationInput | WebFormOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebForms.
+     */
+    cursor?: WebFormWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebForms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebForms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebForms.
+     */
+    distinct?: WebFormScalarFieldEnum | WebFormScalarFieldEnum[]
+  }
+
+  /**
+   * WebForm findFirstOrThrow
+   */
+  export type WebFormFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * Filter, which WebForm to fetch.
+     */
+    where?: WebFormWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebForms to fetch.
+     */
+    orderBy?: WebFormOrderByWithRelationInput | WebFormOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebForms.
+     */
+    cursor?: WebFormWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebForms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebForms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebForms.
+     */
+    distinct?: WebFormScalarFieldEnum | WebFormScalarFieldEnum[]
+  }
+
+  /**
+   * WebForm findMany
+   */
+  export type WebFormFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * Filter, which WebForms to fetch.
+     */
+    where?: WebFormWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebForms to fetch.
+     */
+    orderBy?: WebFormOrderByWithRelationInput | WebFormOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WebForms.
+     */
+    cursor?: WebFormWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebForms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebForms.
+     */
+    skip?: number
+    distinct?: WebFormScalarFieldEnum | WebFormScalarFieldEnum[]
+  }
+
+  /**
+   * WebForm create
+   */
+  export type WebFormCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WebForm.
+     */
+    data: XOR<WebFormCreateInput, WebFormUncheckedCreateInput>
+  }
+
+  /**
+   * WebForm createMany
+   */
+  export type WebFormCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WebForms.
+     */
+    data: WebFormCreateManyInput | WebFormCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WebForm createManyAndReturn
+   */
+  export type WebFormCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * The data used to create many WebForms.
+     */
+    data: WebFormCreateManyInput | WebFormCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebForm update
+   */
+  export type WebFormUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WebForm.
+     */
+    data: XOR<WebFormUpdateInput, WebFormUncheckedUpdateInput>
+    /**
+     * Choose, which WebForm to update.
+     */
+    where: WebFormWhereUniqueInput
+  }
+
+  /**
+   * WebForm updateMany
+   */
+  export type WebFormUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WebForms.
+     */
+    data: XOR<WebFormUpdateManyMutationInput, WebFormUncheckedUpdateManyInput>
+    /**
+     * Filter which WebForms to update
+     */
+    where?: WebFormWhereInput
+    /**
+     * Limit how many WebForms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebForm updateManyAndReturn
+   */
+  export type WebFormUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * The data used to update WebForms.
+     */
+    data: XOR<WebFormUpdateManyMutationInput, WebFormUncheckedUpdateManyInput>
+    /**
+     * Filter which WebForms to update
+     */
+    where?: WebFormWhereInput
+    /**
+     * Limit how many WebForms to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebForm upsert
+   */
+  export type WebFormUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WebForm to update in case it exists.
+     */
+    where: WebFormWhereUniqueInput
+    /**
+     * In case the WebForm found by the `where` argument doesn't exist, create a new WebForm with this data.
+     */
+    create: XOR<WebFormCreateInput, WebFormUncheckedCreateInput>
+    /**
+     * In case the WebForm was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WebFormUpdateInput, WebFormUncheckedUpdateInput>
+  }
+
+  /**
+   * WebForm delete
+   */
+  export type WebFormDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+    /**
+     * Filter which WebForm to delete.
+     */
+    where: WebFormWhereUniqueInput
+  }
+
+  /**
+   * WebForm deleteMany
+   */
+  export type WebFormDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebForms to delete
+     */
+    where?: WebFormWhereInput
+    /**
+     * Limit how many WebForms to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebForm.submissions
+   */
+  export type WebForm$submissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    where?: WebFormSubmissionWhereInput
+    orderBy?: WebFormSubmissionOrderByWithRelationInput | WebFormSubmissionOrderByWithRelationInput[]
+    cursor?: WebFormSubmissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WebFormSubmissionScalarFieldEnum | WebFormSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * WebForm without action
+   */
+  export type WebFormDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebForm
+     */
+    select?: WebFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebForm
+     */
+    omit?: WebFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WebFormSubmission
+   */
+
+  export type AggregateWebFormSubmission = {
+    _count: WebFormSubmissionCountAggregateOutputType | null
+    _min: WebFormSubmissionMinAggregateOutputType | null
+    _max: WebFormSubmissionMaxAggregateOutputType | null
+  }
+
+  export type WebFormSubmissionMinAggregateOutputType = {
+    id: string | null
+    formId: string | null
+    sourceUrl: string | null
+    userAgent: string | null
+    ipAddress: string | null
+    customerId: string | null
+    createdAt: Date | null
+  }
+
+  export type WebFormSubmissionMaxAggregateOutputType = {
+    id: string | null
+    formId: string | null
+    sourceUrl: string | null
+    userAgent: string | null
+    ipAddress: string | null
+    customerId: string | null
+    createdAt: Date | null
+  }
+
+  export type WebFormSubmissionCountAggregateOutputType = {
+    id: number
+    formId: number
+    data: number
+    sourceUrl: number
+    userAgent: number
+    ipAddress: number
+    customerId: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type WebFormSubmissionMinAggregateInputType = {
+    id?: true
+    formId?: true
+    sourceUrl?: true
+    userAgent?: true
+    ipAddress?: true
+    customerId?: true
+    createdAt?: true
+  }
+
+  export type WebFormSubmissionMaxAggregateInputType = {
+    id?: true
+    formId?: true
+    sourceUrl?: true
+    userAgent?: true
+    ipAddress?: true
+    customerId?: true
+    createdAt?: true
+  }
+
+  export type WebFormSubmissionCountAggregateInputType = {
+    id?: true
+    formId?: true
+    data?: true
+    sourceUrl?: true
+    userAgent?: true
+    ipAddress?: true
+    customerId?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type WebFormSubmissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebFormSubmission to aggregate.
+     */
+    where?: WebFormSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebFormSubmissions to fetch.
+     */
+    orderBy?: WebFormSubmissionOrderByWithRelationInput | WebFormSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WebFormSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebFormSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebFormSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WebFormSubmissions
+    **/
+    _count?: true | WebFormSubmissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WebFormSubmissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WebFormSubmissionMaxAggregateInputType
+  }
+
+  export type GetWebFormSubmissionAggregateType<T extends WebFormSubmissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateWebFormSubmission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWebFormSubmission[P]>
+      : GetScalarType<T[P], AggregateWebFormSubmission[P]>
+  }
+
+
+
+
+  export type WebFormSubmissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebFormSubmissionWhereInput
+    orderBy?: WebFormSubmissionOrderByWithAggregationInput | WebFormSubmissionOrderByWithAggregationInput[]
+    by: WebFormSubmissionScalarFieldEnum[] | WebFormSubmissionScalarFieldEnum
+    having?: WebFormSubmissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WebFormSubmissionCountAggregateInputType | true
+    _min?: WebFormSubmissionMinAggregateInputType
+    _max?: WebFormSubmissionMaxAggregateInputType
+  }
+
+  export type WebFormSubmissionGroupByOutputType = {
+    id: string
+    formId: string
+    data: JsonValue
+    sourceUrl: string | null
+    userAgent: string | null
+    ipAddress: string | null
+    customerId: string | null
+    metadata: JsonValue
+    createdAt: Date
+    _count: WebFormSubmissionCountAggregateOutputType | null
+    _min: WebFormSubmissionMinAggregateOutputType | null
+    _max: WebFormSubmissionMaxAggregateOutputType | null
+  }
+
+  type GetWebFormSubmissionGroupByPayload<T extends WebFormSubmissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WebFormSubmissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WebFormSubmissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WebFormSubmissionGroupByOutputType[P]>
+            : GetScalarType<T[P], WebFormSubmissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WebFormSubmissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    data?: boolean
+    sourceUrl?: boolean
+    userAgent?: boolean
+    ipAddress?: boolean
+    customerId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    form?: boolean | WebFormDefaultArgs<ExtArgs>
+    customer?: boolean | WebFormSubmission$customerArgs<ExtArgs>
+  }, ExtArgs["result"]["webFormSubmission"]>
+
+  export type WebFormSubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    data?: boolean
+    sourceUrl?: boolean
+    userAgent?: boolean
+    ipAddress?: boolean
+    customerId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    form?: boolean | WebFormDefaultArgs<ExtArgs>
+    customer?: boolean | WebFormSubmission$customerArgs<ExtArgs>
+  }, ExtArgs["result"]["webFormSubmission"]>
+
+  export type WebFormSubmissionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    formId?: boolean
+    data?: boolean
+    sourceUrl?: boolean
+    userAgent?: boolean
+    ipAddress?: boolean
+    customerId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    form?: boolean | WebFormDefaultArgs<ExtArgs>
+    customer?: boolean | WebFormSubmission$customerArgs<ExtArgs>
+  }, ExtArgs["result"]["webFormSubmission"]>
+
+  export type WebFormSubmissionSelectScalar = {
+    id?: boolean
+    formId?: boolean
+    data?: boolean
+    sourceUrl?: boolean
+    userAgent?: boolean
+    ipAddress?: boolean
+    customerId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type WebFormSubmissionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "formId" | "data" | "sourceUrl" | "userAgent" | "ipAddress" | "customerId" | "metadata" | "createdAt", ExtArgs["result"]["webFormSubmission"]>
+  export type WebFormSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    form?: boolean | WebFormDefaultArgs<ExtArgs>
+    customer?: boolean | WebFormSubmission$customerArgs<ExtArgs>
+  }
+  export type WebFormSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    form?: boolean | WebFormDefaultArgs<ExtArgs>
+    customer?: boolean | WebFormSubmission$customerArgs<ExtArgs>
+  }
+  export type WebFormSubmissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    form?: boolean | WebFormDefaultArgs<ExtArgs>
+    customer?: boolean | WebFormSubmission$customerArgs<ExtArgs>
+  }
+
+  export type $WebFormSubmissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WebFormSubmission"
+    objects: {
+      form: Prisma.$WebFormPayload<ExtArgs>
+      customer: Prisma.$CustomerPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      formId: string
+      data: Prisma.JsonValue
+      sourceUrl: string | null
+      userAgent: string | null
+      ipAddress: string | null
+      customerId: string | null
+      metadata: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["webFormSubmission"]>
+    composites: {}
+  }
+
+  type WebFormSubmissionGetPayload<S extends boolean | null | undefined | WebFormSubmissionDefaultArgs> = $Result.GetResult<Prisma.$WebFormSubmissionPayload, S>
+
+  type WebFormSubmissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WebFormSubmissionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WebFormSubmissionCountAggregateInputType | true
+    }
+
+  export interface WebFormSubmissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WebFormSubmission'], meta: { name: 'WebFormSubmission' } }
+    /**
+     * Find zero or one WebFormSubmission that matches the filter.
+     * @param {WebFormSubmissionFindUniqueArgs} args - Arguments to find a WebFormSubmission
+     * @example
+     * // Get one WebFormSubmission
+     * const webFormSubmission = await prisma.webFormSubmission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WebFormSubmissionFindUniqueArgs>(args: SelectSubset<T, WebFormSubmissionFindUniqueArgs<ExtArgs>>): Prisma__WebFormSubmissionClient<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WebFormSubmission that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WebFormSubmissionFindUniqueOrThrowArgs} args - Arguments to find a WebFormSubmission
+     * @example
+     * // Get one WebFormSubmission
+     * const webFormSubmission = await prisma.webFormSubmission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WebFormSubmissionFindUniqueOrThrowArgs>(args: SelectSubset<T, WebFormSubmissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WebFormSubmissionClient<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebFormSubmission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormSubmissionFindFirstArgs} args - Arguments to find a WebFormSubmission
+     * @example
+     * // Get one WebFormSubmission
+     * const webFormSubmission = await prisma.webFormSubmission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WebFormSubmissionFindFirstArgs>(args?: SelectSubset<T, WebFormSubmissionFindFirstArgs<ExtArgs>>): Prisma__WebFormSubmissionClient<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebFormSubmission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormSubmissionFindFirstOrThrowArgs} args - Arguments to find a WebFormSubmission
+     * @example
+     * // Get one WebFormSubmission
+     * const webFormSubmission = await prisma.webFormSubmission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WebFormSubmissionFindFirstOrThrowArgs>(args?: SelectSubset<T, WebFormSubmissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__WebFormSubmissionClient<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebFormSubmissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormSubmissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WebFormSubmissions
+     * const webFormSubmissions = await prisma.webFormSubmission.findMany()
+     * 
+     * // Get first 10 WebFormSubmissions
+     * const webFormSubmissions = await prisma.webFormSubmission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const webFormSubmissionWithIdOnly = await prisma.webFormSubmission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WebFormSubmissionFindManyArgs>(args?: SelectSubset<T, WebFormSubmissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WebFormSubmission.
+     * @param {WebFormSubmissionCreateArgs} args - Arguments to create a WebFormSubmission.
+     * @example
+     * // Create one WebFormSubmission
+     * const WebFormSubmission = await prisma.webFormSubmission.create({
+     *   data: {
+     *     // ... data to create a WebFormSubmission
+     *   }
+     * })
+     * 
+     */
+    create<T extends WebFormSubmissionCreateArgs>(args: SelectSubset<T, WebFormSubmissionCreateArgs<ExtArgs>>): Prisma__WebFormSubmissionClient<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WebFormSubmissions.
+     * @param {WebFormSubmissionCreateManyArgs} args - Arguments to create many WebFormSubmissions.
+     * @example
+     * // Create many WebFormSubmissions
+     * const webFormSubmission = await prisma.webFormSubmission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WebFormSubmissionCreateManyArgs>(args?: SelectSubset<T, WebFormSubmissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WebFormSubmissions and returns the data saved in the database.
+     * @param {WebFormSubmissionCreateManyAndReturnArgs} args - Arguments to create many WebFormSubmissions.
+     * @example
+     * // Create many WebFormSubmissions
+     * const webFormSubmission = await prisma.webFormSubmission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WebFormSubmissions and only return the `id`
+     * const webFormSubmissionWithIdOnly = await prisma.webFormSubmission.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WebFormSubmissionCreateManyAndReturnArgs>(args?: SelectSubset<T, WebFormSubmissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a WebFormSubmission.
+     * @param {WebFormSubmissionDeleteArgs} args - Arguments to delete one WebFormSubmission.
+     * @example
+     * // Delete one WebFormSubmission
+     * const WebFormSubmission = await prisma.webFormSubmission.delete({
+     *   where: {
+     *     // ... filter to delete one WebFormSubmission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WebFormSubmissionDeleteArgs>(args: SelectSubset<T, WebFormSubmissionDeleteArgs<ExtArgs>>): Prisma__WebFormSubmissionClient<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WebFormSubmission.
+     * @param {WebFormSubmissionUpdateArgs} args - Arguments to update one WebFormSubmission.
+     * @example
+     * // Update one WebFormSubmission
+     * const webFormSubmission = await prisma.webFormSubmission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WebFormSubmissionUpdateArgs>(args: SelectSubset<T, WebFormSubmissionUpdateArgs<ExtArgs>>): Prisma__WebFormSubmissionClient<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WebFormSubmissions.
+     * @param {WebFormSubmissionDeleteManyArgs} args - Arguments to filter WebFormSubmissions to delete.
+     * @example
+     * // Delete a few WebFormSubmissions
+     * const { count } = await prisma.webFormSubmission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WebFormSubmissionDeleteManyArgs>(args?: SelectSubset<T, WebFormSubmissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebFormSubmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormSubmissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WebFormSubmissions
+     * const webFormSubmission = await prisma.webFormSubmission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WebFormSubmissionUpdateManyArgs>(args: SelectSubset<T, WebFormSubmissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebFormSubmissions and returns the data updated in the database.
+     * @param {WebFormSubmissionUpdateManyAndReturnArgs} args - Arguments to update many WebFormSubmissions.
+     * @example
+     * // Update many WebFormSubmissions
+     * const webFormSubmission = await prisma.webFormSubmission.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more WebFormSubmissions and only return the `id`
+     * const webFormSubmissionWithIdOnly = await prisma.webFormSubmission.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends WebFormSubmissionUpdateManyAndReturnArgs>(args: SelectSubset<T, WebFormSubmissionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one WebFormSubmission.
+     * @param {WebFormSubmissionUpsertArgs} args - Arguments to update or create a WebFormSubmission.
+     * @example
+     * // Update or create a WebFormSubmission
+     * const webFormSubmission = await prisma.webFormSubmission.upsert({
+     *   create: {
+     *     // ... data to create a WebFormSubmission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WebFormSubmission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WebFormSubmissionUpsertArgs>(args: SelectSubset<T, WebFormSubmissionUpsertArgs<ExtArgs>>): Prisma__WebFormSubmissionClient<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of WebFormSubmissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormSubmissionCountArgs} args - Arguments to filter WebFormSubmissions to count.
+     * @example
+     * // Count the number of WebFormSubmissions
+     * const count = await prisma.webFormSubmission.count({
+     *   where: {
+     *     // ... the filter for the WebFormSubmissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends WebFormSubmissionCountArgs>(
+      args?: Subset<T, WebFormSubmissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WebFormSubmissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WebFormSubmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormSubmissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WebFormSubmissionAggregateArgs>(args: Subset<T, WebFormSubmissionAggregateArgs>): Prisma.PrismaPromise<GetWebFormSubmissionAggregateType<T>>
+
+    /**
+     * Group by WebFormSubmission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFormSubmissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WebFormSubmissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WebFormSubmissionGroupByArgs['orderBy'] }
+        : { orderBy?: WebFormSubmissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WebFormSubmissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWebFormSubmissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WebFormSubmission model
+   */
+  readonly fields: WebFormSubmissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WebFormSubmission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WebFormSubmissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    form<T extends WebFormDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WebFormDefaultArgs<ExtArgs>>): Prisma__WebFormClient<$Result.GetResult<Prisma.$WebFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    customer<T extends WebFormSubmission$customerArgs<ExtArgs> = {}>(args?: Subset<T, WebFormSubmission$customerArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WebFormSubmission model
+   */
+  interface WebFormSubmissionFieldRefs {
+    readonly id: FieldRef<"WebFormSubmission", 'String'>
+    readonly formId: FieldRef<"WebFormSubmission", 'String'>
+    readonly data: FieldRef<"WebFormSubmission", 'Json'>
+    readonly sourceUrl: FieldRef<"WebFormSubmission", 'String'>
+    readonly userAgent: FieldRef<"WebFormSubmission", 'String'>
+    readonly ipAddress: FieldRef<"WebFormSubmission", 'String'>
+    readonly customerId: FieldRef<"WebFormSubmission", 'String'>
+    readonly metadata: FieldRef<"WebFormSubmission", 'Json'>
+    readonly createdAt: FieldRef<"WebFormSubmission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WebFormSubmission findUnique
+   */
+  export type WebFormSubmissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebFormSubmission to fetch.
+     */
+    where: WebFormSubmissionWhereUniqueInput
+  }
+
+  /**
+   * WebFormSubmission findUniqueOrThrow
+   */
+  export type WebFormSubmissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebFormSubmission to fetch.
+     */
+    where: WebFormSubmissionWhereUniqueInput
+  }
+
+  /**
+   * WebFormSubmission findFirst
+   */
+  export type WebFormSubmissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebFormSubmission to fetch.
+     */
+    where?: WebFormSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebFormSubmissions to fetch.
+     */
+    orderBy?: WebFormSubmissionOrderByWithRelationInput | WebFormSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebFormSubmissions.
+     */
+    cursor?: WebFormSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebFormSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebFormSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebFormSubmissions.
+     */
+    distinct?: WebFormSubmissionScalarFieldEnum | WebFormSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * WebFormSubmission findFirstOrThrow
+   */
+  export type WebFormSubmissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebFormSubmission to fetch.
+     */
+    where?: WebFormSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebFormSubmissions to fetch.
+     */
+    orderBy?: WebFormSubmissionOrderByWithRelationInput | WebFormSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebFormSubmissions.
+     */
+    cursor?: WebFormSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebFormSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebFormSubmissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebFormSubmissions.
+     */
+    distinct?: WebFormSubmissionScalarFieldEnum | WebFormSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * WebFormSubmission findMany
+   */
+  export type WebFormSubmissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter, which WebFormSubmissions to fetch.
+     */
+    where?: WebFormSubmissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebFormSubmissions to fetch.
+     */
+    orderBy?: WebFormSubmissionOrderByWithRelationInput | WebFormSubmissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WebFormSubmissions.
+     */
+    cursor?: WebFormSubmissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebFormSubmissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebFormSubmissions.
+     */
+    skip?: number
+    distinct?: WebFormSubmissionScalarFieldEnum | WebFormSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * WebFormSubmission create
+   */
+  export type WebFormSubmissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a WebFormSubmission.
+     */
+    data: XOR<WebFormSubmissionCreateInput, WebFormSubmissionUncheckedCreateInput>
+  }
+
+  /**
+   * WebFormSubmission createMany
+   */
+  export type WebFormSubmissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WebFormSubmissions.
+     */
+    data: WebFormSubmissionCreateManyInput | WebFormSubmissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * WebFormSubmission createManyAndReturn
+   */
+  export type WebFormSubmissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * The data used to create many WebFormSubmissions.
+     */
+    data: WebFormSubmissionCreateManyInput | WebFormSubmissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebFormSubmission update
+   */
+  export type WebFormSubmissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a WebFormSubmission.
+     */
+    data: XOR<WebFormSubmissionUpdateInput, WebFormSubmissionUncheckedUpdateInput>
+    /**
+     * Choose, which WebFormSubmission to update.
+     */
+    where: WebFormSubmissionWhereUniqueInput
+  }
+
+  /**
+   * WebFormSubmission updateMany
+   */
+  export type WebFormSubmissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WebFormSubmissions.
+     */
+    data: XOR<WebFormSubmissionUpdateManyMutationInput, WebFormSubmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which WebFormSubmissions to update
+     */
+    where?: WebFormSubmissionWhereInput
+    /**
+     * Limit how many WebFormSubmissions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebFormSubmission updateManyAndReturn
+   */
+  export type WebFormSubmissionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * The data used to update WebFormSubmissions.
+     */
+    data: XOR<WebFormSubmissionUpdateManyMutationInput, WebFormSubmissionUncheckedUpdateManyInput>
+    /**
+     * Filter which WebFormSubmissions to update
+     */
+    where?: WebFormSubmissionWhereInput
+    /**
+     * Limit how many WebFormSubmissions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * WebFormSubmission upsert
+   */
+  export type WebFormSubmissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the WebFormSubmission to update in case it exists.
+     */
+    where: WebFormSubmissionWhereUniqueInput
+    /**
+     * In case the WebFormSubmission found by the `where` argument doesn't exist, create a new WebFormSubmission with this data.
+     */
+    create: XOR<WebFormSubmissionCreateInput, WebFormSubmissionUncheckedCreateInput>
+    /**
+     * In case the WebFormSubmission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WebFormSubmissionUpdateInput, WebFormSubmissionUncheckedUpdateInput>
+  }
+
+  /**
+   * WebFormSubmission delete
+   */
+  export type WebFormSubmissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+    /**
+     * Filter which WebFormSubmission to delete.
+     */
+    where: WebFormSubmissionWhereUniqueInput
+  }
+
+  /**
+   * WebFormSubmission deleteMany
+   */
+  export type WebFormSubmissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebFormSubmissions to delete
+     */
+    where?: WebFormSubmissionWhereInput
+    /**
+     * Limit how many WebFormSubmissions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebFormSubmission.customer
+   */
+  export type WebFormSubmission$customerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Customer
+     */
+    select?: CustomerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Customer
+     */
+    omit?: CustomerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerInclude<ExtArgs> | null
+    where?: CustomerWhereInput
+  }
+
+  /**
+   * WebFormSubmission without action
+   */
+  export type WebFormSubmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFormSubmission
+     */
+    select?: WebFormSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFormSubmission
+     */
+    omit?: WebFormSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WebFormSubmissionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model WorkflowExecutionLog
    */
 
@@ -60987,6 +63669,44 @@ export namespace Prisma {
   export type WorkflowExecutionScalarFieldEnum = (typeof WorkflowExecutionScalarFieldEnum)[keyof typeof WorkflowExecutionScalarFieldEnum]
 
 
+  export const WebFormScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    isActive: 'isActive',
+    fields: 'fields',
+    settings: 'settings',
+    styles: 'styles',
+    embedCode: 'embedCode',
+    embedUrl: 'embedUrl',
+    recaptchaEnabled: 'recaptchaEnabled',
+    recaptchaSiteKey: 'recaptchaSiteKey',
+    viewCount: 'viewCount',
+    submissionCount: 'submissionCount',
+    metadata: 'metadata',
+    createdBy: 'createdBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WebFormScalarFieldEnum = (typeof WebFormScalarFieldEnum)[keyof typeof WebFormScalarFieldEnum]
+
+
+  export const WebFormSubmissionScalarFieldEnum: {
+    id: 'id',
+    formId: 'formId',
+    data: 'data',
+    sourceUrl: 'sourceUrl',
+    userAgent: 'userAgent',
+    ipAddress: 'ipAddress',
+    customerId: 'customerId',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type WebFormSubmissionScalarFieldEnum = (typeof WebFormSubmissionScalarFieldEnum)[keyof typeof WebFormSubmissionScalarFieldEnum]
+
+
   export const WorkflowExecutionLogScalarFieldEnum: {
     id: 'id',
     executionId: 'executionId',
@@ -61338,6 +64058,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListListRelationFilter
     leadScoringRulesCreated?: LeadScoringRuleListRelationFilter
     workflowsCreated?: WorkflowListRelationFilter
+    webFormsCreated?: WebFormListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -61388,6 +64109,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListOrderByRelationAggregateInput
     leadScoringRulesCreated?: LeadScoringRuleOrderByRelationAggregateInput
     workflowsCreated?: WorkflowOrderByRelationAggregateInput
+    webFormsCreated?: WebFormOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -61441,6 +64163,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListListRelationFilter
     leadScoringRulesCreated?: LeadScoringRuleListRelationFilter
     workflowsCreated?: WorkflowListRelationFilter
+    webFormsCreated?: WebFormListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -61606,6 +64329,7 @@ export namespace Prisma {
     conversations?: ConversationListRelationFilter
     smartListMembers?: SmartListMemberListRelationFilter
     leadScoreHistory?: LeadScoreHistoryListRelationFilter
+    WebFormSubmission?: WebFormSubmissionListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -61658,6 +64382,7 @@ export namespace Prisma {
     conversations?: ConversationOrderByRelationAggregateInput
     smartListMembers?: SmartListMemberOrderByRelationAggregateInput
     leadScoreHistory?: LeadScoreHistoryOrderByRelationAggregateInput
+    WebFormSubmission?: WebFormSubmissionOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -61713,6 +64438,7 @@ export namespace Prisma {
     conversations?: ConversationListRelationFilter
     smartListMembers?: SmartListMemberListRelationFilter
     leadScoreHistory?: LeadScoreHistoryListRelationFilter
+    WebFormSubmission?: WebFormSubmissionListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -65334,6 +68060,204 @@ export namespace Prisma {
     nextStepAt?: DateTimeNullableWithAggregatesFilter<"WorkflowExecution"> | Date | string | null
   }
 
+  export type WebFormWhereInput = {
+    AND?: WebFormWhereInput | WebFormWhereInput[]
+    OR?: WebFormWhereInput[]
+    NOT?: WebFormWhereInput | WebFormWhereInput[]
+    id?: UuidFilter<"WebForm"> | string
+    name?: StringFilter<"WebForm"> | string
+    description?: StringNullableFilter<"WebForm"> | string | null
+    isActive?: BoolFilter<"WebForm"> | boolean
+    fields?: JsonFilter<"WebForm">
+    settings?: JsonFilter<"WebForm">
+    styles?: JsonFilter<"WebForm">
+    embedCode?: StringNullableFilter<"WebForm"> | string | null
+    embedUrl?: StringNullableFilter<"WebForm"> | string | null
+    recaptchaEnabled?: BoolFilter<"WebForm"> | boolean
+    recaptchaSiteKey?: StringNullableFilter<"WebForm"> | string | null
+    viewCount?: IntFilter<"WebForm"> | number
+    submissionCount?: IntFilter<"WebForm"> | number
+    metadata?: JsonFilter<"WebForm">
+    createdBy?: UuidFilter<"WebForm"> | string
+    createdAt?: DateTimeFilter<"WebForm"> | Date | string
+    updatedAt?: DateTimeFilter<"WebForm"> | Date | string
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    submissions?: WebFormSubmissionListRelationFilter
+  }
+
+  export type WebFormOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    fields?: SortOrder
+    settings?: SortOrder
+    styles?: SortOrder
+    embedCode?: SortOrderInput | SortOrder
+    embedUrl?: SortOrderInput | SortOrder
+    recaptchaEnabled?: SortOrder
+    recaptchaSiteKey?: SortOrderInput | SortOrder
+    viewCount?: SortOrder
+    submissionCount?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdByUser?: UserOrderByWithRelationInput
+    submissions?: WebFormSubmissionOrderByRelationAggregateInput
+  }
+
+  export type WebFormWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WebFormWhereInput | WebFormWhereInput[]
+    OR?: WebFormWhereInput[]
+    NOT?: WebFormWhereInput | WebFormWhereInput[]
+    name?: StringFilter<"WebForm"> | string
+    description?: StringNullableFilter<"WebForm"> | string | null
+    isActive?: BoolFilter<"WebForm"> | boolean
+    fields?: JsonFilter<"WebForm">
+    settings?: JsonFilter<"WebForm">
+    styles?: JsonFilter<"WebForm">
+    embedCode?: StringNullableFilter<"WebForm"> | string | null
+    embedUrl?: StringNullableFilter<"WebForm"> | string | null
+    recaptchaEnabled?: BoolFilter<"WebForm"> | boolean
+    recaptchaSiteKey?: StringNullableFilter<"WebForm"> | string | null
+    viewCount?: IntFilter<"WebForm"> | number
+    submissionCount?: IntFilter<"WebForm"> | number
+    metadata?: JsonFilter<"WebForm">
+    createdBy?: UuidFilter<"WebForm"> | string
+    createdAt?: DateTimeFilter<"WebForm"> | Date | string
+    updatedAt?: DateTimeFilter<"WebForm"> | Date | string
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    submissions?: WebFormSubmissionListRelationFilter
+  }, "id">
+
+  export type WebFormOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    fields?: SortOrder
+    settings?: SortOrder
+    styles?: SortOrder
+    embedCode?: SortOrderInput | SortOrder
+    embedUrl?: SortOrderInput | SortOrder
+    recaptchaEnabled?: SortOrder
+    recaptchaSiteKey?: SortOrderInput | SortOrder
+    viewCount?: SortOrder
+    submissionCount?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WebFormCountOrderByAggregateInput
+    _avg?: WebFormAvgOrderByAggregateInput
+    _max?: WebFormMaxOrderByAggregateInput
+    _min?: WebFormMinOrderByAggregateInput
+    _sum?: WebFormSumOrderByAggregateInput
+  }
+
+  export type WebFormScalarWhereWithAggregatesInput = {
+    AND?: WebFormScalarWhereWithAggregatesInput | WebFormScalarWhereWithAggregatesInput[]
+    OR?: WebFormScalarWhereWithAggregatesInput[]
+    NOT?: WebFormScalarWhereWithAggregatesInput | WebFormScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"WebForm"> | string
+    name?: StringWithAggregatesFilter<"WebForm"> | string
+    description?: StringNullableWithAggregatesFilter<"WebForm"> | string | null
+    isActive?: BoolWithAggregatesFilter<"WebForm"> | boolean
+    fields?: JsonWithAggregatesFilter<"WebForm">
+    settings?: JsonWithAggregatesFilter<"WebForm">
+    styles?: JsonWithAggregatesFilter<"WebForm">
+    embedCode?: StringNullableWithAggregatesFilter<"WebForm"> | string | null
+    embedUrl?: StringNullableWithAggregatesFilter<"WebForm"> | string | null
+    recaptchaEnabled?: BoolWithAggregatesFilter<"WebForm"> | boolean
+    recaptchaSiteKey?: StringNullableWithAggregatesFilter<"WebForm"> | string | null
+    viewCount?: IntWithAggregatesFilter<"WebForm"> | number
+    submissionCount?: IntWithAggregatesFilter<"WebForm"> | number
+    metadata?: JsonWithAggregatesFilter<"WebForm">
+    createdBy?: UuidWithAggregatesFilter<"WebForm"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"WebForm"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WebForm"> | Date | string
+  }
+
+  export type WebFormSubmissionWhereInput = {
+    AND?: WebFormSubmissionWhereInput | WebFormSubmissionWhereInput[]
+    OR?: WebFormSubmissionWhereInput[]
+    NOT?: WebFormSubmissionWhereInput | WebFormSubmissionWhereInput[]
+    id?: UuidFilter<"WebFormSubmission"> | string
+    formId?: UuidFilter<"WebFormSubmission"> | string
+    data?: JsonFilter<"WebFormSubmission">
+    sourceUrl?: StringNullableFilter<"WebFormSubmission"> | string | null
+    userAgent?: StringNullableFilter<"WebFormSubmission"> | string | null
+    ipAddress?: StringNullableFilter<"WebFormSubmission"> | string | null
+    customerId?: UuidNullableFilter<"WebFormSubmission"> | string | null
+    metadata?: JsonFilter<"WebFormSubmission">
+    createdAt?: DateTimeFilter<"WebFormSubmission"> | Date | string
+    form?: XOR<WebFormScalarRelationFilter, WebFormWhereInput>
+    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+  }
+
+  export type WebFormSubmissionOrderByWithRelationInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    data?: SortOrder
+    sourceUrl?: SortOrderInput | SortOrder
+    userAgent?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    customerId?: SortOrderInput | SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    form?: WebFormOrderByWithRelationInput
+    customer?: CustomerOrderByWithRelationInput
+  }
+
+  export type WebFormSubmissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WebFormSubmissionWhereInput | WebFormSubmissionWhereInput[]
+    OR?: WebFormSubmissionWhereInput[]
+    NOT?: WebFormSubmissionWhereInput | WebFormSubmissionWhereInput[]
+    formId?: UuidFilter<"WebFormSubmission"> | string
+    data?: JsonFilter<"WebFormSubmission">
+    sourceUrl?: StringNullableFilter<"WebFormSubmission"> | string | null
+    userAgent?: StringNullableFilter<"WebFormSubmission"> | string | null
+    ipAddress?: StringNullableFilter<"WebFormSubmission"> | string | null
+    customerId?: UuidNullableFilter<"WebFormSubmission"> | string | null
+    metadata?: JsonFilter<"WebFormSubmission">
+    createdAt?: DateTimeFilter<"WebFormSubmission"> | Date | string
+    form?: XOR<WebFormScalarRelationFilter, WebFormWhereInput>
+    customer?: XOR<CustomerNullableScalarRelationFilter, CustomerWhereInput> | null
+  }, "id">
+
+  export type WebFormSubmissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    data?: SortOrder
+    sourceUrl?: SortOrderInput | SortOrder
+    userAgent?: SortOrderInput | SortOrder
+    ipAddress?: SortOrderInput | SortOrder
+    customerId?: SortOrderInput | SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    _count?: WebFormSubmissionCountOrderByAggregateInput
+    _max?: WebFormSubmissionMaxOrderByAggregateInput
+    _min?: WebFormSubmissionMinOrderByAggregateInput
+  }
+
+  export type WebFormSubmissionScalarWhereWithAggregatesInput = {
+    AND?: WebFormSubmissionScalarWhereWithAggregatesInput | WebFormSubmissionScalarWhereWithAggregatesInput[]
+    OR?: WebFormSubmissionScalarWhereWithAggregatesInput[]
+    NOT?: WebFormSubmissionScalarWhereWithAggregatesInput | WebFormSubmissionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"WebFormSubmission"> | string
+    formId?: UuidWithAggregatesFilter<"WebFormSubmission"> | string
+    data?: JsonWithAggregatesFilter<"WebFormSubmission">
+    sourceUrl?: StringNullableWithAggregatesFilter<"WebFormSubmission"> | string | null
+    userAgent?: StringNullableWithAggregatesFilter<"WebFormSubmission"> | string | null
+    ipAddress?: StringNullableWithAggregatesFilter<"WebFormSubmission"> | string | null
+    customerId?: UuidNullableWithAggregatesFilter<"WebFormSubmission"> | string | null
+    metadata?: JsonWithAggregatesFilter<"WebFormSubmission">
+    createdAt?: DateTimeWithAggregatesFilter<"WebFormSubmission"> | Date | string
+  }
+
   export type WorkflowExecutionLogWhereInput = {
     AND?: WorkflowExecutionLogWhereInput | WorkflowExecutionLogWhereInput[]
     OR?: WorkflowExecutionLogWhereInput[]
@@ -66159,6 +69083,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -66208,6 +69133,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUpdateInput = {
@@ -66257,6 +69183,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -66306,6 +69233,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -66488,6 +69416,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -66538,6 +69467,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -66588,6 +69518,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -66638,6 +69569,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -70778,6 +73710,231 @@ export namespace Prisma {
     nextStepAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type WebFormCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: string | null
+    embedUrl?: string | null
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: string | null
+    viewCount?: number
+    submissionCount?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser: UserCreateNestedOneWithoutWebFormsCreatedInput
+    submissions?: WebFormSubmissionCreateNestedManyWithoutFormInput
+  }
+
+  export type WebFormUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: string | null
+    embedUrl?: string | null
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: string | null
+    viewCount?: number
+    submissionCount?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submissions?: WebFormSubmissionUncheckedCreateNestedManyWithoutFormInput
+  }
+
+  export type WebFormUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneRequiredWithoutWebFormsCreatedNestedInput
+    submissions?: WebFormSubmissionUpdateManyWithoutFormNestedInput
+  }
+
+  export type WebFormUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submissions?: WebFormSubmissionUncheckedUpdateManyWithoutFormNestedInput
+  }
+
+  export type WebFormCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: string | null
+    embedUrl?: string | null
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: string | null
+    viewCount?: number
+    submissionCount?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WebFormUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFormUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFormSubmissionCreateInput = {
+    id?: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    form: WebFormCreateNestedOneWithoutSubmissionsInput
+    customer?: CustomerCreateNestedOneWithoutWebFormSubmissionInput
+  }
+
+  export type WebFormSubmissionUncheckedCreateInput = {
+    id?: string
+    formId: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
+    customerId?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WebFormSubmissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    form?: WebFormUpdateOneRequiredWithoutSubmissionsNestedInput
+    customer?: CustomerUpdateOneWithoutWebFormSubmissionNestedInput
+  }
+
+  export type WebFormSubmissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFormSubmissionCreateManyInput = {
+    id?: string
+    formId: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
+    customerId?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WebFormSubmissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFormSubmissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type WorkflowExecutionLogCreateInput = {
     id?: string
     stepIndex: number
@@ -71918,6 +75075,12 @@ export namespace Prisma {
     none?: WorkflowWhereInput
   }
 
+  export type WebFormListRelationFilter = {
+    every?: WebFormWhereInput
+    some?: WebFormWhereInput
+    none?: WebFormWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -72008,6 +75171,10 @@ export namespace Prisma {
   }
 
   export type WorkflowOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WebFormOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -72287,6 +75454,12 @@ export namespace Prisma {
     none?: LeadScoreHistoryWhereInput
   }
 
+  export type WebFormSubmissionListRelationFilter = {
+    every?: WebFormSubmissionWhereInput
+    some?: WebFormSubmissionWhereInput
+    none?: WebFormSubmissionWhereInput
+  }
+
   export type CustomerContactOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -72300,6 +75473,10 @@ export namespace Prisma {
   }
 
   export type LeadScoreHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WebFormSubmissionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -74672,6 +77849,105 @@ export namespace Prisma {
   export type WorkflowExecutionSumOrderByAggregateInput = {
     currentStep?: SortOrder
   }
+
+  export type WebFormCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    fields?: SortOrder
+    settings?: SortOrder
+    styles?: SortOrder
+    embedCode?: SortOrder
+    embedUrl?: SortOrder
+    recaptchaEnabled?: SortOrder
+    recaptchaSiteKey?: SortOrder
+    viewCount?: SortOrder
+    submissionCount?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebFormAvgOrderByAggregateInput = {
+    viewCount?: SortOrder
+    submissionCount?: SortOrder
+  }
+
+  export type WebFormMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    embedCode?: SortOrder
+    embedUrl?: SortOrder
+    recaptchaEnabled?: SortOrder
+    recaptchaSiteKey?: SortOrder
+    viewCount?: SortOrder
+    submissionCount?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebFormMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    embedCode?: SortOrder
+    embedUrl?: SortOrder
+    recaptchaEnabled?: SortOrder
+    recaptchaSiteKey?: SortOrder
+    viewCount?: SortOrder
+    submissionCount?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebFormSumOrderByAggregateInput = {
+    viewCount?: SortOrder
+    submissionCount?: SortOrder
+  }
+
+  export type WebFormScalarRelationFilter = {
+    is?: WebFormWhereInput
+    isNot?: WebFormWhereInput
+  }
+
+  export type WebFormSubmissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    data?: SortOrder
+    sourceUrl?: SortOrder
+    userAgent?: SortOrder
+    ipAddress?: SortOrder
+    customerId?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WebFormSubmissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    sourceUrl?: SortOrder
+    userAgent?: SortOrder
+    ipAddress?: SortOrder
+    customerId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type WebFormSubmissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    formId?: SortOrder
+    sourceUrl?: SortOrder
+    userAgent?: SortOrder
+    ipAddress?: SortOrder
+    customerId?: SortOrder
+    createdAt?: SortOrder
+  }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -75357,6 +78633,13 @@ export namespace Prisma {
     connect?: WorkflowWhereUniqueInput | WorkflowWhereUniqueInput[]
   }
 
+  export type WebFormCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<WebFormCreateWithoutCreatedByUserInput, WebFormUncheckedCreateWithoutCreatedByUserInput> | WebFormCreateWithoutCreatedByUserInput[] | WebFormUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: WebFormCreateOrConnectWithoutCreatedByUserInput | WebFormCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: WebFormCreateManyCreatedByUserInputEnvelope
+    connect?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutCreatedByUserInput = {
     create?: XOR<UserCreateWithoutCreatedByUserInput, UserUncheckedCreateWithoutCreatedByUserInput> | UserCreateWithoutCreatedByUserInput[] | UserUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCreatedByUserInput | UserCreateOrConnectWithoutCreatedByUserInput[]
@@ -75551,6 +78834,13 @@ export namespace Prisma {
     connectOrCreate?: WorkflowCreateOrConnectWithoutCreatedByUserInput | WorkflowCreateOrConnectWithoutCreatedByUserInput[]
     createMany?: WorkflowCreateManyCreatedByUserInputEnvelope
     connect?: WorkflowWhereUniqueInput | WorkflowWhereUniqueInput[]
+  }
+
+  export type WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<WebFormCreateWithoutCreatedByUserInput, WebFormUncheckedCreateWithoutCreatedByUserInput> | WebFormCreateWithoutCreatedByUserInput[] | WebFormUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: WebFormCreateOrConnectWithoutCreatedByUserInput | WebFormCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: WebFormCreateManyCreatedByUserInputEnvelope
+    connect?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -75975,6 +79265,20 @@ export namespace Prisma {
     deleteMany?: WorkflowScalarWhereInput | WorkflowScalarWhereInput[]
   }
 
+  export type WebFormUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<WebFormCreateWithoutCreatedByUserInput, WebFormUncheckedCreateWithoutCreatedByUserInput> | WebFormCreateWithoutCreatedByUserInput[] | WebFormUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: WebFormCreateOrConnectWithoutCreatedByUserInput | WebFormCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: WebFormUpsertWithWhereUniqueWithoutCreatedByUserInput | WebFormUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: WebFormCreateManyCreatedByUserInputEnvelope
+    set?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+    disconnect?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+    delete?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+    connect?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+    update?: WebFormUpdateWithWhereUniqueWithoutCreatedByUserInput | WebFormUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: WebFormUpdateManyWithWhereWithoutCreatedByUserInput | WebFormUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: WebFormScalarWhereInput | WebFormScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
     create?: XOR<UserCreateWithoutCreatedByUserInput, UserUncheckedCreateWithoutCreatedByUserInput> | UserCreateWithoutCreatedByUserInput[] | UserUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCreatedByUserInput | UserCreateOrConnectWithoutCreatedByUserInput[]
@@ -76367,6 +79671,20 @@ export namespace Prisma {
     deleteMany?: WorkflowScalarWhereInput | WorkflowScalarWhereInput[]
   }
 
+  export type WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<WebFormCreateWithoutCreatedByUserInput, WebFormUncheckedCreateWithoutCreatedByUserInput> | WebFormCreateWithoutCreatedByUserInput[] | WebFormUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: WebFormCreateOrConnectWithoutCreatedByUserInput | WebFormCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: WebFormUpsertWithWhereUniqueWithoutCreatedByUserInput | WebFormUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: WebFormCreateManyCreatedByUserInputEnvelope
+    set?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+    disconnect?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+    delete?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+    connect?: WebFormWhereUniqueInput | WebFormWhereUniqueInput[]
+    update?: WebFormUpdateWithWhereUniqueWithoutCreatedByUserInput | WebFormUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: WebFormUpdateManyWithWhereWithoutCreatedByUserInput | WebFormUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: WebFormScalarWhereInput | WebFormScalarWhereInput[]
+  }
+
   export type CustomerCreatetagsInput = {
     set: string[]
   }
@@ -76446,6 +79764,13 @@ export namespace Prisma {
     connect?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
   }
 
+  export type WebFormSubmissionCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<WebFormSubmissionCreateWithoutCustomerInput, WebFormSubmissionUncheckedCreateWithoutCustomerInput> | WebFormSubmissionCreateWithoutCustomerInput[] | WebFormSubmissionUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutCustomerInput | WebFormSubmissionCreateOrConnectWithoutCustomerInput[]
+    createMany?: WebFormSubmissionCreateManyCustomerInputEnvelope
+    connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+  }
+
   export type CustomerContactUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<CustomerContactCreateWithoutCustomerInput, CustomerContactUncheckedCreateWithoutCustomerInput> | CustomerContactCreateWithoutCustomerInput[] | CustomerContactUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerContactCreateOrConnectWithoutCustomerInput | CustomerContactCreateOrConnectWithoutCustomerInput[]
@@ -76507,6 +79832,13 @@ export namespace Prisma {
     connectOrCreate?: LeadScoreHistoryCreateOrConnectWithoutCustomerInput | LeadScoreHistoryCreateOrConnectWithoutCustomerInput[]
     createMany?: LeadScoreHistoryCreateManyCustomerInputEnvelope
     connect?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+  }
+
+  export type WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<WebFormSubmissionCreateWithoutCustomerInput, WebFormSubmissionUncheckedCreateWithoutCustomerInput> | WebFormSubmissionCreateWithoutCustomerInput[] | WebFormSubmissionUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutCustomerInput | WebFormSubmissionCreateOrConnectWithoutCustomerInput[]
+    createMany?: WebFormSubmissionCreateManyCustomerInputEnvelope
+    connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -76674,6 +80006,20 @@ export namespace Prisma {
     deleteMany?: LeadScoreHistoryScalarWhereInput | LeadScoreHistoryScalarWhereInput[]
   }
 
+  export type WebFormSubmissionUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<WebFormSubmissionCreateWithoutCustomerInput, WebFormSubmissionUncheckedCreateWithoutCustomerInput> | WebFormSubmissionCreateWithoutCustomerInput[] | WebFormSubmissionUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutCustomerInput | WebFormSubmissionCreateOrConnectWithoutCustomerInput[]
+    upsert?: WebFormSubmissionUpsertWithWhereUniqueWithoutCustomerInput | WebFormSubmissionUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: WebFormSubmissionCreateManyCustomerInputEnvelope
+    set?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    disconnect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    delete?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    update?: WebFormSubmissionUpdateWithWhereUniqueWithoutCustomerInput | WebFormSubmissionUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: WebFormSubmissionUpdateManyWithWhereWithoutCustomerInput | WebFormSubmissionUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: WebFormSubmissionScalarWhereInput | WebFormSubmissionScalarWhereInput[]
+  }
+
   export type CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<CustomerContactCreateWithoutCustomerInput, CustomerContactUncheckedCreateWithoutCustomerInput> | CustomerContactCreateWithoutCustomerInput[] | CustomerContactUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerContactCreateOrConnectWithoutCustomerInput | CustomerContactCreateOrConnectWithoutCustomerInput[]
@@ -76798,6 +80144,20 @@ export namespace Prisma {
     update?: LeadScoreHistoryUpdateWithWhereUniqueWithoutCustomerInput | LeadScoreHistoryUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: LeadScoreHistoryUpdateManyWithWhereWithoutCustomerInput | LeadScoreHistoryUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: LeadScoreHistoryScalarWhereInput | LeadScoreHistoryScalarWhereInput[]
+  }
+
+  export type WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<WebFormSubmissionCreateWithoutCustomerInput, WebFormSubmissionUncheckedCreateWithoutCustomerInput> | WebFormSubmissionCreateWithoutCustomerInput[] | WebFormSubmissionUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutCustomerInput | WebFormSubmissionCreateOrConnectWithoutCustomerInput[]
+    upsert?: WebFormSubmissionUpsertWithWhereUniqueWithoutCustomerInput | WebFormSubmissionUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: WebFormSubmissionCreateManyCustomerInputEnvelope
+    set?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    disconnect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    delete?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    update?: WebFormSubmissionUpdateWithWhereUniqueWithoutCustomerInput | WebFormSubmissionUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: WebFormSubmissionUpdateManyWithWhereWithoutCustomerInput | WebFormSubmissionUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: WebFormSubmissionScalarWhereInput | WebFormSubmissionScalarWhereInput[]
   }
 
   export type CustomerCreateNestedOneWithoutContactsInput = {
@@ -79074,6 +82434,92 @@ export namespace Prisma {
     deleteMany?: WorkflowExecutionLogScalarWhereInput | WorkflowExecutionLogScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutWebFormsCreatedInput = {
+    create?: XOR<UserCreateWithoutWebFormsCreatedInput, UserUncheckedCreateWithoutWebFormsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWebFormsCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type WebFormSubmissionCreateNestedManyWithoutFormInput = {
+    create?: XOR<WebFormSubmissionCreateWithoutFormInput, WebFormSubmissionUncheckedCreateWithoutFormInput> | WebFormSubmissionCreateWithoutFormInput[] | WebFormSubmissionUncheckedCreateWithoutFormInput[]
+    connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutFormInput | WebFormSubmissionCreateOrConnectWithoutFormInput[]
+    createMany?: WebFormSubmissionCreateManyFormInputEnvelope
+    connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+  }
+
+  export type WebFormSubmissionUncheckedCreateNestedManyWithoutFormInput = {
+    create?: XOR<WebFormSubmissionCreateWithoutFormInput, WebFormSubmissionUncheckedCreateWithoutFormInput> | WebFormSubmissionCreateWithoutFormInput[] | WebFormSubmissionUncheckedCreateWithoutFormInput[]
+    connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutFormInput | WebFormSubmissionCreateOrConnectWithoutFormInput[]
+    createMany?: WebFormSubmissionCreateManyFormInputEnvelope
+    connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutWebFormsCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutWebFormsCreatedInput, UserUncheckedCreateWithoutWebFormsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWebFormsCreatedInput
+    upsert?: UserUpsertWithoutWebFormsCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWebFormsCreatedInput, UserUpdateWithoutWebFormsCreatedInput>, UserUncheckedUpdateWithoutWebFormsCreatedInput>
+  }
+
+  export type WebFormSubmissionUpdateManyWithoutFormNestedInput = {
+    create?: XOR<WebFormSubmissionCreateWithoutFormInput, WebFormSubmissionUncheckedCreateWithoutFormInput> | WebFormSubmissionCreateWithoutFormInput[] | WebFormSubmissionUncheckedCreateWithoutFormInput[]
+    connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutFormInput | WebFormSubmissionCreateOrConnectWithoutFormInput[]
+    upsert?: WebFormSubmissionUpsertWithWhereUniqueWithoutFormInput | WebFormSubmissionUpsertWithWhereUniqueWithoutFormInput[]
+    createMany?: WebFormSubmissionCreateManyFormInputEnvelope
+    set?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    disconnect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    delete?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    update?: WebFormSubmissionUpdateWithWhereUniqueWithoutFormInput | WebFormSubmissionUpdateWithWhereUniqueWithoutFormInput[]
+    updateMany?: WebFormSubmissionUpdateManyWithWhereWithoutFormInput | WebFormSubmissionUpdateManyWithWhereWithoutFormInput[]
+    deleteMany?: WebFormSubmissionScalarWhereInput | WebFormSubmissionScalarWhereInput[]
+  }
+
+  export type WebFormSubmissionUncheckedUpdateManyWithoutFormNestedInput = {
+    create?: XOR<WebFormSubmissionCreateWithoutFormInput, WebFormSubmissionUncheckedCreateWithoutFormInput> | WebFormSubmissionCreateWithoutFormInput[] | WebFormSubmissionUncheckedCreateWithoutFormInput[]
+    connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutFormInput | WebFormSubmissionCreateOrConnectWithoutFormInput[]
+    upsert?: WebFormSubmissionUpsertWithWhereUniqueWithoutFormInput | WebFormSubmissionUpsertWithWhereUniqueWithoutFormInput[]
+    createMany?: WebFormSubmissionCreateManyFormInputEnvelope
+    set?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    disconnect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    delete?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+    update?: WebFormSubmissionUpdateWithWhereUniqueWithoutFormInput | WebFormSubmissionUpdateWithWhereUniqueWithoutFormInput[]
+    updateMany?: WebFormSubmissionUpdateManyWithWhereWithoutFormInput | WebFormSubmissionUpdateManyWithWhereWithoutFormInput[]
+    deleteMany?: WebFormSubmissionScalarWhereInput | WebFormSubmissionScalarWhereInput[]
+  }
+
+  export type WebFormCreateNestedOneWithoutSubmissionsInput = {
+    create?: XOR<WebFormCreateWithoutSubmissionsInput, WebFormUncheckedCreateWithoutSubmissionsInput>
+    connectOrCreate?: WebFormCreateOrConnectWithoutSubmissionsInput
+    connect?: WebFormWhereUniqueInput
+  }
+
+  export type CustomerCreateNestedOneWithoutWebFormSubmissionInput = {
+    create?: XOR<CustomerCreateWithoutWebFormSubmissionInput, CustomerUncheckedCreateWithoutWebFormSubmissionInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutWebFormSubmissionInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type WebFormUpdateOneRequiredWithoutSubmissionsNestedInput = {
+    create?: XOR<WebFormCreateWithoutSubmissionsInput, WebFormUncheckedCreateWithoutSubmissionsInput>
+    connectOrCreate?: WebFormCreateOrConnectWithoutSubmissionsInput
+    upsert?: WebFormUpsertWithoutSubmissionsInput
+    connect?: WebFormWhereUniqueInput
+    update?: XOR<XOR<WebFormUpdateToOneWithWhereWithoutSubmissionsInput, WebFormUpdateWithoutSubmissionsInput>, WebFormUncheckedUpdateWithoutSubmissionsInput>
+  }
+
+  export type CustomerUpdateOneWithoutWebFormSubmissionNestedInput = {
+    create?: XOR<CustomerCreateWithoutWebFormSubmissionInput, CustomerUncheckedCreateWithoutWebFormSubmissionInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutWebFormSubmissionInput
+    upsert?: CustomerUpsertWithoutWebFormSubmissionInput
+    disconnect?: CustomerWhereInput | boolean
+    delete?: CustomerWhereInput | boolean
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutWebFormSubmissionInput, CustomerUpdateWithoutWebFormSubmissionInput>, CustomerUncheckedUpdateWithoutWebFormSubmissionInput>
+  }
+
   export type WorkflowExecutionCreateNestedOneWithoutLogsInput = {
     create?: XOR<WorkflowExecutionCreateWithoutLogsInput, WorkflowExecutionUncheckedCreateWithoutLogsInput>
     connectOrCreate?: WorkflowExecutionCreateOrConnectWithoutLogsInput
@@ -79649,6 +83095,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutUsersCreatedInput = {
@@ -79697,6 +83144,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutUsersCreatedInput = {
@@ -79750,6 +83198,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedByUserInput = {
@@ -79798,6 +83247,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedByUserInput = {
@@ -79857,6 +83307,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutCreatedByUserInput = {
@@ -79906,6 +83357,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutCreatedByUserInput = {
@@ -79965,6 +83417,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutAssignedToUserInput = {
@@ -80014,6 +83467,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutAssignedToUserInput = {
@@ -81486,6 +84940,56 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WebFormCreateWithoutCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: string | null
+    embedUrl?: string | null
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: string | null
+    viewCount?: number
+    submissionCount?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submissions?: WebFormSubmissionCreateNestedManyWithoutFormInput
+  }
+
+  export type WebFormUncheckedCreateWithoutCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: string | null
+    embedUrl?: string | null
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: string | null
+    viewCount?: number
+    submissionCount?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    submissions?: WebFormSubmissionUncheckedCreateNestedManyWithoutFormInput
+  }
+
+  export type WebFormCreateOrConnectWithoutCreatedByUserInput = {
+    where: WebFormWhereUniqueInput
+    create: XOR<WebFormCreateWithoutCreatedByUserInput, WebFormUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type WebFormCreateManyCreatedByUserInputEnvelope = {
+    data: WebFormCreateManyCreatedByUserInput | WebFormCreateManyCreatedByUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutUsersCreatedInput = {
     update: XOR<UserUpdateWithoutUsersCreatedInput, UserUncheckedUpdateWithoutUsersCreatedInput>
     create: XOR<UserCreateWithoutUsersCreatedInput, UserUncheckedCreateWithoutUsersCreatedInput>
@@ -81543,6 +85047,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUsersCreatedInput = {
@@ -81591,6 +85096,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -82601,6 +86107,45 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Workflow"> | Date | string
   }
 
+  export type WebFormUpsertWithWhereUniqueWithoutCreatedByUserInput = {
+    where: WebFormWhereUniqueInput
+    update: XOR<WebFormUpdateWithoutCreatedByUserInput, WebFormUncheckedUpdateWithoutCreatedByUserInput>
+    create: XOR<WebFormCreateWithoutCreatedByUserInput, WebFormUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type WebFormUpdateWithWhereUniqueWithoutCreatedByUserInput = {
+    where: WebFormWhereUniqueInput
+    data: XOR<WebFormUpdateWithoutCreatedByUserInput, WebFormUncheckedUpdateWithoutCreatedByUserInput>
+  }
+
+  export type WebFormUpdateManyWithWhereWithoutCreatedByUserInput = {
+    where: WebFormScalarWhereInput
+    data: XOR<WebFormUpdateManyMutationInput, WebFormUncheckedUpdateManyWithoutCreatedByUserInput>
+  }
+
+  export type WebFormScalarWhereInput = {
+    AND?: WebFormScalarWhereInput | WebFormScalarWhereInput[]
+    OR?: WebFormScalarWhereInput[]
+    NOT?: WebFormScalarWhereInput | WebFormScalarWhereInput[]
+    id?: UuidFilter<"WebForm"> | string
+    name?: StringFilter<"WebForm"> | string
+    description?: StringNullableFilter<"WebForm"> | string | null
+    isActive?: BoolFilter<"WebForm"> | boolean
+    fields?: JsonFilter<"WebForm">
+    settings?: JsonFilter<"WebForm">
+    styles?: JsonFilter<"WebForm">
+    embedCode?: StringNullableFilter<"WebForm"> | string | null
+    embedUrl?: StringNullableFilter<"WebForm"> | string | null
+    recaptchaEnabled?: BoolFilter<"WebForm"> | boolean
+    recaptchaSiteKey?: StringNullableFilter<"WebForm"> | string | null
+    viewCount?: IntFilter<"WebForm"> | number
+    submissionCount?: IntFilter<"WebForm"> | number
+    metadata?: JsonFilter<"WebForm">
+    createdBy?: UuidFilter<"WebForm"> | string
+    createdAt?: DateTimeFilter<"WebForm"> | Date | string
+    updatedAt?: DateTimeFilter<"WebForm"> | Date | string
+  }
+
   export type UserCreateWithoutCustomersAssignedInput = {
     id?: string
     email: string
@@ -82647,6 +86192,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomersAssignedInput = {
@@ -82695,6 +86241,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomersAssignedInput = {
@@ -82748,6 +86295,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomersCreatedInput = {
@@ -82796,6 +86344,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomersCreatedInput = {
@@ -83345,6 +86894,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type WebFormSubmissionCreateWithoutCustomerInput = {
+    id?: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    form: WebFormCreateNestedOneWithoutSubmissionsInput
+  }
+
+  export type WebFormSubmissionUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    formId: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WebFormSubmissionCreateOrConnectWithoutCustomerInput = {
+    where: WebFormSubmissionWhereUniqueInput
+    create: XOR<WebFormSubmissionCreateWithoutCustomerInput, WebFormSubmissionUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type WebFormSubmissionCreateManyCustomerInputEnvelope = {
+    data: WebFormSubmissionCreateManyCustomerInput | WebFormSubmissionCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutCustomersAssignedInput = {
     update: XOR<UserUpdateWithoutCustomersAssignedInput, UserUncheckedUpdateWithoutCustomersAssignedInput>
     create: XOR<UserCreateWithoutCustomersAssignedInput, UserUncheckedCreateWithoutCustomersAssignedInput>
@@ -83402,6 +86983,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersAssignedInput = {
@@ -83450,6 +87032,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutCustomersCreatedInput = {
@@ -83509,6 +87092,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersCreatedInput = {
@@ -83557,6 +87141,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type CustomerContactUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -83773,6 +87358,37 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"LeadScoreHistory"> | Date | string
   }
 
+  export type WebFormSubmissionUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: WebFormSubmissionWhereUniqueInput
+    update: XOR<WebFormSubmissionUpdateWithoutCustomerInput, WebFormSubmissionUncheckedUpdateWithoutCustomerInput>
+    create: XOR<WebFormSubmissionCreateWithoutCustomerInput, WebFormSubmissionUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type WebFormSubmissionUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: WebFormSubmissionWhereUniqueInput
+    data: XOR<WebFormSubmissionUpdateWithoutCustomerInput, WebFormSubmissionUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type WebFormSubmissionUpdateManyWithWhereWithoutCustomerInput = {
+    where: WebFormSubmissionScalarWhereInput
+    data: XOR<WebFormSubmissionUpdateManyMutationInput, WebFormSubmissionUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type WebFormSubmissionScalarWhereInput = {
+    AND?: WebFormSubmissionScalarWhereInput | WebFormSubmissionScalarWhereInput[]
+    OR?: WebFormSubmissionScalarWhereInput[]
+    NOT?: WebFormSubmissionScalarWhereInput | WebFormSubmissionScalarWhereInput[]
+    id?: UuidFilter<"WebFormSubmission"> | string
+    formId?: UuidFilter<"WebFormSubmission"> | string
+    data?: JsonFilter<"WebFormSubmission">
+    sourceUrl?: StringNullableFilter<"WebFormSubmission"> | string | null
+    userAgent?: StringNullableFilter<"WebFormSubmission"> | string | null
+    ipAddress?: StringNullableFilter<"WebFormSubmission"> | string | null
+    customerId?: UuidNullableFilter<"WebFormSubmission"> | string | null
+    metadata?: JsonFilter<"WebFormSubmission">
+    createdAt?: DateTimeFilter<"WebFormSubmission"> | Date | string
+  }
+
   export type CustomerCreateWithoutContactsInput = {
     id?: string
     type?: string
@@ -83820,6 +87436,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutContactsInput = {
@@ -83869,6 +87486,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutContactsInput = {
@@ -84026,6 +87644,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutContactsInput = {
@@ -84075,6 +87694,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type DealContactUpsertWithWhereUniqueWithoutContactInput = {
@@ -84169,6 +87789,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutInteractionsInput = {
@@ -84218,6 +87839,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutInteractionsInput = {
@@ -84271,6 +87893,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutInteractionsInput = {
@@ -84319,6 +87942,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutInteractionsInput = {
@@ -84372,6 +87996,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutInteractionsAssignedInput = {
@@ -84420,6 +88045,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutInteractionsAssignedInput = {
@@ -84727,6 +88353,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutInteractionsInput = {
@@ -84776,6 +88403,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutInteractionsInput = {
@@ -84835,6 +88463,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInteractionsInput = {
@@ -84883,6 +88512,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutInteractionsAssignedInput = {
@@ -84942,6 +88572,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInteractionsAssignedInput = {
@@ -84990,6 +88621,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type DealUpsertWithoutInteractionsInput = {
@@ -85467,6 +89099,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutDealsInput = {
@@ -85516,6 +89149,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutDealsInput = {
@@ -85602,6 +89236,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutDealsAssignedInput = {
@@ -85650,6 +89285,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutDealsAssignedInput = {
@@ -85703,6 +89339,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutDealsCreatedInput = {
@@ -85751,6 +89388,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutDealsCreatedInput = {
@@ -86038,6 +89676,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutDealsInput = {
@@ -86087,6 +89726,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type DealStageUpsertWithoutDealsInput = {
@@ -86185,6 +89825,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDealsAssignedInput = {
@@ -86233,6 +89874,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutDealsCreatedInput = {
@@ -86292,6 +89934,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDealsCreatedInput = {
@@ -86340,6 +89983,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type DealContactUpsertWithWhereUniqueWithoutDealInput = {
@@ -87267,6 +90911,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutProductsCreatedInput = {
@@ -87315,6 +90960,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutProductsCreatedInput = {
@@ -87654,6 +91300,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProductsCreatedInput = {
@@ -87702,6 +91349,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type ProductVariantUpsertWithWhereUniqueWithoutProductInput = {
@@ -88646,6 +92294,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutInventoryMovementsCreatedInput = {
@@ -88694,6 +92343,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutInventoryMovementsCreatedInput = {
@@ -88888,6 +92538,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryMovementsCreatedInput = {
@@ -88936,6 +92587,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type CustomerCreateWithoutOrdersInput = {
@@ -88985,6 +92637,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutOrdersInput = {
@@ -89034,6 +92687,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutOrdersInput = {
@@ -89087,6 +92741,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersCreatedInput = {
@@ -89135,6 +92790,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersCreatedInput = {
@@ -89188,6 +92844,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersAssignedInput = {
@@ -89236,6 +92893,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersAssignedInput = {
@@ -89542,6 +93200,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutOrdersInput = {
@@ -89591,6 +93250,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutOrdersCreatedInput = {
@@ -89650,6 +93310,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersCreatedInput = {
@@ -89698,6 +93359,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutOrdersAssignedInput = {
@@ -89757,6 +93419,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersAssignedInput = {
@@ -89805,6 +93468,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -90464,6 +94128,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutTasksInput = {
@@ -90513,6 +94178,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutTasksInput = {
@@ -90566,6 +94232,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutTasksAssignedInput = {
@@ -90614,6 +94281,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutTasksAssignedInput = {
@@ -90667,6 +94335,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutTasksCreatedInput = {
@@ -90715,6 +94384,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutTasksCreatedInput = {
@@ -90943,6 +94613,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutTasksInput = {
@@ -90992,6 +94663,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutTasksAssignedInput = {
@@ -91051,6 +94723,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTasksAssignedInput = {
@@ -91099,6 +94772,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutTasksCreatedInput = {
@@ -91158,6 +94832,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTasksCreatedInput = {
@@ -91206,6 +94881,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type TaskChecklistUpsertWithWhereUniqueWithoutTaskInput = {
@@ -91402,6 +95078,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutTaskChecklistsCompletedInput = {
@@ -91450,6 +95127,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutTaskChecklistsCompletedInput = {
@@ -91609,6 +95287,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaskChecklistsCompletedInput = {
@@ -91657,6 +95336,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type TaskCreateWithoutDependenciesInput = {
@@ -92152,6 +95832,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentsCreatedInput = {
@@ -92200,6 +95881,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentsCreatedInput = {
@@ -92349,6 +96031,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentsCreatedInput = {
@@ -92397,6 +96080,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutTransactionsCreatedInput = {
@@ -92445,6 +96129,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutTransactionsCreatedInput = {
@@ -92493,6 +96178,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutTransactionsCreatedInput = {
@@ -92557,6 +96243,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransactionsCreatedInput = {
@@ -92605,6 +96292,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutMessageTemplatesCreatedInput = {
@@ -92653,6 +96341,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutMessageTemplatesCreatedInput = {
@@ -92701,6 +96390,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutMessageTemplatesCreatedInput = {
@@ -92765,6 +96455,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageTemplatesCreatedInput = {
@@ -92813,6 +96504,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type CustomerCreateWithoutMessageLogsInput = {
@@ -92862,6 +96554,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutMessageLogsInput = {
@@ -92911,6 +96604,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutMessageLogsInput = {
@@ -93023,6 +96717,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutMessageLogsInput = {
@@ -93072,6 +96767,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type MessageUpsertWithoutMessageLogInput = {
@@ -93174,6 +96870,7 @@ export namespace Prisma {
     deals?: DealCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutConversationsInput = {
@@ -93223,6 +96920,7 @@ export namespace Prisma {
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutConversationsInput = {
@@ -93317,6 +97015,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationsAssignedInput = {
@@ -93365,6 +97064,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationsAssignedInput = {
@@ -93418,6 +97118,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationsCreatedInput = {
@@ -93466,6 +97167,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationsCreatedInput = {
@@ -93611,6 +97313,7 @@ export namespace Prisma {
     deals?: DealUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutConversationsInput = {
@@ -93660,6 +97363,7 @@ export namespace Prisma {
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerContactUpsertWithoutConversationsInput = {
@@ -93766,6 +97470,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsAssignedInput = {
@@ -93814,6 +97519,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutConversationsCreatedInput = {
@@ -93873,6 +97579,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsCreatedInput = {
@@ -93921,6 +97628,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -94309,6 +98017,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationNotesInput = {
@@ -94357,6 +98066,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationNotesInput = {
@@ -94486,6 +98196,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationNotesInput = {
@@ -94534,6 +98245,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutSmartListsCreatedInput = {
@@ -94582,6 +98294,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutSmartListsCreatedInput = {
@@ -94630,6 +98343,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutSmartListsCreatedInput = {
@@ -94716,6 +98430,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSmartListsCreatedInput = {
@@ -94764,6 +98479,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type SmartListMemberUpsertWithWhereUniqueWithoutSmartListInput = {
@@ -94870,6 +98586,7 @@ export namespace Prisma {
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutSmartListMembersInput = {
@@ -94919,6 +98636,7 @@ export namespace Prisma {
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutSmartListMembersInput = {
@@ -95031,6 +98749,7 @@ export namespace Prisma {
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutSmartListMembersInput = {
@@ -95080,6 +98799,7 @@ export namespace Prisma {
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserCreateWithoutLeadScoringRulesCreatedInput = {
@@ -95128,6 +98848,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutLeadScoringRulesCreatedInput = {
@@ -95176,6 +98897,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutLeadScoringRulesCreatedInput = {
@@ -95240,6 +98962,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLeadScoringRulesCreatedInput = {
@@ -95288,6 +99011,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type CustomerCreateWithoutLeadScoreHistoryInput = {
@@ -95337,6 +99061,7 @@ export namespace Prisma {
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutLeadScoreHistoryInput = {
@@ -95386,6 +99111,7 @@ export namespace Prisma {
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutLeadScoreHistoryInput = {
@@ -95451,6 +99177,7 @@ export namespace Prisma {
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutLeadScoreHistoryInput = {
@@ -95500,6 +99227,7 @@ export namespace Prisma {
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserCreateWithoutWorkflowsCreatedInput = {
@@ -95548,6 +99276,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkflowsCreatedInput = {
@@ -95596,6 +99325,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkflowsCreatedInput = {
@@ -95694,6 +99424,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkflowsCreatedInput = {
@@ -95742,6 +99473,7 @@ export namespace Prisma {
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type WorkflowExecutionUpsertWithWhereUniqueWithoutWorkflowInput = {
@@ -95928,6 +99660,578 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"WorkflowExecutionLog"> | Date | string
   }
 
+  export type UserCreateWithoutWebFormsCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser?: UserCreateNestedOneWithoutUsersCreatedInput
+    usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    filesUploaded?: FileCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
+    workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserUncheckedCreateWithoutWebFormsCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentUncheckedCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductUncheckedCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    filesUploaded?: FileUncheckedCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportUncheckedCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
+    workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserCreateOrConnectWithoutWebFormsCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWebFormsCreatedInput, UserUncheckedCreateWithoutWebFormsCreatedInput>
+  }
+
+  export type WebFormSubmissionCreateWithoutFormInput = {
+    id?: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    customer?: CustomerCreateNestedOneWithoutWebFormSubmissionInput
+  }
+
+  export type WebFormSubmissionUncheckedCreateWithoutFormInput = {
+    id?: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
+    customerId?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WebFormSubmissionCreateOrConnectWithoutFormInput = {
+    where: WebFormSubmissionWhereUniqueInput
+    create: XOR<WebFormSubmissionCreateWithoutFormInput, WebFormSubmissionUncheckedCreateWithoutFormInput>
+  }
+
+  export type WebFormSubmissionCreateManyFormInputEnvelope = {
+    data: WebFormSubmissionCreateManyFormInput | WebFormSubmissionCreateManyFormInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutWebFormsCreatedInput = {
+    update: XOR<UserUpdateWithoutWebFormsCreatedInput, UserUncheckedUpdateWithoutWebFormsCreatedInput>
+    create: XOR<UserCreateWithoutWebFormsCreatedInput, UserUncheckedCreateWithoutWebFormsCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWebFormsCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWebFormsCreatedInput, UserUncheckedUpdateWithoutWebFormsCreatedInput>
+  }
+
+  export type UserUpdateWithoutWebFormsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneWithoutUsersCreatedNestedInput
+    usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
+    workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWebFormsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUncheckedUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type WebFormSubmissionUpsertWithWhereUniqueWithoutFormInput = {
+    where: WebFormSubmissionWhereUniqueInput
+    update: XOR<WebFormSubmissionUpdateWithoutFormInput, WebFormSubmissionUncheckedUpdateWithoutFormInput>
+    create: XOR<WebFormSubmissionCreateWithoutFormInput, WebFormSubmissionUncheckedCreateWithoutFormInput>
+  }
+
+  export type WebFormSubmissionUpdateWithWhereUniqueWithoutFormInput = {
+    where: WebFormSubmissionWhereUniqueInput
+    data: XOR<WebFormSubmissionUpdateWithoutFormInput, WebFormSubmissionUncheckedUpdateWithoutFormInput>
+  }
+
+  export type WebFormSubmissionUpdateManyWithWhereWithoutFormInput = {
+    where: WebFormSubmissionScalarWhereInput
+    data: XOR<WebFormSubmissionUpdateManyMutationInput, WebFormSubmissionUncheckedUpdateManyWithoutFormInput>
+  }
+
+  export type WebFormCreateWithoutSubmissionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: string | null
+    embedUrl?: string | null
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: string | null
+    viewCount?: number
+    submissionCount?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser: UserCreateNestedOneWithoutWebFormsCreatedInput
+  }
+
+  export type WebFormUncheckedCreateWithoutSubmissionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: string | null
+    embedUrl?: string | null
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: string | null
+    viewCount?: number
+    submissionCount?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WebFormCreateOrConnectWithoutSubmissionsInput = {
+    where: WebFormWhereUniqueInput
+    create: XOR<WebFormCreateWithoutSubmissionsInput, WebFormUncheckedCreateWithoutSubmissionsInput>
+  }
+
+  export type CustomerCreateWithoutWebFormSubmissionInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToUser?: UserCreateNestedOneWithoutCustomersAssignedInput
+    createdByUser: UserCreateNestedOneWithoutCustomersCreatedInput
+    contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
+    tasks?: TaskCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
+    conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutWebFormSubmissionInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: string | null
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutWebFormSubmissionInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutWebFormSubmissionInput, CustomerUncheckedCreateWithoutWebFormSubmissionInput>
+  }
+
+  export type WebFormUpsertWithoutSubmissionsInput = {
+    update: XOR<WebFormUpdateWithoutSubmissionsInput, WebFormUncheckedUpdateWithoutSubmissionsInput>
+    create: XOR<WebFormCreateWithoutSubmissionsInput, WebFormUncheckedCreateWithoutSubmissionsInput>
+    where?: WebFormWhereInput
+  }
+
+  export type WebFormUpdateToOneWithWhereWithoutSubmissionsInput = {
+    where?: WebFormWhereInput
+    data: XOR<WebFormUpdateWithoutSubmissionsInput, WebFormUncheckedUpdateWithoutSubmissionsInput>
+  }
+
+  export type WebFormUpdateWithoutSubmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneRequiredWithoutWebFormsCreatedNestedInput
+  }
+
+  export type WebFormUncheckedUpdateWithoutSubmissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerUpsertWithoutWebFormSubmissionInput = {
+    update: XOR<CustomerUpdateWithoutWebFormSubmissionInput, CustomerUncheckedUpdateWithoutWebFormSubmissionInput>
+    create: XOR<CustomerCreateWithoutWebFormSubmissionInput, CustomerUncheckedCreateWithoutWebFormSubmissionInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutWebFormSubmissionInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutWebFormSubmissionInput, CustomerUncheckedUpdateWithoutWebFormSubmissionInput>
+  }
+
+  export type CustomerUpdateWithoutWebFormSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUser?: UserUpdateOneWithoutCustomersAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutCustomersCreatedNestedInput
+    contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
+    conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutWebFormSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
   export type WorkflowExecutionCreateWithoutLogsInput = {
     id?: string
     status?: string
@@ -96038,6 +100342,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -96086,6 +100391,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -96150,6 +100456,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -96198,6 +100505,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutFilesUploadedInput = {
@@ -96246,6 +100554,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutFilesUploadedInput = {
@@ -96294,6 +100603,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutFilesUploadedInput = {
@@ -96358,6 +100668,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFilesUploadedInput = {
@@ -96406,6 +100717,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutSavedReportsCreatedInput = {
@@ -96454,6 +100766,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutSavedReportsCreatedInput = {
@@ -96502,6 +100815,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutSavedReportsCreatedInput = {
@@ -96596,6 +100910,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSavedReportsCreatedInput = {
@@ -96644,6 +100959,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type ReportExecutionUpsertWithWhereUniqueWithoutSavedReportInput = {
@@ -96970,6 +101286,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanySettingsUpdatedInput = {
@@ -97018,6 +101335,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanySettingsUpdatedInput = {
@@ -97082,6 +101400,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanySettingsUpdatedInput = {
@@ -97130,6 +101449,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutAuditLogsUserInput = {
@@ -97178,6 +101498,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsUserInput = {
@@ -97226,6 +101547,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
     workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsUserInput = {
@@ -97290,6 +101612,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsUserInput = {
@@ -97338,6 +101661,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateManyCreatedByUserInput = {
@@ -98007,6 +102331,25 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type WebFormCreateManyCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: string | null
+    embedUrl?: string | null
+    recaptchaEnabled?: boolean
+    recaptchaSiteKey?: string | null
+    viewCount?: number
+    submissionCount?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserUpdateWithoutCreatedByUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -98053,6 +102396,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedByUserInput = {
@@ -98101,6 +102445,7 @@ export namespace Prisma {
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -98170,6 +102515,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutCreatedByUserInput = {
@@ -98219,6 +102565,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -98308,6 +102655,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutAssignedToUserInput = {
@@ -98357,6 +102705,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutAssignedToUserInput = {
@@ -100176,6 +104525,65 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WebFormUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submissions?: WebFormSubmissionUpdateManyWithoutFormNestedInput
+  }
+
+  export type WebFormUncheckedUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    submissions?: WebFormSubmissionUncheckedUpdateManyWithoutFormNestedInput
+  }
+
+  export type WebFormUncheckedUpdateManyWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    fields?: JsonNullValueInput | InputJsonValue
+    settings?: JsonNullValueInput | InputJsonValue
+    styles?: JsonNullValueInput | InputJsonValue
+    embedCode?: NullableStringFieldUpdateOperationsInput | string | null
+    embedUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    recaptchaEnabled?: BoolFieldUpdateOperationsInput | boolean
+    recaptchaSiteKey?: NullableStringFieldUpdateOperationsInput | string | null
+    viewCount?: IntFieldUpdateOperationsInput | number
+    submissionCount?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CustomerContactCreateManyCustomerInput = {
     id?: string
     firstName: string
@@ -100381,6 +104789,17 @@ export namespace Prisma {
     triggerType: string
     triggerId?: string | null
     reason?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WebFormSubmissionCreateManyCustomerInput = {
+    id?: string
+    formId: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
   }
@@ -101042,6 +105461,39 @@ export namespace Prisma {
     triggerType?: StringFieldUpdateOperationsInput | string
     triggerId?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFormSubmissionUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    form?: WebFormUpdateOneRequiredWithoutSubmissionsNestedInput
+  }
+
+  export type WebFormSubmissionUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFormSubmissionUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formId?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -103075,6 +107527,50 @@ export namespace Prisma {
     result?: NullableJsonNullValueInput | InputJsonValue
     errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     executedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFormSubmissionCreateManyFormInput = {
+    id?: string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: string | null
+    userAgent?: string | null
+    ipAddress?: string | null
+    customerId?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type WebFormSubmissionUpdateWithoutFormInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneWithoutWebFormSubmissionNestedInput
+  }
+
+  export type WebFormSubmissionUncheckedUpdateWithoutFormInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFormSubmissionUncheckedUpdateManyWithoutFormInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: JsonNullValueInput | InputJsonValue
+    sourceUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

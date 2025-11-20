@@ -73,6 +73,7 @@ model User {
   smartListsCreated         SmartList[]         @relation("SmartListCreatedBy")
   leadScoringRulesCreated   LeadScoringRule[]   @relation("LeadScoringRuleCreatedBy")
   workflowsCreated          Workflow[]          @relation("WorkflowCreatedBy")
+  webFormsCreated           WebForm[]           @relation("WebFormCreatedBy")
 
   @@index([email])
   @@index([role])
@@ -154,17 +155,18 @@ model Customer {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   // Relations
-  assignedToUser   User?              @relation("CustomerAssignedTo", fields: [assignedTo], references: [id])
-  createdByUser    User               @relation("CustomerCreatedBy", fields: [createdBy], references: [id])
-  contacts         CustomerContact[]
-  interactions     Interaction[]
-  orders           Order[]
-  tasks            Task[]
-  messageLogs      MessageLog[]
-  deals            Deal[]
-  conversations    Conversation[]
-  smartListMembers SmartListMember[]
-  leadScoreHistory LeadScoreHistory[]
+  assignedToUser    User?               @relation("CustomerAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser     User                @relation("CustomerCreatedBy", fields: [createdBy], references: [id])
+  contacts          CustomerContact[]
+  interactions      Interaction[]
+  orders            Order[]
+  tasks             Task[]
+  messageLogs       MessageLog[]
+  deals             Deal[]
+  conversations     Conversation[]
+  smartListMembers  SmartListMember[]
+  leadScoreHistory  LeadScoreHistory[]
+  WebFormSubmission WebFormSubmission[]
 
   @@index([type])
   @@index([email])
@@ -1354,6 +1356,83 @@ model WorkflowExecution {
   @@index([startedAt])
   @@index([nextStepAt])
   @@map("workflow_executions")
+}
+
+// ============================================
+// CRM - WEB FORMS
+// ============================================
+
+model WebForm {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Basic info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  isActive    Boolean @default(true) @map("is_active")
+
+  // Form configuration
+  fields   Json @default("[]") @map("fields") // Array of form fields
+  settings Json @default("{}") @map("settings") // Form settings (confirmation message, redirect URL, etc.)
+  styles   Json @default("{}") @map("styles") // Custom styles (colors, fonts, etc.)
+
+  // Embedding
+  embedCode String? @map("embed_code") @db.Text // Generated embed code
+  embedUrl  String? @map("embed_url") @db.VarChar(500) // Public URL for form
+
+  // Spam protection
+  recaptchaEnabled Boolean @default(false) @map("recaptcha_enabled")
+  recaptchaSiteKey String? @map("recaptcha_site_key") @db.VarChar(255)
+
+  // Metrics
+  viewCount       Int @default(0) @map("view_count")
+  submissionCount Int @default(0) @map("submission_count")
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdByUser User                @relation("WebFormCreatedBy", fields: [createdBy], references: [id])
+  submissions   WebFormSubmission[]
+
+  @@index([createdBy])
+  @@index([isActive])
+  @@map("web_forms")
+}
+
+model WebFormSubmission {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  formId String @map("form_id") @db.Uuid
+
+  // Submission data
+  data Json @default("{}") @map("data") // Form field values
+
+  // Source tracking
+  sourceUrl String? @map("source_url") @db.VarChar(500)
+  userAgent String? @map("user_agent") @db.Text
+  ipAddress String? @map("ip_address") @db.VarChar(50)
+
+  // Customer creation
+  customerId String? @map("customer_id") @db.Uuid // If submission created a customer
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  form     WebForm   @relation(fields: [formId], references: [id], onDelete: Cascade)
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  @@index([formId])
+  @@index([customerId])
+  @@index([createdAt])
+  @@map("web_form_submissions")
 }
 
 model WorkflowExecutionLog {
