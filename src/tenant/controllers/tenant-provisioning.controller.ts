@@ -43,8 +43,23 @@ export class TenantProvisioningController {
 
       const job = jobs.find((j) => j.data?.tenantId === tenantId);
 
+      // Obtener estado del job (active, waiting, completed, failed)
+      let jobState: string | undefined;
+      if (job) {
+        // Determinar el estado basado en en qué array está
+        const activeJobs = await this.provisioningQueue.getJobs(['active']);
+        const waitingJobs = await this.provisioningQueue.getJobs(['waiting']);
+        const completedJobs = await this.provisioningQueue.getJobs(['completed']);
+        const failedJobs = await this.provisioningQueue.getJobs(['failed']);
+        
+        if (activeJobs.some(j => j.id === job.id)) jobState = 'active';
+        else if (waitingJobs.some(j => j.id === job.id)) jobState = 'waiting';
+        else if (completedJobs.some(j => j.id === job.id)) jobState = 'completed';
+        else if (failedJobs.some(j => j.id === job.id)) jobState = 'failed';
+      }
+
       // Log para debugging
-      console.log(`[STATUS] Tenant ${tenantId}: Redis key exists: ${!!statusStr}, Job found: ${!!job}, Job state: ${job?.state || 'N/A'}`);
+      console.log(`[STATUS] Tenant ${tenantId}: Redis key exists: ${!!statusStr}, Job found: ${!!job}, Job state: ${jobState || 'N/A'}`);
 
       if (!statusStr) {
         // Si no hay status en Redis, verificar en la BD si el tenant ya está provisionado
@@ -64,7 +79,7 @@ export class TenantProvisioningController {
             message: 'No se encontró información de provisioning',
             progress: 0,
             jobId: job?.id,
-            jobState: job?.state,
+            jobState: jobState,
           };
         }
 
@@ -77,7 +92,7 @@ export class TenantProvisioningController {
             startedAt: tenant.provisionedAt || new Date(),
             completedAt: tenant.provisionedAt || new Date(),
             jobId: job?.id,
-            jobState: job?.state,
+            jobState: jobState,
           };
         }
 
@@ -89,19 +104,19 @@ export class TenantProvisioningController {
             currentStep: 'Error en provisioning',
             error: tenant.provisioningError || 'Error desconocido',
             jobId: job?.id,
-            jobState: job?.state,
+            jobState: jobState,
           };
         }
 
         // Si está en proceso pero no hay Redis, verificar si hay un job activo
-        if (job && (job.state === 'active' || job.state === 'waiting')) {
+        if (job && (jobState === 'active' || jobState === 'waiting')) {
           return {
             status: tenant.provisioningStatus || 'provisioning',
             progress: job.progress || 0,
             currentStep: 'Procesando...',
             message: 'El job está en proceso pero no hay información de progreso en Redis',
             jobId: job.id,
-            jobState: job.state,
+            jobState: jobState,
             attempts: job.attemptsMade || 0,
             maxAttempts: job.opts?.attempts || 3,
           };
@@ -114,7 +129,7 @@ export class TenantProvisioningController {
           currentStep: 'Verificando estado...',
           message: 'No se encontró información de progreso en tiempo real',
           jobId: job?.id,
-          jobState: job?.state,
+          jobState: jobState,
         };
       }
 
@@ -124,7 +139,7 @@ export class TenantProvisioningController {
       return {
         ...status,
         jobId: job?.id,
-        jobState: job?.state,
+        jobState: jobState,
         attempts: job?.attemptsMade || 0,
         maxAttempts: job?.opts?.attempts || 3,
         nextRetryAt: job?.opts?.backoff && job?.attemptsMade && job.attemptsMade < (job?.opts?.attempts || 3)

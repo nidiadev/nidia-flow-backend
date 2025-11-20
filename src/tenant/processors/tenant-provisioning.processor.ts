@@ -61,7 +61,6 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
     this.logger.log(`🚀 [PROCESSOR] ==========================================`);
     this.logger.log(`🚀 [PROCESSOR] Starting provisioning for tenant ${tenantId} (${slug})`);
     this.logger.log(`🚀 [PROCESSOR] Job ID: ${job.id}`);
-    this.logger.log(`🚀 [PROCESSOR] Job state: ${job.state}`);
     this.logger.log(`🚀 [PROCESSOR] Job data: ${JSON.stringify({ tenantId, slug, dbName, adminEmail, companyName })}`);
     this.logger.log(`🚀 [PROCESSOR] Redis connection: ${this.redis ? 'OK' : 'FAILED'}`);
     this.logger.log(`🚀 [PROCESSOR] ==========================================`);
