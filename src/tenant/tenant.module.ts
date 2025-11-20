@@ -5,7 +5,7 @@ import { TenantService } from './tenant.service';
 import { TenantController } from './tenant.controller';
 import { TenantHealthController } from './controllers/tenant-health.controller';
 import { SubscriptionsController } from './controllers/subscriptions.controller';
-import { TenantProvisioningController } from './controllers/tenant-provisioning.controller';
+// TenantProvisioningController movido a TenantProvisioningModule
 import { TenantGuard } from './guards/tenant.guard';
 import { TenantConnectionMiddleware } from './middleware/tenant-connection.middleware';
 import { TenantContextMiddleware } from './middleware/tenant-context.middleware';
@@ -74,7 +74,7 @@ import { DashboardService } from './services/dashboard.service';
     TenantController,
     TenantHealthController,
     SubscriptionsController,
-    TenantProvisioningController,
+    // TenantProvisioningController movido a TenantProvisioningModule
     DashboardController,
     TenantModulesController,
   ],

@@ -2,6 +2,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { TenantProvisioningProcessor } from './processors/tenant-provisioning.processor';
 import { TenantProvisioningService } from './services/tenant-provisioning.service';
+import { TenantProvisioningController } from './controllers/tenant-provisioning.controller';
 import { TenantService } from './tenant.service';
 import { UsersModule } from '../users/users.module';
 import { PlansModule } from '../plans/plans.module';
@@ -31,6 +32,9 @@ import { TenantModule } from './tenant.module';
     forwardRef(() => UsersModule),
     forwardRef(() => PlansModule),
     forwardRef(() => TenantModule), // Importar TenantModule para acceder a TenantService y TenantProvisioningService
+  ],
+  controllers: [
+    TenantProvisioningController,
   ],
   providers: [
     TenantProvisioningProcessor,
