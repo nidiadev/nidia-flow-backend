@@ -47,7 +47,7 @@ import { DashboardService } from './services/dashboard.service';
     BullModule.registerQueue({
       name: 'tenant-provisioning',
     }),
-    CrmModule,
+    forwardRef(() => CrmModule), // Use forwardRef to avoid circular dependency with DashboardService
     ProductsModule,
     FinancialModule,
     CommunicationsModule,

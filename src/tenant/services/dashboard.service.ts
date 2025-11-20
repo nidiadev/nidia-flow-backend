@@ -1,9 +1,11 @@
-import { Injectable, ForbiddenException, Logger, Scope } from '@nestjs/common';
+import { Injectable, ForbiddenException, Logger, Scope, Inject, forwardRef } from '@nestjs/common';
 import { TenantPrismaService } from './tenant-prisma.service';
 import { DataScopeService } from './data-scope.service';
 import { CustomerService } from './crm/customer.service';
 import { OrdersService } from '../../orders/orders.service';
 import { OrderStatus } from '../../orders/dto/create-order.dto';
+import { DealService } from './crm/deal.service';
+import { CrmReportsService } from './crm/crm-reports.service';
 
 export interface DashboardMetrics {
   customers: {
@@ -34,6 +36,20 @@ export interface DashboardMetrics {
     leadsToOrders: number;
     ordersToSales: number;
     averageDaysToClose: number;
+  };
+  // CRM-specific metrics
+  crm?: {
+    pipeline: {
+      totalValue: number;
+      weightedValue: number;
+      dealsCount: number;
+    };
+    winRate: number;
+    averageTimeToClose: number;
+    forecast: {
+      month: string;
+      expectedAmount: number;
+    };
   };
 }
 
@@ -77,6 +93,10 @@ export class DashboardService {
     private readonly dataScope: DataScopeService,
     private readonly customerService: CustomerService,
     private readonly ordersService: OrdersService,
+    @Inject(forwardRef(() => DealService))
+    private readonly dealService: DealService,
+    @Inject(forwardRef(() => CrmReportsService))
+    private readonly crmReportsService: CrmReportsService,
   ) {}
 
   /**
@@ -88,6 +108,7 @@ export class DashboardService {
     userId: string,
     userPermissions: string[],
     days: number = 30,
+    includeCrm: boolean = true,
   ): Promise<DashboardMetrics> {
     const dateFrom = new Date();
     dateFrom.setDate(dateFrom.getDate() - days);
@@ -96,7 +117,44 @@ export class DashboardService {
     const canViewAll = this.dataScope.canViewAll(userPermissions);
     const targetUserId = canViewAll ? undefined : userId;
 
-    return this.calculateMetrics(targetUserId, dateFrom, dateTo, userPermissions, userId);
+    const metrics = await this.calculateMetrics(targetUserId, dateFrom, dateTo, userPermissions, userId);
+
+    // Add CRM metrics if requested
+    if (includeCrm) {
+      try {
+        const pipelineKPIs = await this.crmReportsService.getPipelineKPIs(userId, userPermissions);
+        const winRate = await this.crmReportsService.getWinRate(userId, userPermissions);
+        const avgTimeToClose = await this.crmReportsService.getAverageTimeToClose(userId, userPermissions);
+
+        // Get current month forecast
+        const now = new Date();
+        const forecast = await this.dealService.getForecast(
+          now.getFullYear(),
+          now.getMonth() + 1,
+          userId,
+          userPermissions,
+        );
+
+        metrics.crm = {
+          pipeline: {
+            totalValue: pipelineKPIs.totalAmount || 0,
+            weightedValue: pipelineKPIs.weightedAmount || 0,
+            dealsCount: pipelineKPIs.totalDeals || 0,
+          },
+          winRate: winRate.global.winRate,
+          averageTimeToClose: avgTimeToClose.averageDays,
+          forecast: {
+            month: forecast.period,
+            expectedAmount: forecast.weightedAmount,
+          },
+        };
+      } catch (error: any) {
+        this.logger.warn(`Failed to load CRM metrics: ${error.message}`);
+        // Continue without CRM metrics if there's an error
+      }
+    }
+
+    return metrics;
   }
 
   /**

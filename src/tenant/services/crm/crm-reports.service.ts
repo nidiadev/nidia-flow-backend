@@ -126,7 +126,7 @@ export class CrmReportsService {
       _count: {
         id: true,
       },
-    });
+    }) as Array<{ assignedTo: string; _count: { id: number } }>;
 
     const winRateBySeller = await Promise.all(
       dealsBySeller.map(async (group) => {
@@ -281,7 +281,7 @@ export class CrmReportsService {
           stageId,
           stageName: deal.stage.displayName,
           sortOrder: deal.stage.sortOrder,
-          deals: [],
+          deals: [] as any[],
           count: 0,
           totalAmount: 0,
         };
@@ -290,7 +290,7 @@ export class CrmReportsService {
       acc[stageId].count++;
       acc[stageId].totalAmount += Number(deal.amount);
       return acc;
-    }, {} as Record<string, any>);
+    }, {} as Record<string, { stageId: string; stageName: string; sortOrder: number; deals: any[]; count: number; totalAmount: number }>);
 
     // Convert to array and sort by sortOrder
     const funnelArray = Object.values(funnel).sort(
@@ -298,8 +298,8 @@ export class CrmReportsService {
     );
 
     // Calculate conversion rates between stages
-    const funnelWithRates = funnelArray.map((stage: any, index: number) => {
-      const previousStage = index > 0 ? funnelArray[index - 1] : null;
+    const funnelWithRates = funnelArray.map((stage: { stageId: string; stageName: string; sortOrder: number; deals: any[]; count: number; totalAmount: number }, index: number) => {
+      const previousStage = index > 0 ? (funnelArray[index - 1] as { stageId: string; stageName: string; sortOrder: number; deals: any[]; count: number; totalAmount: number }) : null;
       const conversionRate = previousStage && previousStage.count > 0
         ? (stage.count / previousStage.count) * 100
         : 100;
