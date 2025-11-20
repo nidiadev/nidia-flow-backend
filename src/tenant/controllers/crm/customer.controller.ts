@@ -71,8 +71,11 @@ export class CustomerController {
   })
   async create(
     @Body(ValidationPipe) createCustomerDto: CreateCustomerDto,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser('id') userId: string,
   ): Promise<ApiResponseDto<CustomerResponseDto>> {
+    if (!userId) {
+      throw new UnauthorizedException('User ID not found in request');
+    }
     const customer = await this.customerService.create(createCustomerDto, userId);
     return {
       success: true,

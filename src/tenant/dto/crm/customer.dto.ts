@@ -64,8 +64,8 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @IsEnum(LeadSource)
   leadSource?: LeadSource;
 
-  @ApiPropertyOptional({ 
-    description: 'Lead score (0-100)',
+  @ApiProperty({ 
+    description: 'Lead score (0-100). If not provided, will be calculated automatically',
     minimum: 0,
     maximum: 100,
     example: 75
@@ -74,7 +74,7 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @IsNumber()
   @Min(0)
   @Max(100)
-  leadScore?: number;
+  leadScore?: number; // Optional, will be calculated if not provided
 
   @ApiProperty({ 
     description: 'First name',
@@ -166,13 +166,15 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   })
   whatsapp?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Address line 1',
-    example: 'Calle 123 #45-67'
+    example: 'Calle 123 #45-67',
+    minLength: 1
   })
-  @IsOptional()
   @IsString()
-  addressLine1?: string;
+  @MinLength(1, { message: 'Address line 1 is required' })
+  @MaxLength(255)
+  addressLine1: string;
 
   @ApiPropertyOptional({ 
     description: 'Address line 2',
@@ -182,14 +184,15 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @IsString()
   addressLine2?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'City',
-    example: 'Bogotá'
+    example: 'Bogotá',
+    minLength: 1
   })
-  @IsOptional()
   @IsString()
+  @MinLength(1, { message: 'City is required' })
   @MaxLength(100)
-  city?: string;
+  city: string;
 
   @ApiPropertyOptional({ 
     description: 'State/Province',
@@ -209,15 +212,14 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @MaxLength(20)
   postalCode?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Country code (ISO 3166-1 alpha-2)',
     example: 'CO',
     default: 'CO'
   })
-  @IsOptional()
   @IsString()
   @Matches(/^[A-Z]{2}$/, { message: 'Country must be a valid ISO 3166-1 alpha-2 code' })
-  country?: string = 'CO';
+  country: string = 'CO';
 
   @ApiPropertyOptional({ 
     description: 'Latitude',
