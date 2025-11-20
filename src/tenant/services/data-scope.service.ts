@@ -96,6 +96,25 @@ export class DataScopeService {
   }
 
   /**
+   * Get data scope for conversations
+   */
+  getConversationScope(
+    userPermissions: string[],
+    userId: string,
+    additionalFilters?: PrismaWhereInput,
+  ): PrismaWhereInput {
+    const baseScope = this.getBaseScope(userPermissions, userId, {
+      assignedToField: 'assignedTo',
+      createdByField: 'createdBy',
+    });
+
+    return {
+      ...baseScope,
+      ...additionalFilters,
+    };
+  }
+
+  /**
    * Generic method to get base scope for any resource
    * This is the core logic that determines if user sees all data or only their own
    */
