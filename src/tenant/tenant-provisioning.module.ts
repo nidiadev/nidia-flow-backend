@@ -33,12 +33,10 @@ import { TenantModule } from './tenant.module';
     forwardRef(() => TenantModule), // Importar TenantModule para acceder a TenantService y TenantProvisioningService
   ],
   providers: [
-    TenantProvisioningService,
-    TenantService,
     TenantProvisioningProcessor,
+    // TenantProvisioningService y TenantService se obtienen de TenantModule (global)
   ],
   exports: [
-    TenantProvisioningService,
     TenantProvisioningProcessor,
   ],
 })
