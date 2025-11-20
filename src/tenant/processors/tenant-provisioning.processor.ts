@@ -24,7 +24,7 @@ import { Redis } from 'ioredis';
  * NOTA: El scope DEFAULT es necesario para que BullMQ pueda registrar los event listeners
  */
 @Processor('tenant-provisioning')
-@Injectable()
+@Injectable({ scope: Scope.DEFAULT })
 export class TenantProvisioningProcessor extends WorkerHost implements OnModuleDestroy {
   private readonly logger = new Logger(TenantProvisioningProcessor.name);
   private redis: Redis;
