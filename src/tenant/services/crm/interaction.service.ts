@@ -9,6 +9,9 @@ import {
   ScheduleInteractionDto,
   CompleteInteractionDto,
   InteractionSummaryDto,
+  CalendarFilterDto,
+  CreateRecurringActivityDto,
+  CreateReminderDto,
   InteractionType,
   InteractionStatus,
   InteractionOutcome,
@@ -59,10 +62,38 @@ export class InteractionService {
         }
       }
 
+      // Handle recurrence if specified
+      let parentInteractionId: string | undefined = undefined;
+      if (createInteractionDto.isRecurring && createInteractionDto.recurrenceRule) {
+        // For recurring activities, the first one becomes the parent
+        parentInteractionId = undefined; // Will be set after creation if this is a child
+      }
+
       const interaction = await prisma.interaction.create({
         data: {
-          ...createInteractionDto,
+          customerId: createInteractionDto.customerId,
+          type: createInteractionDto.type,
+          direction: createInteractionDto.direction,
+          subject: createInteractionDto.subject,
           content: createInteractionDto.content || '',
+          status: createInteractionDto.status || InteractionStatus.COMPLETED,
+          scheduledAt: createInteractionDto.scheduledAt ? new Date(createInteractionDto.scheduledAt) : null,
+          scheduledEndAt: createInteractionDto.scheduledEndAt ? new Date(createInteractionDto.scheduledEndAt) : null,
+          durationMinutes: createInteractionDto.durationMinutes,
+          priority: createInteractionDto.priority || 'normal',
+          assignedTo: createInteractionDto.assignedTo,
+          location: createInteractionDto.location,
+          locationUrl: createInteractionDto.locationUrl,
+          isRecurring: createInteractionDto.isRecurring || false,
+          recurrenceRule: createInteractionDto.recurrenceRule,
+          recurrenceEndDate: createInteractionDto.recurrenceEndDate ? new Date(createInteractionDto.recurrenceEndDate) : null,
+          parentInteractionId: parentInteractionId,
+          outcome: createInteractionDto.outcome,
+          nextAction: createInteractionDto.nextAction,
+          nextActionDate: createInteractionDto.nextActionDate ? new Date(createInteractionDto.nextActionDate) : null,
+          relatedOrderId: createInteractionDto.relatedOrderId,
+          relatedTaskId: createInteractionDto.relatedTaskId,
+          customFields: createInteractionDto.customFields || {},
           createdBy: userId,
         },
         include: {
@@ -329,6 +360,18 @@ export class InteractionService {
       if (filterDto.scheduledAt.endDate) {
         where.scheduledAt = { ...where.scheduledAt, lte: new Date(filterDto.scheduledAt.endDate) };
       }
+    }
+
+    if (filterDto.assignedTo) {
+      where.assignedTo = filterDto.assignedTo;
+    }
+
+    if (filterDto.priority) {
+      where.priority = filterDto.priority;
+    }
+
+    if (filterDto.isRecurring !== undefined) {
+      where.isRecurring = filterDto.isRecurring;
     }
 
     return where;
