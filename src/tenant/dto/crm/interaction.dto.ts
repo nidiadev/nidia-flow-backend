@@ -228,6 +228,14 @@ export class CreateInteractionDto extends BaseCustomFieldsDto {
   @IsOptional()
   @IsUUID()
   relatedTaskId?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Parent interaction ID (for recurring series)',
+    format: 'uuid'
+  })
+  @IsOptional()
+  @IsUUID()
+  parentInteractionId?: string;
 }
 
 /**
