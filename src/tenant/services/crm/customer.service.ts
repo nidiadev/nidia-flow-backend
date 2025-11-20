@@ -51,7 +51,9 @@ export class CustomerService {
         data: {
           ...createCustomerDto,
           leadScore,
-          createdBy: userId,
+          createdByUser: {
+            connect: { id: userId },
+          },
         },
       });
 
