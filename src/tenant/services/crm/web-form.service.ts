@@ -9,7 +9,7 @@ import { TenantPrismaService } from '../tenant-prisma.service';
 import { BusinessEventEmitterService } from '../../../common/events/event-emitter.service';
 import { BusinessEventTypes } from '../../../common/events/business-events';
 import { CustomerService } from './customer.service';
-import { CustomerType } from '../../dto/crm/customer.dto';
+import { CustomerType, LeadSource } from '../../dto/crm/customer.dto';
 import {
   CreateWebFormDto,
   UpdateWebFormDto,
@@ -258,9 +258,16 @@ export class WebFormService {
             email: submitDto.data.email,
             phone: submitDto.data.phone,
             companyName: submitDto.data.companyName || submitDto.data.company,
-            leadSource: settings?.defaultLeadSource || 'web_form',
+            leadSource: (settings?.defaultLeadSource as LeadSource) || LeadSource.WEBSITE,
             type: CustomerType.LEAD,
             assignedTo: settings?.assignTo,
+            // Required fields with defaults
+            addressLine1: submitDto.data.address || submitDto.data.addressLine1 || 'Dirección no proporcionada',
+            city: submitDto.data.city || 'Ciudad no proporcionada',
+            country: submitDto.data.country || 'CO',
+            industry: submitDto.data.industry || 'Otro',
+            segment: submitDto.data.segment || 'B2C',
+            taxId: submitDto.data.taxId || submitDto.data.nit || '000000000-0', // Default NIT for leads without tax ID
           },
           'system', // Created by system
         );

@@ -49,6 +49,7 @@ export enum LeadSource {
 
 /**
  * Custom validator: At least one contact method (email, phone, mobile, or whatsapp) must be provided
+ * This validator should be applied at the class level, not on individual properties
  */
 function HasAtLeastOneContactMethod(validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {
@@ -143,11 +144,11 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   email?: string;
 
   @ApiPropertyOptional({ 
-    description: 'Phone number with country code (E.164 format). Required if no email/mobile/whatsapp provided',
+    description: 'Phone number with country code (E.164 format). At least one contact method is required',
     example: '+57 300 123 4567'
   })
-  @ValidateIf((o) => !o.email && !o.mobile && !o.whatsapp)
-  @IsString({ message: 'Phone number is required if no other contact method is provided' })
+  @IsOptional()
+  @IsString()
   @Matches(/^\+[1-9]\d{1,14}$/, { 
     message: 'Phone number must include country code in E.164 format (e.g., +573001234567)' 
   })
@@ -160,11 +161,11 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   phone?: string;
 
   @ApiPropertyOptional({ 
-    description: 'Mobile number with country code (E.164 format). Required if no email/phone/whatsapp provided',
+    description: 'Mobile number with country code (E.164 format). At least one contact method is required',
     example: '+57 300 123 4567'
   })
-  @ValidateIf((o) => !o.email && !o.phone && !o.whatsapp)
-  @IsString({ message: 'Mobile number is required if no other contact method is provided' })
+  @IsOptional()
+  @IsString()
   @Matches(/^\+[1-9]\d{1,14}$/, { 
     message: 'Mobile number must include country code in E.164 format (e.g., +573001234567)' 
   })
@@ -177,11 +178,11 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   mobile?: string;
 
   @ApiPropertyOptional({ 
-    description: 'WhatsApp number with country code (E.164 format). Required if no email/phone/mobile provided',
+    description: 'WhatsApp number with country code (E.164 format). At least one contact method is required',
     example: '+57 300 123 4567'
   })
-  @ValidateIf((o) => !o.email && !o.phone && !o.mobile)
-  @IsString({ message: 'WhatsApp number is required if no other contact method is provided' })
+  @IsOptional()
+  @IsString()
   @Matches(/^\+[1-9]\d{1,14}$/, { 
     message: 'WhatsApp number must include country code in E.164 format (e.g., +573001234567)' 
   })
