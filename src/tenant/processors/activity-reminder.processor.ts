@@ -131,7 +131,7 @@ export class ActivityReminderProcessor extends WorkerHost {
     });
 
     // Send WebSocket notification
-    await this.websocketService.sendToUser(assignedUser.id, {
+    await this.websocketService.emitToUser(assignedUser.id, {
       type: 'activity_reminder',
       payload: {
         interactionId: interaction.id,
