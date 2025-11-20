@@ -135,17 +135,23 @@ export class DashboardService {
           userPermissions,
         );
 
+        // Extract values from pipelineKPIs - it returns pipelineStats spread with conversionRatesByStage
+        // So it has: totalDeals, totalAmount, weightedAmount, averageDealSize, byStage, conversionRatesByStage
+        const totalAmount = Number(pipelineKPIs?.totalAmount ?? 0);
+        const weightedAmount = Number(pipelineKPIs?.weightedAmount ?? 0);
+        const totalDeals = Number(pipelineKPIs?.totalDeals ?? 0);
+
         metrics.crm = {
           pipeline: {
-            totalValue: pipelineKPIs?.totalAmount || pipelineKPIs?.pipelineStats?.totalAmount || 0,
-            weightedValue: pipelineKPIs?.weightedAmount || pipelineKPIs?.pipelineStats?.weightedAmount || 0,
-            dealsCount: pipelineKPIs?.totalDeals || pipelineKPIs?.pipelineStats?.totalDeals || 0,
+            totalValue: totalAmount,
+            weightedValue: weightedAmount,
+            dealsCount: totalDeals,
           },
-          winRate: winRate?.global?.winRate || 0,
-          averageTimeToClose: avgTimeToClose?.averageDays || 0,
+          winRate: winRate?.global?.winRate ?? 0,
+          averageTimeToClose: avgTimeToClose?.averageDays ?? 0,
           forecast: {
             month: forecast?.period || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`,
-            expectedAmount: forecast?.weightedAmount || 0,
+            expectedAmount: forecast?.weightedAmount ?? 0,
           },
         };
       } catch (error: any) {
