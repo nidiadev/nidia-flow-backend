@@ -148,10 +148,6 @@ async function main() {
     const tenants = await prisma.tenant.findMany({
       where: {
         isActive: true,
-        // Solo tenants que ya tienen base de datos provisionada
-        dbName: {
-          not: null,
-        },
       },
       select: {
         id: true,
