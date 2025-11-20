@@ -101,7 +101,7 @@ export class WebhooksController {
             priority: 'normal',
             firstMessageAt: messageData.timestamp,
             lastMessageAt: messageData.timestamp,
-            createdBy: 'system', // TODO: Get system user ID
+            createdBy: '00000000-0000-0000-0000-000000000000', // System user - TODO: Get actual system user ID
           },
         });
       }

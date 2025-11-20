@@ -593,6 +593,64 @@ exports.Prisma.MessageLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ConversationScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  contactId: 'contactId',
+  channel: 'channel',
+  channelId: 'channelId',
+  recipient: 'recipient',
+  recipientName: 'recipientName',
+  status: 'status',
+  assignedTo: 'assignedTo',
+  priority: 'priority',
+  slaMinutes: 'slaMinutes',
+  firstMessageAt: 'firstMessageAt',
+  firstResponseAt: 'firstResponseAt',
+  lastMessageAt: 'lastMessageAt',
+  lastResponseAt: 'lastResponseAt',
+  resolvedAt: 'resolvedAt',
+  archivedAt: 'archivedAt',
+  tags: 'tags',
+  metadata: 'metadata',
+  customFields: 'customFields',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  direction: 'direction',
+  channel: 'channel',
+  type: 'type',
+  subject: 'subject',
+  body: 'body',
+  bodyHtml: 'bodyHtml',
+  attachments: 'attachments',
+  status: 'status',
+  providerMessageId: 'providerMessageId',
+  sentAt: 'sentAt',
+  deliveredAt: 'deliveredAt',
+  readAt: 'readAt',
+  failedAt: 'failedAt',
+  errorMessage: 'errorMessage',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  messageLogId: 'messageLogId'
+};
+
+exports.Prisma.ConversationNoteScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  content: 'content',
+  isInternal: 'isInternal',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -765,6 +823,9 @@ exports.Prisma.ModelName = {
   BudgetCategory: 'BudgetCategory',
   MessageTemplate: 'MessageTemplate',
   MessageLog: 'MessageLog',
+  Conversation: 'Conversation',
+  Message: 'Message',
+  ConversationNote: 'ConversationNote',
   Notification: 'Notification',
   File: 'File',
   SavedReport: 'SavedReport',
