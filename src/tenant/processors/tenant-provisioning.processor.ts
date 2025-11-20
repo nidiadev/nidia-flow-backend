@@ -1,6 +1,6 @@
 import { Processor, WorkerHost, OnWorkerEvent } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-import { Logger, Injectable, Scope, OnModuleDestroy } from '@nestjs/common';
+import { Logger, Injectable, OnModuleDestroy } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { TenantProvisioningService } from '../services/tenant-provisioning.service';
 import { TenantService } from '../tenant.service';
@@ -21,9 +21,10 @@ import { Redis } from 'ioredis';
  * Procesa jobs de provisioning en background usando BullMQ
  * 
  * IMPORTANTE: Debe ser singleton (default) para que los event listeners funcionen
+ * NOTA: El scope DEFAULT es necesario para que BullMQ pueda registrar los event listeners
  */
 @Processor('tenant-provisioning')
-@Injectable({ scope: Scope.DEFAULT })
+@Injectable()
 export class TenantProvisioningProcessor extends WorkerHost implements OnModuleDestroy {
   private readonly logger = new Logger(TenantProvisioningProcessor.name);
   private redis: Redis;
