@@ -159,6 +159,26 @@ export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
  */
 export type ConversationNote = $Result.DefaultSelection<Prisma.$ConversationNotePayload>
 /**
+ * Model SmartList
+ * 
+ */
+export type SmartList = $Result.DefaultSelection<Prisma.$SmartListPayload>
+/**
+ * Model SmartListMember
+ * 
+ */
+export type SmartListMember = $Result.DefaultSelection<Prisma.$SmartListMemberPayload>
+/**
+ * Model LeadScoringRule
+ * 
+ */
+export type LeadScoringRule = $Result.DefaultSelection<Prisma.$LeadScoringRulePayload>
+/**
+ * Model LeadScoreHistory
+ * 
+ */
+export type LeadScoreHistory = $Result.DefaultSelection<Prisma.$LeadScoreHistoryPayload>
+/**
  * Model Notification
  * 
  */
@@ -601,6 +621,46 @@ export class PrismaClient<
     * ```
     */
   get conversationNote(): Prisma.ConversationNoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.smartList`: Exposes CRUD operations for the **SmartList** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SmartLists
+    * const smartLists = await prisma.smartList.findMany()
+    * ```
+    */
+  get smartList(): Prisma.SmartListDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.smartListMember`: Exposes CRUD operations for the **SmartListMember** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SmartListMembers
+    * const smartListMembers = await prisma.smartListMember.findMany()
+    * ```
+    */
+  get smartListMember(): Prisma.SmartListMemberDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.leadScoringRule`: Exposes CRUD operations for the **LeadScoringRule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LeadScoringRules
+    * const leadScoringRules = await prisma.leadScoringRule.findMany()
+    * ```
+    */
+  get leadScoringRule(): Prisma.LeadScoringRuleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.leadScoreHistory`: Exposes CRUD operations for the **LeadScoreHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LeadScoreHistories
+    * const leadScoreHistories = await prisma.leadScoreHistory.findMany()
+    * ```
+    */
+  get leadScoreHistory(): Prisma.LeadScoreHistoryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
@@ -1140,6 +1200,10 @@ export namespace Prisma {
     Conversation: 'Conversation',
     Message: 'Message',
     ConversationNote: 'ConversationNote',
+    SmartList: 'SmartList',
+    SmartListMember: 'SmartListMember',
+    LeadScoringRule: 'LeadScoringRule',
+    LeadScoreHistory: 'LeadScoreHistory',
     Notification: 'Notification',
     File: 'File',
     SavedReport: 'SavedReport',
@@ -1165,7 +1229,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "activityReminder" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "conversation" | "message" | "conversationNote" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
+      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "activityReminder" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "conversation" | "message" | "conversationNote" | "smartList" | "smartListMember" | "leadScoringRule" | "leadScoreHistory" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3315,6 +3379,302 @@ export namespace Prisma {
           }
         }
       }
+      SmartList: {
+        payload: Prisma.$SmartListPayload<ExtArgs>
+        fields: Prisma.SmartListFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SmartListFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SmartListFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>
+          }
+          findFirst: {
+            args: Prisma.SmartListFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SmartListFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>
+          }
+          findMany: {
+            args: Prisma.SmartListFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>[]
+          }
+          create: {
+            args: Prisma.SmartListCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>
+          }
+          createMany: {
+            args: Prisma.SmartListCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SmartListCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>[]
+          }
+          delete: {
+            args: Prisma.SmartListDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>
+          }
+          update: {
+            args: Prisma.SmartListUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>
+          }
+          deleteMany: {
+            args: Prisma.SmartListDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SmartListUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SmartListUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>[]
+          }
+          upsert: {
+            args: Prisma.SmartListUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListPayload>
+          }
+          aggregate: {
+            args: Prisma.SmartListAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSmartList>
+          }
+          groupBy: {
+            args: Prisma.SmartListGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SmartListGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SmartListCountArgs<ExtArgs>
+            result: $Utils.Optional<SmartListCountAggregateOutputType> | number
+          }
+        }
+      }
+      SmartListMember: {
+        payload: Prisma.$SmartListMemberPayload<ExtArgs>
+        fields: Prisma.SmartListMemberFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SmartListMemberFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SmartListMemberFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>
+          }
+          findFirst: {
+            args: Prisma.SmartListMemberFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SmartListMemberFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>
+          }
+          findMany: {
+            args: Prisma.SmartListMemberFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>[]
+          }
+          create: {
+            args: Prisma.SmartListMemberCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>
+          }
+          createMany: {
+            args: Prisma.SmartListMemberCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SmartListMemberCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>[]
+          }
+          delete: {
+            args: Prisma.SmartListMemberDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>
+          }
+          update: {
+            args: Prisma.SmartListMemberUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>
+          }
+          deleteMany: {
+            args: Prisma.SmartListMemberDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SmartListMemberUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SmartListMemberUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>[]
+          }
+          upsert: {
+            args: Prisma.SmartListMemberUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SmartListMemberPayload>
+          }
+          aggregate: {
+            args: Prisma.SmartListMemberAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSmartListMember>
+          }
+          groupBy: {
+            args: Prisma.SmartListMemberGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SmartListMemberGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SmartListMemberCountArgs<ExtArgs>
+            result: $Utils.Optional<SmartListMemberCountAggregateOutputType> | number
+          }
+        }
+      }
+      LeadScoringRule: {
+        payload: Prisma.$LeadScoringRulePayload<ExtArgs>
+        fields: Prisma.LeadScoringRuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LeadScoringRuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LeadScoringRuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>
+          }
+          findFirst: {
+            args: Prisma.LeadScoringRuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LeadScoringRuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>
+          }
+          findMany: {
+            args: Prisma.LeadScoringRuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>[]
+          }
+          create: {
+            args: Prisma.LeadScoringRuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>
+          }
+          createMany: {
+            args: Prisma.LeadScoringRuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LeadScoringRuleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>[]
+          }
+          delete: {
+            args: Prisma.LeadScoringRuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>
+          }
+          update: {
+            args: Prisma.LeadScoringRuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>
+          }
+          deleteMany: {
+            args: Prisma.LeadScoringRuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LeadScoringRuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LeadScoringRuleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>[]
+          }
+          upsert: {
+            args: Prisma.LeadScoringRuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoringRulePayload>
+          }
+          aggregate: {
+            args: Prisma.LeadScoringRuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLeadScoringRule>
+          }
+          groupBy: {
+            args: Prisma.LeadScoringRuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LeadScoringRuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LeadScoringRuleCountArgs<ExtArgs>
+            result: $Utils.Optional<LeadScoringRuleCountAggregateOutputType> | number
+          }
+        }
+      }
+      LeadScoreHistory: {
+        payload: Prisma.$LeadScoreHistoryPayload<ExtArgs>
+        fields: Prisma.LeadScoreHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LeadScoreHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LeadScoreHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.LeadScoreHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LeadScoreHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.LeadScoreHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.LeadScoreHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.LeadScoreHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LeadScoreHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.LeadScoreHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>
+          }
+          update: {
+            args: Prisma.LeadScoreHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.LeadScoreHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LeadScoreHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LeadScoreHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.LeadScoreHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LeadScoreHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.LeadScoreHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLeadScoreHistory>
+          }
+          groupBy: {
+            args: Prisma.LeadScoreHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LeadScoreHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LeadScoreHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<LeadScoreHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
       Notification: {
         payload: Prisma.$NotificationPayload<ExtArgs>
         fields: Prisma.NotificationFieldRefs
@@ -3958,6 +4318,10 @@ export namespace Prisma {
     conversation?: ConversationOmit
     message?: MessageOmit
     conversationNote?: ConversationNoteOmit
+    smartList?: SmartListOmit
+    smartListMember?: SmartListMemberOmit
+    leadScoringRule?: LeadScoringRuleOmit
+    leadScoreHistory?: LeadScoreHistoryOmit
     notification?: NotificationOmit
     file?: FileOmit
     savedReport?: SavedReportOmit
@@ -4070,6 +4434,8 @@ export namespace Prisma {
     conversationsCreated: number
     conversationsAssigned: number
     conversationNotes: number
+    smartListsCreated: number
+    leadScoringRulesCreated: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4098,6 +4464,8 @@ export namespace Prisma {
     conversationsCreated?: boolean | UserCountOutputTypeCountConversationsCreatedArgs
     conversationsAssigned?: boolean | UserCountOutputTypeCountConversationsAssignedArgs
     conversationNotes?: boolean | UserCountOutputTypeCountConversationNotesArgs
+    smartListsCreated?: boolean | UserCountOutputTypeCountSmartListsCreatedArgs
+    leadScoringRulesCreated?: boolean | UserCountOutputTypeCountLeadScoringRulesCreatedArgs
   }
 
   // Custom InputTypes
@@ -4286,6 +4654,20 @@ export namespace Prisma {
     where?: ConversationNoteWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSmartListsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SmartListWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLeadScoringRulesCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadScoringRuleWhereInput
+  }
+
 
   /**
    * Count Type CustomerCountOutputType
@@ -4299,6 +4681,8 @@ export namespace Prisma {
     messageLogs: number
     deals: number
     conversations: number
+    smartListMembers: number
+    leadScoreHistory: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4309,6 +4693,8 @@ export namespace Prisma {
     messageLogs?: boolean | CustomerCountOutputTypeCountMessageLogsArgs
     deals?: boolean | CustomerCountOutputTypeCountDealsArgs
     conversations?: boolean | CustomerCountOutputTypeCountConversationsArgs
+    smartListMembers?: boolean | CustomerCountOutputTypeCountSmartListMembersArgs
+    leadScoreHistory?: boolean | CustomerCountOutputTypeCountLeadScoreHistoryArgs
   }
 
   // Custom InputTypes
@@ -4369,6 +4755,20 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountConversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConversationWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountSmartListMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SmartListMemberWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountLeadScoreHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadScoreHistoryWhereInput
   }
 
 
@@ -4845,6 +5245,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type SmartListCountOutputType
+   */
+
+  export type SmartListCountOutputType = {
+    members: number
+  }
+
+  export type SmartListCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | SmartListCountOutputTypeCountMembersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SmartListCountOutputType without action
+   */
+  export type SmartListCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListCountOutputType
+     */
+    select?: SmartListCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SmartListCountOutputType without action
+   */
+  export type SmartListCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SmartListMemberWhereInput
+  }
+
+
+  /**
    * Count Type SavedReportCountOutputType
    */
 
@@ -5169,6 +5600,8 @@ export namespace Prisma {
     conversationsCreated?: boolean | User$conversationsCreatedArgs<ExtArgs>
     conversationsAssigned?: boolean | User$conversationsAssignedArgs<ExtArgs>
     conversationNotes?: boolean | User$conversationNotesArgs<ExtArgs>
+    smartListsCreated?: boolean | User$smartListsCreatedArgs<ExtArgs>
+    leadScoringRulesCreated?: boolean | User$leadScoringRulesCreatedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5265,6 +5698,8 @@ export namespace Prisma {
     conversationsCreated?: boolean | User$conversationsCreatedArgs<ExtArgs>
     conversationsAssigned?: boolean | User$conversationsAssignedArgs<ExtArgs>
     conversationNotes?: boolean | User$conversationNotesArgs<ExtArgs>
+    smartListsCreated?: boolean | User$smartListsCreatedArgs<ExtArgs>
+    leadScoringRulesCreated?: boolean | User$leadScoringRulesCreatedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5303,6 +5738,8 @@ export namespace Prisma {
       conversationsCreated: Prisma.$ConversationPayload<ExtArgs>[]
       conversationsAssigned: Prisma.$ConversationPayload<ExtArgs>[]
       conversationNotes: Prisma.$ConversationNotePayload<ExtArgs>[]
+      smartListsCreated: Prisma.$SmartListPayload<ExtArgs>[]
+      leadScoringRulesCreated: Prisma.$LeadScoringRulePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5743,6 +6180,8 @@ export namespace Prisma {
     conversationsCreated<T extends User$conversationsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     conversationsAssigned<T extends User$conversationsAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationsAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     conversationNotes<T extends User$conversationNotesArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    smartListsCreated<T extends User$smartListsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$smartListsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    leadScoringRulesCreated<T extends User$leadScoringRulesCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$leadScoringRulesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6802,6 +7241,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConversationNoteScalarFieldEnum | ConversationNoteScalarFieldEnum[]
+  }
+
+  /**
+   * User.smartListsCreated
+   */
+  export type User$smartListsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    where?: SmartListWhereInput
+    orderBy?: SmartListOrderByWithRelationInput | SmartListOrderByWithRelationInput[]
+    cursor?: SmartListWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SmartListScalarFieldEnum | SmartListScalarFieldEnum[]
+  }
+
+  /**
+   * User.leadScoringRulesCreated
+   */
+  export type User$leadScoringRulesCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    where?: LeadScoringRuleWhereInput
+    orderBy?: LeadScoringRuleOrderByWithRelationInput | LeadScoringRuleOrderByWithRelationInput[]
+    cursor?: LeadScoringRuleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LeadScoringRuleScalarFieldEnum | LeadScoringRuleScalarFieldEnum[]
   }
 
   /**
@@ -8315,6 +8802,8 @@ export namespace Prisma {
     messageLogs?: boolean | Customer$messageLogsArgs<ExtArgs>
     deals?: boolean | Customer$dealsArgs<ExtArgs>
     conversations?: boolean | Customer$conversationsArgs<ExtArgs>
+    smartListMembers?: boolean | Customer$smartListMembersArgs<ExtArgs>
+    leadScoreHistory?: boolean | Customer$leadScoreHistoryArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -8456,6 +8945,8 @@ export namespace Prisma {
     messageLogs?: boolean | Customer$messageLogsArgs<ExtArgs>
     deals?: boolean | Customer$dealsArgs<ExtArgs>
     conversations?: boolean | Customer$conversationsArgs<ExtArgs>
+    smartListMembers?: boolean | Customer$smartListMembersArgs<ExtArgs>
+    leadScoreHistory?: boolean | Customer$leadScoreHistoryArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8479,6 +8970,8 @@ export namespace Prisma {
       messageLogs: Prisma.$MessageLogPayload<ExtArgs>[]
       deals: Prisma.$DealPayload<ExtArgs>[]
       conversations: Prisma.$ConversationPayload<ExtArgs>[]
+      smartListMembers: Prisma.$SmartListMemberPayload<ExtArgs>[]
+      leadScoreHistory: Prisma.$LeadScoreHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8922,6 +9415,8 @@ export namespace Prisma {
     messageLogs<T extends Customer$messageLogsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$messageLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     deals<T extends Customer$dealsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     conversations<T extends Customer$conversationsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    smartListMembers<T extends Customer$smartListMembersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$smartListMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    leadScoreHistory<T extends Customer$leadScoreHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Customer$leadScoreHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9569,6 +10064,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Customer.smartListMembers
+   */
+  export type Customer$smartListMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    where?: SmartListMemberWhereInput
+    orderBy?: SmartListMemberOrderByWithRelationInput | SmartListMemberOrderByWithRelationInput[]
+    cursor?: SmartListMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SmartListMemberScalarFieldEnum | SmartListMemberScalarFieldEnum[]
+  }
+
+  /**
+   * Customer.leadScoreHistory
+   */
+  export type Customer$leadScoreHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    where?: LeadScoreHistoryWhereInput
+    orderBy?: LeadScoreHistoryOrderByWithRelationInput | LeadScoreHistoryOrderByWithRelationInput[]
+    cursor?: LeadScoreHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LeadScoreHistoryScalarFieldEnum | LeadScoreHistoryScalarFieldEnum[]
   }
 
   /**
@@ -42716,6 +43259,4669 @@ export namespace Prisma {
 
 
   /**
+   * Model SmartList
+   */
+
+  export type AggregateSmartList = {
+    _count: SmartListCountAggregateOutputType | null
+    _avg: SmartListAvgAggregateOutputType | null
+    _sum: SmartListSumAggregateOutputType | null
+    _min: SmartListMinAggregateOutputType | null
+    _max: SmartListMaxAggregateOutputType | null
+  }
+
+  export type SmartListAvgAggregateOutputType = {
+    memberCount: number | null
+  }
+
+  export type SmartListSumAggregateOutputType = {
+    memberCount: number | null
+  }
+
+  export type SmartListMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isActive: boolean | null
+    isSystem: boolean | null
+    filterLogic: string | null
+    autoUpdate: boolean | null
+    lastUpdatedAt: Date | null
+    memberCount: number | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SmartListMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isActive: boolean | null
+    isSystem: boolean | null
+    filterLogic: string | null
+    autoUpdate: boolean | null
+    lastUpdatedAt: Date | null
+    memberCount: number | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SmartListCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    isActive: number
+    isSystem: number
+    filterConfig: number
+    filterLogic: number
+    autoUpdate: number
+    lastUpdatedAt: number
+    memberCount: number
+    tags: number
+    metadata: number
+    createdBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SmartListAvgAggregateInputType = {
+    memberCount?: true
+  }
+
+  export type SmartListSumAggregateInputType = {
+    memberCount?: true
+  }
+
+  export type SmartListMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    isSystem?: true
+    filterLogic?: true
+    autoUpdate?: true
+    lastUpdatedAt?: true
+    memberCount?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SmartListMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    isSystem?: true
+    filterLogic?: true
+    autoUpdate?: true
+    lastUpdatedAt?: true
+    memberCount?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SmartListCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isActive?: true
+    isSystem?: true
+    filterConfig?: true
+    filterLogic?: true
+    autoUpdate?: true
+    lastUpdatedAt?: true
+    memberCount?: true
+    tags?: true
+    metadata?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SmartListAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SmartList to aggregate.
+     */
+    where?: SmartListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmartLists to fetch.
+     */
+    orderBy?: SmartListOrderByWithRelationInput | SmartListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SmartListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmartLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmartLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SmartLists
+    **/
+    _count?: true | SmartListCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SmartListAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SmartListSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SmartListMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SmartListMaxAggregateInputType
+  }
+
+  export type GetSmartListAggregateType<T extends SmartListAggregateArgs> = {
+        [P in keyof T & keyof AggregateSmartList]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSmartList[P]>
+      : GetScalarType<T[P], AggregateSmartList[P]>
+  }
+
+
+
+
+  export type SmartListGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SmartListWhereInput
+    orderBy?: SmartListOrderByWithAggregationInput | SmartListOrderByWithAggregationInput[]
+    by: SmartListScalarFieldEnum[] | SmartListScalarFieldEnum
+    having?: SmartListScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SmartListCountAggregateInputType | true
+    _avg?: SmartListAvgAggregateInputType
+    _sum?: SmartListSumAggregateInputType
+    _min?: SmartListMinAggregateInputType
+    _max?: SmartListMaxAggregateInputType
+  }
+
+  export type SmartListGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    isActive: boolean
+    isSystem: boolean
+    filterConfig: JsonValue
+    filterLogic: string
+    autoUpdate: boolean
+    lastUpdatedAt: Date | null
+    memberCount: number
+    tags: string[]
+    metadata: JsonValue
+    createdBy: string
+    createdAt: Date
+    updatedAt: Date
+    _count: SmartListCountAggregateOutputType | null
+    _avg: SmartListAvgAggregateOutputType | null
+    _sum: SmartListSumAggregateOutputType | null
+    _min: SmartListMinAggregateOutputType | null
+    _max: SmartListMaxAggregateOutputType | null
+  }
+
+  type GetSmartListGroupByPayload<T extends SmartListGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SmartListGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SmartListGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SmartListGroupByOutputType[P]>
+            : GetScalarType<T[P], SmartListGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SmartListSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: boolean
+    filterLogic?: boolean
+    autoUpdate?: boolean
+    lastUpdatedAt?: boolean
+    memberCount?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    members?: boolean | SmartList$membersArgs<ExtArgs>
+    _count?: boolean | SmartListCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["smartList"]>
+
+  export type SmartListSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: boolean
+    filterLogic?: boolean
+    autoUpdate?: boolean
+    lastUpdatedAt?: boolean
+    memberCount?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["smartList"]>
+
+  export type SmartListSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: boolean
+    filterLogic?: boolean
+    autoUpdate?: boolean
+    lastUpdatedAt?: boolean
+    memberCount?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["smartList"]>
+
+  export type SmartListSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: boolean
+    filterLogic?: boolean
+    autoUpdate?: boolean
+    lastUpdatedAt?: boolean
+    memberCount?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SmartListOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "isSystem" | "filterConfig" | "filterLogic" | "autoUpdate" | "lastUpdatedAt" | "memberCount" | "tags" | "metadata" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["smartList"]>
+  export type SmartListInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    members?: boolean | SmartList$membersArgs<ExtArgs>
+    _count?: boolean | SmartListCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SmartListIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SmartListIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SmartListPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SmartList"
+    objects: {
+      createdByUser: Prisma.$UserPayload<ExtArgs>
+      members: Prisma.$SmartListMemberPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      isActive: boolean
+      isSystem: boolean
+      filterConfig: Prisma.JsonValue
+      filterLogic: string
+      autoUpdate: boolean
+      lastUpdatedAt: Date | null
+      memberCount: number
+      tags: string[]
+      metadata: Prisma.JsonValue
+      createdBy: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["smartList"]>
+    composites: {}
+  }
+
+  type SmartListGetPayload<S extends boolean | null | undefined | SmartListDefaultArgs> = $Result.GetResult<Prisma.$SmartListPayload, S>
+
+  type SmartListCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SmartListFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SmartListCountAggregateInputType | true
+    }
+
+  export interface SmartListDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SmartList'], meta: { name: 'SmartList' } }
+    /**
+     * Find zero or one SmartList that matches the filter.
+     * @param {SmartListFindUniqueArgs} args - Arguments to find a SmartList
+     * @example
+     * // Get one SmartList
+     * const smartList = await prisma.smartList.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SmartListFindUniqueArgs>(args: SelectSubset<T, SmartListFindUniqueArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SmartList that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SmartListFindUniqueOrThrowArgs} args - Arguments to find a SmartList
+     * @example
+     * // Get one SmartList
+     * const smartList = await prisma.smartList.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SmartListFindUniqueOrThrowArgs>(args: SelectSubset<T, SmartListFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SmartList that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListFindFirstArgs} args - Arguments to find a SmartList
+     * @example
+     * // Get one SmartList
+     * const smartList = await prisma.smartList.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SmartListFindFirstArgs>(args?: SelectSubset<T, SmartListFindFirstArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SmartList that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListFindFirstOrThrowArgs} args - Arguments to find a SmartList
+     * @example
+     * // Get one SmartList
+     * const smartList = await prisma.smartList.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SmartListFindFirstOrThrowArgs>(args?: SelectSubset<T, SmartListFindFirstOrThrowArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SmartLists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SmartLists
+     * const smartLists = await prisma.smartList.findMany()
+     * 
+     * // Get first 10 SmartLists
+     * const smartLists = await prisma.smartList.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const smartListWithIdOnly = await prisma.smartList.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SmartListFindManyArgs>(args?: SelectSubset<T, SmartListFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SmartList.
+     * @param {SmartListCreateArgs} args - Arguments to create a SmartList.
+     * @example
+     * // Create one SmartList
+     * const SmartList = await prisma.smartList.create({
+     *   data: {
+     *     // ... data to create a SmartList
+     *   }
+     * })
+     * 
+     */
+    create<T extends SmartListCreateArgs>(args: SelectSubset<T, SmartListCreateArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SmartLists.
+     * @param {SmartListCreateManyArgs} args - Arguments to create many SmartLists.
+     * @example
+     * // Create many SmartLists
+     * const smartList = await prisma.smartList.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SmartListCreateManyArgs>(args?: SelectSubset<T, SmartListCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SmartLists and returns the data saved in the database.
+     * @param {SmartListCreateManyAndReturnArgs} args - Arguments to create many SmartLists.
+     * @example
+     * // Create many SmartLists
+     * const smartList = await prisma.smartList.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SmartLists and only return the `id`
+     * const smartListWithIdOnly = await prisma.smartList.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SmartListCreateManyAndReturnArgs>(args?: SelectSubset<T, SmartListCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SmartList.
+     * @param {SmartListDeleteArgs} args - Arguments to delete one SmartList.
+     * @example
+     * // Delete one SmartList
+     * const SmartList = await prisma.smartList.delete({
+     *   where: {
+     *     // ... filter to delete one SmartList
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SmartListDeleteArgs>(args: SelectSubset<T, SmartListDeleteArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SmartList.
+     * @param {SmartListUpdateArgs} args - Arguments to update one SmartList.
+     * @example
+     * // Update one SmartList
+     * const smartList = await prisma.smartList.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SmartListUpdateArgs>(args: SelectSubset<T, SmartListUpdateArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SmartLists.
+     * @param {SmartListDeleteManyArgs} args - Arguments to filter SmartLists to delete.
+     * @example
+     * // Delete a few SmartLists
+     * const { count } = await prisma.smartList.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SmartListDeleteManyArgs>(args?: SelectSubset<T, SmartListDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SmartLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SmartLists
+     * const smartList = await prisma.smartList.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SmartListUpdateManyArgs>(args: SelectSubset<T, SmartListUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SmartLists and returns the data updated in the database.
+     * @param {SmartListUpdateManyAndReturnArgs} args - Arguments to update many SmartLists.
+     * @example
+     * // Update many SmartLists
+     * const smartList = await prisma.smartList.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SmartLists and only return the `id`
+     * const smartListWithIdOnly = await prisma.smartList.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SmartListUpdateManyAndReturnArgs>(args: SelectSubset<T, SmartListUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SmartList.
+     * @param {SmartListUpsertArgs} args - Arguments to update or create a SmartList.
+     * @example
+     * // Update or create a SmartList
+     * const smartList = await prisma.smartList.upsert({
+     *   create: {
+     *     // ... data to create a SmartList
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SmartList we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SmartListUpsertArgs>(args: SelectSubset<T, SmartListUpsertArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SmartLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListCountArgs} args - Arguments to filter SmartLists to count.
+     * @example
+     * // Count the number of SmartLists
+     * const count = await prisma.smartList.count({
+     *   where: {
+     *     // ... the filter for the SmartLists we want to count
+     *   }
+     * })
+    **/
+    count<T extends SmartListCountArgs>(
+      args?: Subset<T, SmartListCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SmartListCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SmartList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SmartListAggregateArgs>(args: Subset<T, SmartListAggregateArgs>): Prisma.PrismaPromise<GetSmartListAggregateType<T>>
+
+    /**
+     * Group by SmartList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SmartListGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SmartListGroupByArgs['orderBy'] }
+        : { orderBy?: SmartListGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SmartListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSmartListGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SmartList model
+   */
+  readonly fields: SmartListFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SmartList.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SmartListClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdByUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    members<T extends SmartList$membersArgs<ExtArgs> = {}>(args?: Subset<T, SmartList$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SmartList model
+   */
+  interface SmartListFieldRefs {
+    readonly id: FieldRef<"SmartList", 'String'>
+    readonly name: FieldRef<"SmartList", 'String'>
+    readonly description: FieldRef<"SmartList", 'String'>
+    readonly isActive: FieldRef<"SmartList", 'Boolean'>
+    readonly isSystem: FieldRef<"SmartList", 'Boolean'>
+    readonly filterConfig: FieldRef<"SmartList", 'Json'>
+    readonly filterLogic: FieldRef<"SmartList", 'String'>
+    readonly autoUpdate: FieldRef<"SmartList", 'Boolean'>
+    readonly lastUpdatedAt: FieldRef<"SmartList", 'DateTime'>
+    readonly memberCount: FieldRef<"SmartList", 'Int'>
+    readonly tags: FieldRef<"SmartList", 'String[]'>
+    readonly metadata: FieldRef<"SmartList", 'Json'>
+    readonly createdBy: FieldRef<"SmartList", 'String'>
+    readonly createdAt: FieldRef<"SmartList", 'DateTime'>
+    readonly updatedAt: FieldRef<"SmartList", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SmartList findUnique
+   */
+  export type SmartListFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartList to fetch.
+     */
+    where: SmartListWhereUniqueInput
+  }
+
+  /**
+   * SmartList findUniqueOrThrow
+   */
+  export type SmartListFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartList to fetch.
+     */
+    where: SmartListWhereUniqueInput
+  }
+
+  /**
+   * SmartList findFirst
+   */
+  export type SmartListFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartList to fetch.
+     */
+    where?: SmartListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmartLists to fetch.
+     */
+    orderBy?: SmartListOrderByWithRelationInput | SmartListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SmartLists.
+     */
+    cursor?: SmartListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmartLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmartLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SmartLists.
+     */
+    distinct?: SmartListScalarFieldEnum | SmartListScalarFieldEnum[]
+  }
+
+  /**
+   * SmartList findFirstOrThrow
+   */
+  export type SmartListFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartList to fetch.
+     */
+    where?: SmartListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmartLists to fetch.
+     */
+    orderBy?: SmartListOrderByWithRelationInput | SmartListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SmartLists.
+     */
+    cursor?: SmartListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmartLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmartLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SmartLists.
+     */
+    distinct?: SmartListScalarFieldEnum | SmartListScalarFieldEnum[]
+  }
+
+  /**
+   * SmartList findMany
+   */
+  export type SmartListFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartLists to fetch.
+     */
+    where?: SmartListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmartLists to fetch.
+     */
+    orderBy?: SmartListOrderByWithRelationInput | SmartListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SmartLists.
+     */
+    cursor?: SmartListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmartLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmartLists.
+     */
+    skip?: number
+    distinct?: SmartListScalarFieldEnum | SmartListScalarFieldEnum[]
+  }
+
+  /**
+   * SmartList create
+   */
+  export type SmartListCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SmartList.
+     */
+    data: XOR<SmartListCreateInput, SmartListUncheckedCreateInput>
+  }
+
+  /**
+   * SmartList createMany
+   */
+  export type SmartListCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SmartLists.
+     */
+    data: SmartListCreateManyInput | SmartListCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SmartList createManyAndReturn
+   */
+  export type SmartListCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * The data used to create many SmartLists.
+     */
+    data: SmartListCreateManyInput | SmartListCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SmartList update
+   */
+  export type SmartListUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SmartList.
+     */
+    data: XOR<SmartListUpdateInput, SmartListUncheckedUpdateInput>
+    /**
+     * Choose, which SmartList to update.
+     */
+    where: SmartListWhereUniqueInput
+  }
+
+  /**
+   * SmartList updateMany
+   */
+  export type SmartListUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SmartLists.
+     */
+    data: XOR<SmartListUpdateManyMutationInput, SmartListUncheckedUpdateManyInput>
+    /**
+     * Filter which SmartLists to update
+     */
+    where?: SmartListWhereInput
+    /**
+     * Limit how many SmartLists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SmartList updateManyAndReturn
+   */
+  export type SmartListUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * The data used to update SmartLists.
+     */
+    data: XOR<SmartListUpdateManyMutationInput, SmartListUncheckedUpdateManyInput>
+    /**
+     * Filter which SmartLists to update
+     */
+    where?: SmartListWhereInput
+    /**
+     * Limit how many SmartLists to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SmartList upsert
+   */
+  export type SmartListUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SmartList to update in case it exists.
+     */
+    where: SmartListWhereUniqueInput
+    /**
+     * In case the SmartList found by the `where` argument doesn't exist, create a new SmartList with this data.
+     */
+    create: XOR<SmartListCreateInput, SmartListUncheckedCreateInput>
+    /**
+     * In case the SmartList was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SmartListUpdateInput, SmartListUncheckedUpdateInput>
+  }
+
+  /**
+   * SmartList delete
+   */
+  export type SmartListDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+    /**
+     * Filter which SmartList to delete.
+     */
+    where: SmartListWhereUniqueInput
+  }
+
+  /**
+   * SmartList deleteMany
+   */
+  export type SmartListDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SmartLists to delete
+     */
+    where?: SmartListWhereInput
+    /**
+     * Limit how many SmartLists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SmartList.members
+   */
+  export type SmartList$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    where?: SmartListMemberWhereInput
+    orderBy?: SmartListMemberOrderByWithRelationInput | SmartListMemberOrderByWithRelationInput[]
+    cursor?: SmartListMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SmartListMemberScalarFieldEnum | SmartListMemberScalarFieldEnum[]
+  }
+
+  /**
+   * SmartList without action
+   */
+  export type SmartListDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartList
+     */
+    select?: SmartListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartList
+     */
+    omit?: SmartListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SmartListMember
+   */
+
+  export type AggregateSmartListMember = {
+    _count: SmartListMemberCountAggregateOutputType | null
+    _min: SmartListMemberMinAggregateOutputType | null
+    _max: SmartListMemberMaxAggregateOutputType | null
+  }
+
+  export type SmartListMemberMinAggregateOutputType = {
+    id: string | null
+    smartListId: string | null
+    customerId: string | null
+    addedAt: Date | null
+  }
+
+  export type SmartListMemberMaxAggregateOutputType = {
+    id: string | null
+    smartListId: string | null
+    customerId: string | null
+    addedAt: Date | null
+  }
+
+  export type SmartListMemberCountAggregateOutputType = {
+    id: number
+    smartListId: number
+    customerId: number
+    addedAt: number
+    _all: number
+  }
+
+
+  export type SmartListMemberMinAggregateInputType = {
+    id?: true
+    smartListId?: true
+    customerId?: true
+    addedAt?: true
+  }
+
+  export type SmartListMemberMaxAggregateInputType = {
+    id?: true
+    smartListId?: true
+    customerId?: true
+    addedAt?: true
+  }
+
+  export type SmartListMemberCountAggregateInputType = {
+    id?: true
+    smartListId?: true
+    customerId?: true
+    addedAt?: true
+    _all?: true
+  }
+
+  export type SmartListMemberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SmartListMember to aggregate.
+     */
+    where?: SmartListMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmartListMembers to fetch.
+     */
+    orderBy?: SmartListMemberOrderByWithRelationInput | SmartListMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SmartListMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmartListMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmartListMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SmartListMembers
+    **/
+    _count?: true | SmartListMemberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SmartListMemberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SmartListMemberMaxAggregateInputType
+  }
+
+  export type GetSmartListMemberAggregateType<T extends SmartListMemberAggregateArgs> = {
+        [P in keyof T & keyof AggregateSmartListMember]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSmartListMember[P]>
+      : GetScalarType<T[P], AggregateSmartListMember[P]>
+  }
+
+
+
+
+  export type SmartListMemberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SmartListMemberWhereInput
+    orderBy?: SmartListMemberOrderByWithAggregationInput | SmartListMemberOrderByWithAggregationInput[]
+    by: SmartListMemberScalarFieldEnum[] | SmartListMemberScalarFieldEnum
+    having?: SmartListMemberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SmartListMemberCountAggregateInputType | true
+    _min?: SmartListMemberMinAggregateInputType
+    _max?: SmartListMemberMaxAggregateInputType
+  }
+
+  export type SmartListMemberGroupByOutputType = {
+    id: string
+    smartListId: string
+    customerId: string
+    addedAt: Date
+    _count: SmartListMemberCountAggregateOutputType | null
+    _min: SmartListMemberMinAggregateOutputType | null
+    _max: SmartListMemberMaxAggregateOutputType | null
+  }
+
+  type GetSmartListMemberGroupByPayload<T extends SmartListMemberGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SmartListMemberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SmartListMemberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SmartListMemberGroupByOutputType[P]>
+            : GetScalarType<T[P], SmartListMemberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SmartListMemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    smartListId?: boolean
+    customerId?: boolean
+    addedAt?: boolean
+    smartList?: boolean | SmartListDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["smartListMember"]>
+
+  export type SmartListMemberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    smartListId?: boolean
+    customerId?: boolean
+    addedAt?: boolean
+    smartList?: boolean | SmartListDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["smartListMember"]>
+
+  export type SmartListMemberSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    smartListId?: boolean
+    customerId?: boolean
+    addedAt?: boolean
+    smartList?: boolean | SmartListDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["smartListMember"]>
+
+  export type SmartListMemberSelectScalar = {
+    id?: boolean
+    smartListId?: boolean
+    customerId?: boolean
+    addedAt?: boolean
+  }
+
+  export type SmartListMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "smartListId" | "customerId" | "addedAt", ExtArgs["result"]["smartListMember"]>
+  export type SmartListMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    smartList?: boolean | SmartListDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }
+  export type SmartListMemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    smartList?: boolean | SmartListDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }
+  export type SmartListMemberIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    smartList?: boolean | SmartListDefaultArgs<ExtArgs>
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }
+
+  export type $SmartListMemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SmartListMember"
+    objects: {
+      smartList: Prisma.$SmartListPayload<ExtArgs>
+      customer: Prisma.$CustomerPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      smartListId: string
+      customerId: string
+      addedAt: Date
+    }, ExtArgs["result"]["smartListMember"]>
+    composites: {}
+  }
+
+  type SmartListMemberGetPayload<S extends boolean | null | undefined | SmartListMemberDefaultArgs> = $Result.GetResult<Prisma.$SmartListMemberPayload, S>
+
+  type SmartListMemberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SmartListMemberFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SmartListMemberCountAggregateInputType | true
+    }
+
+  export interface SmartListMemberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SmartListMember'], meta: { name: 'SmartListMember' } }
+    /**
+     * Find zero or one SmartListMember that matches the filter.
+     * @param {SmartListMemberFindUniqueArgs} args - Arguments to find a SmartListMember
+     * @example
+     * // Get one SmartListMember
+     * const smartListMember = await prisma.smartListMember.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SmartListMemberFindUniqueArgs>(args: SelectSubset<T, SmartListMemberFindUniqueArgs<ExtArgs>>): Prisma__SmartListMemberClient<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SmartListMember that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SmartListMemberFindUniqueOrThrowArgs} args - Arguments to find a SmartListMember
+     * @example
+     * // Get one SmartListMember
+     * const smartListMember = await prisma.smartListMember.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SmartListMemberFindUniqueOrThrowArgs>(args: SelectSubset<T, SmartListMemberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SmartListMemberClient<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SmartListMember that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListMemberFindFirstArgs} args - Arguments to find a SmartListMember
+     * @example
+     * // Get one SmartListMember
+     * const smartListMember = await prisma.smartListMember.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SmartListMemberFindFirstArgs>(args?: SelectSubset<T, SmartListMemberFindFirstArgs<ExtArgs>>): Prisma__SmartListMemberClient<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SmartListMember that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListMemberFindFirstOrThrowArgs} args - Arguments to find a SmartListMember
+     * @example
+     * // Get one SmartListMember
+     * const smartListMember = await prisma.smartListMember.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SmartListMemberFindFirstOrThrowArgs>(args?: SelectSubset<T, SmartListMemberFindFirstOrThrowArgs<ExtArgs>>): Prisma__SmartListMemberClient<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SmartListMembers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListMemberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SmartListMembers
+     * const smartListMembers = await prisma.smartListMember.findMany()
+     * 
+     * // Get first 10 SmartListMembers
+     * const smartListMembers = await prisma.smartListMember.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const smartListMemberWithIdOnly = await prisma.smartListMember.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SmartListMemberFindManyArgs>(args?: SelectSubset<T, SmartListMemberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SmartListMember.
+     * @param {SmartListMemberCreateArgs} args - Arguments to create a SmartListMember.
+     * @example
+     * // Create one SmartListMember
+     * const SmartListMember = await prisma.smartListMember.create({
+     *   data: {
+     *     // ... data to create a SmartListMember
+     *   }
+     * })
+     * 
+     */
+    create<T extends SmartListMemberCreateArgs>(args: SelectSubset<T, SmartListMemberCreateArgs<ExtArgs>>): Prisma__SmartListMemberClient<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SmartListMembers.
+     * @param {SmartListMemberCreateManyArgs} args - Arguments to create many SmartListMembers.
+     * @example
+     * // Create many SmartListMembers
+     * const smartListMember = await prisma.smartListMember.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SmartListMemberCreateManyArgs>(args?: SelectSubset<T, SmartListMemberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SmartListMembers and returns the data saved in the database.
+     * @param {SmartListMemberCreateManyAndReturnArgs} args - Arguments to create many SmartListMembers.
+     * @example
+     * // Create many SmartListMembers
+     * const smartListMember = await prisma.smartListMember.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SmartListMembers and only return the `id`
+     * const smartListMemberWithIdOnly = await prisma.smartListMember.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SmartListMemberCreateManyAndReturnArgs>(args?: SelectSubset<T, SmartListMemberCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SmartListMember.
+     * @param {SmartListMemberDeleteArgs} args - Arguments to delete one SmartListMember.
+     * @example
+     * // Delete one SmartListMember
+     * const SmartListMember = await prisma.smartListMember.delete({
+     *   where: {
+     *     // ... filter to delete one SmartListMember
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SmartListMemberDeleteArgs>(args: SelectSubset<T, SmartListMemberDeleteArgs<ExtArgs>>): Prisma__SmartListMemberClient<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SmartListMember.
+     * @param {SmartListMemberUpdateArgs} args - Arguments to update one SmartListMember.
+     * @example
+     * // Update one SmartListMember
+     * const smartListMember = await prisma.smartListMember.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SmartListMemberUpdateArgs>(args: SelectSubset<T, SmartListMemberUpdateArgs<ExtArgs>>): Prisma__SmartListMemberClient<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SmartListMembers.
+     * @param {SmartListMemberDeleteManyArgs} args - Arguments to filter SmartListMembers to delete.
+     * @example
+     * // Delete a few SmartListMembers
+     * const { count } = await prisma.smartListMember.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SmartListMemberDeleteManyArgs>(args?: SelectSubset<T, SmartListMemberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SmartListMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListMemberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SmartListMembers
+     * const smartListMember = await prisma.smartListMember.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SmartListMemberUpdateManyArgs>(args: SelectSubset<T, SmartListMemberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SmartListMembers and returns the data updated in the database.
+     * @param {SmartListMemberUpdateManyAndReturnArgs} args - Arguments to update many SmartListMembers.
+     * @example
+     * // Update many SmartListMembers
+     * const smartListMember = await prisma.smartListMember.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SmartListMembers and only return the `id`
+     * const smartListMemberWithIdOnly = await prisma.smartListMember.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SmartListMemberUpdateManyAndReturnArgs>(args: SelectSubset<T, SmartListMemberUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SmartListMember.
+     * @param {SmartListMemberUpsertArgs} args - Arguments to update or create a SmartListMember.
+     * @example
+     * // Update or create a SmartListMember
+     * const smartListMember = await prisma.smartListMember.upsert({
+     *   create: {
+     *     // ... data to create a SmartListMember
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SmartListMember we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SmartListMemberUpsertArgs>(args: SelectSubset<T, SmartListMemberUpsertArgs<ExtArgs>>): Prisma__SmartListMemberClient<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SmartListMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListMemberCountArgs} args - Arguments to filter SmartListMembers to count.
+     * @example
+     * // Count the number of SmartListMembers
+     * const count = await prisma.smartListMember.count({
+     *   where: {
+     *     // ... the filter for the SmartListMembers we want to count
+     *   }
+     * })
+    **/
+    count<T extends SmartListMemberCountArgs>(
+      args?: Subset<T, SmartListMemberCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SmartListMemberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SmartListMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListMemberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SmartListMemberAggregateArgs>(args: Subset<T, SmartListMemberAggregateArgs>): Prisma.PrismaPromise<GetSmartListMemberAggregateType<T>>
+
+    /**
+     * Group by SmartListMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SmartListMemberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SmartListMemberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SmartListMemberGroupByArgs['orderBy'] }
+        : { orderBy?: SmartListMemberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SmartListMemberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSmartListMemberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SmartListMember model
+   */
+  readonly fields: SmartListMemberFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SmartListMember.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SmartListMemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    smartList<T extends SmartListDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SmartListDefaultArgs<ExtArgs>>): Prisma__SmartListClient<$Result.GetResult<Prisma.$SmartListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SmartListMember model
+   */
+  interface SmartListMemberFieldRefs {
+    readonly id: FieldRef<"SmartListMember", 'String'>
+    readonly smartListId: FieldRef<"SmartListMember", 'String'>
+    readonly customerId: FieldRef<"SmartListMember", 'String'>
+    readonly addedAt: FieldRef<"SmartListMember", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SmartListMember findUnique
+   */
+  export type SmartListMemberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartListMember to fetch.
+     */
+    where: SmartListMemberWhereUniqueInput
+  }
+
+  /**
+   * SmartListMember findUniqueOrThrow
+   */
+  export type SmartListMemberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartListMember to fetch.
+     */
+    where: SmartListMemberWhereUniqueInput
+  }
+
+  /**
+   * SmartListMember findFirst
+   */
+  export type SmartListMemberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartListMember to fetch.
+     */
+    where?: SmartListMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmartListMembers to fetch.
+     */
+    orderBy?: SmartListMemberOrderByWithRelationInput | SmartListMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SmartListMembers.
+     */
+    cursor?: SmartListMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmartListMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmartListMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SmartListMembers.
+     */
+    distinct?: SmartListMemberScalarFieldEnum | SmartListMemberScalarFieldEnum[]
+  }
+
+  /**
+   * SmartListMember findFirstOrThrow
+   */
+  export type SmartListMemberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartListMember to fetch.
+     */
+    where?: SmartListMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmartListMembers to fetch.
+     */
+    orderBy?: SmartListMemberOrderByWithRelationInput | SmartListMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SmartListMembers.
+     */
+    cursor?: SmartListMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmartListMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmartListMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SmartListMembers.
+     */
+    distinct?: SmartListMemberScalarFieldEnum | SmartListMemberScalarFieldEnum[]
+  }
+
+  /**
+   * SmartListMember findMany
+   */
+  export type SmartListMemberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which SmartListMembers to fetch.
+     */
+    where?: SmartListMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SmartListMembers to fetch.
+     */
+    orderBy?: SmartListMemberOrderByWithRelationInput | SmartListMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SmartListMembers.
+     */
+    cursor?: SmartListMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SmartListMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SmartListMembers.
+     */
+    skip?: number
+    distinct?: SmartListMemberScalarFieldEnum | SmartListMemberScalarFieldEnum[]
+  }
+
+  /**
+   * SmartListMember create
+   */
+  export type SmartListMemberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SmartListMember.
+     */
+    data: XOR<SmartListMemberCreateInput, SmartListMemberUncheckedCreateInput>
+  }
+
+  /**
+   * SmartListMember createMany
+   */
+  export type SmartListMemberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SmartListMembers.
+     */
+    data: SmartListMemberCreateManyInput | SmartListMemberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SmartListMember createManyAndReturn
+   */
+  export type SmartListMemberCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * The data used to create many SmartListMembers.
+     */
+    data: SmartListMemberCreateManyInput | SmartListMemberCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SmartListMember update
+   */
+  export type SmartListMemberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SmartListMember.
+     */
+    data: XOR<SmartListMemberUpdateInput, SmartListMemberUncheckedUpdateInput>
+    /**
+     * Choose, which SmartListMember to update.
+     */
+    where: SmartListMemberWhereUniqueInput
+  }
+
+  /**
+   * SmartListMember updateMany
+   */
+  export type SmartListMemberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SmartListMembers.
+     */
+    data: XOR<SmartListMemberUpdateManyMutationInput, SmartListMemberUncheckedUpdateManyInput>
+    /**
+     * Filter which SmartListMembers to update
+     */
+    where?: SmartListMemberWhereInput
+    /**
+     * Limit how many SmartListMembers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SmartListMember updateManyAndReturn
+   */
+  export type SmartListMemberUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * The data used to update SmartListMembers.
+     */
+    data: XOR<SmartListMemberUpdateManyMutationInput, SmartListMemberUncheckedUpdateManyInput>
+    /**
+     * Filter which SmartListMembers to update
+     */
+    where?: SmartListMemberWhereInput
+    /**
+     * Limit how many SmartListMembers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SmartListMember upsert
+   */
+  export type SmartListMemberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SmartListMember to update in case it exists.
+     */
+    where: SmartListMemberWhereUniqueInput
+    /**
+     * In case the SmartListMember found by the `where` argument doesn't exist, create a new SmartListMember with this data.
+     */
+    create: XOR<SmartListMemberCreateInput, SmartListMemberUncheckedCreateInput>
+    /**
+     * In case the SmartListMember was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SmartListMemberUpdateInput, SmartListMemberUncheckedUpdateInput>
+  }
+
+  /**
+   * SmartListMember delete
+   */
+  export type SmartListMemberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+    /**
+     * Filter which SmartListMember to delete.
+     */
+    where: SmartListMemberWhereUniqueInput
+  }
+
+  /**
+   * SmartListMember deleteMany
+   */
+  export type SmartListMemberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SmartListMembers to delete
+     */
+    where?: SmartListMemberWhereInput
+    /**
+     * Limit how many SmartListMembers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SmartListMember without action
+   */
+  export type SmartListMemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SmartListMember
+     */
+    select?: SmartListMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SmartListMember
+     */
+    omit?: SmartListMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SmartListMemberInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LeadScoringRule
+   */
+
+  export type AggregateLeadScoringRule = {
+    _count: LeadScoringRuleCountAggregateOutputType | null
+    _avg: LeadScoringRuleAvgAggregateOutputType | null
+    _sum: LeadScoringRuleSumAggregateOutputType | null
+    _min: LeadScoringRuleMinAggregateOutputType | null
+    _max: LeadScoringRuleMaxAggregateOutputType | null
+  }
+
+  export type LeadScoringRuleAvgAggregateOutputType = {
+    points: number | null
+    priority: number | null
+    sortOrder: number | null
+  }
+
+  export type LeadScoringRuleSumAggregateOutputType = {
+    points: number | null
+    priority: number | null
+    sortOrder: number | null
+  }
+
+  export type LeadScoringRuleMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    category: string | null
+    isActive: boolean | null
+    isSystem: boolean | null
+    points: number | null
+    priority: number | null
+    sortOrder: number | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LeadScoringRuleMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    category: string | null
+    isActive: boolean | null
+    isSystem: boolean | null
+    points: number | null
+    priority: number | null
+    sortOrder: number | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LeadScoringRuleCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    category: number
+    isActive: number
+    isSystem: number
+    condition: number
+    points: number
+    priority: number
+    sortOrder: number
+    metadata: number
+    createdBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LeadScoringRuleAvgAggregateInputType = {
+    points?: true
+    priority?: true
+    sortOrder?: true
+  }
+
+  export type LeadScoringRuleSumAggregateInputType = {
+    points?: true
+    priority?: true
+    sortOrder?: true
+  }
+
+  export type LeadScoringRuleMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    category?: true
+    isActive?: true
+    isSystem?: true
+    points?: true
+    priority?: true
+    sortOrder?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LeadScoringRuleMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    category?: true
+    isActive?: true
+    isSystem?: true
+    points?: true
+    priority?: true
+    sortOrder?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LeadScoringRuleCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    category?: true
+    isActive?: true
+    isSystem?: true
+    condition?: true
+    points?: true
+    priority?: true
+    sortOrder?: true
+    metadata?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LeadScoringRuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadScoringRule to aggregate.
+     */
+    where?: LeadScoringRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadScoringRules to fetch.
+     */
+    orderBy?: LeadScoringRuleOrderByWithRelationInput | LeadScoringRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LeadScoringRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadScoringRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadScoringRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LeadScoringRules
+    **/
+    _count?: true | LeadScoringRuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LeadScoringRuleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LeadScoringRuleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LeadScoringRuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LeadScoringRuleMaxAggregateInputType
+  }
+
+  export type GetLeadScoringRuleAggregateType<T extends LeadScoringRuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateLeadScoringRule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLeadScoringRule[P]>
+      : GetScalarType<T[P], AggregateLeadScoringRule[P]>
+  }
+
+
+
+
+  export type LeadScoringRuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadScoringRuleWhereInput
+    orderBy?: LeadScoringRuleOrderByWithAggregationInput | LeadScoringRuleOrderByWithAggregationInput[]
+    by: LeadScoringRuleScalarFieldEnum[] | LeadScoringRuleScalarFieldEnum
+    having?: LeadScoringRuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LeadScoringRuleCountAggregateInputType | true
+    _avg?: LeadScoringRuleAvgAggregateInputType
+    _sum?: LeadScoringRuleSumAggregateInputType
+    _min?: LeadScoringRuleMinAggregateInputType
+    _max?: LeadScoringRuleMaxAggregateInputType
+  }
+
+  export type LeadScoringRuleGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    category: string
+    isActive: boolean
+    isSystem: boolean
+    condition: JsonValue
+    points: number
+    priority: number
+    sortOrder: number
+    metadata: JsonValue
+    createdBy: string
+    createdAt: Date
+    updatedAt: Date
+    _count: LeadScoringRuleCountAggregateOutputType | null
+    _avg: LeadScoringRuleAvgAggregateOutputType | null
+    _sum: LeadScoringRuleSumAggregateOutputType | null
+    _min: LeadScoringRuleMinAggregateOutputType | null
+    _max: LeadScoringRuleMaxAggregateOutputType | null
+  }
+
+  type GetLeadScoringRuleGroupByPayload<T extends LeadScoringRuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LeadScoringRuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LeadScoringRuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LeadScoringRuleGroupByOutputType[P]>
+            : GetScalarType<T[P], LeadScoringRuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LeadScoringRuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    category?: boolean
+    isActive?: boolean
+    isSystem?: boolean
+    condition?: boolean
+    points?: boolean
+    priority?: boolean
+    sortOrder?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadScoringRule"]>
+
+  export type LeadScoringRuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    category?: boolean
+    isActive?: boolean
+    isSystem?: boolean
+    condition?: boolean
+    points?: boolean
+    priority?: boolean
+    sortOrder?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadScoringRule"]>
+
+  export type LeadScoringRuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    category?: boolean
+    isActive?: boolean
+    isSystem?: boolean
+    condition?: boolean
+    points?: boolean
+    priority?: boolean
+    sortOrder?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadScoringRule"]>
+
+  export type LeadScoringRuleSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    category?: boolean
+    isActive?: boolean
+    isSystem?: boolean
+    condition?: boolean
+    points?: boolean
+    priority?: boolean
+    sortOrder?: boolean
+    metadata?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LeadScoringRuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "category" | "isActive" | "isSystem" | "condition" | "points" | "priority" | "sortOrder" | "metadata" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["leadScoringRule"]>
+  export type LeadScoringRuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LeadScoringRuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type LeadScoringRuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $LeadScoringRulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LeadScoringRule"
+    objects: {
+      createdByUser: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      category: string
+      isActive: boolean
+      isSystem: boolean
+      condition: Prisma.JsonValue
+      points: number
+      priority: number
+      sortOrder: number
+      metadata: Prisma.JsonValue
+      createdBy: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["leadScoringRule"]>
+    composites: {}
+  }
+
+  type LeadScoringRuleGetPayload<S extends boolean | null | undefined | LeadScoringRuleDefaultArgs> = $Result.GetResult<Prisma.$LeadScoringRulePayload, S>
+
+  type LeadScoringRuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LeadScoringRuleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LeadScoringRuleCountAggregateInputType | true
+    }
+
+  export interface LeadScoringRuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LeadScoringRule'], meta: { name: 'LeadScoringRule' } }
+    /**
+     * Find zero or one LeadScoringRule that matches the filter.
+     * @param {LeadScoringRuleFindUniqueArgs} args - Arguments to find a LeadScoringRule
+     * @example
+     * // Get one LeadScoringRule
+     * const leadScoringRule = await prisma.leadScoringRule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LeadScoringRuleFindUniqueArgs>(args: SelectSubset<T, LeadScoringRuleFindUniqueArgs<ExtArgs>>): Prisma__LeadScoringRuleClient<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LeadScoringRule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LeadScoringRuleFindUniqueOrThrowArgs} args - Arguments to find a LeadScoringRule
+     * @example
+     * // Get one LeadScoringRule
+     * const leadScoringRule = await prisma.leadScoringRule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LeadScoringRuleFindUniqueOrThrowArgs>(args: SelectSubset<T, LeadScoringRuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LeadScoringRuleClient<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadScoringRule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoringRuleFindFirstArgs} args - Arguments to find a LeadScoringRule
+     * @example
+     * // Get one LeadScoringRule
+     * const leadScoringRule = await prisma.leadScoringRule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LeadScoringRuleFindFirstArgs>(args?: SelectSubset<T, LeadScoringRuleFindFirstArgs<ExtArgs>>): Prisma__LeadScoringRuleClient<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadScoringRule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoringRuleFindFirstOrThrowArgs} args - Arguments to find a LeadScoringRule
+     * @example
+     * // Get one LeadScoringRule
+     * const leadScoringRule = await prisma.leadScoringRule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LeadScoringRuleFindFirstOrThrowArgs>(args?: SelectSubset<T, LeadScoringRuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__LeadScoringRuleClient<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LeadScoringRules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoringRuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LeadScoringRules
+     * const leadScoringRules = await prisma.leadScoringRule.findMany()
+     * 
+     * // Get first 10 LeadScoringRules
+     * const leadScoringRules = await prisma.leadScoringRule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const leadScoringRuleWithIdOnly = await prisma.leadScoringRule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LeadScoringRuleFindManyArgs>(args?: SelectSubset<T, LeadScoringRuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LeadScoringRule.
+     * @param {LeadScoringRuleCreateArgs} args - Arguments to create a LeadScoringRule.
+     * @example
+     * // Create one LeadScoringRule
+     * const LeadScoringRule = await prisma.leadScoringRule.create({
+     *   data: {
+     *     // ... data to create a LeadScoringRule
+     *   }
+     * })
+     * 
+     */
+    create<T extends LeadScoringRuleCreateArgs>(args: SelectSubset<T, LeadScoringRuleCreateArgs<ExtArgs>>): Prisma__LeadScoringRuleClient<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LeadScoringRules.
+     * @param {LeadScoringRuleCreateManyArgs} args - Arguments to create many LeadScoringRules.
+     * @example
+     * // Create many LeadScoringRules
+     * const leadScoringRule = await prisma.leadScoringRule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LeadScoringRuleCreateManyArgs>(args?: SelectSubset<T, LeadScoringRuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LeadScoringRules and returns the data saved in the database.
+     * @param {LeadScoringRuleCreateManyAndReturnArgs} args - Arguments to create many LeadScoringRules.
+     * @example
+     * // Create many LeadScoringRules
+     * const leadScoringRule = await prisma.leadScoringRule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LeadScoringRules and only return the `id`
+     * const leadScoringRuleWithIdOnly = await prisma.leadScoringRule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LeadScoringRuleCreateManyAndReturnArgs>(args?: SelectSubset<T, LeadScoringRuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LeadScoringRule.
+     * @param {LeadScoringRuleDeleteArgs} args - Arguments to delete one LeadScoringRule.
+     * @example
+     * // Delete one LeadScoringRule
+     * const LeadScoringRule = await prisma.leadScoringRule.delete({
+     *   where: {
+     *     // ... filter to delete one LeadScoringRule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LeadScoringRuleDeleteArgs>(args: SelectSubset<T, LeadScoringRuleDeleteArgs<ExtArgs>>): Prisma__LeadScoringRuleClient<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LeadScoringRule.
+     * @param {LeadScoringRuleUpdateArgs} args - Arguments to update one LeadScoringRule.
+     * @example
+     * // Update one LeadScoringRule
+     * const leadScoringRule = await prisma.leadScoringRule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LeadScoringRuleUpdateArgs>(args: SelectSubset<T, LeadScoringRuleUpdateArgs<ExtArgs>>): Prisma__LeadScoringRuleClient<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LeadScoringRules.
+     * @param {LeadScoringRuleDeleteManyArgs} args - Arguments to filter LeadScoringRules to delete.
+     * @example
+     * // Delete a few LeadScoringRules
+     * const { count } = await prisma.leadScoringRule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LeadScoringRuleDeleteManyArgs>(args?: SelectSubset<T, LeadScoringRuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadScoringRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoringRuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LeadScoringRules
+     * const leadScoringRule = await prisma.leadScoringRule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LeadScoringRuleUpdateManyArgs>(args: SelectSubset<T, LeadScoringRuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadScoringRules and returns the data updated in the database.
+     * @param {LeadScoringRuleUpdateManyAndReturnArgs} args - Arguments to update many LeadScoringRules.
+     * @example
+     * // Update many LeadScoringRules
+     * const leadScoringRule = await prisma.leadScoringRule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LeadScoringRules and only return the `id`
+     * const leadScoringRuleWithIdOnly = await prisma.leadScoringRule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LeadScoringRuleUpdateManyAndReturnArgs>(args: SelectSubset<T, LeadScoringRuleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LeadScoringRule.
+     * @param {LeadScoringRuleUpsertArgs} args - Arguments to update or create a LeadScoringRule.
+     * @example
+     * // Update or create a LeadScoringRule
+     * const leadScoringRule = await prisma.leadScoringRule.upsert({
+     *   create: {
+     *     // ... data to create a LeadScoringRule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LeadScoringRule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LeadScoringRuleUpsertArgs>(args: SelectSubset<T, LeadScoringRuleUpsertArgs<ExtArgs>>): Prisma__LeadScoringRuleClient<$Result.GetResult<Prisma.$LeadScoringRulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LeadScoringRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoringRuleCountArgs} args - Arguments to filter LeadScoringRules to count.
+     * @example
+     * // Count the number of LeadScoringRules
+     * const count = await prisma.leadScoringRule.count({
+     *   where: {
+     *     // ... the filter for the LeadScoringRules we want to count
+     *   }
+     * })
+    **/
+    count<T extends LeadScoringRuleCountArgs>(
+      args?: Subset<T, LeadScoringRuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LeadScoringRuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LeadScoringRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoringRuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LeadScoringRuleAggregateArgs>(args: Subset<T, LeadScoringRuleAggregateArgs>): Prisma.PrismaPromise<GetLeadScoringRuleAggregateType<T>>
+
+    /**
+     * Group by LeadScoringRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoringRuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LeadScoringRuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LeadScoringRuleGroupByArgs['orderBy'] }
+        : { orderBy?: LeadScoringRuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LeadScoringRuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLeadScoringRuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LeadScoringRule model
+   */
+  readonly fields: LeadScoringRuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LeadScoringRule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LeadScoringRuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdByUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LeadScoringRule model
+   */
+  interface LeadScoringRuleFieldRefs {
+    readonly id: FieldRef<"LeadScoringRule", 'String'>
+    readonly name: FieldRef<"LeadScoringRule", 'String'>
+    readonly description: FieldRef<"LeadScoringRule", 'String'>
+    readonly category: FieldRef<"LeadScoringRule", 'String'>
+    readonly isActive: FieldRef<"LeadScoringRule", 'Boolean'>
+    readonly isSystem: FieldRef<"LeadScoringRule", 'Boolean'>
+    readonly condition: FieldRef<"LeadScoringRule", 'Json'>
+    readonly points: FieldRef<"LeadScoringRule", 'Int'>
+    readonly priority: FieldRef<"LeadScoringRule", 'Int'>
+    readonly sortOrder: FieldRef<"LeadScoringRule", 'Int'>
+    readonly metadata: FieldRef<"LeadScoringRule", 'Json'>
+    readonly createdBy: FieldRef<"LeadScoringRule", 'String'>
+    readonly createdAt: FieldRef<"LeadScoringRule", 'DateTime'>
+    readonly updatedAt: FieldRef<"LeadScoringRule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LeadScoringRule findUnique
+   */
+  export type LeadScoringRuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoringRule to fetch.
+     */
+    where: LeadScoringRuleWhereUniqueInput
+  }
+
+  /**
+   * LeadScoringRule findUniqueOrThrow
+   */
+  export type LeadScoringRuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoringRule to fetch.
+     */
+    where: LeadScoringRuleWhereUniqueInput
+  }
+
+  /**
+   * LeadScoringRule findFirst
+   */
+  export type LeadScoringRuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoringRule to fetch.
+     */
+    where?: LeadScoringRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadScoringRules to fetch.
+     */
+    orderBy?: LeadScoringRuleOrderByWithRelationInput | LeadScoringRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadScoringRules.
+     */
+    cursor?: LeadScoringRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadScoringRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadScoringRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadScoringRules.
+     */
+    distinct?: LeadScoringRuleScalarFieldEnum | LeadScoringRuleScalarFieldEnum[]
+  }
+
+  /**
+   * LeadScoringRule findFirstOrThrow
+   */
+  export type LeadScoringRuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoringRule to fetch.
+     */
+    where?: LeadScoringRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadScoringRules to fetch.
+     */
+    orderBy?: LeadScoringRuleOrderByWithRelationInput | LeadScoringRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadScoringRules.
+     */
+    cursor?: LeadScoringRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadScoringRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadScoringRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadScoringRules.
+     */
+    distinct?: LeadScoringRuleScalarFieldEnum | LeadScoringRuleScalarFieldEnum[]
+  }
+
+  /**
+   * LeadScoringRule findMany
+   */
+  export type LeadScoringRuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoringRules to fetch.
+     */
+    where?: LeadScoringRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadScoringRules to fetch.
+     */
+    orderBy?: LeadScoringRuleOrderByWithRelationInput | LeadScoringRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LeadScoringRules.
+     */
+    cursor?: LeadScoringRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadScoringRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadScoringRules.
+     */
+    skip?: number
+    distinct?: LeadScoringRuleScalarFieldEnum | LeadScoringRuleScalarFieldEnum[]
+  }
+
+  /**
+   * LeadScoringRule create
+   */
+  export type LeadScoringRuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LeadScoringRule.
+     */
+    data: XOR<LeadScoringRuleCreateInput, LeadScoringRuleUncheckedCreateInput>
+  }
+
+  /**
+   * LeadScoringRule createMany
+   */
+  export type LeadScoringRuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LeadScoringRules.
+     */
+    data: LeadScoringRuleCreateManyInput | LeadScoringRuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LeadScoringRule createManyAndReturn
+   */
+  export type LeadScoringRuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * The data used to create many LeadScoringRules.
+     */
+    data: LeadScoringRuleCreateManyInput | LeadScoringRuleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LeadScoringRule update
+   */
+  export type LeadScoringRuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LeadScoringRule.
+     */
+    data: XOR<LeadScoringRuleUpdateInput, LeadScoringRuleUncheckedUpdateInput>
+    /**
+     * Choose, which LeadScoringRule to update.
+     */
+    where: LeadScoringRuleWhereUniqueInput
+  }
+
+  /**
+   * LeadScoringRule updateMany
+   */
+  export type LeadScoringRuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LeadScoringRules.
+     */
+    data: XOR<LeadScoringRuleUpdateManyMutationInput, LeadScoringRuleUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadScoringRules to update
+     */
+    where?: LeadScoringRuleWhereInput
+    /**
+     * Limit how many LeadScoringRules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadScoringRule updateManyAndReturn
+   */
+  export type LeadScoringRuleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * The data used to update LeadScoringRules.
+     */
+    data: XOR<LeadScoringRuleUpdateManyMutationInput, LeadScoringRuleUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadScoringRules to update
+     */
+    where?: LeadScoringRuleWhereInput
+    /**
+     * Limit how many LeadScoringRules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LeadScoringRule upsert
+   */
+  export type LeadScoringRuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LeadScoringRule to update in case it exists.
+     */
+    where: LeadScoringRuleWhereUniqueInput
+    /**
+     * In case the LeadScoringRule found by the `where` argument doesn't exist, create a new LeadScoringRule with this data.
+     */
+    create: XOR<LeadScoringRuleCreateInput, LeadScoringRuleUncheckedCreateInput>
+    /**
+     * In case the LeadScoringRule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LeadScoringRuleUpdateInput, LeadScoringRuleUncheckedUpdateInput>
+  }
+
+  /**
+   * LeadScoringRule delete
+   */
+  export type LeadScoringRuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+    /**
+     * Filter which LeadScoringRule to delete.
+     */
+    where: LeadScoringRuleWhereUniqueInput
+  }
+
+  /**
+   * LeadScoringRule deleteMany
+   */
+  export type LeadScoringRuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadScoringRules to delete
+     */
+    where?: LeadScoringRuleWhereInput
+    /**
+     * Limit how many LeadScoringRules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadScoringRule without action
+   */
+  export type LeadScoringRuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoringRule
+     */
+    select?: LeadScoringRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoringRule
+     */
+    omit?: LeadScoringRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoringRuleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LeadScoreHistory
+   */
+
+  export type AggregateLeadScoreHistory = {
+    _count: LeadScoreHistoryCountAggregateOutputType | null
+    _avg: LeadScoreHistoryAvgAggregateOutputType | null
+    _sum: LeadScoreHistorySumAggregateOutputType | null
+    _min: LeadScoreHistoryMinAggregateOutputType | null
+    _max: LeadScoreHistoryMaxAggregateOutputType | null
+  }
+
+  export type LeadScoreHistoryAvgAggregateOutputType = {
+    oldScore: number | null
+    newScore: number | null
+    change: number | null
+  }
+
+  export type LeadScoreHistorySumAggregateOutputType = {
+    oldScore: number | null
+    newScore: number | null
+    change: number | null
+  }
+
+  export type LeadScoreHistoryMinAggregateOutputType = {
+    id: string | null
+    customerId: string | null
+    oldScore: number | null
+    newScore: number | null
+    change: number | null
+    triggerType: string | null
+    triggerId: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type LeadScoreHistoryMaxAggregateOutputType = {
+    id: string | null
+    customerId: string | null
+    oldScore: number | null
+    newScore: number | null
+    change: number | null
+    triggerType: string | null
+    triggerId: string | null
+    reason: string | null
+    createdAt: Date | null
+  }
+
+  export type LeadScoreHistoryCountAggregateOutputType = {
+    id: number
+    customerId: number
+    oldScore: number
+    newScore: number
+    change: number
+    triggerType: number
+    triggerId: number
+    reason: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LeadScoreHistoryAvgAggregateInputType = {
+    oldScore?: true
+    newScore?: true
+    change?: true
+  }
+
+  export type LeadScoreHistorySumAggregateInputType = {
+    oldScore?: true
+    newScore?: true
+    change?: true
+  }
+
+  export type LeadScoreHistoryMinAggregateInputType = {
+    id?: true
+    customerId?: true
+    oldScore?: true
+    newScore?: true
+    change?: true
+    triggerType?: true
+    triggerId?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type LeadScoreHistoryMaxAggregateInputType = {
+    id?: true
+    customerId?: true
+    oldScore?: true
+    newScore?: true
+    change?: true
+    triggerType?: true
+    triggerId?: true
+    reason?: true
+    createdAt?: true
+  }
+
+  export type LeadScoreHistoryCountAggregateInputType = {
+    id?: true
+    customerId?: true
+    oldScore?: true
+    newScore?: true
+    change?: true
+    triggerType?: true
+    triggerId?: true
+    reason?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LeadScoreHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadScoreHistory to aggregate.
+     */
+    where?: LeadScoreHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadScoreHistories to fetch.
+     */
+    orderBy?: LeadScoreHistoryOrderByWithRelationInput | LeadScoreHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LeadScoreHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadScoreHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadScoreHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LeadScoreHistories
+    **/
+    _count?: true | LeadScoreHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LeadScoreHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LeadScoreHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LeadScoreHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LeadScoreHistoryMaxAggregateInputType
+  }
+
+  export type GetLeadScoreHistoryAggregateType<T extends LeadScoreHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateLeadScoreHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLeadScoreHistory[P]>
+      : GetScalarType<T[P], AggregateLeadScoreHistory[P]>
+  }
+
+
+
+
+  export type LeadScoreHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LeadScoreHistoryWhereInput
+    orderBy?: LeadScoreHistoryOrderByWithAggregationInput | LeadScoreHistoryOrderByWithAggregationInput[]
+    by: LeadScoreHistoryScalarFieldEnum[] | LeadScoreHistoryScalarFieldEnum
+    having?: LeadScoreHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LeadScoreHistoryCountAggregateInputType | true
+    _avg?: LeadScoreHistoryAvgAggregateInputType
+    _sum?: LeadScoreHistorySumAggregateInputType
+    _min?: LeadScoreHistoryMinAggregateInputType
+    _max?: LeadScoreHistoryMaxAggregateInputType
+  }
+
+  export type LeadScoreHistoryGroupByOutputType = {
+    id: string
+    customerId: string
+    oldScore: number
+    newScore: number
+    change: number
+    triggerType: string
+    triggerId: string | null
+    reason: string | null
+    metadata: JsonValue
+    createdAt: Date
+    _count: LeadScoreHistoryCountAggregateOutputType | null
+    _avg: LeadScoreHistoryAvgAggregateOutputType | null
+    _sum: LeadScoreHistorySumAggregateOutputType | null
+    _min: LeadScoreHistoryMinAggregateOutputType | null
+    _max: LeadScoreHistoryMaxAggregateOutputType | null
+  }
+
+  type GetLeadScoreHistoryGroupByPayload<T extends LeadScoreHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LeadScoreHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LeadScoreHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LeadScoreHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], LeadScoreHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LeadScoreHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerId?: boolean
+    oldScore?: boolean
+    newScore?: boolean
+    change?: boolean
+    triggerType?: boolean
+    triggerId?: boolean
+    reason?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadScoreHistory"]>
+
+  export type LeadScoreHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerId?: boolean
+    oldScore?: boolean
+    newScore?: boolean
+    change?: boolean
+    triggerType?: boolean
+    triggerId?: boolean
+    reason?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadScoreHistory"]>
+
+  export type LeadScoreHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerId?: boolean
+    oldScore?: boolean
+    newScore?: boolean
+    change?: boolean
+    triggerType?: boolean
+    triggerId?: boolean
+    reason?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["leadScoreHistory"]>
+
+  export type LeadScoreHistorySelectScalar = {
+    id?: boolean
+    customerId?: boolean
+    oldScore?: boolean
+    newScore?: boolean
+    change?: boolean
+    triggerType?: boolean
+    triggerId?: boolean
+    reason?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type LeadScoreHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "oldScore" | "newScore" | "change" | "triggerType" | "triggerId" | "reason" | "metadata" | "createdAt", ExtArgs["result"]["leadScoreHistory"]>
+  export type LeadScoreHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }
+  export type LeadScoreHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }
+  export type LeadScoreHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+  }
+
+  export type $LeadScoreHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LeadScoreHistory"
+    objects: {
+      customer: Prisma.$CustomerPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      customerId: string
+      oldScore: number
+      newScore: number
+      change: number
+      triggerType: string
+      triggerId: string | null
+      reason: string | null
+      metadata: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["leadScoreHistory"]>
+    composites: {}
+  }
+
+  type LeadScoreHistoryGetPayload<S extends boolean | null | undefined | LeadScoreHistoryDefaultArgs> = $Result.GetResult<Prisma.$LeadScoreHistoryPayload, S>
+
+  type LeadScoreHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LeadScoreHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LeadScoreHistoryCountAggregateInputType | true
+    }
+
+  export interface LeadScoreHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LeadScoreHistory'], meta: { name: 'LeadScoreHistory' } }
+    /**
+     * Find zero or one LeadScoreHistory that matches the filter.
+     * @param {LeadScoreHistoryFindUniqueArgs} args - Arguments to find a LeadScoreHistory
+     * @example
+     * // Get one LeadScoreHistory
+     * const leadScoreHistory = await prisma.leadScoreHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LeadScoreHistoryFindUniqueArgs>(args: SelectSubset<T, LeadScoreHistoryFindUniqueArgs<ExtArgs>>): Prisma__LeadScoreHistoryClient<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LeadScoreHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LeadScoreHistoryFindUniqueOrThrowArgs} args - Arguments to find a LeadScoreHistory
+     * @example
+     * // Get one LeadScoreHistory
+     * const leadScoreHistory = await prisma.leadScoreHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LeadScoreHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, LeadScoreHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LeadScoreHistoryClient<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadScoreHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoreHistoryFindFirstArgs} args - Arguments to find a LeadScoreHistory
+     * @example
+     * // Get one LeadScoreHistory
+     * const leadScoreHistory = await prisma.leadScoreHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LeadScoreHistoryFindFirstArgs>(args?: SelectSubset<T, LeadScoreHistoryFindFirstArgs<ExtArgs>>): Prisma__LeadScoreHistoryClient<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LeadScoreHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoreHistoryFindFirstOrThrowArgs} args - Arguments to find a LeadScoreHistory
+     * @example
+     * // Get one LeadScoreHistory
+     * const leadScoreHistory = await prisma.leadScoreHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LeadScoreHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, LeadScoreHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__LeadScoreHistoryClient<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LeadScoreHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoreHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LeadScoreHistories
+     * const leadScoreHistories = await prisma.leadScoreHistory.findMany()
+     * 
+     * // Get first 10 LeadScoreHistories
+     * const leadScoreHistories = await prisma.leadScoreHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const leadScoreHistoryWithIdOnly = await prisma.leadScoreHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LeadScoreHistoryFindManyArgs>(args?: SelectSubset<T, LeadScoreHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LeadScoreHistory.
+     * @param {LeadScoreHistoryCreateArgs} args - Arguments to create a LeadScoreHistory.
+     * @example
+     * // Create one LeadScoreHistory
+     * const LeadScoreHistory = await prisma.leadScoreHistory.create({
+     *   data: {
+     *     // ... data to create a LeadScoreHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends LeadScoreHistoryCreateArgs>(args: SelectSubset<T, LeadScoreHistoryCreateArgs<ExtArgs>>): Prisma__LeadScoreHistoryClient<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LeadScoreHistories.
+     * @param {LeadScoreHistoryCreateManyArgs} args - Arguments to create many LeadScoreHistories.
+     * @example
+     * // Create many LeadScoreHistories
+     * const leadScoreHistory = await prisma.leadScoreHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LeadScoreHistoryCreateManyArgs>(args?: SelectSubset<T, LeadScoreHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LeadScoreHistories and returns the data saved in the database.
+     * @param {LeadScoreHistoryCreateManyAndReturnArgs} args - Arguments to create many LeadScoreHistories.
+     * @example
+     * // Create many LeadScoreHistories
+     * const leadScoreHistory = await prisma.leadScoreHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LeadScoreHistories and only return the `id`
+     * const leadScoreHistoryWithIdOnly = await prisma.leadScoreHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LeadScoreHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, LeadScoreHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LeadScoreHistory.
+     * @param {LeadScoreHistoryDeleteArgs} args - Arguments to delete one LeadScoreHistory.
+     * @example
+     * // Delete one LeadScoreHistory
+     * const LeadScoreHistory = await prisma.leadScoreHistory.delete({
+     *   where: {
+     *     // ... filter to delete one LeadScoreHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LeadScoreHistoryDeleteArgs>(args: SelectSubset<T, LeadScoreHistoryDeleteArgs<ExtArgs>>): Prisma__LeadScoreHistoryClient<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LeadScoreHistory.
+     * @param {LeadScoreHistoryUpdateArgs} args - Arguments to update one LeadScoreHistory.
+     * @example
+     * // Update one LeadScoreHistory
+     * const leadScoreHistory = await prisma.leadScoreHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LeadScoreHistoryUpdateArgs>(args: SelectSubset<T, LeadScoreHistoryUpdateArgs<ExtArgs>>): Prisma__LeadScoreHistoryClient<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LeadScoreHistories.
+     * @param {LeadScoreHistoryDeleteManyArgs} args - Arguments to filter LeadScoreHistories to delete.
+     * @example
+     * // Delete a few LeadScoreHistories
+     * const { count } = await prisma.leadScoreHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LeadScoreHistoryDeleteManyArgs>(args?: SelectSubset<T, LeadScoreHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadScoreHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoreHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LeadScoreHistories
+     * const leadScoreHistory = await prisma.leadScoreHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LeadScoreHistoryUpdateManyArgs>(args: SelectSubset<T, LeadScoreHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LeadScoreHistories and returns the data updated in the database.
+     * @param {LeadScoreHistoryUpdateManyAndReturnArgs} args - Arguments to update many LeadScoreHistories.
+     * @example
+     * // Update many LeadScoreHistories
+     * const leadScoreHistory = await prisma.leadScoreHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LeadScoreHistories and only return the `id`
+     * const leadScoreHistoryWithIdOnly = await prisma.leadScoreHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LeadScoreHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, LeadScoreHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LeadScoreHistory.
+     * @param {LeadScoreHistoryUpsertArgs} args - Arguments to update or create a LeadScoreHistory.
+     * @example
+     * // Update or create a LeadScoreHistory
+     * const leadScoreHistory = await prisma.leadScoreHistory.upsert({
+     *   create: {
+     *     // ... data to create a LeadScoreHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LeadScoreHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LeadScoreHistoryUpsertArgs>(args: SelectSubset<T, LeadScoreHistoryUpsertArgs<ExtArgs>>): Prisma__LeadScoreHistoryClient<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LeadScoreHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoreHistoryCountArgs} args - Arguments to filter LeadScoreHistories to count.
+     * @example
+     * // Count the number of LeadScoreHistories
+     * const count = await prisma.leadScoreHistory.count({
+     *   where: {
+     *     // ... the filter for the LeadScoreHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends LeadScoreHistoryCountArgs>(
+      args?: Subset<T, LeadScoreHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LeadScoreHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LeadScoreHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoreHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LeadScoreHistoryAggregateArgs>(args: Subset<T, LeadScoreHistoryAggregateArgs>): Prisma.PrismaPromise<GetLeadScoreHistoryAggregateType<T>>
+
+    /**
+     * Group by LeadScoreHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LeadScoreHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LeadScoreHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LeadScoreHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: LeadScoreHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LeadScoreHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLeadScoreHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LeadScoreHistory model
+   */
+  readonly fields: LeadScoreHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LeadScoreHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LeadScoreHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LeadScoreHistory model
+   */
+  interface LeadScoreHistoryFieldRefs {
+    readonly id: FieldRef<"LeadScoreHistory", 'String'>
+    readonly customerId: FieldRef<"LeadScoreHistory", 'String'>
+    readonly oldScore: FieldRef<"LeadScoreHistory", 'Int'>
+    readonly newScore: FieldRef<"LeadScoreHistory", 'Int'>
+    readonly change: FieldRef<"LeadScoreHistory", 'Int'>
+    readonly triggerType: FieldRef<"LeadScoreHistory", 'String'>
+    readonly triggerId: FieldRef<"LeadScoreHistory", 'String'>
+    readonly reason: FieldRef<"LeadScoreHistory", 'String'>
+    readonly metadata: FieldRef<"LeadScoreHistory", 'Json'>
+    readonly createdAt: FieldRef<"LeadScoreHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LeadScoreHistory findUnique
+   */
+  export type LeadScoreHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoreHistory to fetch.
+     */
+    where: LeadScoreHistoryWhereUniqueInput
+  }
+
+  /**
+   * LeadScoreHistory findUniqueOrThrow
+   */
+  export type LeadScoreHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoreHistory to fetch.
+     */
+    where: LeadScoreHistoryWhereUniqueInput
+  }
+
+  /**
+   * LeadScoreHistory findFirst
+   */
+  export type LeadScoreHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoreHistory to fetch.
+     */
+    where?: LeadScoreHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadScoreHistories to fetch.
+     */
+    orderBy?: LeadScoreHistoryOrderByWithRelationInput | LeadScoreHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadScoreHistories.
+     */
+    cursor?: LeadScoreHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadScoreHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadScoreHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadScoreHistories.
+     */
+    distinct?: LeadScoreHistoryScalarFieldEnum | LeadScoreHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * LeadScoreHistory findFirstOrThrow
+   */
+  export type LeadScoreHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoreHistory to fetch.
+     */
+    where?: LeadScoreHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadScoreHistories to fetch.
+     */
+    orderBy?: LeadScoreHistoryOrderByWithRelationInput | LeadScoreHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LeadScoreHistories.
+     */
+    cursor?: LeadScoreHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadScoreHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadScoreHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LeadScoreHistories.
+     */
+    distinct?: LeadScoreHistoryScalarFieldEnum | LeadScoreHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * LeadScoreHistory findMany
+   */
+  export type LeadScoreHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which LeadScoreHistories to fetch.
+     */
+    where?: LeadScoreHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LeadScoreHistories to fetch.
+     */
+    orderBy?: LeadScoreHistoryOrderByWithRelationInput | LeadScoreHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LeadScoreHistories.
+     */
+    cursor?: LeadScoreHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LeadScoreHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LeadScoreHistories.
+     */
+    skip?: number
+    distinct?: LeadScoreHistoryScalarFieldEnum | LeadScoreHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * LeadScoreHistory create
+   */
+  export type LeadScoreHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LeadScoreHistory.
+     */
+    data: XOR<LeadScoreHistoryCreateInput, LeadScoreHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * LeadScoreHistory createMany
+   */
+  export type LeadScoreHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LeadScoreHistories.
+     */
+    data: LeadScoreHistoryCreateManyInput | LeadScoreHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LeadScoreHistory createManyAndReturn
+   */
+  export type LeadScoreHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many LeadScoreHistories.
+     */
+    data: LeadScoreHistoryCreateManyInput | LeadScoreHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LeadScoreHistory update
+   */
+  export type LeadScoreHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LeadScoreHistory.
+     */
+    data: XOR<LeadScoreHistoryUpdateInput, LeadScoreHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which LeadScoreHistory to update.
+     */
+    where: LeadScoreHistoryWhereUniqueInput
+  }
+
+  /**
+   * LeadScoreHistory updateMany
+   */
+  export type LeadScoreHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LeadScoreHistories.
+     */
+    data: XOR<LeadScoreHistoryUpdateManyMutationInput, LeadScoreHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadScoreHistories to update
+     */
+    where?: LeadScoreHistoryWhereInput
+    /**
+     * Limit how many LeadScoreHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadScoreHistory updateManyAndReturn
+   */
+  export type LeadScoreHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update LeadScoreHistories.
+     */
+    data: XOR<LeadScoreHistoryUpdateManyMutationInput, LeadScoreHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which LeadScoreHistories to update
+     */
+    where?: LeadScoreHistoryWhereInput
+    /**
+     * Limit how many LeadScoreHistories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LeadScoreHistory upsert
+   */
+  export type LeadScoreHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LeadScoreHistory to update in case it exists.
+     */
+    where: LeadScoreHistoryWhereUniqueInput
+    /**
+     * In case the LeadScoreHistory found by the `where` argument doesn't exist, create a new LeadScoreHistory with this data.
+     */
+    create: XOR<LeadScoreHistoryCreateInput, LeadScoreHistoryUncheckedCreateInput>
+    /**
+     * In case the LeadScoreHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LeadScoreHistoryUpdateInput, LeadScoreHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * LeadScoreHistory delete
+   */
+  export type LeadScoreHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which LeadScoreHistory to delete.
+     */
+    where: LeadScoreHistoryWhereUniqueInput
+  }
+
+  /**
+   * LeadScoreHistory deleteMany
+   */
+  export type LeadScoreHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LeadScoreHistories to delete
+     */
+    where?: LeadScoreHistoryWhereInput
+    /**
+     * Limit how many LeadScoreHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LeadScoreHistory without action
+   */
+  export type LeadScoreHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LeadScoreHistory
+     */
+    select?: LeadScoreHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LeadScoreHistory
+     */
+    omit?: LeadScoreHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeadScoreHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Notification
    */
 
@@ -51744,6 +56950,73 @@ export namespace Prisma {
   export type ConversationNoteScalarFieldEnum = (typeof ConversationNoteScalarFieldEnum)[keyof typeof ConversationNoteScalarFieldEnum]
 
 
+  export const SmartListScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    isActive: 'isActive',
+    isSystem: 'isSystem',
+    filterConfig: 'filterConfig',
+    filterLogic: 'filterLogic',
+    autoUpdate: 'autoUpdate',
+    lastUpdatedAt: 'lastUpdatedAt',
+    memberCount: 'memberCount',
+    tags: 'tags',
+    metadata: 'metadata',
+    createdBy: 'createdBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SmartListScalarFieldEnum = (typeof SmartListScalarFieldEnum)[keyof typeof SmartListScalarFieldEnum]
+
+
+  export const SmartListMemberScalarFieldEnum: {
+    id: 'id',
+    smartListId: 'smartListId',
+    customerId: 'customerId',
+    addedAt: 'addedAt'
+  };
+
+  export type SmartListMemberScalarFieldEnum = (typeof SmartListMemberScalarFieldEnum)[keyof typeof SmartListMemberScalarFieldEnum]
+
+
+  export const LeadScoringRuleScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    category: 'category',
+    isActive: 'isActive',
+    isSystem: 'isSystem',
+    condition: 'condition',
+    points: 'points',
+    priority: 'priority',
+    sortOrder: 'sortOrder',
+    metadata: 'metadata',
+    createdBy: 'createdBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LeadScoringRuleScalarFieldEnum = (typeof LeadScoringRuleScalarFieldEnum)[keyof typeof LeadScoringRuleScalarFieldEnum]
+
+
+  export const LeadScoreHistoryScalarFieldEnum: {
+    id: 'id',
+    customerId: 'customerId',
+    oldScore: 'oldScore',
+    newScore: 'newScore',
+    change: 'change',
+    triggerType: 'triggerType',
+    triggerId: 'triggerId',
+    reason: 'reason',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type LeadScoreHistoryScalarFieldEnum = (typeof LeadScoreHistoryScalarFieldEnum)[keyof typeof LeadScoreHistoryScalarFieldEnum]
+
+
   export const NotificationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -52075,6 +57348,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationListRelationFilter
     conversationsAssigned?: ConversationListRelationFilter
     conversationNotes?: ConversationNoteListRelationFilter
+    smartListsCreated?: SmartListListRelationFilter
+    leadScoringRulesCreated?: LeadScoringRuleListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -52122,6 +57397,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationOrderByRelationAggregateInput
     conversationsAssigned?: ConversationOrderByRelationAggregateInput
     conversationNotes?: ConversationNoteOrderByRelationAggregateInput
+    smartListsCreated?: SmartListOrderByRelationAggregateInput
+    leadScoringRulesCreated?: LeadScoringRuleOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -52172,6 +57449,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationListRelationFilter
     conversationsAssigned?: ConversationListRelationFilter
     conversationNotes?: ConversationNoteListRelationFilter
+    smartListsCreated?: SmartListListRelationFilter
+    leadScoringRulesCreated?: LeadScoringRuleListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -52335,6 +57614,8 @@ export namespace Prisma {
     messageLogs?: MessageLogListRelationFilter
     deals?: DealListRelationFilter
     conversations?: ConversationListRelationFilter
+    smartListMembers?: SmartListMemberListRelationFilter
+    leadScoreHistory?: LeadScoreHistoryListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -52385,6 +57666,8 @@ export namespace Prisma {
     messageLogs?: MessageLogOrderByRelationAggregateInput
     deals?: DealOrderByRelationAggregateInput
     conversations?: ConversationOrderByRelationAggregateInput
+    smartListMembers?: SmartListMemberOrderByRelationAggregateInput
+    leadScoreHistory?: LeadScoreHistoryOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -52438,6 +57721,8 @@ export namespace Prisma {
     messageLogs?: MessageLogListRelationFilter
     deals?: DealListRelationFilter
     conversations?: ConversationListRelationFilter
+    smartListMembers?: SmartListMemberListRelationFilter
+    leadScoreHistory?: LeadScoreHistoryListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -55526,6 +60811,354 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ConversationNote"> | Date | string
   }
 
+  export type SmartListWhereInput = {
+    AND?: SmartListWhereInput | SmartListWhereInput[]
+    OR?: SmartListWhereInput[]
+    NOT?: SmartListWhereInput | SmartListWhereInput[]
+    id?: UuidFilter<"SmartList"> | string
+    name?: StringFilter<"SmartList"> | string
+    description?: StringNullableFilter<"SmartList"> | string | null
+    isActive?: BoolFilter<"SmartList"> | boolean
+    isSystem?: BoolFilter<"SmartList"> | boolean
+    filterConfig?: JsonFilter<"SmartList">
+    filterLogic?: StringFilter<"SmartList"> | string
+    autoUpdate?: BoolFilter<"SmartList"> | boolean
+    lastUpdatedAt?: DateTimeNullableFilter<"SmartList"> | Date | string | null
+    memberCount?: IntFilter<"SmartList"> | number
+    tags?: StringNullableListFilter<"SmartList">
+    metadata?: JsonFilter<"SmartList">
+    createdBy?: UuidFilter<"SmartList"> | string
+    createdAt?: DateTimeFilter<"SmartList"> | Date | string
+    updatedAt?: DateTimeFilter<"SmartList"> | Date | string
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    members?: SmartListMemberListRelationFilter
+  }
+
+  export type SmartListOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    filterConfig?: SortOrder
+    filterLogic?: SortOrder
+    autoUpdate?: SortOrder
+    lastUpdatedAt?: SortOrderInput | SortOrder
+    memberCount?: SortOrder
+    tags?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdByUser?: UserOrderByWithRelationInput
+    members?: SmartListMemberOrderByRelationAggregateInput
+  }
+
+  export type SmartListWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SmartListWhereInput | SmartListWhereInput[]
+    OR?: SmartListWhereInput[]
+    NOT?: SmartListWhereInput | SmartListWhereInput[]
+    name?: StringFilter<"SmartList"> | string
+    description?: StringNullableFilter<"SmartList"> | string | null
+    isActive?: BoolFilter<"SmartList"> | boolean
+    isSystem?: BoolFilter<"SmartList"> | boolean
+    filterConfig?: JsonFilter<"SmartList">
+    filterLogic?: StringFilter<"SmartList"> | string
+    autoUpdate?: BoolFilter<"SmartList"> | boolean
+    lastUpdatedAt?: DateTimeNullableFilter<"SmartList"> | Date | string | null
+    memberCount?: IntFilter<"SmartList"> | number
+    tags?: StringNullableListFilter<"SmartList">
+    metadata?: JsonFilter<"SmartList">
+    createdBy?: UuidFilter<"SmartList"> | string
+    createdAt?: DateTimeFilter<"SmartList"> | Date | string
+    updatedAt?: DateTimeFilter<"SmartList"> | Date | string
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    members?: SmartListMemberListRelationFilter
+  }, "id">
+
+  export type SmartListOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    filterConfig?: SortOrder
+    filterLogic?: SortOrder
+    autoUpdate?: SortOrder
+    lastUpdatedAt?: SortOrderInput | SortOrder
+    memberCount?: SortOrder
+    tags?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SmartListCountOrderByAggregateInput
+    _avg?: SmartListAvgOrderByAggregateInput
+    _max?: SmartListMaxOrderByAggregateInput
+    _min?: SmartListMinOrderByAggregateInput
+    _sum?: SmartListSumOrderByAggregateInput
+  }
+
+  export type SmartListScalarWhereWithAggregatesInput = {
+    AND?: SmartListScalarWhereWithAggregatesInput | SmartListScalarWhereWithAggregatesInput[]
+    OR?: SmartListScalarWhereWithAggregatesInput[]
+    NOT?: SmartListScalarWhereWithAggregatesInput | SmartListScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"SmartList"> | string
+    name?: StringWithAggregatesFilter<"SmartList"> | string
+    description?: StringNullableWithAggregatesFilter<"SmartList"> | string | null
+    isActive?: BoolWithAggregatesFilter<"SmartList"> | boolean
+    isSystem?: BoolWithAggregatesFilter<"SmartList"> | boolean
+    filterConfig?: JsonWithAggregatesFilter<"SmartList">
+    filterLogic?: StringWithAggregatesFilter<"SmartList"> | string
+    autoUpdate?: BoolWithAggregatesFilter<"SmartList"> | boolean
+    lastUpdatedAt?: DateTimeNullableWithAggregatesFilter<"SmartList"> | Date | string | null
+    memberCount?: IntWithAggregatesFilter<"SmartList"> | number
+    tags?: StringNullableListFilter<"SmartList">
+    metadata?: JsonWithAggregatesFilter<"SmartList">
+    createdBy?: UuidWithAggregatesFilter<"SmartList"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SmartList"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"SmartList"> | Date | string
+  }
+
+  export type SmartListMemberWhereInput = {
+    AND?: SmartListMemberWhereInput | SmartListMemberWhereInput[]
+    OR?: SmartListMemberWhereInput[]
+    NOT?: SmartListMemberWhereInput | SmartListMemberWhereInput[]
+    id?: UuidFilter<"SmartListMember"> | string
+    smartListId?: UuidFilter<"SmartListMember"> | string
+    customerId?: UuidFilter<"SmartListMember"> | string
+    addedAt?: DateTimeFilter<"SmartListMember"> | Date | string
+    smartList?: XOR<SmartListScalarRelationFilter, SmartListWhereInput>
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+  }
+
+  export type SmartListMemberOrderByWithRelationInput = {
+    id?: SortOrder
+    smartListId?: SortOrder
+    customerId?: SortOrder
+    addedAt?: SortOrder
+    smartList?: SmartListOrderByWithRelationInput
+    customer?: CustomerOrderByWithRelationInput
+  }
+
+  export type SmartListMemberWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    smartListId_customerId?: SmartListMemberSmartListIdCustomerIdCompoundUniqueInput
+    AND?: SmartListMemberWhereInput | SmartListMemberWhereInput[]
+    OR?: SmartListMemberWhereInput[]
+    NOT?: SmartListMemberWhereInput | SmartListMemberWhereInput[]
+    smartListId?: UuidFilter<"SmartListMember"> | string
+    customerId?: UuidFilter<"SmartListMember"> | string
+    addedAt?: DateTimeFilter<"SmartListMember"> | Date | string
+    smartList?: XOR<SmartListScalarRelationFilter, SmartListWhereInput>
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+  }, "id" | "smartListId_customerId">
+
+  export type SmartListMemberOrderByWithAggregationInput = {
+    id?: SortOrder
+    smartListId?: SortOrder
+    customerId?: SortOrder
+    addedAt?: SortOrder
+    _count?: SmartListMemberCountOrderByAggregateInput
+    _max?: SmartListMemberMaxOrderByAggregateInput
+    _min?: SmartListMemberMinOrderByAggregateInput
+  }
+
+  export type SmartListMemberScalarWhereWithAggregatesInput = {
+    AND?: SmartListMemberScalarWhereWithAggregatesInput | SmartListMemberScalarWhereWithAggregatesInput[]
+    OR?: SmartListMemberScalarWhereWithAggregatesInput[]
+    NOT?: SmartListMemberScalarWhereWithAggregatesInput | SmartListMemberScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"SmartListMember"> | string
+    smartListId?: UuidWithAggregatesFilter<"SmartListMember"> | string
+    customerId?: UuidWithAggregatesFilter<"SmartListMember"> | string
+    addedAt?: DateTimeWithAggregatesFilter<"SmartListMember"> | Date | string
+  }
+
+  export type LeadScoringRuleWhereInput = {
+    AND?: LeadScoringRuleWhereInput | LeadScoringRuleWhereInput[]
+    OR?: LeadScoringRuleWhereInput[]
+    NOT?: LeadScoringRuleWhereInput | LeadScoringRuleWhereInput[]
+    id?: UuidFilter<"LeadScoringRule"> | string
+    name?: StringFilter<"LeadScoringRule"> | string
+    description?: StringNullableFilter<"LeadScoringRule"> | string | null
+    category?: StringFilter<"LeadScoringRule"> | string
+    isActive?: BoolFilter<"LeadScoringRule"> | boolean
+    isSystem?: BoolFilter<"LeadScoringRule"> | boolean
+    condition?: JsonFilter<"LeadScoringRule">
+    points?: IntFilter<"LeadScoringRule"> | number
+    priority?: IntFilter<"LeadScoringRule"> | number
+    sortOrder?: IntFilter<"LeadScoringRule"> | number
+    metadata?: JsonFilter<"LeadScoringRule">
+    createdBy?: UuidFilter<"LeadScoringRule"> | string
+    createdAt?: DateTimeFilter<"LeadScoringRule"> | Date | string
+    updatedAt?: DateTimeFilter<"LeadScoringRule"> | Date | string
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type LeadScoringRuleOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    category?: SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    condition?: SortOrder
+    points?: SortOrder
+    priority?: SortOrder
+    sortOrder?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    createdByUser?: UserOrderByWithRelationInput
+  }
+
+  export type LeadScoringRuleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LeadScoringRuleWhereInput | LeadScoringRuleWhereInput[]
+    OR?: LeadScoringRuleWhereInput[]
+    NOT?: LeadScoringRuleWhereInput | LeadScoringRuleWhereInput[]
+    name?: StringFilter<"LeadScoringRule"> | string
+    description?: StringNullableFilter<"LeadScoringRule"> | string | null
+    category?: StringFilter<"LeadScoringRule"> | string
+    isActive?: BoolFilter<"LeadScoringRule"> | boolean
+    isSystem?: BoolFilter<"LeadScoringRule"> | boolean
+    condition?: JsonFilter<"LeadScoringRule">
+    points?: IntFilter<"LeadScoringRule"> | number
+    priority?: IntFilter<"LeadScoringRule"> | number
+    sortOrder?: IntFilter<"LeadScoringRule"> | number
+    metadata?: JsonFilter<"LeadScoringRule">
+    createdBy?: UuidFilter<"LeadScoringRule"> | string
+    createdAt?: DateTimeFilter<"LeadScoringRule"> | Date | string
+    updatedAt?: DateTimeFilter<"LeadScoringRule"> | Date | string
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type LeadScoringRuleOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    category?: SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    condition?: SortOrder
+    points?: SortOrder
+    priority?: SortOrder
+    sortOrder?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LeadScoringRuleCountOrderByAggregateInput
+    _avg?: LeadScoringRuleAvgOrderByAggregateInput
+    _max?: LeadScoringRuleMaxOrderByAggregateInput
+    _min?: LeadScoringRuleMinOrderByAggregateInput
+    _sum?: LeadScoringRuleSumOrderByAggregateInput
+  }
+
+  export type LeadScoringRuleScalarWhereWithAggregatesInput = {
+    AND?: LeadScoringRuleScalarWhereWithAggregatesInput | LeadScoringRuleScalarWhereWithAggregatesInput[]
+    OR?: LeadScoringRuleScalarWhereWithAggregatesInput[]
+    NOT?: LeadScoringRuleScalarWhereWithAggregatesInput | LeadScoringRuleScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"LeadScoringRule"> | string
+    name?: StringWithAggregatesFilter<"LeadScoringRule"> | string
+    description?: StringNullableWithAggregatesFilter<"LeadScoringRule"> | string | null
+    category?: StringWithAggregatesFilter<"LeadScoringRule"> | string
+    isActive?: BoolWithAggregatesFilter<"LeadScoringRule"> | boolean
+    isSystem?: BoolWithAggregatesFilter<"LeadScoringRule"> | boolean
+    condition?: JsonWithAggregatesFilter<"LeadScoringRule">
+    points?: IntWithAggregatesFilter<"LeadScoringRule"> | number
+    priority?: IntWithAggregatesFilter<"LeadScoringRule"> | number
+    sortOrder?: IntWithAggregatesFilter<"LeadScoringRule"> | number
+    metadata?: JsonWithAggregatesFilter<"LeadScoringRule">
+    createdBy?: UuidWithAggregatesFilter<"LeadScoringRule"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"LeadScoringRule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LeadScoringRule"> | Date | string
+  }
+
+  export type LeadScoreHistoryWhereInput = {
+    AND?: LeadScoreHistoryWhereInput | LeadScoreHistoryWhereInput[]
+    OR?: LeadScoreHistoryWhereInput[]
+    NOT?: LeadScoreHistoryWhereInput | LeadScoreHistoryWhereInput[]
+    id?: UuidFilter<"LeadScoreHistory"> | string
+    customerId?: UuidFilter<"LeadScoreHistory"> | string
+    oldScore?: IntFilter<"LeadScoreHistory"> | number
+    newScore?: IntFilter<"LeadScoreHistory"> | number
+    change?: IntFilter<"LeadScoreHistory"> | number
+    triggerType?: StringFilter<"LeadScoreHistory"> | string
+    triggerId?: UuidNullableFilter<"LeadScoreHistory"> | string | null
+    reason?: StringNullableFilter<"LeadScoreHistory"> | string | null
+    metadata?: JsonFilter<"LeadScoreHistory">
+    createdAt?: DateTimeFilter<"LeadScoreHistory"> | Date | string
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+  }
+
+  export type LeadScoreHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    oldScore?: SortOrder
+    newScore?: SortOrder
+    change?: SortOrder
+    triggerType?: SortOrder
+    triggerId?: SortOrderInput | SortOrder
+    reason?: SortOrderInput | SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    customer?: CustomerOrderByWithRelationInput
+  }
+
+  export type LeadScoreHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LeadScoreHistoryWhereInput | LeadScoreHistoryWhereInput[]
+    OR?: LeadScoreHistoryWhereInput[]
+    NOT?: LeadScoreHistoryWhereInput | LeadScoreHistoryWhereInput[]
+    customerId?: UuidFilter<"LeadScoreHistory"> | string
+    oldScore?: IntFilter<"LeadScoreHistory"> | number
+    newScore?: IntFilter<"LeadScoreHistory"> | number
+    change?: IntFilter<"LeadScoreHistory"> | number
+    triggerType?: StringFilter<"LeadScoreHistory"> | string
+    triggerId?: UuidNullableFilter<"LeadScoreHistory"> | string | null
+    reason?: StringNullableFilter<"LeadScoreHistory"> | string | null
+    metadata?: JsonFilter<"LeadScoreHistory">
+    createdAt?: DateTimeFilter<"LeadScoreHistory"> | Date | string
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+  }, "id">
+
+  export type LeadScoreHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    oldScore?: SortOrder
+    newScore?: SortOrder
+    change?: SortOrder
+    triggerType?: SortOrder
+    triggerId?: SortOrderInput | SortOrder
+    reason?: SortOrderInput | SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    _count?: LeadScoreHistoryCountOrderByAggregateInput
+    _avg?: LeadScoreHistoryAvgOrderByAggregateInput
+    _max?: LeadScoreHistoryMaxOrderByAggregateInput
+    _min?: LeadScoreHistoryMinOrderByAggregateInput
+    _sum?: LeadScoreHistorySumOrderByAggregateInput
+  }
+
+  export type LeadScoreHistoryScalarWhereWithAggregatesInput = {
+    AND?: LeadScoreHistoryScalarWhereWithAggregatesInput | LeadScoreHistoryScalarWhereWithAggregatesInput[]
+    OR?: LeadScoreHistoryScalarWhereWithAggregatesInput[]
+    NOT?: LeadScoreHistoryScalarWhereWithAggregatesInput | LeadScoreHistoryScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"LeadScoreHistory"> | string
+    customerId?: UuidWithAggregatesFilter<"LeadScoreHistory"> | string
+    oldScore?: IntWithAggregatesFilter<"LeadScoreHistory"> | number
+    newScore?: IntWithAggregatesFilter<"LeadScoreHistory"> | number
+    change?: IntWithAggregatesFilter<"LeadScoreHistory"> | number
+    triggerType?: StringWithAggregatesFilter<"LeadScoreHistory"> | string
+    triggerId?: UuidNullableWithAggregatesFilter<"LeadScoreHistory"> | string | null
+    reason?: StringNullableWithAggregatesFilter<"LeadScoreHistory"> | string | null
+    metadata?: JsonWithAggregatesFilter<"LeadScoreHistory">
+    createdAt?: DateTimeWithAggregatesFilter<"LeadScoreHistory"> | Date | string
+  }
+
   export type NotificationWhereInput = {
     AND?: NotificationWhereInput | NotificationWhereInput[]
     OR?: NotificationWhereInput[]
@@ -56261,6 +61894,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -56307,6 +61942,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUpdateInput = {
@@ -56353,6 +61990,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -56399,6 +62038,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -56579,6 +62220,8 @@ export namespace Prisma {
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -56627,6 +62270,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -56675,6 +62320,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -56723,6 +62370,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -60270,6 +65919,390 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SmartListCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: string
+    autoUpdate?: boolean
+    lastUpdatedAt?: Date | string | null
+    memberCount?: number
+    tags?: SmartListCreatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser: UserCreateNestedOneWithoutSmartListsCreatedInput
+    members?: SmartListMemberCreateNestedManyWithoutSmartListInput
+  }
+
+  export type SmartListUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: string
+    autoUpdate?: boolean
+    lastUpdatedAt?: Date | string | null
+    memberCount?: number
+    tags?: SmartListCreatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: SmartListMemberUncheckedCreateNestedManyWithoutSmartListInput
+  }
+
+  export type SmartListUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneRequiredWithoutSmartListsCreatedNestedInput
+    members?: SmartListMemberUpdateManyWithoutSmartListNestedInput
+  }
+
+  export type SmartListUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: SmartListMemberUncheckedUpdateManyWithoutSmartListNestedInput
+  }
+
+  export type SmartListCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: string
+    autoUpdate?: boolean
+    lastUpdatedAt?: Date | string | null
+    memberCount?: number
+    tags?: SmartListCreatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SmartListUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmartListUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmartListMemberCreateInput = {
+    id?: string
+    addedAt?: Date | string
+    smartList: SmartListCreateNestedOneWithoutMembersInput
+    customer: CustomerCreateNestedOneWithoutSmartListMembersInput
+  }
+
+  export type SmartListMemberUncheckedCreateInput = {
+    id?: string
+    smartListId: string
+    customerId: string
+    addedAt?: Date | string
+  }
+
+  export type SmartListMemberUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    smartList?: SmartListUpdateOneRequiredWithoutMembersNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutSmartListMembersNestedInput
+  }
+
+  export type SmartListMemberUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    smartListId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmartListMemberCreateManyInput = {
+    id?: string
+    smartListId: string
+    customerId: string
+    addedAt?: Date | string
+  }
+
+  export type SmartListMemberUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmartListMemberUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    smartListId?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoringRuleCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    category: string
+    isActive?: boolean
+    isSystem?: boolean
+    condition: JsonNullValueInput | InputJsonValue
+    points?: number
+    priority?: number
+    sortOrder?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser: UserCreateNestedOneWithoutLeadScoringRulesCreatedInput
+  }
+
+  export type LeadScoringRuleUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    category: string
+    isActive?: boolean
+    isSystem?: boolean
+    condition: JsonNullValueInput | InputJsonValue
+    points?: number
+    priority?: number
+    sortOrder?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadScoringRuleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    condition?: JsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneRequiredWithoutLeadScoringRulesCreatedNestedInput
+  }
+
+  export type LeadScoringRuleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    condition?: JsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoringRuleCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    category: string
+    isActive?: boolean
+    isSystem?: boolean
+    condition: JsonNullValueInput | InputJsonValue
+    points?: number
+    priority?: number
+    sortOrder?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadScoringRuleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    condition?: JsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoringRuleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    condition?: JsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoreHistoryCreateInput = {
+    id?: string
+    oldScore: number
+    newScore: number
+    change: number
+    triggerType: string
+    triggerId?: string | null
+    reason?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutLeadScoreHistoryInput
+  }
+
+  export type LeadScoreHistoryUncheckedCreateInput = {
+    id?: string
+    customerId: string
+    oldScore: number
+    newScore: number
+    change: number
+    triggerType: string
+    triggerId?: string | null
+    reason?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type LeadScoreHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldScore?: IntFieldUpdateOperationsInput | number
+    newScore?: IntFieldUpdateOperationsInput | number
+    change?: IntFieldUpdateOperationsInput | number
+    triggerType?: StringFieldUpdateOperationsInput | string
+    triggerId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutLeadScoreHistoryNestedInput
+  }
+
+  export type LeadScoreHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    oldScore?: IntFieldUpdateOperationsInput | number
+    newScore?: IntFieldUpdateOperationsInput | number
+    change?: IntFieldUpdateOperationsInput | number
+    triggerType?: StringFieldUpdateOperationsInput | string
+    triggerId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoreHistoryCreateManyInput = {
+    id?: string
+    customerId: string
+    oldScore: number
+    newScore: number
+    change: number
+    triggerType: string
+    triggerId?: string | null
+    reason?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type LeadScoreHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldScore?: IntFieldUpdateOperationsInput | number
+    newScore?: IntFieldUpdateOperationsInput | number
+    change?: IntFieldUpdateOperationsInput | number
+    triggerType?: StringFieldUpdateOperationsInput | string
+    triggerId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoreHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    oldScore?: IntFieldUpdateOperationsInput | number
+    newScore?: IntFieldUpdateOperationsInput | number
+    change?: IntFieldUpdateOperationsInput | number
+    triggerType?: StringFieldUpdateOperationsInput | string
+    triggerId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NotificationCreateInput = {
     id?: string
     type: string
@@ -61295,6 +67328,18 @@ export namespace Prisma {
     none?: ConversationNoteWhereInput
   }
 
+  export type SmartListListRelationFilter = {
+    every?: SmartListWhereInput
+    some?: SmartListWhereInput
+    none?: SmartListWhereInput
+  }
+
+  export type LeadScoringRuleListRelationFilter = {
+    every?: LeadScoringRuleWhereInput
+    some?: LeadScoringRuleWhereInput
+    none?: LeadScoringRuleWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -61373,6 +67418,14 @@ export namespace Prisma {
   }
 
   export type ConversationNoteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SmartListOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LeadScoringRuleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -61640,11 +67693,31 @@ export namespace Prisma {
     none?: MessageLogWhereInput
   }
 
+  export type SmartListMemberListRelationFilter = {
+    every?: SmartListMemberWhereInput
+    some?: SmartListMemberWhereInput
+    none?: SmartListMemberWhereInput
+  }
+
+  export type LeadScoreHistoryListRelationFilter = {
+    every?: LeadScoreHistoryWhereInput
+    some?: LeadScoreHistoryWhereInput
+    none?: LeadScoreHistoryWhereInput
+  }
+
   export type CustomerContactOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type MessageLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SmartListMemberOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LeadScoreHistoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -63701,6 +69774,201 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type SmartListCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    filterConfig?: SortOrder
+    filterLogic?: SortOrder
+    autoUpdate?: SortOrder
+    lastUpdatedAt?: SortOrder
+    memberCount?: SortOrder
+    tags?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SmartListAvgOrderByAggregateInput = {
+    memberCount?: SortOrder
+  }
+
+  export type SmartListMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    filterLogic?: SortOrder
+    autoUpdate?: SortOrder
+    lastUpdatedAt?: SortOrder
+    memberCount?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SmartListMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    filterLogic?: SortOrder
+    autoUpdate?: SortOrder
+    lastUpdatedAt?: SortOrder
+    memberCount?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SmartListSumOrderByAggregateInput = {
+    memberCount?: SortOrder
+  }
+
+  export type SmartListScalarRelationFilter = {
+    is?: SmartListWhereInput
+    isNot?: SmartListWhereInput
+  }
+
+  export type SmartListMemberSmartListIdCustomerIdCompoundUniqueInput = {
+    smartListId: string
+    customerId: string
+  }
+
+  export type SmartListMemberCountOrderByAggregateInput = {
+    id?: SortOrder
+    smartListId?: SortOrder
+    customerId?: SortOrder
+    addedAt?: SortOrder
+  }
+
+  export type SmartListMemberMaxOrderByAggregateInput = {
+    id?: SortOrder
+    smartListId?: SortOrder
+    customerId?: SortOrder
+    addedAt?: SortOrder
+  }
+
+  export type SmartListMemberMinOrderByAggregateInput = {
+    id?: SortOrder
+    smartListId?: SortOrder
+    customerId?: SortOrder
+    addedAt?: SortOrder
+  }
+
+  export type LeadScoringRuleCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    condition?: SortOrder
+    points?: SortOrder
+    priority?: SortOrder
+    sortOrder?: SortOrder
+    metadata?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LeadScoringRuleAvgOrderByAggregateInput = {
+    points?: SortOrder
+    priority?: SortOrder
+    sortOrder?: SortOrder
+  }
+
+  export type LeadScoringRuleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    points?: SortOrder
+    priority?: SortOrder
+    sortOrder?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LeadScoringRuleMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    category?: SortOrder
+    isActive?: SortOrder
+    isSystem?: SortOrder
+    points?: SortOrder
+    priority?: SortOrder
+    sortOrder?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LeadScoringRuleSumOrderByAggregateInput = {
+    points?: SortOrder
+    priority?: SortOrder
+    sortOrder?: SortOrder
+  }
+
+  export type LeadScoreHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    oldScore?: SortOrder
+    newScore?: SortOrder
+    change?: SortOrder
+    triggerType?: SortOrder
+    triggerId?: SortOrder
+    reason?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LeadScoreHistoryAvgOrderByAggregateInput = {
+    oldScore?: SortOrder
+    newScore?: SortOrder
+    change?: SortOrder
+  }
+
+  export type LeadScoreHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    oldScore?: SortOrder
+    newScore?: SortOrder
+    change?: SortOrder
+    triggerType?: SortOrder
+    triggerId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LeadScoreHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    oldScore?: SortOrder
+    newScore?: SortOrder
+    change?: SortOrder
+    triggerType?: SortOrder
+    triggerId?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LeadScoreHistorySumOrderByAggregateInput = {
+    oldScore?: SortOrder
+    newScore?: SortOrder
+    change?: SortOrder
+  }
+
   export type NotificationCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -64313,6 +70581,20 @@ export namespace Prisma {
     connect?: ConversationNoteWhereUniqueInput | ConversationNoteWhereUniqueInput[]
   }
 
+  export type SmartListCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<SmartListCreateWithoutCreatedByUserInput, SmartListUncheckedCreateWithoutCreatedByUserInput> | SmartListCreateWithoutCreatedByUserInput[] | SmartListUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: SmartListCreateOrConnectWithoutCreatedByUserInput | SmartListCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: SmartListCreateManyCreatedByUserInputEnvelope
+    connect?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+  }
+
+  export type LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<LeadScoringRuleCreateWithoutCreatedByUserInput, LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput> | LeadScoringRuleCreateWithoutCreatedByUserInput[] | LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput | LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: LeadScoringRuleCreateManyCreatedByUserInputEnvelope
+    connect?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutCreatedByUserInput = {
     create?: XOR<UserCreateWithoutCreatedByUserInput, UserUncheckedCreateWithoutCreatedByUserInput> | UserCreateWithoutCreatedByUserInput[] | UserUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCreatedByUserInput | UserCreateOrConnectWithoutCreatedByUserInput[]
@@ -64486,6 +70768,20 @@ export namespace Prisma {
     connectOrCreate?: ConversationNoteCreateOrConnectWithoutCreatedByUserInput | ConversationNoteCreateOrConnectWithoutCreatedByUserInput[]
     createMany?: ConversationNoteCreateManyCreatedByUserInputEnvelope
     connect?: ConversationNoteWhereUniqueInput | ConversationNoteWhereUniqueInput[]
+  }
+
+  export type SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<SmartListCreateWithoutCreatedByUserInput, SmartListUncheckedCreateWithoutCreatedByUserInput> | SmartListCreateWithoutCreatedByUserInput[] | SmartListUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: SmartListCreateOrConnectWithoutCreatedByUserInput | SmartListCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: SmartListCreateManyCreatedByUserInputEnvelope
+    connect?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+  }
+
+  export type LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<LeadScoringRuleCreateWithoutCreatedByUserInput, LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput> | LeadScoringRuleCreateWithoutCreatedByUserInput[] | LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput | LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: LeadScoringRuleCreateManyCreatedByUserInputEnvelope
+    connect?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -64868,6 +71164,34 @@ export namespace Prisma {
     deleteMany?: ConversationNoteScalarWhereInput | ConversationNoteScalarWhereInput[]
   }
 
+  export type SmartListUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<SmartListCreateWithoutCreatedByUserInput, SmartListUncheckedCreateWithoutCreatedByUserInput> | SmartListCreateWithoutCreatedByUserInput[] | SmartListUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: SmartListCreateOrConnectWithoutCreatedByUserInput | SmartListCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: SmartListUpsertWithWhereUniqueWithoutCreatedByUserInput | SmartListUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: SmartListCreateManyCreatedByUserInputEnvelope
+    set?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+    disconnect?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+    delete?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+    connect?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+    update?: SmartListUpdateWithWhereUniqueWithoutCreatedByUserInput | SmartListUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: SmartListUpdateManyWithWhereWithoutCreatedByUserInput | SmartListUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: SmartListScalarWhereInput | SmartListScalarWhereInput[]
+  }
+
+  export type LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<LeadScoringRuleCreateWithoutCreatedByUserInput, LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput> | LeadScoringRuleCreateWithoutCreatedByUserInput[] | LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput | LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: LeadScoringRuleUpsertWithWhereUniqueWithoutCreatedByUserInput | LeadScoringRuleUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: LeadScoringRuleCreateManyCreatedByUserInputEnvelope
+    set?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+    disconnect?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+    delete?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+    connect?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+    update?: LeadScoringRuleUpdateWithWhereUniqueWithoutCreatedByUserInput | LeadScoringRuleUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: LeadScoringRuleUpdateManyWithWhereWithoutCreatedByUserInput | LeadScoringRuleUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: LeadScoringRuleScalarWhereInput | LeadScoringRuleScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
     create?: XOR<UserCreateWithoutCreatedByUserInput, UserUncheckedCreateWithoutCreatedByUserInput> | UserCreateWithoutCreatedByUserInput[] | UserUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCreatedByUserInput | UserCreateOrConnectWithoutCreatedByUserInput[]
@@ -65218,6 +71542,34 @@ export namespace Prisma {
     deleteMany?: ConversationNoteScalarWhereInput | ConversationNoteScalarWhereInput[]
   }
 
+  export type SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<SmartListCreateWithoutCreatedByUserInput, SmartListUncheckedCreateWithoutCreatedByUserInput> | SmartListCreateWithoutCreatedByUserInput[] | SmartListUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: SmartListCreateOrConnectWithoutCreatedByUserInput | SmartListCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: SmartListUpsertWithWhereUniqueWithoutCreatedByUserInput | SmartListUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: SmartListCreateManyCreatedByUserInputEnvelope
+    set?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+    disconnect?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+    delete?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+    connect?: SmartListWhereUniqueInput | SmartListWhereUniqueInput[]
+    update?: SmartListUpdateWithWhereUniqueWithoutCreatedByUserInput | SmartListUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: SmartListUpdateManyWithWhereWithoutCreatedByUserInput | SmartListUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: SmartListScalarWhereInput | SmartListScalarWhereInput[]
+  }
+
+  export type LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<LeadScoringRuleCreateWithoutCreatedByUserInput, LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput> | LeadScoringRuleCreateWithoutCreatedByUserInput[] | LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput | LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: LeadScoringRuleUpsertWithWhereUniqueWithoutCreatedByUserInput | LeadScoringRuleUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: LeadScoringRuleCreateManyCreatedByUserInputEnvelope
+    set?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+    disconnect?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+    delete?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+    connect?: LeadScoringRuleWhereUniqueInput | LeadScoringRuleWhereUniqueInput[]
+    update?: LeadScoringRuleUpdateWithWhereUniqueWithoutCreatedByUserInput | LeadScoringRuleUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: LeadScoringRuleUpdateManyWithWhereWithoutCreatedByUserInput | LeadScoringRuleUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: LeadScoringRuleScalarWhereInput | LeadScoringRuleScalarWhereInput[]
+  }
+
   export type CustomerCreatetagsInput = {
     set: string[]
   }
@@ -65283,6 +71635,20 @@ export namespace Prisma {
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
+  export type SmartListMemberCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<SmartListMemberCreateWithoutCustomerInput, SmartListMemberUncheckedCreateWithoutCustomerInput> | SmartListMemberCreateWithoutCustomerInput[] | SmartListMemberUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: SmartListMemberCreateOrConnectWithoutCustomerInput | SmartListMemberCreateOrConnectWithoutCustomerInput[]
+    createMany?: SmartListMemberCreateManyCustomerInputEnvelope
+    connect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+  }
+
+  export type LeadScoreHistoryCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<LeadScoreHistoryCreateWithoutCustomerInput, LeadScoreHistoryUncheckedCreateWithoutCustomerInput> | LeadScoreHistoryCreateWithoutCustomerInput[] | LeadScoreHistoryUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: LeadScoreHistoryCreateOrConnectWithoutCustomerInput | LeadScoreHistoryCreateOrConnectWithoutCustomerInput[]
+    createMany?: LeadScoreHistoryCreateManyCustomerInputEnvelope
+    connect?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+  }
+
   export type CustomerContactUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<CustomerContactCreateWithoutCustomerInput, CustomerContactUncheckedCreateWithoutCustomerInput> | CustomerContactCreateWithoutCustomerInput[] | CustomerContactUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerContactCreateOrConnectWithoutCustomerInput | CustomerContactCreateOrConnectWithoutCustomerInput[]
@@ -65330,6 +71696,20 @@ export namespace Prisma {
     connectOrCreate?: ConversationCreateOrConnectWithoutCustomerInput | ConversationCreateOrConnectWithoutCustomerInput[]
     createMany?: ConversationCreateManyCustomerInputEnvelope
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<SmartListMemberCreateWithoutCustomerInput, SmartListMemberUncheckedCreateWithoutCustomerInput> | SmartListMemberCreateWithoutCustomerInput[] | SmartListMemberUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: SmartListMemberCreateOrConnectWithoutCustomerInput | SmartListMemberCreateOrConnectWithoutCustomerInput[]
+    createMany?: SmartListMemberCreateManyCustomerInputEnvelope
+    connect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+  }
+
+  export type LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<LeadScoreHistoryCreateWithoutCustomerInput, LeadScoreHistoryUncheckedCreateWithoutCustomerInput> | LeadScoreHistoryCreateWithoutCustomerInput[] | LeadScoreHistoryUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: LeadScoreHistoryCreateOrConnectWithoutCustomerInput | LeadScoreHistoryCreateOrConnectWithoutCustomerInput[]
+    createMany?: LeadScoreHistoryCreateManyCustomerInputEnvelope
+    connect?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -65469,6 +71849,34 @@ export namespace Prisma {
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
   }
 
+  export type SmartListMemberUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<SmartListMemberCreateWithoutCustomerInput, SmartListMemberUncheckedCreateWithoutCustomerInput> | SmartListMemberCreateWithoutCustomerInput[] | SmartListMemberUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: SmartListMemberCreateOrConnectWithoutCustomerInput | SmartListMemberCreateOrConnectWithoutCustomerInput[]
+    upsert?: SmartListMemberUpsertWithWhereUniqueWithoutCustomerInput | SmartListMemberUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: SmartListMemberCreateManyCustomerInputEnvelope
+    set?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    disconnect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    delete?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    connect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    update?: SmartListMemberUpdateWithWhereUniqueWithoutCustomerInput | SmartListMemberUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: SmartListMemberUpdateManyWithWhereWithoutCustomerInput | SmartListMemberUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: SmartListMemberScalarWhereInput | SmartListMemberScalarWhereInput[]
+  }
+
+  export type LeadScoreHistoryUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<LeadScoreHistoryCreateWithoutCustomerInput, LeadScoreHistoryUncheckedCreateWithoutCustomerInput> | LeadScoreHistoryCreateWithoutCustomerInput[] | LeadScoreHistoryUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: LeadScoreHistoryCreateOrConnectWithoutCustomerInput | LeadScoreHistoryCreateOrConnectWithoutCustomerInput[]
+    upsert?: LeadScoreHistoryUpsertWithWhereUniqueWithoutCustomerInput | LeadScoreHistoryUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: LeadScoreHistoryCreateManyCustomerInputEnvelope
+    set?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+    disconnect?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+    delete?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+    connect?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+    update?: LeadScoreHistoryUpdateWithWhereUniqueWithoutCustomerInput | LeadScoreHistoryUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: LeadScoreHistoryUpdateManyWithWhereWithoutCustomerInput | LeadScoreHistoryUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: LeadScoreHistoryScalarWhereInput | LeadScoreHistoryScalarWhereInput[]
+  }
+
   export type CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<CustomerContactCreateWithoutCustomerInput, CustomerContactUncheckedCreateWithoutCustomerInput> | CustomerContactCreateWithoutCustomerInput[] | CustomerContactUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerContactCreateOrConnectWithoutCustomerInput | CustomerContactCreateOrConnectWithoutCustomerInput[]
@@ -65565,6 +71973,34 @@ export namespace Prisma {
     update?: ConversationUpdateWithWhereUniqueWithoutCustomerInput | ConversationUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: ConversationUpdateManyWithWhereWithoutCustomerInput | ConversationUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<SmartListMemberCreateWithoutCustomerInput, SmartListMemberUncheckedCreateWithoutCustomerInput> | SmartListMemberCreateWithoutCustomerInput[] | SmartListMemberUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: SmartListMemberCreateOrConnectWithoutCustomerInput | SmartListMemberCreateOrConnectWithoutCustomerInput[]
+    upsert?: SmartListMemberUpsertWithWhereUniqueWithoutCustomerInput | SmartListMemberUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: SmartListMemberCreateManyCustomerInputEnvelope
+    set?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    disconnect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    delete?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    connect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    update?: SmartListMemberUpdateWithWhereUniqueWithoutCustomerInput | SmartListMemberUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: SmartListMemberUpdateManyWithWhereWithoutCustomerInput | SmartListMemberUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: SmartListMemberScalarWhereInput | SmartListMemberScalarWhereInput[]
+  }
+
+  export type LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<LeadScoreHistoryCreateWithoutCustomerInput, LeadScoreHistoryUncheckedCreateWithoutCustomerInput> | LeadScoreHistoryCreateWithoutCustomerInput[] | LeadScoreHistoryUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: LeadScoreHistoryCreateOrConnectWithoutCustomerInput | LeadScoreHistoryCreateOrConnectWithoutCustomerInput[]
+    upsert?: LeadScoreHistoryUpsertWithWhereUniqueWithoutCustomerInput | LeadScoreHistoryUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: LeadScoreHistoryCreateManyCustomerInputEnvelope
+    set?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+    disconnect?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+    delete?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+    connect?: LeadScoreHistoryWhereUniqueInput | LeadScoreHistoryWhereUniqueInput[]
+    update?: LeadScoreHistoryUpdateWithWhereUniqueWithoutCustomerInput | LeadScoreHistoryUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: LeadScoreHistoryUpdateManyWithWhereWithoutCustomerInput | LeadScoreHistoryUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: LeadScoreHistoryScalarWhereInput | LeadScoreHistoryScalarWhereInput[]
   }
 
   export type CustomerCreateNestedOneWithoutContactsInput = {
@@ -67608,6 +74044,127 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutConversationNotesInput, UserUpdateWithoutConversationNotesInput>, UserUncheckedUpdateWithoutConversationNotesInput>
   }
 
+  export type SmartListCreatetagsInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutSmartListsCreatedInput = {
+    create?: XOR<UserCreateWithoutSmartListsCreatedInput, UserUncheckedCreateWithoutSmartListsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSmartListsCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type SmartListMemberCreateNestedManyWithoutSmartListInput = {
+    create?: XOR<SmartListMemberCreateWithoutSmartListInput, SmartListMemberUncheckedCreateWithoutSmartListInput> | SmartListMemberCreateWithoutSmartListInput[] | SmartListMemberUncheckedCreateWithoutSmartListInput[]
+    connectOrCreate?: SmartListMemberCreateOrConnectWithoutSmartListInput | SmartListMemberCreateOrConnectWithoutSmartListInput[]
+    createMany?: SmartListMemberCreateManySmartListInputEnvelope
+    connect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+  }
+
+  export type SmartListMemberUncheckedCreateNestedManyWithoutSmartListInput = {
+    create?: XOR<SmartListMemberCreateWithoutSmartListInput, SmartListMemberUncheckedCreateWithoutSmartListInput> | SmartListMemberCreateWithoutSmartListInput[] | SmartListMemberUncheckedCreateWithoutSmartListInput[]
+    connectOrCreate?: SmartListMemberCreateOrConnectWithoutSmartListInput | SmartListMemberCreateOrConnectWithoutSmartListInput[]
+    createMany?: SmartListMemberCreateManySmartListInputEnvelope
+    connect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+  }
+
+  export type SmartListUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutSmartListsCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutSmartListsCreatedInput, UserUncheckedCreateWithoutSmartListsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSmartListsCreatedInput
+    upsert?: UserUpsertWithoutSmartListsCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSmartListsCreatedInput, UserUpdateWithoutSmartListsCreatedInput>, UserUncheckedUpdateWithoutSmartListsCreatedInput>
+  }
+
+  export type SmartListMemberUpdateManyWithoutSmartListNestedInput = {
+    create?: XOR<SmartListMemberCreateWithoutSmartListInput, SmartListMemberUncheckedCreateWithoutSmartListInput> | SmartListMemberCreateWithoutSmartListInput[] | SmartListMemberUncheckedCreateWithoutSmartListInput[]
+    connectOrCreate?: SmartListMemberCreateOrConnectWithoutSmartListInput | SmartListMemberCreateOrConnectWithoutSmartListInput[]
+    upsert?: SmartListMemberUpsertWithWhereUniqueWithoutSmartListInput | SmartListMemberUpsertWithWhereUniqueWithoutSmartListInput[]
+    createMany?: SmartListMemberCreateManySmartListInputEnvelope
+    set?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    disconnect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    delete?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    connect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    update?: SmartListMemberUpdateWithWhereUniqueWithoutSmartListInput | SmartListMemberUpdateWithWhereUniqueWithoutSmartListInput[]
+    updateMany?: SmartListMemberUpdateManyWithWhereWithoutSmartListInput | SmartListMemberUpdateManyWithWhereWithoutSmartListInput[]
+    deleteMany?: SmartListMemberScalarWhereInput | SmartListMemberScalarWhereInput[]
+  }
+
+  export type SmartListMemberUncheckedUpdateManyWithoutSmartListNestedInput = {
+    create?: XOR<SmartListMemberCreateWithoutSmartListInput, SmartListMemberUncheckedCreateWithoutSmartListInput> | SmartListMemberCreateWithoutSmartListInput[] | SmartListMemberUncheckedCreateWithoutSmartListInput[]
+    connectOrCreate?: SmartListMemberCreateOrConnectWithoutSmartListInput | SmartListMemberCreateOrConnectWithoutSmartListInput[]
+    upsert?: SmartListMemberUpsertWithWhereUniqueWithoutSmartListInput | SmartListMemberUpsertWithWhereUniqueWithoutSmartListInput[]
+    createMany?: SmartListMemberCreateManySmartListInputEnvelope
+    set?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    disconnect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    delete?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    connect?: SmartListMemberWhereUniqueInput | SmartListMemberWhereUniqueInput[]
+    update?: SmartListMemberUpdateWithWhereUniqueWithoutSmartListInput | SmartListMemberUpdateWithWhereUniqueWithoutSmartListInput[]
+    updateMany?: SmartListMemberUpdateManyWithWhereWithoutSmartListInput | SmartListMemberUpdateManyWithWhereWithoutSmartListInput[]
+    deleteMany?: SmartListMemberScalarWhereInput | SmartListMemberScalarWhereInput[]
+  }
+
+  export type SmartListCreateNestedOneWithoutMembersInput = {
+    create?: XOR<SmartListCreateWithoutMembersInput, SmartListUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: SmartListCreateOrConnectWithoutMembersInput
+    connect?: SmartListWhereUniqueInput
+  }
+
+  export type CustomerCreateNestedOneWithoutSmartListMembersInput = {
+    create?: XOR<CustomerCreateWithoutSmartListMembersInput, CustomerUncheckedCreateWithoutSmartListMembersInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutSmartListMembersInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type SmartListUpdateOneRequiredWithoutMembersNestedInput = {
+    create?: XOR<SmartListCreateWithoutMembersInput, SmartListUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: SmartListCreateOrConnectWithoutMembersInput
+    upsert?: SmartListUpsertWithoutMembersInput
+    connect?: SmartListWhereUniqueInput
+    update?: XOR<XOR<SmartListUpdateToOneWithWhereWithoutMembersInput, SmartListUpdateWithoutMembersInput>, SmartListUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type CustomerUpdateOneRequiredWithoutSmartListMembersNestedInput = {
+    create?: XOR<CustomerCreateWithoutSmartListMembersInput, CustomerUncheckedCreateWithoutSmartListMembersInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutSmartListMembersInput
+    upsert?: CustomerUpsertWithoutSmartListMembersInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutSmartListMembersInput, CustomerUpdateWithoutSmartListMembersInput>, CustomerUncheckedUpdateWithoutSmartListMembersInput>
+  }
+
+  export type UserCreateNestedOneWithoutLeadScoringRulesCreatedInput = {
+    create?: XOR<UserCreateWithoutLeadScoringRulesCreatedInput, UserUncheckedCreateWithoutLeadScoringRulesCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLeadScoringRulesCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutLeadScoringRulesCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutLeadScoringRulesCreatedInput, UserUncheckedCreateWithoutLeadScoringRulesCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLeadScoringRulesCreatedInput
+    upsert?: UserUpsertWithoutLeadScoringRulesCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLeadScoringRulesCreatedInput, UserUpdateWithoutLeadScoringRulesCreatedInput>, UserUncheckedUpdateWithoutLeadScoringRulesCreatedInput>
+  }
+
+  export type CustomerCreateNestedOneWithoutLeadScoreHistoryInput = {
+    create?: XOR<CustomerCreateWithoutLeadScoreHistoryInput, CustomerUncheckedCreateWithoutLeadScoreHistoryInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutLeadScoreHistoryInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type CustomerUpdateOneRequiredWithoutLeadScoreHistoryNestedInput = {
+    create?: XOR<CustomerCreateWithoutLeadScoreHistoryInput, CustomerUncheckedCreateWithoutLeadScoreHistoryInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutLeadScoreHistoryInput
+    upsert?: CustomerUpsertWithoutLeadScoreHistoryInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutLeadScoreHistoryInput, CustomerUpdateWithoutLeadScoreHistoryInput>, CustomerUncheckedUpdateWithoutLeadScoreHistoryInput>
+  }
+
   export type UserCreateNestedOneWithoutNotificationsInput = {
     create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
     connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
@@ -68166,6 +74723,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutUsersCreatedInput = {
@@ -68211,6 +74770,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutUsersCreatedInput = {
@@ -68261,6 +74822,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedByUserInput = {
@@ -68306,6 +74869,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedByUserInput = {
@@ -68363,6 +74928,8 @@ export namespace Prisma {
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutCreatedByUserInput = {
@@ -68410,6 +74977,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutCreatedByUserInput = {
@@ -68467,6 +75036,8 @@ export namespace Prisma {
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutAssignedToUserInput = {
@@ -68514,6 +75085,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutAssignedToUserInput = {
@@ -69854,6 +76427,94 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SmartListCreateWithoutCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: string
+    autoUpdate?: boolean
+    lastUpdatedAt?: Date | string | null
+    memberCount?: number
+    tags?: SmartListCreatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: SmartListMemberCreateNestedManyWithoutSmartListInput
+  }
+
+  export type SmartListUncheckedCreateWithoutCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: string
+    autoUpdate?: boolean
+    lastUpdatedAt?: Date | string | null
+    memberCount?: number
+    tags?: SmartListCreatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: SmartListMemberUncheckedCreateNestedManyWithoutSmartListInput
+  }
+
+  export type SmartListCreateOrConnectWithoutCreatedByUserInput = {
+    where: SmartListWhereUniqueInput
+    create: XOR<SmartListCreateWithoutCreatedByUserInput, SmartListUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type SmartListCreateManyCreatedByUserInputEnvelope = {
+    data: SmartListCreateManyCreatedByUserInput | SmartListCreateManyCreatedByUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LeadScoringRuleCreateWithoutCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    category: string
+    isActive?: boolean
+    isSystem?: boolean
+    condition: JsonNullValueInput | InputJsonValue
+    points?: number
+    priority?: number
+    sortOrder?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    category: string
+    isActive?: boolean
+    isSystem?: boolean
+    condition: JsonNullValueInput | InputJsonValue
+    points?: number
+    priority?: number
+    sortOrder?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadScoringRuleCreateOrConnectWithoutCreatedByUserInput = {
+    where: LeadScoringRuleWhereUniqueInput
+    create: XOR<LeadScoringRuleCreateWithoutCreatedByUserInput, LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type LeadScoringRuleCreateManyCreatedByUserInputEnvelope = {
+    data: LeadScoringRuleCreateManyCreatedByUserInput | LeadScoringRuleCreateManyCreatedByUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutUsersCreatedInput = {
     update: XOR<UserUpdateWithoutUsersCreatedInput, UserUncheckedUpdateWithoutUsersCreatedInput>
     create: XOR<UserCreateWithoutUsersCreatedInput, UserUncheckedCreateWithoutUsersCreatedInput>
@@ -69908,6 +76569,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUsersCreatedInput = {
@@ -69953,6 +76616,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -70854,6 +77519,79 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ConversationNote"> | Date | string
   }
 
+  export type SmartListUpsertWithWhereUniqueWithoutCreatedByUserInput = {
+    where: SmartListWhereUniqueInput
+    update: XOR<SmartListUpdateWithoutCreatedByUserInput, SmartListUncheckedUpdateWithoutCreatedByUserInput>
+    create: XOR<SmartListCreateWithoutCreatedByUserInput, SmartListUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type SmartListUpdateWithWhereUniqueWithoutCreatedByUserInput = {
+    where: SmartListWhereUniqueInput
+    data: XOR<SmartListUpdateWithoutCreatedByUserInput, SmartListUncheckedUpdateWithoutCreatedByUserInput>
+  }
+
+  export type SmartListUpdateManyWithWhereWithoutCreatedByUserInput = {
+    where: SmartListScalarWhereInput
+    data: XOR<SmartListUpdateManyMutationInput, SmartListUncheckedUpdateManyWithoutCreatedByUserInput>
+  }
+
+  export type SmartListScalarWhereInput = {
+    AND?: SmartListScalarWhereInput | SmartListScalarWhereInput[]
+    OR?: SmartListScalarWhereInput[]
+    NOT?: SmartListScalarWhereInput | SmartListScalarWhereInput[]
+    id?: UuidFilter<"SmartList"> | string
+    name?: StringFilter<"SmartList"> | string
+    description?: StringNullableFilter<"SmartList"> | string | null
+    isActive?: BoolFilter<"SmartList"> | boolean
+    isSystem?: BoolFilter<"SmartList"> | boolean
+    filterConfig?: JsonFilter<"SmartList">
+    filterLogic?: StringFilter<"SmartList"> | string
+    autoUpdate?: BoolFilter<"SmartList"> | boolean
+    lastUpdatedAt?: DateTimeNullableFilter<"SmartList"> | Date | string | null
+    memberCount?: IntFilter<"SmartList"> | number
+    tags?: StringNullableListFilter<"SmartList">
+    metadata?: JsonFilter<"SmartList">
+    createdBy?: UuidFilter<"SmartList"> | string
+    createdAt?: DateTimeFilter<"SmartList"> | Date | string
+    updatedAt?: DateTimeFilter<"SmartList"> | Date | string
+  }
+
+  export type LeadScoringRuleUpsertWithWhereUniqueWithoutCreatedByUserInput = {
+    where: LeadScoringRuleWhereUniqueInput
+    update: XOR<LeadScoringRuleUpdateWithoutCreatedByUserInput, LeadScoringRuleUncheckedUpdateWithoutCreatedByUserInput>
+    create: XOR<LeadScoringRuleCreateWithoutCreatedByUserInput, LeadScoringRuleUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type LeadScoringRuleUpdateWithWhereUniqueWithoutCreatedByUserInput = {
+    where: LeadScoringRuleWhereUniqueInput
+    data: XOR<LeadScoringRuleUpdateWithoutCreatedByUserInput, LeadScoringRuleUncheckedUpdateWithoutCreatedByUserInput>
+  }
+
+  export type LeadScoringRuleUpdateManyWithWhereWithoutCreatedByUserInput = {
+    where: LeadScoringRuleScalarWhereInput
+    data: XOR<LeadScoringRuleUpdateManyMutationInput, LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserInput>
+  }
+
+  export type LeadScoringRuleScalarWhereInput = {
+    AND?: LeadScoringRuleScalarWhereInput | LeadScoringRuleScalarWhereInput[]
+    OR?: LeadScoringRuleScalarWhereInput[]
+    NOT?: LeadScoringRuleScalarWhereInput | LeadScoringRuleScalarWhereInput[]
+    id?: UuidFilter<"LeadScoringRule"> | string
+    name?: StringFilter<"LeadScoringRule"> | string
+    description?: StringNullableFilter<"LeadScoringRule"> | string | null
+    category?: StringFilter<"LeadScoringRule"> | string
+    isActive?: BoolFilter<"LeadScoringRule"> | boolean
+    isSystem?: BoolFilter<"LeadScoringRule"> | boolean
+    condition?: JsonFilter<"LeadScoringRule">
+    points?: IntFilter<"LeadScoringRule"> | number
+    priority?: IntFilter<"LeadScoringRule"> | number
+    sortOrder?: IntFilter<"LeadScoringRule"> | number
+    metadata?: JsonFilter<"LeadScoringRule">
+    createdBy?: UuidFilter<"LeadScoringRule"> | string
+    createdAt?: DateTimeFilter<"LeadScoringRule"> | Date | string
+    updatedAt?: DateTimeFilter<"LeadScoringRule"> | Date | string
+  }
+
   export type UserCreateWithoutCustomersAssignedInput = {
     id?: string
     email: string
@@ -70897,6 +77635,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomersAssignedInput = {
@@ -70942,6 +77682,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomersAssignedInput = {
@@ -70992,6 +77734,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomersCreatedInput = {
@@ -71037,6 +77781,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomersCreatedInput = {
@@ -71530,6 +78276,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SmartListMemberCreateWithoutCustomerInput = {
+    id?: string
+    addedAt?: Date | string
+    smartList: SmartListCreateNestedOneWithoutMembersInput
+  }
+
+  export type SmartListMemberUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    smartListId: string
+    addedAt?: Date | string
+  }
+
+  export type SmartListMemberCreateOrConnectWithoutCustomerInput = {
+    where: SmartListMemberWhereUniqueInput
+    create: XOR<SmartListMemberCreateWithoutCustomerInput, SmartListMemberUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type SmartListMemberCreateManyCustomerInputEnvelope = {
+    data: SmartListMemberCreateManyCustomerInput | SmartListMemberCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LeadScoreHistoryCreateWithoutCustomerInput = {
+    id?: string
+    oldScore: number
+    newScore: number
+    change: number
+    triggerType: string
+    triggerId?: string | null
+    reason?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type LeadScoreHistoryUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    oldScore: number
+    newScore: number
+    change: number
+    triggerType: string
+    triggerId?: string | null
+    reason?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type LeadScoreHistoryCreateOrConnectWithoutCustomerInput = {
+    where: LeadScoreHistoryWhereUniqueInput
+    create: XOR<LeadScoreHistoryCreateWithoutCustomerInput, LeadScoreHistoryUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type LeadScoreHistoryCreateManyCustomerInputEnvelope = {
+    data: LeadScoreHistoryCreateManyCustomerInput | LeadScoreHistoryCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutCustomersAssignedInput = {
     update: XOR<UserUpdateWithoutCustomersAssignedInput, UserUncheckedUpdateWithoutCustomersAssignedInput>
     create: XOR<UserCreateWithoutCustomersAssignedInput, UserUncheckedCreateWithoutCustomersAssignedInput>
@@ -71584,6 +78386,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersAssignedInput = {
@@ -71629,6 +78433,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutCustomersCreatedInput = {
@@ -71685,6 +78491,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersCreatedInput = {
@@ -71730,6 +78538,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type CustomerContactUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -71888,6 +78698,64 @@ export namespace Prisma {
     data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutCustomerInput>
   }
 
+  export type SmartListMemberUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: SmartListMemberWhereUniqueInput
+    update: XOR<SmartListMemberUpdateWithoutCustomerInput, SmartListMemberUncheckedUpdateWithoutCustomerInput>
+    create: XOR<SmartListMemberCreateWithoutCustomerInput, SmartListMemberUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type SmartListMemberUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: SmartListMemberWhereUniqueInput
+    data: XOR<SmartListMemberUpdateWithoutCustomerInput, SmartListMemberUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type SmartListMemberUpdateManyWithWhereWithoutCustomerInput = {
+    where: SmartListMemberScalarWhereInput
+    data: XOR<SmartListMemberUpdateManyMutationInput, SmartListMemberUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type SmartListMemberScalarWhereInput = {
+    AND?: SmartListMemberScalarWhereInput | SmartListMemberScalarWhereInput[]
+    OR?: SmartListMemberScalarWhereInput[]
+    NOT?: SmartListMemberScalarWhereInput | SmartListMemberScalarWhereInput[]
+    id?: UuidFilter<"SmartListMember"> | string
+    smartListId?: UuidFilter<"SmartListMember"> | string
+    customerId?: UuidFilter<"SmartListMember"> | string
+    addedAt?: DateTimeFilter<"SmartListMember"> | Date | string
+  }
+
+  export type LeadScoreHistoryUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: LeadScoreHistoryWhereUniqueInput
+    update: XOR<LeadScoreHistoryUpdateWithoutCustomerInput, LeadScoreHistoryUncheckedUpdateWithoutCustomerInput>
+    create: XOR<LeadScoreHistoryCreateWithoutCustomerInput, LeadScoreHistoryUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type LeadScoreHistoryUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: LeadScoreHistoryWhereUniqueInput
+    data: XOR<LeadScoreHistoryUpdateWithoutCustomerInput, LeadScoreHistoryUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type LeadScoreHistoryUpdateManyWithWhereWithoutCustomerInput = {
+    where: LeadScoreHistoryScalarWhereInput
+    data: XOR<LeadScoreHistoryUpdateManyMutationInput, LeadScoreHistoryUncheckedUpdateManyWithoutCustomerInput>
+  }
+
+  export type LeadScoreHistoryScalarWhereInput = {
+    AND?: LeadScoreHistoryScalarWhereInput | LeadScoreHistoryScalarWhereInput[]
+    OR?: LeadScoreHistoryScalarWhereInput[]
+    NOT?: LeadScoreHistoryScalarWhereInput | LeadScoreHistoryScalarWhereInput[]
+    id?: UuidFilter<"LeadScoreHistory"> | string
+    customerId?: UuidFilter<"LeadScoreHistory"> | string
+    oldScore?: IntFilter<"LeadScoreHistory"> | number
+    newScore?: IntFilter<"LeadScoreHistory"> | number
+    change?: IntFilter<"LeadScoreHistory"> | number
+    triggerType?: StringFilter<"LeadScoreHistory"> | string
+    triggerId?: UuidNullableFilter<"LeadScoreHistory"> | string | null
+    reason?: StringNullableFilter<"LeadScoreHistory"> | string | null
+    metadata?: JsonFilter<"LeadScoreHistory">
+    createdAt?: DateTimeFilter<"LeadScoreHistory"> | Date | string
+  }
+
   export type CustomerCreateWithoutContactsInput = {
     id?: string
     type?: string
@@ -71933,6 +78801,8 @@ export namespace Prisma {
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutContactsInput = {
@@ -71980,6 +78850,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutContactsInput = {
@@ -72135,6 +79007,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutContactsInput = {
@@ -72182,6 +79056,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type DealContactUpsertWithWhereUniqueWithoutContactInput = {
@@ -72274,6 +79150,8 @@ export namespace Prisma {
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutInteractionsInput = {
@@ -72321,6 +79199,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutInteractionsInput = {
@@ -72371,6 +79251,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutInteractionsInput = {
@@ -72416,6 +79298,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutInteractionsInput = {
@@ -72466,6 +79350,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutInteractionsAssignedInput = {
@@ -72511,6 +79397,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutInteractionsAssignedInput = {
@@ -72816,6 +79704,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutInteractionsInput = {
@@ -72863,6 +79753,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutInteractionsInput = {
@@ -72919,6 +79811,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInteractionsInput = {
@@ -72964,6 +79858,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutInteractionsAssignedInput = {
@@ -73020,6 +79916,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInteractionsAssignedInput = {
@@ -73065,6 +79963,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type DealUpsertWithoutInteractionsInput = {
@@ -73540,6 +80440,8 @@ export namespace Prisma {
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutDealsInput = {
@@ -73587,6 +80489,8 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutDealsInput = {
@@ -73670,6 +80574,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutDealsAssignedInput = {
@@ -73715,6 +80621,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutDealsAssignedInput = {
@@ -73765,6 +80673,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutDealsCreatedInput = {
@@ -73810,6 +80720,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutDealsCreatedInput = {
@@ -74095,6 +81007,8 @@ export namespace Prisma {
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutDealsInput = {
@@ -74142,6 +81056,8 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type DealStageUpsertWithoutDealsInput = {
@@ -74237,6 +81153,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDealsAssignedInput = {
@@ -74282,6 +81200,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutDealsCreatedInput = {
@@ -74338,6 +81258,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDealsCreatedInput = {
@@ -74383,6 +81305,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type DealContactUpsertWithWhereUniqueWithoutDealInput = {
@@ -75307,6 +82231,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutProductsCreatedInput = {
@@ -75352,6 +82278,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutProductsCreatedInput = {
@@ -75688,6 +82616,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProductsCreatedInput = {
@@ -75733,6 +82663,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type ProductVariantUpsertWithWhereUniqueWithoutProductInput = {
@@ -76674,6 +83606,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutInventoryMovementsCreatedInput = {
@@ -76719,6 +83653,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutInventoryMovementsCreatedInput = {
@@ -76910,6 +83846,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryMovementsCreatedInput = {
@@ -76955,6 +83893,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type CustomerCreateWithoutOrdersInput = {
@@ -77002,6 +83942,8 @@ export namespace Prisma {
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutOrdersInput = {
@@ -77049,6 +83991,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutOrdersInput = {
@@ -77099,6 +84043,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersCreatedInput = {
@@ -77144,6 +84090,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersCreatedInput = {
@@ -77194,6 +84142,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersAssignedInput = {
@@ -77239,6 +84189,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersAssignedInput = {
@@ -77543,6 +84495,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutOrdersInput = {
@@ -77590,6 +84544,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutOrdersCreatedInput = {
@@ -77646,6 +84602,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersCreatedInput = {
@@ -77691,6 +84649,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutOrdersAssignedInput = {
@@ -77747,6 +84707,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersAssignedInput = {
@@ -77792,6 +84754,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -78449,6 +85413,8 @@ export namespace Prisma {
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutTasksInput = {
@@ -78496,6 +85462,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutTasksInput = {
@@ -78546,6 +85514,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutTasksAssignedInput = {
@@ -78591,6 +85561,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutTasksAssignedInput = {
@@ -78641,6 +85613,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutTasksCreatedInput = {
@@ -78686,6 +85660,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutTasksCreatedInput = {
@@ -78912,6 +85888,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutTasksInput = {
@@ -78959,6 +85937,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutTasksAssignedInput = {
@@ -79015,6 +85995,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTasksAssignedInput = {
@@ -79060,6 +86042,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutTasksCreatedInput = {
@@ -79116,6 +86100,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTasksCreatedInput = {
@@ -79161,6 +86147,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type TaskChecklistUpsertWithWhereUniqueWithoutTaskInput = {
@@ -79354,6 +86342,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutTaskChecklistsCompletedInput = {
@@ -79399,6 +86389,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutTaskChecklistsCompletedInput = {
@@ -79555,6 +86547,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaskChecklistsCompletedInput = {
@@ -79600,6 +86594,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type TaskCreateWithoutDependenciesInput = {
@@ -80092,6 +87088,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentsCreatedInput = {
@@ -80137,6 +87135,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentsCreatedInput = {
@@ -80283,6 +87283,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentsCreatedInput = {
@@ -80328,6 +87330,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutTransactionsCreatedInput = {
@@ -80373,6 +87377,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutTransactionsCreatedInput = {
@@ -80418,6 +87424,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutTransactionsCreatedInput = {
@@ -80479,6 +87487,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransactionsCreatedInput = {
@@ -80524,6 +87534,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutMessageTemplatesCreatedInput = {
@@ -80569,6 +87581,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutMessageTemplatesCreatedInput = {
@@ -80614,6 +87628,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutMessageTemplatesCreatedInput = {
@@ -80675,6 +87691,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageTemplatesCreatedInput = {
@@ -80720,6 +87738,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type CustomerCreateWithoutMessageLogsInput = {
@@ -80767,6 +87787,8 @@ export namespace Prisma {
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutMessageLogsInput = {
@@ -80814,6 +87836,8 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutMessageLogsInput = {
@@ -80924,6 +87948,8 @@ export namespace Prisma {
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutMessageLogsInput = {
@@ -80971,6 +87997,8 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type MessageUpsertWithoutMessageLogInput = {
@@ -81071,6 +88099,8 @@ export namespace Prisma {
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
     deals?: DealCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutConversationsInput = {
@@ -81118,6 +88148,8 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
     deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutConversationsInput = {
@@ -81209,6 +88241,8 @@ export namespace Prisma {
     dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationsAssignedInput = {
@@ -81254,6 +88288,8 @@ export namespace Prisma {
     dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationsAssignedInput = {
@@ -81304,6 +88340,8 @@ export namespace Prisma {
     dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationsCreatedInput = {
@@ -81349,6 +88387,8 @@ export namespace Prisma {
     dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationsCreatedInput = {
@@ -81492,6 +88532,8 @@ export namespace Prisma {
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutConversationsInput = {
@@ -81539,6 +88581,8 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerContactUpsertWithoutConversationsInput = {
@@ -81642,6 +88686,8 @@ export namespace Prisma {
     dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsAssignedInput = {
@@ -81687,6 +88733,8 @@ export namespace Prisma {
     dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUpsertWithoutConversationsCreatedInput = {
@@ -81743,6 +88791,8 @@ export namespace Prisma {
     dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsCreatedInput = {
@@ -81788,6 +88838,8 @@ export namespace Prisma {
     dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -82173,6 +89225,8 @@ export namespace Prisma {
     dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutConversationNotesInput = {
@@ -82218,6 +89272,8 @@ export namespace Prisma {
     dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutConversationNotesInput = {
@@ -82344,6 +89400,8 @@ export namespace Prisma {
     dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationNotesInput = {
@@ -82389,6 +89447,966 @@ export namespace Prisma {
     dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserCreateWithoutSmartListsCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser?: UserCreateNestedOneWithoutUsersCreatedInput
+    usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    filesUploaded?: FileCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSmartListsCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentUncheckedCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductUncheckedCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    filesUploaded?: FileUncheckedCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportUncheckedCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSmartListsCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSmartListsCreatedInput, UserUncheckedCreateWithoutSmartListsCreatedInput>
+  }
+
+  export type SmartListMemberCreateWithoutSmartListInput = {
+    id?: string
+    addedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutSmartListMembersInput
+  }
+
+  export type SmartListMemberUncheckedCreateWithoutSmartListInput = {
+    id?: string
+    customerId: string
+    addedAt?: Date | string
+  }
+
+  export type SmartListMemberCreateOrConnectWithoutSmartListInput = {
+    where: SmartListMemberWhereUniqueInput
+    create: XOR<SmartListMemberCreateWithoutSmartListInput, SmartListMemberUncheckedCreateWithoutSmartListInput>
+  }
+
+  export type SmartListMemberCreateManySmartListInputEnvelope = {
+    data: SmartListMemberCreateManySmartListInput | SmartListMemberCreateManySmartListInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutSmartListsCreatedInput = {
+    update: XOR<UserUpdateWithoutSmartListsCreatedInput, UserUncheckedUpdateWithoutSmartListsCreatedInput>
+    create: XOR<UserCreateWithoutSmartListsCreatedInput, UserUncheckedCreateWithoutSmartListsCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSmartListsCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSmartListsCreatedInput, UserUncheckedUpdateWithoutSmartListsCreatedInput>
+  }
+
+  export type UserUpdateWithoutSmartListsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneWithoutUsersCreatedNestedInput
+    usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSmartListsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUncheckedUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type SmartListMemberUpsertWithWhereUniqueWithoutSmartListInput = {
+    where: SmartListMemberWhereUniqueInput
+    update: XOR<SmartListMemberUpdateWithoutSmartListInput, SmartListMemberUncheckedUpdateWithoutSmartListInput>
+    create: XOR<SmartListMemberCreateWithoutSmartListInput, SmartListMemberUncheckedCreateWithoutSmartListInput>
+  }
+
+  export type SmartListMemberUpdateWithWhereUniqueWithoutSmartListInput = {
+    where: SmartListMemberWhereUniqueInput
+    data: XOR<SmartListMemberUpdateWithoutSmartListInput, SmartListMemberUncheckedUpdateWithoutSmartListInput>
+  }
+
+  export type SmartListMemberUpdateManyWithWhereWithoutSmartListInput = {
+    where: SmartListMemberScalarWhereInput
+    data: XOR<SmartListMemberUpdateManyMutationInput, SmartListMemberUncheckedUpdateManyWithoutSmartListInput>
+  }
+
+  export type SmartListCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: string
+    autoUpdate?: boolean
+    lastUpdatedAt?: Date | string | null
+    memberCount?: number
+    tags?: SmartListCreatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser: UserCreateNestedOneWithoutSmartListsCreatedInput
+  }
+
+  export type SmartListUncheckedCreateWithoutMembersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: string
+    autoUpdate?: boolean
+    lastUpdatedAt?: Date | string | null
+    memberCount?: number
+    tags?: SmartListCreatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SmartListCreateOrConnectWithoutMembersInput = {
+    where: SmartListWhereUniqueInput
+    create: XOR<SmartListCreateWithoutMembersInput, SmartListUncheckedCreateWithoutMembersInput>
+  }
+
+  export type CustomerCreateWithoutSmartListMembersInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToUser?: UserCreateNestedOneWithoutCustomersAssignedInput
+    createdByUser: UserCreateNestedOneWithoutCustomersCreatedInput
+    contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
+    tasks?: TaskCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
+    conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutSmartListMembersInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: string | null
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutSmartListMembersInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutSmartListMembersInput, CustomerUncheckedCreateWithoutSmartListMembersInput>
+  }
+
+  export type SmartListUpsertWithoutMembersInput = {
+    update: XOR<SmartListUpdateWithoutMembersInput, SmartListUncheckedUpdateWithoutMembersInput>
+    create: XOR<SmartListCreateWithoutMembersInput, SmartListUncheckedCreateWithoutMembersInput>
+    where?: SmartListWhereInput
+  }
+
+  export type SmartListUpdateToOneWithWhereWithoutMembersInput = {
+    where?: SmartListWhereInput
+    data: XOR<SmartListUpdateWithoutMembersInput, SmartListUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type SmartListUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneRequiredWithoutSmartListsCreatedNestedInput
+  }
+
+  export type SmartListUncheckedUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerUpsertWithoutSmartListMembersInput = {
+    update: XOR<CustomerUpdateWithoutSmartListMembersInput, CustomerUncheckedUpdateWithoutSmartListMembersInput>
+    create: XOR<CustomerCreateWithoutSmartListMembersInput, CustomerUncheckedCreateWithoutSmartListMembersInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutSmartListMembersInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutSmartListMembersInput, CustomerUncheckedUpdateWithoutSmartListMembersInput>
+  }
+
+  export type CustomerUpdateWithoutSmartListMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUser?: UserUpdateOneWithoutCustomersAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutCustomersCreatedNestedInput
+    contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
+    conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutSmartListMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type UserCreateWithoutLeadScoringRulesCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser?: UserCreateNestedOneWithoutUsersCreatedInput
+    usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    filesUploaded?: FileCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLeadScoringRulesCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentUncheckedCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductUncheckedCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    filesUploaded?: FileUncheckedCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportUncheckedCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLeadScoringRulesCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLeadScoringRulesCreatedInput, UserUncheckedCreateWithoutLeadScoringRulesCreatedInput>
+  }
+
+  export type UserUpsertWithoutLeadScoringRulesCreatedInput = {
+    update: XOR<UserUpdateWithoutLeadScoringRulesCreatedInput, UserUncheckedUpdateWithoutLeadScoringRulesCreatedInput>
+    create: XOR<UserCreateWithoutLeadScoringRulesCreatedInput, UserUncheckedCreateWithoutLeadScoringRulesCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLeadScoringRulesCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLeadScoringRulesCreatedInput, UserUncheckedUpdateWithoutLeadScoringRulesCreatedInput>
+  }
+
+  export type UserUpdateWithoutLeadScoringRulesCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneWithoutUsersCreatedNestedInput
+    usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLeadScoringRulesCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUncheckedUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type CustomerCreateWithoutLeadScoreHistoryInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToUser?: UserCreateNestedOneWithoutCustomersAssignedInput
+    createdByUser: UserCreateNestedOneWithoutCustomersCreatedInput
+    contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
+    tasks?: TaskCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
+    conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutLeadScoreHistoryInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: string | null
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutLeadScoreHistoryInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutLeadScoreHistoryInput, CustomerUncheckedCreateWithoutLeadScoreHistoryInput>
+  }
+
+  export type CustomerUpsertWithoutLeadScoreHistoryInput = {
+    update: XOR<CustomerUpdateWithoutLeadScoreHistoryInput, CustomerUncheckedUpdateWithoutLeadScoreHistoryInput>
+    create: XOR<CustomerCreateWithoutLeadScoreHistoryInput, CustomerUncheckedCreateWithoutLeadScoreHistoryInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutLeadScoreHistoryInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutLeadScoreHistoryInput, CustomerUncheckedUpdateWithoutLeadScoreHistoryInput>
+  }
+
+  export type CustomerUpdateWithoutLeadScoreHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUser?: UserUpdateOneWithoutCustomersAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutCustomersCreatedNestedInput
+    contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
+    conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutLeadScoreHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -82434,6 +90452,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -82479,6 +90499,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -82540,6 +90562,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -82585,6 +90609,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutFilesUploadedInput = {
@@ -82630,6 +90656,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutFilesUploadedInput = {
@@ -82675,6 +90703,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutFilesUploadedInput = {
@@ -82736,6 +90766,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFilesUploadedInput = {
@@ -82781,6 +90813,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutSavedReportsCreatedInput = {
@@ -82826,6 +90860,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutSavedReportsCreatedInput = {
@@ -82871,6 +90907,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutSavedReportsCreatedInput = {
@@ -82962,6 +91000,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSavedReportsCreatedInput = {
@@ -83007,6 +91047,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type ReportExecutionUpsertWithWhereUniqueWithoutSavedReportInput = {
@@ -83330,6 +91372,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanySettingsUpdatedInput = {
@@ -83375,6 +91419,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanySettingsUpdatedInput = {
@@ -83436,6 +91482,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanySettingsUpdatedInput = {
@@ -83481,6 +91529,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateWithoutAuditLogsUserInput = {
@@ -83526,6 +91576,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsUserInput = {
@@ -83571,6 +91623,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
     conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsUserInput = {
@@ -83632,6 +91686,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsUserInput = {
@@ -83677,6 +91733,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserCreateManyCreatedByUserInput = {
@@ -84297,6 +92355,39 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type SmartListCreateManyCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isActive?: boolean
+    isSystem?: boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: string
+    autoUpdate?: boolean
+    lastUpdatedAt?: Date | string | null
+    memberCount?: number
+    tags?: SmartListCreatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LeadScoringRuleCreateManyCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    category: string
+    isActive?: boolean
+    isSystem?: boolean
+    condition: JsonNullValueInput | InputJsonValue
+    points?: number
+    priority?: number
+    sortOrder?: number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserUpdateWithoutCreatedByUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -84340,6 +92431,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedByUserInput = {
@@ -84385,6 +92478,8 @@ export namespace Prisma {
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -84452,6 +92547,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutCreatedByUserInput = {
@@ -84499,6 +92596,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -84586,6 +92685,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
     deals?: DealUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutAssignedToUserInput = {
@@ -84633,6 +92734,8 @@ export namespace Prisma {
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
     deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutAssignedToUserInput = {
@@ -86301,6 +94404,107 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SmartListUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: SmartListMemberUpdateManyWithoutSmartListNestedInput
+  }
+
+  export type SmartListUncheckedUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: SmartListMemberUncheckedUpdateManyWithoutSmartListNestedInput
+  }
+
+  export type SmartListUncheckedUpdateManyWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    filterConfig?: JsonNullValueInput | InputJsonValue
+    filterLogic?: StringFieldUpdateOperationsInput | string
+    autoUpdate?: BoolFieldUpdateOperationsInput | boolean
+    lastUpdatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    memberCount?: IntFieldUpdateOperationsInput | number
+    tags?: SmartListUpdatetagsInput | string[]
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoringRuleUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    condition?: JsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoringRuleUncheckedUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    condition?: JsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isSystem?: BoolFieldUpdateOperationsInput | boolean
+    condition?: JsonNullValueInput | InputJsonValue
+    points?: IntFieldUpdateOperationsInput | number
+    priority?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CustomerContactCreateManyCustomerInput = {
     id?: string
     firstName: string
@@ -86490,6 +94694,24 @@ export namespace Prisma {
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type SmartListMemberCreateManyCustomerInput = {
+    id?: string
+    smartListId: string
+    addedAt?: Date | string
+  }
+
+  export type LeadScoreHistoryCreateManyCustomerInput = {
+    id?: string
+    oldScore: number
+    newScore: number
+    change: number
+    triggerType: string
+    triggerId?: string | null
+    reason?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
   }
 
   export type CustomerContactUpdateWithoutCustomerInput = {
@@ -87097,6 +95319,60 @@ export namespace Prisma {
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmartListMemberUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    smartList?: SmartListUpdateOneRequiredWithoutMembersNestedInput
+  }
+
+  export type SmartListMemberUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    smartListId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmartListMemberUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    smartListId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoreHistoryUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldScore?: IntFieldUpdateOperationsInput | number
+    newScore?: IntFieldUpdateOperationsInput | number
+    change?: IntFieldUpdateOperationsInput | number
+    triggerType?: StringFieldUpdateOperationsInput | string
+    triggerId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoreHistoryUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldScore?: IntFieldUpdateOperationsInput | number
+    newScore?: IntFieldUpdateOperationsInput | number
+    change?: IntFieldUpdateOperationsInput | number
+    triggerType?: StringFieldUpdateOperationsInput | string
+    triggerId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LeadScoreHistoryUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oldScore?: IntFieldUpdateOperationsInput | number
+    newScore?: IntFieldUpdateOperationsInput | number
+    change?: IntFieldUpdateOperationsInput | number
+    triggerType?: StringFieldUpdateOperationsInput | string
+    triggerId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DealContactCreateManyContactInput = {
@@ -89007,6 +97283,30 @@ export namespace Prisma {
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmartListMemberCreateManySmartListInput = {
+    id?: string
+    customerId: string
+    addedAt?: Date | string
+  }
+
+  export type SmartListMemberUpdateWithoutSmartListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutSmartListMembersNestedInput
+  }
+
+  export type SmartListMemberUncheckedUpdateWithoutSmartListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SmartListMemberUncheckedUpdateManyWithoutSmartListInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ReportExecutionCreateManySavedReportInput = {

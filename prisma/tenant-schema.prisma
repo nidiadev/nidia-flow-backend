@@ -163,7 +163,7 @@ model Customer {
   deals            Deal[]
   conversations    Conversation[]
   smartListMembers SmartListMember[]
-  LeadScoreHistory LeadScoreHistory[]
+  leadScoreHistory LeadScoreHistory[]
 
   @@index([type])
   @@index([email])

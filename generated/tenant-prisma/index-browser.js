@@ -672,6 +672,61 @@ exports.Prisma.ConversationNoteScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SmartListScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  isSystem: 'isSystem',
+  filterConfig: 'filterConfig',
+  filterLogic: 'filterLogic',
+  autoUpdate: 'autoUpdate',
+  lastUpdatedAt: 'lastUpdatedAt',
+  memberCount: 'memberCount',
+  tags: 'tags',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SmartListMemberScalarFieldEnum = {
+  id: 'id',
+  smartListId: 'smartListId',
+  customerId: 'customerId',
+  addedAt: 'addedAt'
+};
+
+exports.Prisma.LeadScoringRuleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  category: 'category',
+  isActive: 'isActive',
+  isSystem: 'isSystem',
+  condition: 'condition',
+  points: 'points',
+  priority: 'priority',
+  sortOrder: 'sortOrder',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LeadScoreHistoryScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  oldScore: 'oldScore',
+  newScore: 'newScore',
+  change: 'change',
+  triggerType: 'triggerType',
+  triggerId: 'triggerId',
+  reason: 'reason',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -848,6 +903,10 @@ exports.Prisma.ModelName = {
   Conversation: 'Conversation',
   Message: 'Message',
   ConversationNote: 'ConversationNote',
+  SmartList: 'SmartList',
+  SmartListMember: 'SmartListMember',
+  LeadScoringRule: 'LeadScoringRule',
+  LeadScoreHistory: 'LeadScoreHistory',
   Notification: 'Notification',
   File: 'File',
   SavedReport: 'SavedReport',

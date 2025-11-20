@@ -70,6 +70,8 @@ model User {
   conversationsCreated      Conversation[]      @relation("ConversationCreatedBy")
   conversationsAssigned     Conversation[]      @relation("ConversationAssignedTo")
   conversationNotes         ConversationNote[]
+  smartListsCreated         SmartList[]         @relation("SmartListCreatedBy")
+  leadScoringRulesCreated   LeadScoringRule[]   @relation("LeadScoringRuleCreatedBy")
 
   @@index([email])
   @@index([role])
@@ -151,15 +153,17 @@ model Customer {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   // Relations
-  assignedToUser User?             @relation("CustomerAssignedTo", fields: [assignedTo], references: [id])
-  createdByUser  User              @relation("CustomerCreatedBy", fields: [createdBy], references: [id])
-  contacts       CustomerContact[]
-  interactions   Interaction[]
-  orders         Order[]
-  tasks          Task[]
-  messageLogs    MessageLog[]
-  deals          Deal[]
-  conversations  Conversation[]
+  assignedToUser   User?              @relation("CustomerAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser    User               @relation("CustomerCreatedBy", fields: [createdBy], references: [id])
+  contacts         CustomerContact[]
+  interactions     Interaction[]
+  orders           Order[]
+  tasks            Task[]
+  messageLogs      MessageLog[]
+  deals            Deal[]
+  conversations    Conversation[]
+  smartListMembers SmartListMember[]
+  leadScoreHistory LeadScoreHistory[]
 
   @@index([type])
   @@index([email])
@@ -1151,6 +1155,133 @@ model ConversationNote {
   @@index([conversationId])
   @@index([createdBy])
   @@map("conversation_notes")
+}
+
+// ============================================
+// CRM - SEGMENTATION & SMART LISTS
+// ============================================
+
+model SmartList {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Basic info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  isActive    Boolean @default(true) @map("is_active")
+  isSystem    Boolean @default(false) @map("is_system") // System lists cannot be deleted
+
+  // Filter configuration
+  filterConfig Json   @default("{}") @map("filter_config") // Complex filter structure
+  filterLogic  String @default("AND") @map("filter_logic") @db.VarChar(10) // AND, OR
+
+  // Auto-update
+  autoUpdate    Boolean   @default(true) @map("auto_update")
+  lastUpdatedAt DateTime? @map("last_updated_at")
+
+  // Count (cached)
+  memberCount Int @default(0) @map("member_count")
+
+  // Metadata
+  tags     String[] @map("tags")
+  metadata Json     @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdByUser User              @relation("SmartListCreatedBy", fields: [createdBy], references: [id])
+  members       SmartListMember[]
+
+  @@index([createdBy])
+  @@index([isActive])
+  @@index([isSystem])
+  @@map("smart_lists")
+}
+
+model SmartListMember {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  smartListId String @map("smart_list_id") @db.Uuid
+  customerId  String @map("customer_id") @db.Uuid
+
+  // Metadata
+  addedAt DateTime @default(now()) @map("added_at")
+
+  // Relations
+  smartList SmartList @relation(fields: [smartListId], references: [id], onDelete: Cascade)
+  customer  Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@unique([smartListId, customerId])
+  @@index([smartListId])
+  @@index([customerId])
+  @@map("smart_list_members")
+}
+
+// ============================================
+// CRM - LEAD SCORING
+// ============================================
+
+model LeadScoringRule {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Rule info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  category    String  @db.VarChar(50) // demographic, engagement, behavior, fit
+  isActive    Boolean @default(true) @map("is_active")
+  isSystem    Boolean @default(false) @map("is_system") // System rules cannot be deleted
+
+  // Rule configuration
+  condition Json @map("condition") // Filter condition (field, operator, value)
+  points    Int  @default(0) // Points to add/subtract
+
+  // Priority and order
+  priority  Int @default(0) // Higher priority rules evaluated first
+  sortOrder Int @default(0) @map("sort_order")
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  createdByUser User @relation("LeadScoringRuleCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([isActive])
+  @@index([category])
+  @@index([priority])
+  @@index([sortOrder])
+  @@map("lead_scoring_rules")
+}
+
+model LeadScoreHistory {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  customerId String @map("customer_id") @db.Uuid
+  oldScore   Int    @map("old_score")
+  newScore   Int    @map("new_score")
+  change     Int // newScore - oldScore
+
+  // What caused the change
+  triggerType String  @map("trigger_type") @db.VarChar(50) // rule_applied, manual, recalculate
+  triggerId   String? @map("trigger_id") @db.Uuid // ID of rule, interaction, etc.
+  reason      String? @db.Text // Human-readable reason
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([createdAt])
+  @@index([triggerType])
+  @@map("lead_score_history")
 }
 
 model Notification {
