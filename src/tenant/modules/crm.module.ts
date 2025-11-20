@@ -22,6 +22,7 @@ import { SmartListService } from '../services/crm/smart-list.service';
 import { LeadScoringService } from '../services/crm/lead-scoring.service';
 import { CrmReportsService } from '../services/crm/crm-reports.service';
 import { WorkflowService } from '../services/crm/workflow.service';
+import { WorkflowEventHandlerService } from '../services/crm/workflow-event-handler.service';
 import { ActivityReminderProcessor } from '../processors/activity-reminder.processor';
 import { WorkflowProcessor } from '../processors/workflow.processor';
 import { ActivityReminderService } from '../services/crm/activity-reminder.service';
@@ -70,6 +71,7 @@ import { CommunicationsModule } from './communications.module';
     LeadScoringService,
     CrmReportsService,
     WorkflowService,
+    WorkflowEventHandlerService,
     ActivityReminderProcessor,
     WorkflowProcessor,
     ActivityReminderService,

@@ -384,7 +384,22 @@ export class WorkflowService {
 
     // Note: In a production system, you would maintain a registry of active workflows
     // and their event listeners. For now, we'll trigger workflows directly from event handlers.
+    // The actual event handling will be done in a separate service that listens to all events
+    // and checks for matching workflows.
     this.logger.log(`Workflow ${workflowId} registered for event: ${eventType}`);
+  }
+
+  /**
+   * Find active workflows for a trigger type
+   */
+  async findActiveWorkflowsForTrigger(triggerType: string): Promise<any[]> {
+    const client = await this.prisma.getTenantClient();
+    return client.workflow.findMany({
+      where: {
+        isActive: true,
+        triggerType,
+      },
+    });
   }
 
   /**
