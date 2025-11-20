@@ -3,7 +3,7 @@ import { OnEvent } from '@nestjs/event-emitter';
 import { TenantPrismaService } from '../tenant-prisma.service';
 import { WorkflowService } from './workflow.service';
 import { BusinessEventTypes } from '../../../common/events/business-events';
-import { WorkflowTriggerType } from '../dto/crm/workflow.dto';
+import { WorkflowTriggerType } from '../../dto/crm/workflow.dto';
 
 /**
  * WorkflowEventHandlerService
