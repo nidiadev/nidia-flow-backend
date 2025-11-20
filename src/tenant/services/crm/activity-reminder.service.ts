@@ -1,7 +1,7 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { CronExpression } from '@nestjs/schedule';
 
 /**
  * ActivityReminderService
@@ -12,6 +12,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 @Injectable()
 export class ActivityReminderService implements OnModuleInit {
   private readonly logger = new Logger(ActivityReminderService.name);
+  private static readonly REPEATABLE_JOB_KEY = 'activity-reminder-check';
 
   constructor(
     @InjectQueue('activity-reminders') private readonly reminderQueue: Queue,
@@ -19,7 +20,7 @@ export class ActivityReminderService implements OnModuleInit {
 
   async onModuleInit() {
     this.logger.log('ActivityReminderService initialized');
-    // Programar job inicial
+    // Programar job inicial solo una vez
     await this.scheduleReminderCheck();
   }
 
@@ -29,20 +30,24 @@ export class ActivityReminderService implements OnModuleInit {
    * 
    * NOTE: This processor works per-tenant. Each tenant needs to have
    * its context set before processing reminders.
+   * 
+   * IMPORTANT: This should only be called once during initialization.
+   * BullMQ's repeatable jobs handle the scheduling automatically.
    */
-  @Cron(CronExpression.EVERY_MINUTE)
   async scheduleReminderCheck() {
     try {
-      // Check if job already exists
-      const jobs = await this.reminderQueue.getJobs(['waiting', 'delayed', 'active']);
-      const existingJob = jobs.find(job => job.name === 'check-reminders');
+      // Check if repeatable job already exists using getRepeatableJobs
+      const repeatableJobs = await this.reminderQueue.getRepeatableJobs();
+      const existingJob = repeatableJobs.find(
+        job => job.key === ActivityReminderService.REPEATABLE_JOB_KEY
+      );
 
       if (existingJob) {
-        this.logger.debug('Reminder check job already scheduled');
+        this.logger.debug('Reminder check repeatable job already exists, skipping creation');
         return;
       }
 
-      // Add job to queue
+      // Add repeatable job to queue
       // NOTE: This job will process reminders for the current tenant context
       // For multi-tenant processing, each tenant should trigger its own job
       await this.reminderQueue.add(
@@ -52,11 +57,11 @@ export class ActivityReminderService implements OnModuleInit {
           repeat: {
             pattern: CronExpression.EVERY_MINUTE,
           },
-          jobId: 'activity-reminder-check',
+          jobId: ActivityReminderService.REPEATABLE_JOB_KEY,
         },
       );
 
-      this.logger.log('Reminder check job scheduled');
+      this.logger.log('Reminder check repeatable job scheduled successfully');
     } catch (error: any) {
       this.logger.error(`Failed to schedule reminder check: ${error.message}`, error.stack);
     }
