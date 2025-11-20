@@ -131,7 +131,7 @@ export class CalendarController {
     @Param('id', ParseUUIDPipe) activityId: string,
     @Body(ValidationPipe) reminderDto: CreateReminderDto,
     @CurrentUser('userId') userId: string,
-  ): Promise<ApiResponseDto<void>> {
+  ): Promise<ApiResponseDto<null>> {
     await this.interactionService.addReminder(activityId, reminderDto, userId);
     return {
       success: true,

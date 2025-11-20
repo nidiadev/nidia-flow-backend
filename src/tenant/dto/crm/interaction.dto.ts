@@ -7,7 +7,8 @@ import {
   IsDateString,
   MinLength,
   MaxLength,
-  Min
+  Min,
+  Max
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import { BaseCustomFieldsDto, SearchDto, DateRangeDto } from '../base/base.dto';
@@ -418,20 +419,26 @@ export class CreateRecurringActivityDto extends CreateInteractionDto {
     example: 'weekly'
   })
   @IsEnum(['daily', 'weekly', 'monthly'])
-  recurrenceRule: string;
+  declare recurrenceRule: string;
 
   @ApiProperty({ 
     description: 'Recurrence end date',
     example: '2025-12-31T23:59:59.000Z'
   })
   @IsDateString()
-  recurrenceEndDate: string;
+  declare recurrenceEndDate: string;
 
   @ApiProperty({ 
     description: 'Must be scheduled',
     default: true
   })
   declare status: InteractionStatus.SCHEDULED;
+
+  @ApiProperty({ 
+    description: 'Must be recurring',
+    default: true
+  })
+  declare isRecurring: true;
 }
 
 /**

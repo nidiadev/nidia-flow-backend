@@ -441,4 +441,392 @@ export class InteractionService {
       } : undefined,
     };
   }
+
+  /**
+   * Get calendar view (month, week, or day)
+   */
+  async getCalendarView(
+    filterDto: CalendarFilterDto,
+    userId: string,
+    userPermissions: string[],
+  ): Promise<{ activities: InteractionResponseDto[]; dateRange: { start: string; end: string } }> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      // Calculate date range based on view type
+      const { startDate, endDate } = this.calculateDateRange(filterDto);
+
+      // Build where clause
+      const where: any = {
+        scheduledAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+        status: InteractionStatus.SCHEDULED, // Only show scheduled activities
+      };
+
+      if (filterDto.assignedTo) {
+        where.assignedTo = filterDto.assignedTo;
+      } else if (!this.dataScope.canViewAll(userPermissions)) {
+        // If no assignedTo filter, show only user's activities
+        where.assignedTo = userId;
+      }
+
+      if (filterDto.type) {
+        where.type = filterDto.type;
+      }
+
+      if (filterDto.priority) {
+        where.priority = filterDto.priority;
+      }
+
+      const activities = await prisma.interaction.findMany({
+        where,
+        orderBy: { scheduledAt: 'asc' },
+        include: {
+          customer: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              companyName: true,
+              type: true,
+            },
+          },
+          assignedToUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+          createdByUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+        },
+      });
+
+      return {
+        activities: activities.map(activity => this.mapToResponseDto(activity)),
+        dateRange: {
+          start: startDate.toISOString(),
+          end: endDate.toISOString(),
+        },
+      };
+    } catch (error: any) {
+      this.logger.error(`Failed to get calendar view: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Get today's activities for a user
+   */
+  async getTodayActivities(
+    userId: string,
+    userPermissions: string[],
+  ): Promise<InteractionResponseDto[]> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const where: any = {
+        scheduledAt: {
+          gte: today,
+          lt: tomorrow,
+        },
+        status: InteractionStatus.SCHEDULED,
+      };
+
+      // Apply data scope
+      if (!this.dataScope.canViewAll(userPermissions)) {
+        where.assignedTo = userId;
+      }
+
+      const activities = await prisma.interaction.findMany({
+        where,
+        orderBy: { scheduledAt: 'asc' },
+        include: {
+          customer: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              companyName: true,
+              type: true,
+            },
+          },
+          assignedToUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+          createdByUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+        },
+      });
+
+      return activities.map(activity => this.mapToResponseDto(activity));
+    } catch (error: any) {
+      this.logger.error(`Failed to get today's activities: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Create recurring activity
+   */
+  async createRecurringActivity(
+    createDto: CreateRecurringActivityDto,
+    userId: string,
+  ): Promise<InteractionResponseDto[]> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      // Create parent interaction
+      const parent = await this.create(createDto, userId);
+
+      // Generate recurring instances
+      const instances = this.generateRecurringInstances(
+        createDto.scheduledAt!,
+        createDto.recurrenceEndDate,
+        createDto.recurrenceRule,
+      );
+
+      // Create child interactions
+      const createdInstances: InteractionResponseDto[] = [parent];
+      for (const instanceDate of instances) {
+        const childDto: CreateInteractionDto = {
+          ...createDto,
+          scheduledAt: instanceDate.toISOString(),
+          isRecurring: false, // Children are not marked as recurring
+          parentInteractionId: parent.id,
+        };
+        const child = await this.create(childDto, userId);
+        createdInstances.push(child);
+      }
+
+      this.logger.log(`Created recurring activity with ${createdInstances.length} instances`);
+      return createdInstances;
+    } catch (error: any) {
+      this.logger.error(`Failed to create recurring activity: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Add reminder to activity
+   */
+  async addReminder(
+    interactionId: string,
+    reminderDto: CreateReminderDto,
+    userId: string,
+  ): Promise<void> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      const interaction = await prisma.interaction.findUnique({
+        where: { id: interactionId },
+      });
+
+      if (!interaction) {
+        throw new NotFoundException(`Interaction with ID ${interactionId} not found`);
+      }
+
+      if (!interaction.scheduledAt) {
+        throw new BadRequestException('Cannot add reminder to activity without scheduled time');
+      }
+
+      const reminderAt = new Date(interaction.scheduledAt);
+      reminderAt.setMinutes(reminderAt.getMinutes() - reminderDto.reminderMinutes);
+
+      await prisma.activityReminder.create({
+        data: {
+          interactionId,
+          reminderMinutes: reminderDto.reminderMinutes,
+          reminderAt,
+        },
+      });
+
+      this.logger.log(`Reminder added to interaction ${interactionId}`);
+    } catch (error: any) {
+      this.logger.error(`Failed to add reminder: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Complete an activity
+   */
+  async completeActivity(
+    id: string,
+    completeDto: CompleteInteractionDto,
+    userId: string,
+  ): Promise<InteractionResponseDto> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      const interaction = await prisma.interaction.findUnique({
+        where: { id },
+      });
+
+      if (!interaction) {
+        throw new NotFoundException(`Interaction with ID ${id} not found`);
+      }
+
+      const updateData: any = {
+        status: InteractionStatus.COMPLETED,
+        completedAt: new Date(),
+      };
+
+      if (completeDto.content !== undefined) {
+        updateData.content = completeDto.content;
+      }
+
+      if (completeDto.durationMinutes !== undefined) {
+        updateData.durationMinutes = completeDto.durationMinutes;
+      }
+
+      if (completeDto.outcome !== undefined) {
+        updateData.outcome = completeDto.outcome;
+      }
+
+      if (completeDto.nextAction !== undefined) {
+        updateData.nextAction = completeDto.nextAction;
+      }
+
+      if (completeDto.nextActionDate !== undefined) {
+        updateData.nextActionDate = completeDto.nextActionDate ? new Date(completeDto.nextActionDate) : null;
+      }
+
+      const updated = await prisma.interaction.update({
+        where: { id },
+        data: updateData,
+        include: {
+          customer: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              companyName: true,
+              type: true,
+            },
+          },
+          assignedToUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+          createdByUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+        },
+      });
+
+      return this.mapToResponseDto(updated);
+    } catch (error: any) {
+      this.logger.error(`Failed to complete activity: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  // ============================================
+  // PRIVATE HELPER METHODS
+  // ============================================
+
+  /**
+   * Calculate date range for calendar view
+   */
+  private calculateDateRange(filterDto: CalendarFilterDto): { startDate: Date; endDate: Date } {
+    let startDate: Date;
+    let endDate: Date;
+
+    if (filterDto.view === 'month') {
+      startDate = new Date(filterDto.year, filterDto.month - 1, 1);
+      endDate = new Date(filterDto.year, filterDto.month, 0, 23, 59, 59);
+    } else if (filterDto.view === 'week') {
+      if (!filterDto.week) {
+        throw new BadRequestException('Week number is required for week view');
+      }
+      // Calculate start of week (assuming week starts on Monday)
+      const jan1 = new Date(filterDto.year, 0, 1);
+      const daysOffset = (filterDto.week - 1) * 7;
+      startDate = new Date(jan1);
+      startDate.setDate(jan1.getDate() + daysOffset - jan1.getDay() + 1); // Monday
+      startDate.setHours(0, 0, 0, 0);
+      endDate = new Date(startDate);
+      endDate.setDate(endDate.getDate() + 6);
+      endDate.setHours(23, 59, 59, 999);
+    } else {
+      // day view
+      if (!filterDto.day) {
+        throw new BadRequestException('Day is required for day view');
+      }
+      startDate = new Date(filterDto.year, filterDto.month - 1, filterDto.day);
+      startDate.setHours(0, 0, 0, 0);
+      endDate = new Date(startDate);
+      endDate.setHours(23, 59, 59, 999);
+    }
+
+    return { startDate, endDate };
+  }
+
+  /**
+   * Generate recurring instances based on recurrence rule
+   */
+  private generateRecurringInstances(
+    startDate: string,
+    endDate: string,
+    rule: string,
+  ): Date[] {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const instances: Date[] = [];
+
+    let current = new Date(start);
+
+    while (current <= end) {
+      instances.push(new Date(current));
+
+      if (rule === 'daily') {
+        current.setDate(current.getDate() + 1);
+      } else if (rule === 'weekly') {
+        current.setDate(current.getDate() + 7);
+      } else if (rule === 'monthly') {
+        current.setMonth(current.getMonth() + 1);
+      } else {
+        // Unknown rule, break
+        break;
+      }
+    }
+
+    return instances;
+  }
 }
