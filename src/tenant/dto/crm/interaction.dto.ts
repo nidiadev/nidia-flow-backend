@@ -557,6 +557,9 @@ export class InteractionResponseDto {
   @ApiPropertyOptional({ description: 'Scheduled date and time' })
   scheduledAt?: string;
 
+  @ApiPropertyOptional({ description: 'Scheduled end date and time' })
+  scheduledEndAt?: string;
+
   @ApiPropertyOptional({ description: 'Duration in minutes' })
   durationMinutes?: number;
 
