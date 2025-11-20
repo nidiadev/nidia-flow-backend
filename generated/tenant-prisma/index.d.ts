@@ -39,6 +39,11 @@ export type CustomerContact = $Result.DefaultSelection<Prisma.$CustomerContactPa
  */
 export type Interaction = $Result.DefaultSelection<Prisma.$InteractionPayload>
 /**
+ * Model ActivityReminder
+ * 
+ */
+export type ActivityReminder = $Result.DefaultSelection<Prisma.$ActivityReminderPayload>
+/**
  * Model DealStage
  * 
  */
@@ -356,6 +361,16 @@ export class PrismaClient<
     * ```
     */
   get interaction(): Prisma.InteractionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.activityReminder`: Exposes CRUD operations for the **ActivityReminder** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ActivityReminders
+    * const activityReminders = await prisma.activityReminder.findMany()
+    * ```
+    */
+  get activityReminder(): Prisma.ActivityReminderDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.dealStage`: Exposes CRUD operations for the **DealStage** model.
@@ -1101,6 +1116,7 @@ export namespace Prisma {
     Customer: 'Customer',
     CustomerContact: 'CustomerContact',
     Interaction: 'Interaction',
+    ActivityReminder: 'ActivityReminder',
     DealStage: 'DealStage',
     Deal: 'Deal',
     DealContact: 'DealContact',
@@ -1149,7 +1165,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "conversation" | "message" | "conversationNote" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
+      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "activityReminder" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "conversation" | "message" | "conversationNote" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1520,6 +1536,80 @@ export namespace Prisma {
           count: {
             args: Prisma.InteractionCountArgs<ExtArgs>
             result: $Utils.Optional<InteractionCountAggregateOutputType> | number
+          }
+        }
+      }
+      ActivityReminder: {
+        payload: Prisma.$ActivityReminderPayload<ExtArgs>
+        fields: Prisma.ActivityReminderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ActivityReminderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ActivityReminderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>
+          }
+          findFirst: {
+            args: Prisma.ActivityReminderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ActivityReminderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>
+          }
+          findMany: {
+            args: Prisma.ActivityReminderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>[]
+          }
+          create: {
+            args: Prisma.ActivityReminderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>
+          }
+          createMany: {
+            args: Prisma.ActivityReminderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ActivityReminderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>[]
+          }
+          delete: {
+            args: Prisma.ActivityReminderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>
+          }
+          update: {
+            args: Prisma.ActivityReminderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>
+          }
+          deleteMany: {
+            args: Prisma.ActivityReminderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ActivityReminderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ActivityReminderUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>[]
+          }
+          upsert: {
+            args: Prisma.ActivityReminderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityReminderPayload>
+          }
+          aggregate: {
+            args: Prisma.ActivityReminderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateActivityReminder>
+          }
+          groupBy: {
+            args: Prisma.ActivityReminderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ActivityReminderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ActivityReminderCountArgs<ExtArgs>
+            result: $Utils.Optional<ActivityReminderCountAggregateOutputType> | number
           }
         }
       }
@@ -3844,6 +3934,7 @@ export namespace Prisma {
     customer?: CustomerOmit
     customerContact?: CustomerContactOmit
     interaction?: InteractionOmit
+    activityReminder?: ActivityReminderOmit
     dealStage?: DealStageOmit
     deal?: DealOmit
     dealContact?: DealContactOmit
@@ -3958,6 +4049,7 @@ export namespace Prisma {
     customersCreated: number
     customersAssigned: number
     interactions: number
+    interactionsAssigned: number
     ordersCreated: number
     ordersAssigned: number
     tasksCreated: number
@@ -3985,6 +4077,7 @@ export namespace Prisma {
     customersCreated?: boolean | UserCountOutputTypeCountCustomersCreatedArgs
     customersAssigned?: boolean | UserCountOutputTypeCountCustomersAssignedArgs
     interactions?: boolean | UserCountOutputTypeCountInteractionsArgs
+    interactionsAssigned?: boolean | UserCountOutputTypeCountInteractionsAssignedArgs
     ordersCreated?: boolean | UserCountOutputTypeCountOrdersCreatedArgs
     ordersAssigned?: boolean | UserCountOutputTypeCountOrdersAssignedArgs
     tasksCreated?: boolean | UserCountOutputTypeCountTasksCreatedArgs
@@ -4043,6 +4136,13 @@ export namespace Prisma {
    * UserCountOutputType without action
    */
   export type UserCountOutputTypeCountInteractionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InteractionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountInteractionsAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InteractionWhereInput
   }
 
@@ -4309,6 +4409,46 @@ export namespace Prisma {
    */
   export type CustomerContactCountOutputTypeCountConversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConversationWhereInput
+  }
+
+
+  /**
+   * Count Type InteractionCountOutputType
+   */
+
+  export type InteractionCountOutputType = {
+    childInteractions: number
+    reminders: number
+  }
+
+  export type InteractionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    childInteractions?: boolean | InteractionCountOutputTypeCountChildInteractionsArgs
+    reminders?: boolean | InteractionCountOutputTypeCountRemindersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * InteractionCountOutputType without action
+   */
+  export type InteractionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InteractionCountOutputType
+     */
+    select?: InteractionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * InteractionCountOutputType without action
+   */
+  export type InteractionCountOutputTypeCountChildInteractionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InteractionWhereInput
+  }
+
+  /**
+   * InteractionCountOutputType without action
+   */
+  export type InteractionCountOutputTypeCountRemindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ActivityReminderWhereInput
   }
 
 
@@ -5008,6 +5148,7 @@ export namespace Prisma {
     customersCreated?: boolean | User$customersCreatedArgs<ExtArgs>
     customersAssigned?: boolean | User$customersAssignedArgs<ExtArgs>
     interactions?: boolean | User$interactionsArgs<ExtArgs>
+    interactionsAssigned?: boolean | User$interactionsAssignedArgs<ExtArgs>
     ordersCreated?: boolean | User$ordersCreatedArgs<ExtArgs>
     ordersAssigned?: boolean | User$ordersAssignedArgs<ExtArgs>
     tasksCreated?: boolean | User$tasksCreatedArgs<ExtArgs>
@@ -5103,6 +5244,7 @@ export namespace Prisma {
     customersCreated?: boolean | User$customersCreatedArgs<ExtArgs>
     customersAssigned?: boolean | User$customersAssignedArgs<ExtArgs>
     interactions?: boolean | User$interactionsArgs<ExtArgs>
+    interactionsAssigned?: boolean | User$interactionsAssignedArgs<ExtArgs>
     ordersCreated?: boolean | User$ordersCreatedArgs<ExtArgs>
     ordersAssigned?: boolean | User$ordersAssignedArgs<ExtArgs>
     tasksCreated?: boolean | User$tasksCreatedArgs<ExtArgs>
@@ -5140,6 +5282,7 @@ export namespace Prisma {
       customersCreated: Prisma.$CustomerPayload<ExtArgs>[]
       customersAssigned: Prisma.$CustomerPayload<ExtArgs>[]
       interactions: Prisma.$InteractionPayload<ExtArgs>[]
+      interactionsAssigned: Prisma.$InteractionPayload<ExtArgs>[]
       ordersCreated: Prisma.$OrderPayload<ExtArgs>[]
       ordersAssigned: Prisma.$OrderPayload<ExtArgs>[]
       tasksCreated: Prisma.$TaskPayload<ExtArgs>[]
@@ -5579,6 +5722,7 @@ export namespace Prisma {
     customersCreated<T extends User$customersCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$customersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     customersAssigned<T extends User$customersAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$customersAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     interactions<T extends User$interactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$interactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    interactionsAssigned<T extends User$interactionsAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$interactionsAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ordersCreated<T extends User$ordersCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ordersAssigned<T extends User$ordersAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tasksCreated<T extends User$tasksCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$tasksCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6136,6 +6280,30 @@ export namespace Prisma {
    * User.interactions
    */
   export type User$interactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Interaction
+     */
+    select?: InteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Interaction
+     */
+    omit?: InteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InteractionInclude<ExtArgs> | null
+    where?: InteractionWhereInput
+    orderBy?: InteractionOrderByWithRelationInput | InteractionOrderByWithRelationInput[]
+    cursor?: InteractionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InteractionScalarFieldEnum | InteractionScalarFieldEnum[]
+  }
+
+  /**
+   * User.interactionsAssigned
+   */
+  export type User$interactionsAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Interaction
      */
@@ -10684,13 +10852,23 @@ export namespace Prisma {
     content: string | null
     status: string | null
     scheduledAt: Date | null
+    scheduledEndAt: Date | null
     durationMinutes: number | null
+    priority: string | null
+    isRecurring: boolean | null
+    recurrenceRule: string | null
+    recurrenceEndDate: Date | null
+    parentInteractionId: string | null
+    assignedTo: string | null
     outcome: string | null
     nextAction: string | null
     nextActionDate: Date | null
+    completedAt: Date | null
     relatedOrderId: string | null
     relatedTaskId: string | null
     relatedDealId: string | null
+    location: string | null
+    locationUrl: string | null
     createdBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -10705,13 +10883,23 @@ export namespace Prisma {
     content: string | null
     status: string | null
     scheduledAt: Date | null
+    scheduledEndAt: Date | null
     durationMinutes: number | null
+    priority: string | null
+    isRecurring: boolean | null
+    recurrenceRule: string | null
+    recurrenceEndDate: Date | null
+    parentInteractionId: string | null
+    assignedTo: string | null
     outcome: string | null
     nextAction: string | null
     nextActionDate: Date | null
+    completedAt: Date | null
     relatedOrderId: string | null
     relatedTaskId: string | null
     relatedDealId: string | null
+    location: string | null
+    locationUrl: string | null
     createdBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -10726,13 +10914,23 @@ export namespace Prisma {
     content: number
     status: number
     scheduledAt: number
+    scheduledEndAt: number
     durationMinutes: number
+    priority: number
+    isRecurring: number
+    recurrenceRule: number
+    recurrenceEndDate: number
+    parentInteractionId: number
+    assignedTo: number
     outcome: number
     nextAction: number
     nextActionDate: number
+    completedAt: number
     relatedOrderId: number
     relatedTaskId: number
     relatedDealId: number
+    location: number
+    locationUrl: number
     metadata: number
     createdBy: number
     createdAt: number
@@ -10758,13 +10956,23 @@ export namespace Prisma {
     content?: true
     status?: true
     scheduledAt?: true
+    scheduledEndAt?: true
     durationMinutes?: true
+    priority?: true
+    isRecurring?: true
+    recurrenceRule?: true
+    recurrenceEndDate?: true
+    parentInteractionId?: true
+    assignedTo?: true
     outcome?: true
     nextAction?: true
     nextActionDate?: true
+    completedAt?: true
     relatedOrderId?: true
     relatedTaskId?: true
     relatedDealId?: true
+    location?: true
+    locationUrl?: true
     createdBy?: true
     createdAt?: true
     updatedAt?: true
@@ -10779,13 +10987,23 @@ export namespace Prisma {
     content?: true
     status?: true
     scheduledAt?: true
+    scheduledEndAt?: true
     durationMinutes?: true
+    priority?: true
+    isRecurring?: true
+    recurrenceRule?: true
+    recurrenceEndDate?: true
+    parentInteractionId?: true
+    assignedTo?: true
     outcome?: true
     nextAction?: true
     nextActionDate?: true
+    completedAt?: true
     relatedOrderId?: true
     relatedTaskId?: true
     relatedDealId?: true
+    location?: true
+    locationUrl?: true
     createdBy?: true
     createdAt?: true
     updatedAt?: true
@@ -10800,13 +11018,23 @@ export namespace Prisma {
     content?: true
     status?: true
     scheduledAt?: true
+    scheduledEndAt?: true
     durationMinutes?: true
+    priority?: true
+    isRecurring?: true
+    recurrenceRule?: true
+    recurrenceEndDate?: true
+    parentInteractionId?: true
+    assignedTo?: true
     outcome?: true
     nextAction?: true
     nextActionDate?: true
+    completedAt?: true
     relatedOrderId?: true
     relatedTaskId?: true
     relatedDealId?: true
+    location?: true
+    locationUrl?: true
     metadata?: true
     createdBy?: true
     createdAt?: true
@@ -10909,13 +11137,23 @@ export namespace Prisma {
     content: string
     status: string | null
     scheduledAt: Date | null
+    scheduledEndAt: Date | null
     durationMinutes: number | null
+    priority: string
+    isRecurring: boolean
+    recurrenceRule: string | null
+    recurrenceEndDate: Date | null
+    parentInteractionId: string | null
+    assignedTo: string | null
     outcome: string | null
     nextAction: string | null
     nextActionDate: Date | null
+    completedAt: Date | null
     relatedOrderId: string | null
     relatedTaskId: string | null
     relatedDealId: string | null
+    location: string | null
+    locationUrl: string | null
     metadata: JsonValue
     createdBy: string
     createdAt: Date
@@ -10950,20 +11188,35 @@ export namespace Prisma {
     content?: boolean
     status?: boolean
     scheduledAt?: boolean
+    scheduledEndAt?: boolean
     durationMinutes?: boolean
+    priority?: boolean
+    isRecurring?: boolean
+    recurrenceRule?: boolean
+    recurrenceEndDate?: boolean
+    parentInteractionId?: boolean
+    assignedTo?: boolean
     outcome?: boolean
     nextAction?: boolean
     nextActionDate?: boolean
+    completedAt?: boolean
     relatedOrderId?: boolean
     relatedTaskId?: boolean
     relatedDealId?: boolean
+    location?: boolean
+    locationUrl?: boolean
     metadata?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Interaction$assignedToUserArgs<ExtArgs>
     deal?: boolean | Interaction$dealArgs<ExtArgs>
+    parentInteraction?: boolean | Interaction$parentInteractionArgs<ExtArgs>
+    childInteractions?: boolean | Interaction$childInteractionsArgs<ExtArgs>
+    reminders?: boolean | Interaction$remindersArgs<ExtArgs>
+    _count?: boolean | InteractionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["interaction"]>
 
   export type InteractionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10975,20 +11228,32 @@ export namespace Prisma {
     content?: boolean
     status?: boolean
     scheduledAt?: boolean
+    scheduledEndAt?: boolean
     durationMinutes?: boolean
+    priority?: boolean
+    isRecurring?: boolean
+    recurrenceRule?: boolean
+    recurrenceEndDate?: boolean
+    parentInteractionId?: boolean
+    assignedTo?: boolean
     outcome?: boolean
     nextAction?: boolean
     nextActionDate?: boolean
+    completedAt?: boolean
     relatedOrderId?: boolean
     relatedTaskId?: boolean
     relatedDealId?: boolean
+    location?: boolean
+    locationUrl?: boolean
     metadata?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Interaction$assignedToUserArgs<ExtArgs>
     deal?: boolean | Interaction$dealArgs<ExtArgs>
+    parentInteraction?: boolean | Interaction$parentInteractionArgs<ExtArgs>
   }, ExtArgs["result"]["interaction"]>
 
   export type InteractionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11000,20 +11265,32 @@ export namespace Prisma {
     content?: boolean
     status?: boolean
     scheduledAt?: boolean
+    scheduledEndAt?: boolean
     durationMinutes?: boolean
+    priority?: boolean
+    isRecurring?: boolean
+    recurrenceRule?: boolean
+    recurrenceEndDate?: boolean
+    parentInteractionId?: boolean
+    assignedTo?: boolean
     outcome?: boolean
     nextAction?: boolean
     nextActionDate?: boolean
+    completedAt?: boolean
     relatedOrderId?: boolean
     relatedTaskId?: boolean
     relatedDealId?: boolean
+    location?: boolean
+    locationUrl?: boolean
     metadata?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Interaction$assignedToUserArgs<ExtArgs>
     deal?: boolean | Interaction$dealArgs<ExtArgs>
+    parentInteraction?: boolean | Interaction$parentInteractionArgs<ExtArgs>
   }, ExtArgs["result"]["interaction"]>
 
   export type InteractionSelectScalar = {
@@ -11025,34 +11302,53 @@ export namespace Prisma {
     content?: boolean
     status?: boolean
     scheduledAt?: boolean
+    scheduledEndAt?: boolean
     durationMinutes?: boolean
+    priority?: boolean
+    isRecurring?: boolean
+    recurrenceRule?: boolean
+    recurrenceEndDate?: boolean
+    parentInteractionId?: boolean
+    assignedTo?: boolean
     outcome?: boolean
     nextAction?: boolean
     nextActionDate?: boolean
+    completedAt?: boolean
     relatedOrderId?: boolean
     relatedTaskId?: boolean
     relatedDealId?: boolean
+    location?: boolean
+    locationUrl?: boolean
     metadata?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type InteractionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "type" | "direction" | "subject" | "content" | "status" | "scheduledAt" | "durationMinutes" | "outcome" | "nextAction" | "nextActionDate" | "relatedOrderId" | "relatedTaskId" | "relatedDealId" | "metadata" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["interaction"]>
+  export type InteractionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "type" | "direction" | "subject" | "content" | "status" | "scheduledAt" | "scheduledEndAt" | "durationMinutes" | "priority" | "isRecurring" | "recurrenceRule" | "recurrenceEndDate" | "parentInteractionId" | "assignedTo" | "outcome" | "nextAction" | "nextActionDate" | "completedAt" | "relatedOrderId" | "relatedTaskId" | "relatedDealId" | "location" | "locationUrl" | "metadata" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["interaction"]>
   export type InteractionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Interaction$assignedToUserArgs<ExtArgs>
     deal?: boolean | Interaction$dealArgs<ExtArgs>
+    parentInteraction?: boolean | Interaction$parentInteractionArgs<ExtArgs>
+    childInteractions?: boolean | Interaction$childInteractionsArgs<ExtArgs>
+    reminders?: boolean | Interaction$remindersArgs<ExtArgs>
+    _count?: boolean | InteractionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type InteractionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Interaction$assignedToUserArgs<ExtArgs>
     deal?: boolean | Interaction$dealArgs<ExtArgs>
+    parentInteraction?: boolean | Interaction$parentInteractionArgs<ExtArgs>
   }
   export type InteractionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Interaction$assignedToUserArgs<ExtArgs>
     deal?: boolean | Interaction$dealArgs<ExtArgs>
+    parentInteraction?: boolean | Interaction$parentInteractionArgs<ExtArgs>
   }
 
   export type $InteractionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11060,7 +11356,11 @@ export namespace Prisma {
     objects: {
       customer: Prisma.$CustomerPayload<ExtArgs>
       createdByUser: Prisma.$UserPayload<ExtArgs>
+      assignedToUser: Prisma.$UserPayload<ExtArgs> | null
       deal: Prisma.$DealPayload<ExtArgs> | null
+      parentInteraction: Prisma.$InteractionPayload<ExtArgs> | null
+      childInteractions: Prisma.$InteractionPayload<ExtArgs>[]
+      reminders: Prisma.$ActivityReminderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11071,13 +11371,23 @@ export namespace Prisma {
       content: string
       status: string | null
       scheduledAt: Date | null
+      scheduledEndAt: Date | null
       durationMinutes: number | null
+      priority: string
+      isRecurring: boolean
+      recurrenceRule: string | null
+      recurrenceEndDate: Date | null
+      parentInteractionId: string | null
+      assignedTo: string | null
       outcome: string | null
       nextAction: string | null
       nextActionDate: Date | null
+      completedAt: Date | null
       relatedOrderId: string | null
       relatedTaskId: string | null
       relatedDealId: string | null
+      location: string | null
+      locationUrl: string | null
       metadata: Prisma.JsonValue
       createdBy: string
       createdAt: Date
@@ -11478,7 +11788,11 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     createdByUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    assignedToUser<T extends Interaction$assignedToUserArgs<ExtArgs> = {}>(args?: Subset<T, Interaction$assignedToUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     deal<T extends Interaction$dealArgs<ExtArgs> = {}>(args?: Subset<T, Interaction$dealArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    parentInteraction<T extends Interaction$parentInteractionArgs<ExtArgs> = {}>(args?: Subset<T, Interaction$parentInteractionArgs<ExtArgs>>): Prisma__InteractionClient<$Result.GetResult<Prisma.$InteractionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    childInteractions<T extends Interaction$childInteractionsArgs<ExtArgs> = {}>(args?: Subset<T, Interaction$childInteractionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reminders<T extends Interaction$remindersArgs<ExtArgs> = {}>(args?: Subset<T, Interaction$remindersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11516,13 +11830,23 @@ export namespace Prisma {
     readonly content: FieldRef<"Interaction", 'String'>
     readonly status: FieldRef<"Interaction", 'String'>
     readonly scheduledAt: FieldRef<"Interaction", 'DateTime'>
+    readonly scheduledEndAt: FieldRef<"Interaction", 'DateTime'>
     readonly durationMinutes: FieldRef<"Interaction", 'Int'>
+    readonly priority: FieldRef<"Interaction", 'String'>
+    readonly isRecurring: FieldRef<"Interaction", 'Boolean'>
+    readonly recurrenceRule: FieldRef<"Interaction", 'String'>
+    readonly recurrenceEndDate: FieldRef<"Interaction", 'DateTime'>
+    readonly parentInteractionId: FieldRef<"Interaction", 'String'>
+    readonly assignedTo: FieldRef<"Interaction", 'String'>
     readonly outcome: FieldRef<"Interaction", 'String'>
     readonly nextAction: FieldRef<"Interaction", 'String'>
     readonly nextActionDate: FieldRef<"Interaction", 'DateTime'>
+    readonly completedAt: FieldRef<"Interaction", 'DateTime'>
     readonly relatedOrderId: FieldRef<"Interaction", 'String'>
     readonly relatedTaskId: FieldRef<"Interaction", 'String'>
     readonly relatedDealId: FieldRef<"Interaction", 'String'>
+    readonly location: FieldRef<"Interaction", 'String'>
+    readonly locationUrl: FieldRef<"Interaction", 'String'>
     readonly metadata: FieldRef<"Interaction", 'Json'>
     readonly createdBy: FieldRef<"Interaction", 'String'>
     readonly createdAt: FieldRef<"Interaction", 'DateTime'>
@@ -11923,6 +12247,25 @@ export namespace Prisma {
   }
 
   /**
+   * Interaction.assignedToUser
+   */
+  export type Interaction$assignedToUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Interaction.deal
    */
   export type Interaction$dealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11942,6 +12285,73 @@ export namespace Prisma {
   }
 
   /**
+   * Interaction.parentInteraction
+   */
+  export type Interaction$parentInteractionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Interaction
+     */
+    select?: InteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Interaction
+     */
+    omit?: InteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InteractionInclude<ExtArgs> | null
+    where?: InteractionWhereInput
+  }
+
+  /**
+   * Interaction.childInteractions
+   */
+  export type Interaction$childInteractionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Interaction
+     */
+    select?: InteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Interaction
+     */
+    omit?: InteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InteractionInclude<ExtArgs> | null
+    where?: InteractionWhereInput
+    orderBy?: InteractionOrderByWithRelationInput | InteractionOrderByWithRelationInput[]
+    cursor?: InteractionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InteractionScalarFieldEnum | InteractionScalarFieldEnum[]
+  }
+
+  /**
+   * Interaction.reminders
+   */
+  export type Interaction$remindersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    where?: ActivityReminderWhereInput
+    orderBy?: ActivityReminderOrderByWithRelationInput | ActivityReminderOrderByWithRelationInput[]
+    cursor?: ActivityReminderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ActivityReminderScalarFieldEnum | ActivityReminderScalarFieldEnum[]
+  }
+
+  /**
    * Interaction without action
    */
   export type InteractionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11957,6 +12367,1137 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: InteractionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ActivityReminder
+   */
+
+  export type AggregateActivityReminder = {
+    _count: ActivityReminderCountAggregateOutputType | null
+    _avg: ActivityReminderAvgAggregateOutputType | null
+    _sum: ActivityReminderSumAggregateOutputType | null
+    _min: ActivityReminderMinAggregateOutputType | null
+    _max: ActivityReminderMaxAggregateOutputType | null
+  }
+
+  export type ActivityReminderAvgAggregateOutputType = {
+    reminderMinutes: number | null
+  }
+
+  export type ActivityReminderSumAggregateOutputType = {
+    reminderMinutes: number | null
+  }
+
+  export type ActivityReminderMinAggregateOutputType = {
+    id: string | null
+    interactionId: string | null
+    reminderMinutes: number | null
+    reminderAt: Date | null
+    sentAt: Date | null
+    notificationSent: boolean | null
+    emailSent: boolean | null
+    createdAt: Date | null
+  }
+
+  export type ActivityReminderMaxAggregateOutputType = {
+    id: string | null
+    interactionId: string | null
+    reminderMinutes: number | null
+    reminderAt: Date | null
+    sentAt: Date | null
+    notificationSent: boolean | null
+    emailSent: boolean | null
+    createdAt: Date | null
+  }
+
+  export type ActivityReminderCountAggregateOutputType = {
+    id: number
+    interactionId: number
+    reminderMinutes: number
+    reminderAt: number
+    sentAt: number
+    notificationSent: number
+    emailSent: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ActivityReminderAvgAggregateInputType = {
+    reminderMinutes?: true
+  }
+
+  export type ActivityReminderSumAggregateInputType = {
+    reminderMinutes?: true
+  }
+
+  export type ActivityReminderMinAggregateInputType = {
+    id?: true
+    interactionId?: true
+    reminderMinutes?: true
+    reminderAt?: true
+    sentAt?: true
+    notificationSent?: true
+    emailSent?: true
+    createdAt?: true
+  }
+
+  export type ActivityReminderMaxAggregateInputType = {
+    id?: true
+    interactionId?: true
+    reminderMinutes?: true
+    reminderAt?: true
+    sentAt?: true
+    notificationSent?: true
+    emailSent?: true
+    createdAt?: true
+  }
+
+  export type ActivityReminderCountAggregateInputType = {
+    id?: true
+    interactionId?: true
+    reminderMinutes?: true
+    reminderAt?: true
+    sentAt?: true
+    notificationSent?: true
+    emailSent?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ActivityReminderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ActivityReminder to aggregate.
+     */
+    where?: ActivityReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ActivityReminders to fetch.
+     */
+    orderBy?: ActivityReminderOrderByWithRelationInput | ActivityReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ActivityReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ActivityReminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ActivityReminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ActivityReminders
+    **/
+    _count?: true | ActivityReminderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ActivityReminderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ActivityReminderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ActivityReminderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ActivityReminderMaxAggregateInputType
+  }
+
+  export type GetActivityReminderAggregateType<T extends ActivityReminderAggregateArgs> = {
+        [P in keyof T & keyof AggregateActivityReminder]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateActivityReminder[P]>
+      : GetScalarType<T[P], AggregateActivityReminder[P]>
+  }
+
+
+
+
+  export type ActivityReminderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ActivityReminderWhereInput
+    orderBy?: ActivityReminderOrderByWithAggregationInput | ActivityReminderOrderByWithAggregationInput[]
+    by: ActivityReminderScalarFieldEnum[] | ActivityReminderScalarFieldEnum
+    having?: ActivityReminderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ActivityReminderCountAggregateInputType | true
+    _avg?: ActivityReminderAvgAggregateInputType
+    _sum?: ActivityReminderSumAggregateInputType
+    _min?: ActivityReminderMinAggregateInputType
+    _max?: ActivityReminderMaxAggregateInputType
+  }
+
+  export type ActivityReminderGroupByOutputType = {
+    id: string
+    interactionId: string
+    reminderMinutes: number
+    reminderAt: Date
+    sentAt: Date | null
+    notificationSent: boolean
+    emailSent: boolean
+    createdAt: Date
+    _count: ActivityReminderCountAggregateOutputType | null
+    _avg: ActivityReminderAvgAggregateOutputType | null
+    _sum: ActivityReminderSumAggregateOutputType | null
+    _min: ActivityReminderMinAggregateOutputType | null
+    _max: ActivityReminderMaxAggregateOutputType | null
+  }
+
+  type GetActivityReminderGroupByPayload<T extends ActivityReminderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ActivityReminderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ActivityReminderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ActivityReminderGroupByOutputType[P]>
+            : GetScalarType<T[P], ActivityReminderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ActivityReminderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    interactionId?: boolean
+    reminderMinutes?: boolean
+    reminderAt?: boolean
+    sentAt?: boolean
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: boolean
+    interaction?: boolean | InteractionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["activityReminder"]>
+
+  export type ActivityReminderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    interactionId?: boolean
+    reminderMinutes?: boolean
+    reminderAt?: boolean
+    sentAt?: boolean
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: boolean
+    interaction?: boolean | InteractionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["activityReminder"]>
+
+  export type ActivityReminderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    interactionId?: boolean
+    reminderMinutes?: boolean
+    reminderAt?: boolean
+    sentAt?: boolean
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: boolean
+    interaction?: boolean | InteractionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["activityReminder"]>
+
+  export type ActivityReminderSelectScalar = {
+    id?: boolean
+    interactionId?: boolean
+    reminderMinutes?: boolean
+    reminderAt?: boolean
+    sentAt?: boolean
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: boolean
+  }
+
+  export type ActivityReminderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "interactionId" | "reminderMinutes" | "reminderAt" | "sentAt" | "notificationSent" | "emailSent" | "createdAt", ExtArgs["result"]["activityReminder"]>
+  export type ActivityReminderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    interaction?: boolean | InteractionDefaultArgs<ExtArgs>
+  }
+  export type ActivityReminderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    interaction?: boolean | InteractionDefaultArgs<ExtArgs>
+  }
+  export type ActivityReminderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    interaction?: boolean | InteractionDefaultArgs<ExtArgs>
+  }
+
+  export type $ActivityReminderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ActivityReminder"
+    objects: {
+      interaction: Prisma.$InteractionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      interactionId: string
+      reminderMinutes: number
+      reminderAt: Date
+      sentAt: Date | null
+      notificationSent: boolean
+      emailSent: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["activityReminder"]>
+    composites: {}
+  }
+
+  type ActivityReminderGetPayload<S extends boolean | null | undefined | ActivityReminderDefaultArgs> = $Result.GetResult<Prisma.$ActivityReminderPayload, S>
+
+  type ActivityReminderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ActivityReminderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ActivityReminderCountAggregateInputType | true
+    }
+
+  export interface ActivityReminderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ActivityReminder'], meta: { name: 'ActivityReminder' } }
+    /**
+     * Find zero or one ActivityReminder that matches the filter.
+     * @param {ActivityReminderFindUniqueArgs} args - Arguments to find a ActivityReminder
+     * @example
+     * // Get one ActivityReminder
+     * const activityReminder = await prisma.activityReminder.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ActivityReminderFindUniqueArgs>(args: SelectSubset<T, ActivityReminderFindUniqueArgs<ExtArgs>>): Prisma__ActivityReminderClient<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ActivityReminder that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ActivityReminderFindUniqueOrThrowArgs} args - Arguments to find a ActivityReminder
+     * @example
+     * // Get one ActivityReminder
+     * const activityReminder = await prisma.activityReminder.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ActivityReminderFindUniqueOrThrowArgs>(args: SelectSubset<T, ActivityReminderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ActivityReminderClient<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ActivityReminder that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActivityReminderFindFirstArgs} args - Arguments to find a ActivityReminder
+     * @example
+     * // Get one ActivityReminder
+     * const activityReminder = await prisma.activityReminder.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ActivityReminderFindFirstArgs>(args?: SelectSubset<T, ActivityReminderFindFirstArgs<ExtArgs>>): Prisma__ActivityReminderClient<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ActivityReminder that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActivityReminderFindFirstOrThrowArgs} args - Arguments to find a ActivityReminder
+     * @example
+     * // Get one ActivityReminder
+     * const activityReminder = await prisma.activityReminder.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ActivityReminderFindFirstOrThrowArgs>(args?: SelectSubset<T, ActivityReminderFindFirstOrThrowArgs<ExtArgs>>): Prisma__ActivityReminderClient<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ActivityReminders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActivityReminderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ActivityReminders
+     * const activityReminders = await prisma.activityReminder.findMany()
+     * 
+     * // Get first 10 ActivityReminders
+     * const activityReminders = await prisma.activityReminder.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const activityReminderWithIdOnly = await prisma.activityReminder.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ActivityReminderFindManyArgs>(args?: SelectSubset<T, ActivityReminderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ActivityReminder.
+     * @param {ActivityReminderCreateArgs} args - Arguments to create a ActivityReminder.
+     * @example
+     * // Create one ActivityReminder
+     * const ActivityReminder = await prisma.activityReminder.create({
+     *   data: {
+     *     // ... data to create a ActivityReminder
+     *   }
+     * })
+     * 
+     */
+    create<T extends ActivityReminderCreateArgs>(args: SelectSubset<T, ActivityReminderCreateArgs<ExtArgs>>): Prisma__ActivityReminderClient<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ActivityReminders.
+     * @param {ActivityReminderCreateManyArgs} args - Arguments to create many ActivityReminders.
+     * @example
+     * // Create many ActivityReminders
+     * const activityReminder = await prisma.activityReminder.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ActivityReminderCreateManyArgs>(args?: SelectSubset<T, ActivityReminderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ActivityReminders and returns the data saved in the database.
+     * @param {ActivityReminderCreateManyAndReturnArgs} args - Arguments to create many ActivityReminders.
+     * @example
+     * // Create many ActivityReminders
+     * const activityReminder = await prisma.activityReminder.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ActivityReminders and only return the `id`
+     * const activityReminderWithIdOnly = await prisma.activityReminder.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ActivityReminderCreateManyAndReturnArgs>(args?: SelectSubset<T, ActivityReminderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ActivityReminder.
+     * @param {ActivityReminderDeleteArgs} args - Arguments to delete one ActivityReminder.
+     * @example
+     * // Delete one ActivityReminder
+     * const ActivityReminder = await prisma.activityReminder.delete({
+     *   where: {
+     *     // ... filter to delete one ActivityReminder
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ActivityReminderDeleteArgs>(args: SelectSubset<T, ActivityReminderDeleteArgs<ExtArgs>>): Prisma__ActivityReminderClient<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ActivityReminder.
+     * @param {ActivityReminderUpdateArgs} args - Arguments to update one ActivityReminder.
+     * @example
+     * // Update one ActivityReminder
+     * const activityReminder = await prisma.activityReminder.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ActivityReminderUpdateArgs>(args: SelectSubset<T, ActivityReminderUpdateArgs<ExtArgs>>): Prisma__ActivityReminderClient<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ActivityReminders.
+     * @param {ActivityReminderDeleteManyArgs} args - Arguments to filter ActivityReminders to delete.
+     * @example
+     * // Delete a few ActivityReminders
+     * const { count } = await prisma.activityReminder.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ActivityReminderDeleteManyArgs>(args?: SelectSubset<T, ActivityReminderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ActivityReminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActivityReminderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ActivityReminders
+     * const activityReminder = await prisma.activityReminder.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ActivityReminderUpdateManyArgs>(args: SelectSubset<T, ActivityReminderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ActivityReminders and returns the data updated in the database.
+     * @param {ActivityReminderUpdateManyAndReturnArgs} args - Arguments to update many ActivityReminders.
+     * @example
+     * // Update many ActivityReminders
+     * const activityReminder = await prisma.activityReminder.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ActivityReminders and only return the `id`
+     * const activityReminderWithIdOnly = await prisma.activityReminder.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ActivityReminderUpdateManyAndReturnArgs>(args: SelectSubset<T, ActivityReminderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ActivityReminder.
+     * @param {ActivityReminderUpsertArgs} args - Arguments to update or create a ActivityReminder.
+     * @example
+     * // Update or create a ActivityReminder
+     * const activityReminder = await prisma.activityReminder.upsert({
+     *   create: {
+     *     // ... data to create a ActivityReminder
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ActivityReminder we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ActivityReminderUpsertArgs>(args: SelectSubset<T, ActivityReminderUpsertArgs<ExtArgs>>): Prisma__ActivityReminderClient<$Result.GetResult<Prisma.$ActivityReminderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ActivityReminders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActivityReminderCountArgs} args - Arguments to filter ActivityReminders to count.
+     * @example
+     * // Count the number of ActivityReminders
+     * const count = await prisma.activityReminder.count({
+     *   where: {
+     *     // ... the filter for the ActivityReminders we want to count
+     *   }
+     * })
+    **/
+    count<T extends ActivityReminderCountArgs>(
+      args?: Subset<T, ActivityReminderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ActivityReminderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ActivityReminder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActivityReminderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ActivityReminderAggregateArgs>(args: Subset<T, ActivityReminderAggregateArgs>): Prisma.PrismaPromise<GetActivityReminderAggregateType<T>>
+
+    /**
+     * Group by ActivityReminder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ActivityReminderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ActivityReminderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ActivityReminderGroupByArgs['orderBy'] }
+        : { orderBy?: ActivityReminderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ActivityReminderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetActivityReminderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ActivityReminder model
+   */
+  readonly fields: ActivityReminderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ActivityReminder.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ActivityReminderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    interaction<T extends InteractionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InteractionDefaultArgs<ExtArgs>>): Prisma__InteractionClient<$Result.GetResult<Prisma.$InteractionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ActivityReminder model
+   */
+  interface ActivityReminderFieldRefs {
+    readonly id: FieldRef<"ActivityReminder", 'String'>
+    readonly interactionId: FieldRef<"ActivityReminder", 'String'>
+    readonly reminderMinutes: FieldRef<"ActivityReminder", 'Int'>
+    readonly reminderAt: FieldRef<"ActivityReminder", 'DateTime'>
+    readonly sentAt: FieldRef<"ActivityReminder", 'DateTime'>
+    readonly notificationSent: FieldRef<"ActivityReminder", 'Boolean'>
+    readonly emailSent: FieldRef<"ActivityReminder", 'Boolean'>
+    readonly createdAt: FieldRef<"ActivityReminder", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ActivityReminder findUnique
+   */
+  export type ActivityReminderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which ActivityReminder to fetch.
+     */
+    where: ActivityReminderWhereUniqueInput
+  }
+
+  /**
+   * ActivityReminder findUniqueOrThrow
+   */
+  export type ActivityReminderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which ActivityReminder to fetch.
+     */
+    where: ActivityReminderWhereUniqueInput
+  }
+
+  /**
+   * ActivityReminder findFirst
+   */
+  export type ActivityReminderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which ActivityReminder to fetch.
+     */
+    where?: ActivityReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ActivityReminders to fetch.
+     */
+    orderBy?: ActivityReminderOrderByWithRelationInput | ActivityReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ActivityReminders.
+     */
+    cursor?: ActivityReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ActivityReminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ActivityReminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ActivityReminders.
+     */
+    distinct?: ActivityReminderScalarFieldEnum | ActivityReminderScalarFieldEnum[]
+  }
+
+  /**
+   * ActivityReminder findFirstOrThrow
+   */
+  export type ActivityReminderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which ActivityReminder to fetch.
+     */
+    where?: ActivityReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ActivityReminders to fetch.
+     */
+    orderBy?: ActivityReminderOrderByWithRelationInput | ActivityReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ActivityReminders.
+     */
+    cursor?: ActivityReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ActivityReminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ActivityReminders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ActivityReminders.
+     */
+    distinct?: ActivityReminderScalarFieldEnum | ActivityReminderScalarFieldEnum[]
+  }
+
+  /**
+   * ActivityReminder findMany
+   */
+  export type ActivityReminderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * Filter, which ActivityReminders to fetch.
+     */
+    where?: ActivityReminderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ActivityReminders to fetch.
+     */
+    orderBy?: ActivityReminderOrderByWithRelationInput | ActivityReminderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ActivityReminders.
+     */
+    cursor?: ActivityReminderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ActivityReminders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ActivityReminders.
+     */
+    skip?: number
+    distinct?: ActivityReminderScalarFieldEnum | ActivityReminderScalarFieldEnum[]
+  }
+
+  /**
+   * ActivityReminder create
+   */
+  export type ActivityReminderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ActivityReminder.
+     */
+    data: XOR<ActivityReminderCreateInput, ActivityReminderUncheckedCreateInput>
+  }
+
+  /**
+   * ActivityReminder createMany
+   */
+  export type ActivityReminderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ActivityReminders.
+     */
+    data: ActivityReminderCreateManyInput | ActivityReminderCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ActivityReminder createManyAndReturn
+   */
+  export type ActivityReminderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * The data used to create many ActivityReminders.
+     */
+    data: ActivityReminderCreateManyInput | ActivityReminderCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ActivityReminder update
+   */
+  export type ActivityReminderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ActivityReminder.
+     */
+    data: XOR<ActivityReminderUpdateInput, ActivityReminderUncheckedUpdateInput>
+    /**
+     * Choose, which ActivityReminder to update.
+     */
+    where: ActivityReminderWhereUniqueInput
+  }
+
+  /**
+   * ActivityReminder updateMany
+   */
+  export type ActivityReminderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ActivityReminders.
+     */
+    data: XOR<ActivityReminderUpdateManyMutationInput, ActivityReminderUncheckedUpdateManyInput>
+    /**
+     * Filter which ActivityReminders to update
+     */
+    where?: ActivityReminderWhereInput
+    /**
+     * Limit how many ActivityReminders to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ActivityReminder updateManyAndReturn
+   */
+  export type ActivityReminderUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * The data used to update ActivityReminders.
+     */
+    data: XOR<ActivityReminderUpdateManyMutationInput, ActivityReminderUncheckedUpdateManyInput>
+    /**
+     * Filter which ActivityReminders to update
+     */
+    where?: ActivityReminderWhereInput
+    /**
+     * Limit how many ActivityReminders to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ActivityReminder upsert
+   */
+  export type ActivityReminderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ActivityReminder to update in case it exists.
+     */
+    where: ActivityReminderWhereUniqueInput
+    /**
+     * In case the ActivityReminder found by the `where` argument doesn't exist, create a new ActivityReminder with this data.
+     */
+    create: XOR<ActivityReminderCreateInput, ActivityReminderUncheckedCreateInput>
+    /**
+     * In case the ActivityReminder was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ActivityReminderUpdateInput, ActivityReminderUncheckedUpdateInput>
+  }
+
+  /**
+   * ActivityReminder delete
+   */
+  export type ActivityReminderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
+    /**
+     * Filter which ActivityReminder to delete.
+     */
+    where: ActivityReminderWhereUniqueInput
+  }
+
+  /**
+   * ActivityReminder deleteMany
+   */
+  export type ActivityReminderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ActivityReminders to delete
+     */
+    where?: ActivityReminderWhereInput
+    /**
+     * Limit how many ActivityReminders to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ActivityReminder without action
+   */
+  export type ActivityReminderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ActivityReminder
+     */
+    select?: ActivityReminderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ActivityReminder
+     */
+    omit?: ActivityReminderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityReminderInclude<ExtArgs> | null
   }
 
 
@@ -49674,13 +51215,23 @@ export namespace Prisma {
     content: 'content',
     status: 'status',
     scheduledAt: 'scheduledAt',
+    scheduledEndAt: 'scheduledEndAt',
     durationMinutes: 'durationMinutes',
+    priority: 'priority',
+    isRecurring: 'isRecurring',
+    recurrenceRule: 'recurrenceRule',
+    recurrenceEndDate: 'recurrenceEndDate',
+    parentInteractionId: 'parentInteractionId',
+    assignedTo: 'assignedTo',
     outcome: 'outcome',
     nextAction: 'nextAction',
     nextActionDate: 'nextActionDate',
+    completedAt: 'completedAt',
     relatedOrderId: 'relatedOrderId',
     relatedTaskId: 'relatedTaskId',
     relatedDealId: 'relatedDealId',
+    location: 'location',
+    locationUrl: 'locationUrl',
     metadata: 'metadata',
     createdBy: 'createdBy',
     createdAt: 'createdAt',
@@ -49688,6 +51239,20 @@ export namespace Prisma {
   };
 
   export type InteractionScalarFieldEnum = (typeof InteractionScalarFieldEnum)[keyof typeof InteractionScalarFieldEnum]
+
+
+  export const ActivityReminderScalarFieldEnum: {
+    id: 'id',
+    interactionId: 'interactionId',
+    reminderMinutes: 'reminderMinutes',
+    reminderAt: 'reminderAt',
+    sentAt: 'sentAt',
+    notificationSent: 'notificationSent',
+    emailSent: 'emailSent',
+    createdAt: 'createdAt'
+  };
+
+  export type ActivityReminderScalarFieldEnum = (typeof ActivityReminderScalarFieldEnum)[keyof typeof ActivityReminderScalarFieldEnum]
 
 
   export const DealStageScalarFieldEnum: {
@@ -50489,6 +52054,7 @@ export namespace Prisma {
     customersCreated?: CustomerListRelationFilter
     customersAssigned?: CustomerListRelationFilter
     interactions?: InteractionListRelationFilter
+    interactionsAssigned?: InteractionListRelationFilter
     ordersCreated?: OrderListRelationFilter
     ordersAssigned?: OrderListRelationFilter
     tasksCreated?: TaskListRelationFilter
@@ -50535,6 +52101,7 @@ export namespace Prisma {
     customersCreated?: CustomerOrderByRelationAggregateInput
     customersAssigned?: CustomerOrderByRelationAggregateInput
     interactions?: InteractionOrderByRelationAggregateInput
+    interactionsAssigned?: InteractionOrderByRelationAggregateInput
     ordersCreated?: OrderOrderByRelationAggregateInput
     ordersAssigned?: OrderOrderByRelationAggregateInput
     tasksCreated?: TaskOrderByRelationAggregateInput
@@ -50584,6 +52151,7 @@ export namespace Prisma {
     customersCreated?: CustomerListRelationFilter
     customersAssigned?: CustomerListRelationFilter
     interactions?: InteractionListRelationFilter
+    interactionsAssigned?: InteractionListRelationFilter
     ordersCreated?: OrderListRelationFilter
     ordersAssigned?: OrderListRelationFilter
     tasksCreated?: TaskListRelationFilter
@@ -51080,20 +52648,34 @@ export namespace Prisma {
     content?: StringFilter<"Interaction"> | string
     status?: StringNullableFilter<"Interaction"> | string | null
     scheduledAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    scheduledEndAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     durationMinutes?: IntNullableFilter<"Interaction"> | number | null
+    priority?: StringFilter<"Interaction"> | string
+    isRecurring?: BoolFilter<"Interaction"> | boolean
+    recurrenceRule?: StringNullableFilter<"Interaction"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    parentInteractionId?: UuidNullableFilter<"Interaction"> | string | null
+    assignedTo?: UuidNullableFilter<"Interaction"> | string | null
     outcome?: StringNullableFilter<"Interaction"> | string | null
     nextAction?: StringNullableFilter<"Interaction"> | string | null
     nextActionDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     relatedOrderId?: UuidNullableFilter<"Interaction"> | string | null
     relatedTaskId?: UuidNullableFilter<"Interaction"> | string | null
     relatedDealId?: UuidNullableFilter<"Interaction"> | string | null
+    location?: StringNullableFilter<"Interaction"> | string | null
+    locationUrl?: StringNullableFilter<"Interaction"> | string | null
     metadata?: JsonFilter<"Interaction">
     createdBy?: UuidFilter<"Interaction"> | string
     createdAt?: DateTimeFilter<"Interaction"> | Date | string
     updatedAt?: DateTimeFilter<"Interaction"> | Date | string
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    assignedToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     deal?: XOR<DealNullableScalarRelationFilter, DealWhereInput> | null
+    parentInteraction?: XOR<InteractionNullableScalarRelationFilter, InteractionWhereInput> | null
+    childInteractions?: InteractionListRelationFilter
+    reminders?: ActivityReminderListRelationFilter
   }
 
   export type InteractionOrderByWithRelationInput = {
@@ -51105,20 +52687,34 @@ export namespace Prisma {
     content?: SortOrder
     status?: SortOrderInput | SortOrder
     scheduledAt?: SortOrderInput | SortOrder
+    scheduledEndAt?: SortOrderInput | SortOrder
     durationMinutes?: SortOrderInput | SortOrder
+    priority?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrderInput | SortOrder
+    recurrenceEndDate?: SortOrderInput | SortOrder
+    parentInteractionId?: SortOrderInput | SortOrder
+    assignedTo?: SortOrderInput | SortOrder
     outcome?: SortOrderInput | SortOrder
     nextAction?: SortOrderInput | SortOrder
     nextActionDate?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
     relatedOrderId?: SortOrderInput | SortOrder
     relatedTaskId?: SortOrderInput | SortOrder
     relatedDealId?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
+    locationUrl?: SortOrderInput | SortOrder
     metadata?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer?: CustomerOrderByWithRelationInput
     createdByUser?: UserOrderByWithRelationInput
+    assignedToUser?: UserOrderByWithRelationInput
     deal?: DealOrderByWithRelationInput
+    parentInteraction?: InteractionOrderByWithRelationInput
+    childInteractions?: InteractionOrderByRelationAggregateInput
+    reminders?: ActivityReminderOrderByRelationAggregateInput
   }
 
   export type InteractionWhereUniqueInput = Prisma.AtLeast<{
@@ -51133,20 +52729,34 @@ export namespace Prisma {
     content?: StringFilter<"Interaction"> | string
     status?: StringNullableFilter<"Interaction"> | string | null
     scheduledAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    scheduledEndAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     durationMinutes?: IntNullableFilter<"Interaction"> | number | null
+    priority?: StringFilter<"Interaction"> | string
+    isRecurring?: BoolFilter<"Interaction"> | boolean
+    recurrenceRule?: StringNullableFilter<"Interaction"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    parentInteractionId?: UuidNullableFilter<"Interaction"> | string | null
+    assignedTo?: UuidNullableFilter<"Interaction"> | string | null
     outcome?: StringNullableFilter<"Interaction"> | string | null
     nextAction?: StringNullableFilter<"Interaction"> | string | null
     nextActionDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     relatedOrderId?: UuidNullableFilter<"Interaction"> | string | null
     relatedTaskId?: UuidNullableFilter<"Interaction"> | string | null
     relatedDealId?: UuidNullableFilter<"Interaction"> | string | null
+    location?: StringNullableFilter<"Interaction"> | string | null
+    locationUrl?: StringNullableFilter<"Interaction"> | string | null
     metadata?: JsonFilter<"Interaction">
     createdBy?: UuidFilter<"Interaction"> | string
     createdAt?: DateTimeFilter<"Interaction"> | Date | string
     updatedAt?: DateTimeFilter<"Interaction"> | Date | string
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    assignedToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     deal?: XOR<DealNullableScalarRelationFilter, DealWhereInput> | null
+    parentInteraction?: XOR<InteractionNullableScalarRelationFilter, InteractionWhereInput> | null
+    childInteractions?: InteractionListRelationFilter
+    reminders?: ActivityReminderListRelationFilter
   }, "id">
 
   export type InteractionOrderByWithAggregationInput = {
@@ -51158,13 +52768,23 @@ export namespace Prisma {
     content?: SortOrder
     status?: SortOrderInput | SortOrder
     scheduledAt?: SortOrderInput | SortOrder
+    scheduledEndAt?: SortOrderInput | SortOrder
     durationMinutes?: SortOrderInput | SortOrder
+    priority?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrderInput | SortOrder
+    recurrenceEndDate?: SortOrderInput | SortOrder
+    parentInteractionId?: SortOrderInput | SortOrder
+    assignedTo?: SortOrderInput | SortOrder
     outcome?: SortOrderInput | SortOrder
     nextAction?: SortOrderInput | SortOrder
     nextActionDate?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
     relatedOrderId?: SortOrderInput | SortOrder
     relatedTaskId?: SortOrderInput | SortOrder
     relatedDealId?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
+    locationUrl?: SortOrderInput | SortOrder
     metadata?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
@@ -51188,17 +52808,99 @@ export namespace Prisma {
     content?: StringWithAggregatesFilter<"Interaction"> | string
     status?: StringNullableWithAggregatesFilter<"Interaction"> | string | null
     scheduledAt?: DateTimeNullableWithAggregatesFilter<"Interaction"> | Date | string | null
+    scheduledEndAt?: DateTimeNullableWithAggregatesFilter<"Interaction"> | Date | string | null
     durationMinutes?: IntNullableWithAggregatesFilter<"Interaction"> | number | null
+    priority?: StringWithAggregatesFilter<"Interaction"> | string
+    isRecurring?: BoolWithAggregatesFilter<"Interaction"> | boolean
+    recurrenceRule?: StringNullableWithAggregatesFilter<"Interaction"> | string | null
+    recurrenceEndDate?: DateTimeNullableWithAggregatesFilter<"Interaction"> | Date | string | null
+    parentInteractionId?: UuidNullableWithAggregatesFilter<"Interaction"> | string | null
+    assignedTo?: UuidNullableWithAggregatesFilter<"Interaction"> | string | null
     outcome?: StringNullableWithAggregatesFilter<"Interaction"> | string | null
     nextAction?: StringNullableWithAggregatesFilter<"Interaction"> | string | null
     nextActionDate?: DateTimeNullableWithAggregatesFilter<"Interaction"> | Date | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"Interaction"> | Date | string | null
     relatedOrderId?: UuidNullableWithAggregatesFilter<"Interaction"> | string | null
     relatedTaskId?: UuidNullableWithAggregatesFilter<"Interaction"> | string | null
     relatedDealId?: UuidNullableWithAggregatesFilter<"Interaction"> | string | null
+    location?: StringNullableWithAggregatesFilter<"Interaction"> | string | null
+    locationUrl?: StringNullableWithAggregatesFilter<"Interaction"> | string | null
     metadata?: JsonWithAggregatesFilter<"Interaction">
     createdBy?: UuidWithAggregatesFilter<"Interaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Interaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Interaction"> | Date | string
+  }
+
+  export type ActivityReminderWhereInput = {
+    AND?: ActivityReminderWhereInput | ActivityReminderWhereInput[]
+    OR?: ActivityReminderWhereInput[]
+    NOT?: ActivityReminderWhereInput | ActivityReminderWhereInput[]
+    id?: UuidFilter<"ActivityReminder"> | string
+    interactionId?: UuidFilter<"ActivityReminder"> | string
+    reminderMinutes?: IntFilter<"ActivityReminder"> | number
+    reminderAt?: DateTimeFilter<"ActivityReminder"> | Date | string
+    sentAt?: DateTimeNullableFilter<"ActivityReminder"> | Date | string | null
+    notificationSent?: BoolFilter<"ActivityReminder"> | boolean
+    emailSent?: BoolFilter<"ActivityReminder"> | boolean
+    createdAt?: DateTimeFilter<"ActivityReminder"> | Date | string
+    interaction?: XOR<InteractionScalarRelationFilter, InteractionWhereInput>
+  }
+
+  export type ActivityReminderOrderByWithRelationInput = {
+    id?: SortOrder
+    interactionId?: SortOrder
+    reminderMinutes?: SortOrder
+    reminderAt?: SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    notificationSent?: SortOrder
+    emailSent?: SortOrder
+    createdAt?: SortOrder
+    interaction?: InteractionOrderByWithRelationInput
+  }
+
+  export type ActivityReminderWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ActivityReminderWhereInput | ActivityReminderWhereInput[]
+    OR?: ActivityReminderWhereInput[]
+    NOT?: ActivityReminderWhereInput | ActivityReminderWhereInput[]
+    interactionId?: UuidFilter<"ActivityReminder"> | string
+    reminderMinutes?: IntFilter<"ActivityReminder"> | number
+    reminderAt?: DateTimeFilter<"ActivityReminder"> | Date | string
+    sentAt?: DateTimeNullableFilter<"ActivityReminder"> | Date | string | null
+    notificationSent?: BoolFilter<"ActivityReminder"> | boolean
+    emailSent?: BoolFilter<"ActivityReminder"> | boolean
+    createdAt?: DateTimeFilter<"ActivityReminder"> | Date | string
+    interaction?: XOR<InteractionScalarRelationFilter, InteractionWhereInput>
+  }, "id">
+
+  export type ActivityReminderOrderByWithAggregationInput = {
+    id?: SortOrder
+    interactionId?: SortOrder
+    reminderMinutes?: SortOrder
+    reminderAt?: SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    notificationSent?: SortOrder
+    emailSent?: SortOrder
+    createdAt?: SortOrder
+    _count?: ActivityReminderCountOrderByAggregateInput
+    _avg?: ActivityReminderAvgOrderByAggregateInput
+    _max?: ActivityReminderMaxOrderByAggregateInput
+    _min?: ActivityReminderMinOrderByAggregateInput
+    _sum?: ActivityReminderSumOrderByAggregateInput
+  }
+
+  export type ActivityReminderScalarWhereWithAggregatesInput = {
+    AND?: ActivityReminderScalarWhereWithAggregatesInput | ActivityReminderScalarWhereWithAggregatesInput[]
+    OR?: ActivityReminderScalarWhereWithAggregatesInput[]
+    NOT?: ActivityReminderScalarWhereWithAggregatesInput | ActivityReminderScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ActivityReminder"> | string
+    interactionId?: UuidWithAggregatesFilter<"ActivityReminder"> | string
+    reminderMinutes?: IntWithAggregatesFilter<"ActivityReminder"> | number
+    reminderAt?: DateTimeWithAggregatesFilter<"ActivityReminder"> | Date | string
+    sentAt?: DateTimeNullableWithAggregatesFilter<"ActivityReminder"> | Date | string | null
+    notificationSent?: BoolWithAggregatesFilter<"ActivityReminder"> | boolean
+    emailSent?: BoolWithAggregatesFilter<"ActivityReminder"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"ActivityReminder"> | Date | string
   }
 
   export type DealStageWhereInput = {
@@ -54538,6 +56240,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -54583,6 +56286,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -54628,6 +56332,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -54673,6 +56378,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -55274,18 +56980,30 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     customer: CustomerCreateNestedOneWithoutInteractionsInput
     createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    assignedToUser?: UserCreateNestedOneWithoutInteractionsAssignedInput
     deal?: DealCreateNestedOneWithoutInteractionsInput
+    parentInteraction?: InteractionCreateNestedOneWithoutChildInteractionsInput
+    childInteractions?: InteractionCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderCreateNestedManyWithoutInteractionInput
   }
 
   export type InteractionUncheckedCreateInput = {
@@ -55297,17 +57015,29 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
     relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    childInteractions?: InteractionUncheckedCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderUncheckedCreateNestedManyWithoutInteractionInput
   }
 
   export type InteractionUpdateInput = {
@@ -55318,18 +57048,30 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
     createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    assignedToUser?: UserUpdateOneWithoutInteractionsAssignedNestedInput
     deal?: DealUpdateOneWithoutInteractionsNestedInput
+    parentInteraction?: InteractionUpdateOneWithoutChildInteractionsNestedInput
+    childInteractions?: InteractionUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUpdateManyWithoutInteractionNestedInput
   }
 
   export type InteractionUncheckedUpdateInput = {
@@ -55341,17 +57083,29 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childInteractions?: InteractionUncheckedUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUncheckedUpdateManyWithoutInteractionNestedInput
   }
 
   export type InteractionCreateManyInput = {
@@ -55363,13 +57117,23 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
     relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
@@ -55384,12 +57148,20 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -55404,17 +57176,103 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActivityReminderCreateInput = {
+    id?: string
+    reminderMinutes: number
+    reminderAt: Date | string
+    sentAt?: Date | string | null
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: Date | string
+    interaction: InteractionCreateNestedOneWithoutRemindersInput
+  }
+
+  export type ActivityReminderUncheckedCreateInput = {
+    id?: string
+    interactionId: string
+    reminderMinutes: number
+    reminderAt: Date | string
+    sentAt?: Date | string | null
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ActivityReminderUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderMinutes?: IntFieldUpdateOperationsInput | number
+    reminderAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notificationSent?: BoolFieldUpdateOperationsInput | boolean
+    emailSent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    interaction?: InteractionUpdateOneRequiredWithoutRemindersNestedInput
+  }
+
+  export type ActivityReminderUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    interactionId?: StringFieldUpdateOperationsInput | string
+    reminderMinutes?: IntFieldUpdateOperationsInput | number
+    reminderAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notificationSent?: BoolFieldUpdateOperationsInput | boolean
+    emailSent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActivityReminderCreateManyInput = {
+    id?: string
+    interactionId: string
+    reminderMinutes: number
+    reminderAt: Date | string
+    sentAt?: Date | string | null
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ActivityReminderUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderMinutes?: IntFieldUpdateOperationsInput | number
+    reminderAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notificationSent?: BoolFieldUpdateOperationsInput | boolean
+    emailSent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActivityReminderUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    interactionId?: StringFieldUpdateOperationsInput | string
+    reminderMinutes?: IntFieldUpdateOperationsInput | number
+    reminderAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notificationSent?: BoolFieldUpdateOperationsInput | boolean
+    emailSent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DealStageCreateInput = {
@@ -60037,6 +61895,21 @@ export namespace Prisma {
     isNot?: DealWhereInput | null
   }
 
+  export type InteractionNullableScalarRelationFilter = {
+    is?: InteractionWhereInput | null
+    isNot?: InteractionWhereInput | null
+  }
+
+  export type ActivityReminderListRelationFilter = {
+    every?: ActivityReminderWhereInput
+    some?: ActivityReminderWhereInput
+    none?: ActivityReminderWhereInput
+  }
+
+  export type ActivityReminderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type InteractionCountOrderByAggregateInput = {
     id?: SortOrder
     customerId?: SortOrder
@@ -60046,13 +61919,23 @@ export namespace Prisma {
     content?: SortOrder
     status?: SortOrder
     scheduledAt?: SortOrder
+    scheduledEndAt?: SortOrder
     durationMinutes?: SortOrder
+    priority?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrder
+    recurrenceEndDate?: SortOrder
+    parentInteractionId?: SortOrder
+    assignedTo?: SortOrder
     outcome?: SortOrder
     nextAction?: SortOrder
     nextActionDate?: SortOrder
+    completedAt?: SortOrder
     relatedOrderId?: SortOrder
     relatedTaskId?: SortOrder
     relatedDealId?: SortOrder
+    location?: SortOrder
+    locationUrl?: SortOrder
     metadata?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
@@ -60072,13 +61955,23 @@ export namespace Prisma {
     content?: SortOrder
     status?: SortOrder
     scheduledAt?: SortOrder
+    scheduledEndAt?: SortOrder
     durationMinutes?: SortOrder
+    priority?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrder
+    recurrenceEndDate?: SortOrder
+    parentInteractionId?: SortOrder
+    assignedTo?: SortOrder
     outcome?: SortOrder
     nextAction?: SortOrder
     nextActionDate?: SortOrder
+    completedAt?: SortOrder
     relatedOrderId?: SortOrder
     relatedTaskId?: SortOrder
     relatedDealId?: SortOrder
+    location?: SortOrder
+    locationUrl?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -60093,13 +61986,23 @@ export namespace Prisma {
     content?: SortOrder
     status?: SortOrder
     scheduledAt?: SortOrder
+    scheduledEndAt?: SortOrder
     durationMinutes?: SortOrder
+    priority?: SortOrder
+    isRecurring?: SortOrder
+    recurrenceRule?: SortOrder
+    recurrenceEndDate?: SortOrder
+    parentInteractionId?: SortOrder
+    assignedTo?: SortOrder
     outcome?: SortOrder
     nextAction?: SortOrder
     nextActionDate?: SortOrder
+    completedAt?: SortOrder
     relatedOrderId?: SortOrder
     relatedTaskId?: SortOrder
     relatedDealId?: SortOrder
+    location?: SortOrder
+    locationUrl?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -60123,6 +62026,52 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type InteractionScalarRelationFilter = {
+    is?: InteractionWhereInput
+    isNot?: InteractionWhereInput
+  }
+
+  export type ActivityReminderCountOrderByAggregateInput = {
+    id?: SortOrder
+    interactionId?: SortOrder
+    reminderMinutes?: SortOrder
+    reminderAt?: SortOrder
+    sentAt?: SortOrder
+    notificationSent?: SortOrder
+    emailSent?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ActivityReminderAvgOrderByAggregateInput = {
+    reminderMinutes?: SortOrder
+  }
+
+  export type ActivityReminderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    interactionId?: SortOrder
+    reminderMinutes?: SortOrder
+    reminderAt?: SortOrder
+    sentAt?: SortOrder
+    notificationSent?: SortOrder
+    emailSent?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ActivityReminderMinOrderByAggregateInput = {
+    id?: SortOrder
+    interactionId?: SortOrder
+    reminderMinutes?: SortOrder
+    reminderAt?: SortOrder
+    sentAt?: SortOrder
+    notificationSent?: SortOrder
+    emailSent?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ActivityReminderSumOrderByAggregateInput = {
+    reminderMinutes?: SortOrder
   }
 
   export type DealStageCountOrderByAggregateInput = {
@@ -62217,6 +64166,13 @@ export namespace Prisma {
     connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
   }
 
+  export type InteractionCreateNestedManyWithoutAssignedToUserInput = {
+    create?: XOR<InteractionCreateWithoutAssignedToUserInput, InteractionUncheckedCreateWithoutAssignedToUserInput> | InteractionCreateWithoutAssignedToUserInput[] | InteractionUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutAssignedToUserInput | InteractionCreateOrConnectWithoutAssignedToUserInput[]
+    createMany?: InteractionCreateManyAssignedToUserInputEnvelope
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+  }
+
   export type OrderCreateNestedManyWithoutCreatedByUserInput = {
     create?: XOR<OrderCreateWithoutCreatedByUserInput, OrderUncheckedCreateWithoutCreatedByUserInput> | OrderCreateWithoutCreatedByUserInput[] | OrderUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: OrderCreateOrConnectWithoutCreatedByUserInput | OrderCreateOrConnectWithoutCreatedByUserInput[]
@@ -62382,6 +64338,13 @@ export namespace Prisma {
     create?: XOR<InteractionCreateWithoutCreatedByUserInput, InteractionUncheckedCreateWithoutCreatedByUserInput> | InteractionCreateWithoutCreatedByUserInput[] | InteractionUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: InteractionCreateOrConnectWithoutCreatedByUserInput | InteractionCreateOrConnectWithoutCreatedByUserInput[]
     createMany?: InteractionCreateManyCreatedByUserInputEnvelope
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+  }
+
+  export type InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput = {
+    create?: XOR<InteractionCreateWithoutAssignedToUserInput, InteractionUncheckedCreateWithoutAssignedToUserInput> | InteractionCreateWithoutAssignedToUserInput[] | InteractionUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutAssignedToUserInput | InteractionCreateOrConnectWithoutAssignedToUserInput[]
+    createMany?: InteractionCreateManyAssignedToUserInputEnvelope
     connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
   }
 
@@ -62608,6 +64571,20 @@ export namespace Prisma {
     connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
     update?: InteractionUpdateWithWhereUniqueWithoutCreatedByUserInput | InteractionUpdateWithWhereUniqueWithoutCreatedByUserInput[]
     updateMany?: InteractionUpdateManyWithWhereWithoutCreatedByUserInput | InteractionUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
+  }
+
+  export type InteractionUpdateManyWithoutAssignedToUserNestedInput = {
+    create?: XOR<InteractionCreateWithoutAssignedToUserInput, InteractionUncheckedCreateWithoutAssignedToUserInput> | InteractionCreateWithoutAssignedToUserInput[] | InteractionUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutAssignedToUserInput | InteractionCreateOrConnectWithoutAssignedToUserInput[]
+    upsert?: InteractionUpsertWithWhereUniqueWithoutAssignedToUserInput | InteractionUpsertWithWhereUniqueWithoutAssignedToUserInput[]
+    createMany?: InteractionCreateManyAssignedToUserInputEnvelope
+    set?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    disconnect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    delete?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    update?: InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput | InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput[]
+    updateMany?: InteractionUpdateManyWithWhereWithoutAssignedToUserInput | InteractionUpdateManyWithWhereWithoutAssignedToUserInput[]
     deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
   }
 
@@ -62944,6 +64921,20 @@ export namespace Prisma {
     connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
     update?: InteractionUpdateWithWhereUniqueWithoutCreatedByUserInput | InteractionUpdateWithWhereUniqueWithoutCreatedByUserInput[]
     updateMany?: InteractionUpdateManyWithWhereWithoutCreatedByUserInput | InteractionUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
+  }
+
+  export type InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput = {
+    create?: XOR<InteractionCreateWithoutAssignedToUserInput, InteractionUncheckedCreateWithoutAssignedToUserInput> | InteractionCreateWithoutAssignedToUserInput[] | InteractionUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutAssignedToUserInput | InteractionCreateOrConnectWithoutAssignedToUserInput[]
+    upsert?: InteractionUpsertWithWhereUniqueWithoutAssignedToUserInput | InteractionUpsertWithWhereUniqueWithoutAssignedToUserInput[]
+    createMany?: InteractionCreateManyAssignedToUserInputEnvelope
+    set?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    disconnect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    delete?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    update?: InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput | InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput[]
+    updateMany?: InteractionUpdateManyWithWhereWithoutAssignedToUserInput | InteractionUpdateManyWithWhereWithoutAssignedToUserInput[]
     deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
   }
 
@@ -63686,10 +65677,50 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutInteractionsAssignedInput = {
+    create?: XOR<UserCreateWithoutInteractionsAssignedInput, UserUncheckedCreateWithoutInteractionsAssignedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInteractionsAssignedInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type DealCreateNestedOneWithoutInteractionsInput = {
     create?: XOR<DealCreateWithoutInteractionsInput, DealUncheckedCreateWithoutInteractionsInput>
     connectOrCreate?: DealCreateOrConnectWithoutInteractionsInput
     connect?: DealWhereUniqueInput
+  }
+
+  export type InteractionCreateNestedOneWithoutChildInteractionsInput = {
+    create?: XOR<InteractionCreateWithoutChildInteractionsInput, InteractionUncheckedCreateWithoutChildInteractionsInput>
+    connectOrCreate?: InteractionCreateOrConnectWithoutChildInteractionsInput
+    connect?: InteractionWhereUniqueInput
+  }
+
+  export type InteractionCreateNestedManyWithoutParentInteractionInput = {
+    create?: XOR<InteractionCreateWithoutParentInteractionInput, InteractionUncheckedCreateWithoutParentInteractionInput> | InteractionCreateWithoutParentInteractionInput[] | InteractionUncheckedCreateWithoutParentInteractionInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutParentInteractionInput | InteractionCreateOrConnectWithoutParentInteractionInput[]
+    createMany?: InteractionCreateManyParentInteractionInputEnvelope
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+  }
+
+  export type ActivityReminderCreateNestedManyWithoutInteractionInput = {
+    create?: XOR<ActivityReminderCreateWithoutInteractionInput, ActivityReminderUncheckedCreateWithoutInteractionInput> | ActivityReminderCreateWithoutInteractionInput[] | ActivityReminderUncheckedCreateWithoutInteractionInput[]
+    connectOrCreate?: ActivityReminderCreateOrConnectWithoutInteractionInput | ActivityReminderCreateOrConnectWithoutInteractionInput[]
+    createMany?: ActivityReminderCreateManyInteractionInputEnvelope
+    connect?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+  }
+
+  export type InteractionUncheckedCreateNestedManyWithoutParentInteractionInput = {
+    create?: XOR<InteractionCreateWithoutParentInteractionInput, InteractionUncheckedCreateWithoutParentInteractionInput> | InteractionCreateWithoutParentInteractionInput[] | InteractionUncheckedCreateWithoutParentInteractionInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutParentInteractionInput | InteractionCreateOrConnectWithoutParentInteractionInput[]
+    createMany?: InteractionCreateManyParentInteractionInputEnvelope
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+  }
+
+  export type ActivityReminderUncheckedCreateNestedManyWithoutInteractionInput = {
+    create?: XOR<ActivityReminderCreateWithoutInteractionInput, ActivityReminderUncheckedCreateWithoutInteractionInput> | ActivityReminderCreateWithoutInteractionInput[] | ActivityReminderUncheckedCreateWithoutInteractionInput[]
+    connectOrCreate?: ActivityReminderCreateOrConnectWithoutInteractionInput | ActivityReminderCreateOrConnectWithoutInteractionInput[]
+    createMany?: ActivityReminderCreateManyInteractionInputEnvelope
+    connect?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -63716,6 +65747,16 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInteractionsInput, UserUpdateWithoutInteractionsInput>, UserUncheckedUpdateWithoutInteractionsInput>
   }
 
+  export type UserUpdateOneWithoutInteractionsAssignedNestedInput = {
+    create?: XOR<UserCreateWithoutInteractionsAssignedInput, UserUncheckedCreateWithoutInteractionsAssignedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInteractionsAssignedInput
+    upsert?: UserUpsertWithoutInteractionsAssignedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInteractionsAssignedInput, UserUpdateWithoutInteractionsAssignedInput>, UserUncheckedUpdateWithoutInteractionsAssignedInput>
+  }
+
   export type DealUpdateOneWithoutInteractionsNestedInput = {
     create?: XOR<DealCreateWithoutInteractionsInput, DealUncheckedCreateWithoutInteractionsInput>
     connectOrCreate?: DealCreateOrConnectWithoutInteractionsInput
@@ -63724,6 +65765,86 @@ export namespace Prisma {
     delete?: DealWhereInput | boolean
     connect?: DealWhereUniqueInput
     update?: XOR<XOR<DealUpdateToOneWithWhereWithoutInteractionsInput, DealUpdateWithoutInteractionsInput>, DealUncheckedUpdateWithoutInteractionsInput>
+  }
+
+  export type InteractionUpdateOneWithoutChildInteractionsNestedInput = {
+    create?: XOR<InteractionCreateWithoutChildInteractionsInput, InteractionUncheckedCreateWithoutChildInteractionsInput>
+    connectOrCreate?: InteractionCreateOrConnectWithoutChildInteractionsInput
+    upsert?: InteractionUpsertWithoutChildInteractionsInput
+    disconnect?: InteractionWhereInput | boolean
+    delete?: InteractionWhereInput | boolean
+    connect?: InteractionWhereUniqueInput
+    update?: XOR<XOR<InteractionUpdateToOneWithWhereWithoutChildInteractionsInput, InteractionUpdateWithoutChildInteractionsInput>, InteractionUncheckedUpdateWithoutChildInteractionsInput>
+  }
+
+  export type InteractionUpdateManyWithoutParentInteractionNestedInput = {
+    create?: XOR<InteractionCreateWithoutParentInteractionInput, InteractionUncheckedCreateWithoutParentInteractionInput> | InteractionCreateWithoutParentInteractionInput[] | InteractionUncheckedCreateWithoutParentInteractionInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutParentInteractionInput | InteractionCreateOrConnectWithoutParentInteractionInput[]
+    upsert?: InteractionUpsertWithWhereUniqueWithoutParentInteractionInput | InteractionUpsertWithWhereUniqueWithoutParentInteractionInput[]
+    createMany?: InteractionCreateManyParentInteractionInputEnvelope
+    set?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    disconnect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    delete?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    update?: InteractionUpdateWithWhereUniqueWithoutParentInteractionInput | InteractionUpdateWithWhereUniqueWithoutParentInteractionInput[]
+    updateMany?: InteractionUpdateManyWithWhereWithoutParentInteractionInput | InteractionUpdateManyWithWhereWithoutParentInteractionInput[]
+    deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
+  }
+
+  export type ActivityReminderUpdateManyWithoutInteractionNestedInput = {
+    create?: XOR<ActivityReminderCreateWithoutInteractionInput, ActivityReminderUncheckedCreateWithoutInteractionInput> | ActivityReminderCreateWithoutInteractionInput[] | ActivityReminderUncheckedCreateWithoutInteractionInput[]
+    connectOrCreate?: ActivityReminderCreateOrConnectWithoutInteractionInput | ActivityReminderCreateOrConnectWithoutInteractionInput[]
+    upsert?: ActivityReminderUpsertWithWhereUniqueWithoutInteractionInput | ActivityReminderUpsertWithWhereUniqueWithoutInteractionInput[]
+    createMany?: ActivityReminderCreateManyInteractionInputEnvelope
+    set?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+    disconnect?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+    delete?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+    connect?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+    update?: ActivityReminderUpdateWithWhereUniqueWithoutInteractionInput | ActivityReminderUpdateWithWhereUniqueWithoutInteractionInput[]
+    updateMany?: ActivityReminderUpdateManyWithWhereWithoutInteractionInput | ActivityReminderUpdateManyWithWhereWithoutInteractionInput[]
+    deleteMany?: ActivityReminderScalarWhereInput | ActivityReminderScalarWhereInput[]
+  }
+
+  export type InteractionUncheckedUpdateManyWithoutParentInteractionNestedInput = {
+    create?: XOR<InteractionCreateWithoutParentInteractionInput, InteractionUncheckedCreateWithoutParentInteractionInput> | InteractionCreateWithoutParentInteractionInput[] | InteractionUncheckedCreateWithoutParentInteractionInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutParentInteractionInput | InteractionCreateOrConnectWithoutParentInteractionInput[]
+    upsert?: InteractionUpsertWithWhereUniqueWithoutParentInteractionInput | InteractionUpsertWithWhereUniqueWithoutParentInteractionInput[]
+    createMany?: InteractionCreateManyParentInteractionInputEnvelope
+    set?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    disconnect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    delete?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    update?: InteractionUpdateWithWhereUniqueWithoutParentInteractionInput | InteractionUpdateWithWhereUniqueWithoutParentInteractionInput[]
+    updateMany?: InteractionUpdateManyWithWhereWithoutParentInteractionInput | InteractionUpdateManyWithWhereWithoutParentInteractionInput[]
+    deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
+  }
+
+  export type ActivityReminderUncheckedUpdateManyWithoutInteractionNestedInput = {
+    create?: XOR<ActivityReminderCreateWithoutInteractionInput, ActivityReminderUncheckedCreateWithoutInteractionInput> | ActivityReminderCreateWithoutInteractionInput[] | ActivityReminderUncheckedCreateWithoutInteractionInput[]
+    connectOrCreate?: ActivityReminderCreateOrConnectWithoutInteractionInput | ActivityReminderCreateOrConnectWithoutInteractionInput[]
+    upsert?: ActivityReminderUpsertWithWhereUniqueWithoutInteractionInput | ActivityReminderUpsertWithWhereUniqueWithoutInteractionInput[]
+    createMany?: ActivityReminderCreateManyInteractionInputEnvelope
+    set?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+    disconnect?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+    delete?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+    connect?: ActivityReminderWhereUniqueInput | ActivityReminderWhereUniqueInput[]
+    update?: ActivityReminderUpdateWithWhereUniqueWithoutInteractionInput | ActivityReminderUpdateWithWhereUniqueWithoutInteractionInput[]
+    updateMany?: ActivityReminderUpdateManyWithWhereWithoutInteractionInput | ActivityReminderUpdateManyWithWhereWithoutInteractionInput[]
+    deleteMany?: ActivityReminderScalarWhereInput | ActivityReminderScalarWhereInput[]
+  }
+
+  export type InteractionCreateNestedOneWithoutRemindersInput = {
+    create?: XOR<InteractionCreateWithoutRemindersInput, InteractionUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: InteractionCreateOrConnectWithoutRemindersInput
+    connect?: InteractionWhereUniqueInput
+  }
+
+  export type InteractionUpdateOneRequiredWithoutRemindersNestedInput = {
+    create?: XOR<InteractionCreateWithoutRemindersInput, InteractionUncheckedCreateWithoutRemindersInput>
+    connectOrCreate?: InteractionCreateOrConnectWithoutRemindersInput
+    upsert?: InteractionUpsertWithoutRemindersInput
+    connect?: InteractionWhereUniqueInput
+    update?: XOR<XOR<InteractionUpdateToOneWithWhereWithoutRemindersInput, InteractionUpdateWithoutRemindersInput>, InteractionUncheckedUpdateWithoutRemindersInput>
   }
 
   export type DealCreateNestedManyWithoutStageInput = {
@@ -66024,6 +68145,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -66068,6 +68190,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -66117,6 +68240,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -66161,6 +68285,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -66409,17 +68534,29 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     customer: CustomerCreateNestedOneWithoutInteractionsInput
+    assignedToUser?: UserCreateNestedOneWithoutInteractionsAssignedInput
     deal?: DealCreateNestedOneWithoutInteractionsInput
+    parentInteraction?: InteractionCreateNestedOneWithoutChildInteractionsInput
+    childInteractions?: InteractionCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderCreateNestedManyWithoutInteractionInput
   }
 
   export type InteractionUncheckedCreateWithoutCreatedByUserInput = {
@@ -66431,16 +68568,28 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
     relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    childInteractions?: InteractionUncheckedCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderUncheckedCreateNestedManyWithoutInteractionInput
   }
 
   export type InteractionCreateOrConnectWithoutCreatedByUserInput = {
@@ -66450,6 +68599,82 @@ export namespace Prisma {
 
   export type InteractionCreateManyCreatedByUserInputEnvelope = {
     data: InteractionCreateManyCreatedByUserInput | InteractionCreateManyCreatedByUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InteractionCreateWithoutAssignedToUserInput = {
+    id?: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutInteractionsInput
+    createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    deal?: DealCreateNestedOneWithoutInteractionsInput
+    parentInteraction?: InteractionCreateNestedOneWithoutChildInteractionsInput
+    childInteractions?: InteractionCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderCreateNestedManyWithoutInteractionInput
+  }
+
+  export type InteractionUncheckedCreateWithoutAssignedToUserInput = {
+    id?: string
+    customerId: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    childInteractions?: InteractionUncheckedCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderUncheckedCreateNestedManyWithoutInteractionInput
+  }
+
+  export type InteractionCreateOrConnectWithoutAssignedToUserInput = {
+    where: InteractionWhereUniqueInput
+    create: XOR<InteractionCreateWithoutAssignedToUserInput, InteractionUncheckedCreateWithoutAssignedToUserInput>
+  }
+
+  export type InteractionCreateManyAssignedToUserInputEnvelope = {
+    data: InteractionCreateManyAssignedToUserInput | InteractionCreateManyAssignedToUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -67662,6 +69887,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -67706,6 +69932,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -67872,17 +70099,43 @@ export namespace Prisma {
     content?: StringFilter<"Interaction"> | string
     status?: StringNullableFilter<"Interaction"> | string | null
     scheduledAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    scheduledEndAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     durationMinutes?: IntNullableFilter<"Interaction"> | number | null
+    priority?: StringFilter<"Interaction"> | string
+    isRecurring?: BoolFilter<"Interaction"> | boolean
+    recurrenceRule?: StringNullableFilter<"Interaction"> | string | null
+    recurrenceEndDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    parentInteractionId?: UuidNullableFilter<"Interaction"> | string | null
+    assignedTo?: UuidNullableFilter<"Interaction"> | string | null
     outcome?: StringNullableFilter<"Interaction"> | string | null
     nextAction?: StringNullableFilter<"Interaction"> | string | null
     nextActionDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     relatedOrderId?: UuidNullableFilter<"Interaction"> | string | null
     relatedTaskId?: UuidNullableFilter<"Interaction"> | string | null
     relatedDealId?: UuidNullableFilter<"Interaction"> | string | null
+    location?: StringNullableFilter<"Interaction"> | string | null
+    locationUrl?: StringNullableFilter<"Interaction"> | string | null
     metadata?: JsonFilter<"Interaction">
     createdBy?: UuidFilter<"Interaction"> | string
     createdAt?: DateTimeFilter<"Interaction"> | Date | string
     updatedAt?: DateTimeFilter<"Interaction"> | Date | string
+  }
+
+  export type InteractionUpsertWithWhereUniqueWithoutAssignedToUserInput = {
+    where: InteractionWhereUniqueInput
+    update: XOR<InteractionUpdateWithoutAssignedToUserInput, InteractionUncheckedUpdateWithoutAssignedToUserInput>
+    create: XOR<InteractionCreateWithoutAssignedToUserInput, InteractionUncheckedCreateWithoutAssignedToUserInput>
+  }
+
+  export type InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput = {
+    where: InteractionWhereUniqueInput
+    data: XOR<InteractionUpdateWithoutAssignedToUserInput, InteractionUncheckedUpdateWithoutAssignedToUserInput>
+  }
+
+  export type InteractionUpdateManyWithWhereWithoutAssignedToUserInput = {
+    where: InteractionScalarWhereInput
+    data: XOR<InteractionUpdateManyMutationInput, InteractionUncheckedUpdateManyWithoutAssignedToUserInput>
   }
 
   export type OrderUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -68623,6 +70876,7 @@ export namespace Prisma {
     usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -68667,6 +70921,7 @@ export namespace Prisma {
     usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -68716,6 +70971,7 @@ export namespace Prisma {
     usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -68760,6 +71016,7 @@ export namespace Prisma {
     usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -68841,17 +71098,29 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    assignedToUser?: UserCreateNestedOneWithoutInteractionsAssignedInput
     deal?: DealCreateNestedOneWithoutInteractionsInput
+    parentInteraction?: InteractionCreateNestedOneWithoutChildInteractionsInput
+    childInteractions?: InteractionCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderCreateNestedManyWithoutInteractionInput
   }
 
   export type InteractionUncheckedCreateWithoutCustomerInput = {
@@ -68862,17 +71131,29 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
     relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    childInteractions?: InteractionUncheckedCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderUncheckedCreateNestedManyWithoutInteractionInput
   }
 
   export type InteractionCreateOrConnectWithoutCustomerInput = {
@@ -69282,6 +71563,7 @@ export namespace Prisma {
     usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -69326,6 +71608,7 @@ export namespace Prisma {
     usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -69381,6 +71664,7 @@ export namespace Prisma {
     usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -69425,6 +71709,7 @@ export namespace Prisma {
     usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -70065,6 +72350,7 @@ export namespace Prisma {
     usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -70109,6 +72395,7 @@ export namespace Prisma {
     usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -70134,6 +72421,101 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutInteractionsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutInteractionsInput, UserUncheckedCreateWithoutInteractionsInput>
+  }
+
+  export type UserCreateWithoutInteractionsAssignedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser?: UserCreateNestedOneWithoutUsersCreatedInput
+    usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    filesUploaded?: FileCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserUncheckedCreateWithoutInteractionsAssignedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentUncheckedCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductUncheckedCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    filesUploaded?: FileUncheckedCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportUncheckedCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserCreateOrConnectWithoutInteractionsAssignedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutInteractionsAssignedInput, UserUncheckedCreateWithoutInteractionsAssignedInput>
   }
 
   export type DealCreateWithoutInteractionsInput = {
@@ -70199,6 +72581,183 @@ export namespace Prisma {
   export type DealCreateOrConnectWithoutInteractionsInput = {
     where: DealWhereUniqueInput
     create: XOR<DealCreateWithoutInteractionsInput, DealUncheckedCreateWithoutInteractionsInput>
+  }
+
+  export type InteractionCreateWithoutChildInteractionsInput = {
+    id?: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutInteractionsInput
+    createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    assignedToUser?: UserCreateNestedOneWithoutInteractionsAssignedInput
+    deal?: DealCreateNestedOneWithoutInteractionsInput
+    parentInteraction?: InteractionCreateNestedOneWithoutChildInteractionsInput
+    reminders?: ActivityReminderCreateNestedManyWithoutInteractionInput
+  }
+
+  export type InteractionUncheckedCreateWithoutChildInteractionsInput = {
+    id?: string
+    customerId: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reminders?: ActivityReminderUncheckedCreateNestedManyWithoutInteractionInput
+  }
+
+  export type InteractionCreateOrConnectWithoutChildInteractionsInput = {
+    where: InteractionWhereUniqueInput
+    create: XOR<InteractionCreateWithoutChildInteractionsInput, InteractionUncheckedCreateWithoutChildInteractionsInput>
+  }
+
+  export type InteractionCreateWithoutParentInteractionInput = {
+    id?: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutInteractionsInput
+    createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    assignedToUser?: UserCreateNestedOneWithoutInteractionsAssignedInput
+    deal?: DealCreateNestedOneWithoutInteractionsInput
+    childInteractions?: InteractionCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderCreateNestedManyWithoutInteractionInput
+  }
+
+  export type InteractionUncheckedCreateWithoutParentInteractionInput = {
+    id?: string
+    customerId: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    assignedTo?: string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    childInteractions?: InteractionUncheckedCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderUncheckedCreateNestedManyWithoutInteractionInput
+  }
+
+  export type InteractionCreateOrConnectWithoutParentInteractionInput = {
+    where: InteractionWhereUniqueInput
+    create: XOR<InteractionCreateWithoutParentInteractionInput, InteractionUncheckedCreateWithoutParentInteractionInput>
+  }
+
+  export type InteractionCreateManyParentInteractionInputEnvelope = {
+    data: InteractionCreateManyParentInteractionInput | InteractionCreateManyParentInteractionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ActivityReminderCreateWithoutInteractionInput = {
+    id?: string
+    reminderMinutes: number
+    reminderAt: Date | string
+    sentAt?: Date | string | null
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ActivityReminderUncheckedCreateWithoutInteractionInput = {
+    id?: string
+    reminderMinutes: number
+    reminderAt: Date | string
+    sentAt?: Date | string | null
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: Date | string
+  }
+
+  export type ActivityReminderCreateOrConnectWithoutInteractionInput = {
+    where: ActivityReminderWhereUniqueInput
+    create: XOR<ActivityReminderCreateWithoutInteractionInput, ActivityReminderUncheckedCreateWithoutInteractionInput>
+  }
+
+  export type ActivityReminderCreateManyInteractionInputEnvelope = {
+    data: ActivityReminderCreateManyInteractionInput | ActivityReminderCreateManyInteractionInput[]
+    skipDuplicates?: boolean
   }
 
   export type CustomerUpsertWithoutInteractionsInput = {
@@ -70339,6 +72898,7 @@ export namespace Prisma {
     usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -70383,6 +72943,108 @@ export namespace Prisma {
     usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUncheckedUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserUpsertWithoutInteractionsAssignedInput = {
+    update: XOR<UserUpdateWithoutInteractionsAssignedInput, UserUncheckedUpdateWithoutInteractionsAssignedInput>
+    create: XOR<UserCreateWithoutInteractionsAssignedInput, UserUncheckedCreateWithoutInteractionsAssignedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutInteractionsAssignedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutInteractionsAssignedInput, UserUncheckedUpdateWithoutInteractionsAssignedInput>
+  }
+
+  export type UserUpdateWithoutInteractionsAssignedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneWithoutUsersCreatedNestedInput
+    usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutInteractionsAssignedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -70474,6 +73136,277 @@ export namespace Prisma {
     contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
     products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
     orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type InteractionUpsertWithoutChildInteractionsInput = {
+    update: XOR<InteractionUpdateWithoutChildInteractionsInput, InteractionUncheckedUpdateWithoutChildInteractionsInput>
+    create: XOR<InteractionCreateWithoutChildInteractionsInput, InteractionUncheckedCreateWithoutChildInteractionsInput>
+    where?: InteractionWhereInput
+  }
+
+  export type InteractionUpdateToOneWithWhereWithoutChildInteractionsInput = {
+    where?: InteractionWhereInput
+    data: XOR<InteractionUpdateWithoutChildInteractionsInput, InteractionUncheckedUpdateWithoutChildInteractionsInput>
+  }
+
+  export type InteractionUpdateWithoutChildInteractionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    assignedToUser?: UserUpdateOneWithoutInteractionsAssignedNestedInput
+    deal?: DealUpdateOneWithoutInteractionsNestedInput
+    parentInteraction?: InteractionUpdateOneWithoutChildInteractionsNestedInput
+    reminders?: ActivityReminderUpdateManyWithoutInteractionNestedInput
+  }
+
+  export type InteractionUncheckedUpdateWithoutChildInteractionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reminders?: ActivityReminderUncheckedUpdateManyWithoutInteractionNestedInput
+  }
+
+  export type InteractionUpsertWithWhereUniqueWithoutParentInteractionInput = {
+    where: InteractionWhereUniqueInput
+    update: XOR<InteractionUpdateWithoutParentInteractionInput, InteractionUncheckedUpdateWithoutParentInteractionInput>
+    create: XOR<InteractionCreateWithoutParentInteractionInput, InteractionUncheckedCreateWithoutParentInteractionInput>
+  }
+
+  export type InteractionUpdateWithWhereUniqueWithoutParentInteractionInput = {
+    where: InteractionWhereUniqueInput
+    data: XOR<InteractionUpdateWithoutParentInteractionInput, InteractionUncheckedUpdateWithoutParentInteractionInput>
+  }
+
+  export type InteractionUpdateManyWithWhereWithoutParentInteractionInput = {
+    where: InteractionScalarWhereInput
+    data: XOR<InteractionUpdateManyMutationInput, InteractionUncheckedUpdateManyWithoutParentInteractionInput>
+  }
+
+  export type ActivityReminderUpsertWithWhereUniqueWithoutInteractionInput = {
+    where: ActivityReminderWhereUniqueInput
+    update: XOR<ActivityReminderUpdateWithoutInteractionInput, ActivityReminderUncheckedUpdateWithoutInteractionInput>
+    create: XOR<ActivityReminderCreateWithoutInteractionInput, ActivityReminderUncheckedCreateWithoutInteractionInput>
+  }
+
+  export type ActivityReminderUpdateWithWhereUniqueWithoutInteractionInput = {
+    where: ActivityReminderWhereUniqueInput
+    data: XOR<ActivityReminderUpdateWithoutInteractionInput, ActivityReminderUncheckedUpdateWithoutInteractionInput>
+  }
+
+  export type ActivityReminderUpdateManyWithWhereWithoutInteractionInput = {
+    where: ActivityReminderScalarWhereInput
+    data: XOR<ActivityReminderUpdateManyMutationInput, ActivityReminderUncheckedUpdateManyWithoutInteractionInput>
+  }
+
+  export type ActivityReminderScalarWhereInput = {
+    AND?: ActivityReminderScalarWhereInput | ActivityReminderScalarWhereInput[]
+    OR?: ActivityReminderScalarWhereInput[]
+    NOT?: ActivityReminderScalarWhereInput | ActivityReminderScalarWhereInput[]
+    id?: UuidFilter<"ActivityReminder"> | string
+    interactionId?: UuidFilter<"ActivityReminder"> | string
+    reminderMinutes?: IntFilter<"ActivityReminder"> | number
+    reminderAt?: DateTimeFilter<"ActivityReminder"> | Date | string
+    sentAt?: DateTimeNullableFilter<"ActivityReminder"> | Date | string | null
+    notificationSent?: BoolFilter<"ActivityReminder"> | boolean
+    emailSent?: BoolFilter<"ActivityReminder"> | boolean
+    createdAt?: DateTimeFilter<"ActivityReminder"> | Date | string
+  }
+
+  export type InteractionCreateWithoutRemindersInput = {
+    id?: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutInteractionsInput
+    createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    assignedToUser?: UserCreateNestedOneWithoutInteractionsAssignedInput
+    deal?: DealCreateNestedOneWithoutInteractionsInput
+    parentInteraction?: InteractionCreateNestedOneWithoutChildInteractionsInput
+    childInteractions?: InteractionCreateNestedManyWithoutParentInteractionInput
+  }
+
+  export type InteractionUncheckedCreateWithoutRemindersInput = {
+    id?: string
+    customerId: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    childInteractions?: InteractionUncheckedCreateNestedManyWithoutParentInteractionInput
+  }
+
+  export type InteractionCreateOrConnectWithoutRemindersInput = {
+    where: InteractionWhereUniqueInput
+    create: XOR<InteractionCreateWithoutRemindersInput, InteractionUncheckedCreateWithoutRemindersInput>
+  }
+
+  export type InteractionUpsertWithoutRemindersInput = {
+    update: XOR<InteractionUpdateWithoutRemindersInput, InteractionUncheckedUpdateWithoutRemindersInput>
+    create: XOR<InteractionCreateWithoutRemindersInput, InteractionUncheckedCreateWithoutRemindersInput>
+    where?: InteractionWhereInput
+  }
+
+  export type InteractionUpdateToOneWithWhereWithoutRemindersInput = {
+    where?: InteractionWhereInput
+    data: XOR<InteractionUpdateWithoutRemindersInput, InteractionUncheckedUpdateWithoutRemindersInput>
+  }
+
+  export type InteractionUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    assignedToUser?: UserUpdateOneWithoutInteractionsAssignedNestedInput
+    deal?: DealUpdateOneWithoutInteractionsNestedInput
+    parentInteraction?: InteractionUpdateOneWithoutChildInteractionsNestedInput
+    childInteractions?: InteractionUpdateManyWithoutParentInteractionNestedInput
+  }
+
+  export type InteractionUncheckedUpdateWithoutRemindersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childInteractions?: InteractionUncheckedUpdateManyWithoutParentInteractionNestedInput
   }
 
   export type DealCreateWithoutStageInput = {
@@ -70717,6 +73650,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -70761,6 +73695,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -70810,6 +73745,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -70854,6 +73790,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -70950,17 +73887,29 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     customer: CustomerCreateNestedOneWithoutInteractionsInput
     createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    assignedToUser?: UserCreateNestedOneWithoutInteractionsAssignedInput
+    parentInteraction?: InteractionCreateNestedOneWithoutChildInteractionsInput
+    childInteractions?: InteractionCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderCreateNestedManyWithoutInteractionInput
   }
 
   export type InteractionUncheckedCreateWithoutDealInput = {
@@ -70972,16 +73921,28 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    childInteractions?: InteractionUncheckedCreateNestedManyWithoutParentInteractionInput
+    reminders?: ActivityReminderUncheckedCreateNestedManyWithoutInteractionInput
   }
 
   export type InteractionCreateOrConnectWithoutDealInput = {
@@ -71256,6 +74217,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -71300,6 +74262,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -71355,6 +74318,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -71399,6 +74363,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -72322,6 +75287,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -72366,6 +75332,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -72701,6 +75668,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -72745,6 +75713,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -73685,6 +76654,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -73729,6 +76699,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -73919,6 +76890,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -73963,6 +76935,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -74106,6 +77079,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
     tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
@@ -74150,6 +77124,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
     tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
@@ -74199,6 +77174,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
     tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
@@ -74243,6 +77219,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
     tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
@@ -74649,6 +77626,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
     tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
@@ -74693,6 +77671,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
     tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
@@ -74748,6 +77727,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
     tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
@@ -74792,6 +77772,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
     tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
@@ -75545,6 +78526,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -75589,6 +78571,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -75638,6 +78621,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
@@ -75682,6 +78666,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
@@ -76010,6 +78995,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -76054,6 +79040,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -76109,6 +79096,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
@@ -76153,6 +79141,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
@@ -76345,6 +79334,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -76389,6 +79379,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -76544,6 +79535,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -76588,6 +79580,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -77079,6 +80072,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -77123,6 +80117,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -77268,6 +80263,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -77312,6 +80308,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -77356,6 +80353,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -77400,6 +80398,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -77460,6 +80459,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -77504,6 +80504,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -77548,6 +80549,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -77592,6 +80594,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -77652,6 +80655,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -77696,6 +80700,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -78184,6 +81189,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -78228,6 +81234,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -78277,6 +81284,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -78321,6 +81329,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -78613,6 +81622,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -78657,6 +81667,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -78712,6 +81723,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -78756,6 +81768,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -79140,6 +82153,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -79184,6 +82198,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -79309,6 +82324,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -79353,6 +82369,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -79397,6 +82414,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -79441,6 +82459,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -79501,6 +82520,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -79545,6 +82565,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -79589,6 +82610,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -79633,6 +82655,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -79693,6 +82716,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -79737,6 +82761,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -79781,6 +82806,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -79825,6 +82851,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -79915,6 +82942,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -79959,6 +82987,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -80281,6 +83310,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -80325,6 +83355,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -80385,6 +83416,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -80429,6 +83461,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -80473,6 +83506,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -80517,6 +83551,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -80577,6 +83612,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -80621,6 +83657,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -80751,14 +83788,55 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
     relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InteractionCreateManyAssignedToUserInput = {
+    id?: string
+    customerId: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -81241,6 +84319,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -81285,6 +84364,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -81603,17 +84683,29 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
+    assignedToUser?: UserUpdateOneWithoutInteractionsAssignedNestedInput
     deal?: DealUpdateOneWithoutInteractionsNestedInput
+    parentInteraction?: InteractionUpdateOneWithoutChildInteractionsNestedInput
+    childInteractions?: InteractionUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUpdateManyWithoutInteractionNestedInput
   }
 
   export type InteractionUncheckedUpdateWithoutCreatedByUserInput = {
@@ -81625,16 +84717,28 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childInteractions?: InteractionUncheckedUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUncheckedUpdateManyWithoutInteractionNestedInput
   }
 
   export type InteractionUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -81646,14 +84750,121 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InteractionUpdateWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    deal?: DealUpdateOneWithoutInteractionsNestedInput
+    parentInteraction?: InteractionUpdateOneWithoutChildInteractionsNestedInput
+    childInteractions?: InteractionUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUpdateManyWithoutInteractionNestedInput
+  }
+
+  export type InteractionUncheckedUpdateWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childInteractions?: InteractionUncheckedUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUncheckedUpdateManyWithoutInteractionNestedInput
+  }
+
+  export type InteractionUncheckedUpdateManyWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -83114,13 +86325,23 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
     relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
@@ -83331,17 +86552,29 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    assignedToUser?: UserUpdateOneWithoutInteractionsAssignedNestedInput
     deal?: DealUpdateOneWithoutInteractionsNestedInput
+    parentInteraction?: InteractionUpdateOneWithoutChildInteractionsNestedInput
+    childInteractions?: InteractionUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUpdateManyWithoutInteractionNestedInput
   }
 
   export type InteractionUncheckedUpdateWithoutCustomerInput = {
@@ -83352,17 +86585,29 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childInteractions?: InteractionUncheckedUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUncheckedUpdateManyWithoutInteractionNestedInput
   }
 
   export type InteractionUncheckedUpdateManyWithoutCustomerInput = {
@@ -83373,13 +86618,23 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -83984,6 +87239,174 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type InteractionCreateManyParentInteractionInput = {
+    id?: string
+    customerId: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
+    durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    assignedTo?: string | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    relatedDealId?: string | null
+    location?: string | null
+    locationUrl?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ActivityReminderCreateManyInteractionInput = {
+    id?: string
+    reminderMinutes: number
+    reminderAt: Date | string
+    sentAt?: Date | string | null
+    notificationSent?: boolean
+    emailSent?: boolean
+    createdAt?: Date | string
+  }
+
+  export type InteractionUpdateWithoutParentInteractionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    assignedToUser?: UserUpdateOneWithoutInteractionsAssignedNestedInput
+    deal?: DealUpdateOneWithoutInteractionsNestedInput
+    childInteractions?: InteractionUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUpdateManyWithoutInteractionNestedInput
+  }
+
+  export type InteractionUncheckedUpdateWithoutParentInteractionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childInteractions?: InteractionUncheckedUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUncheckedUpdateManyWithoutInteractionNestedInput
+  }
+
+  export type InteractionUncheckedUpdateManyWithoutParentInteractionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActivityReminderUpdateWithoutInteractionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderMinutes?: IntFieldUpdateOperationsInput | number
+    reminderAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notificationSent?: BoolFieldUpdateOperationsInput | boolean
+    emailSent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActivityReminderUncheckedUpdateWithoutInteractionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderMinutes?: IntFieldUpdateOperationsInput | number
+    reminderAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notificationSent?: BoolFieldUpdateOperationsInput | boolean
+    emailSent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ActivityReminderUncheckedUpdateManyWithoutInteractionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reminderMinutes?: IntFieldUpdateOperationsInput | number
+    reminderAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    notificationSent?: BoolFieldUpdateOperationsInput | boolean
+    emailSent?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DealCreateManyStageInput = {
     id?: string
     name: string
@@ -84126,12 +87549,22 @@ export namespace Prisma {
     content: string
     status?: string | null
     scheduledAt?: Date | string | null
+    scheduledEndAt?: Date | string | null
     durationMinutes?: number | null
+    priority?: string
+    isRecurring?: boolean
+    recurrenceRule?: string | null
+    recurrenceEndDate?: Date | string | null
+    parentInteractionId?: string | null
+    assignedTo?: string | null
     outcome?: string | null
     nextAction?: string | null
     nextActionDate?: Date | string | null
+    completedAt?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    location?: string | null
+    locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
@@ -84243,17 +87676,29 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
     createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    assignedToUser?: UserUpdateOneWithoutInteractionsAssignedNestedInput
+    parentInteraction?: InteractionUpdateOneWithoutChildInteractionsNestedInput
+    childInteractions?: InteractionUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUpdateManyWithoutInteractionNestedInput
   }
 
   export type InteractionUncheckedUpdateWithoutDealInput = {
@@ -84265,16 +87710,28 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    childInteractions?: InteractionUncheckedUpdateManyWithoutParentInteractionNestedInput
+    reminders?: ActivityReminderUncheckedUpdateManyWithoutInteractionNestedInput
   }
 
   export type InteractionUncheckedUpdateManyWithoutDealInput = {
@@ -84286,12 +87743,22 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledEndAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    priority?: StringFieldUpdateOperationsInput | string
+    isRecurring?: BoolFieldUpdateOperationsInput | boolean
+    recurrenceRule?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrenceEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    parentInteractionId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
     outcome?: NullableStringFieldUpdateOperationsInput | string | null
     nextAction?: NullableStringFieldUpdateOperationsInput | string | null
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

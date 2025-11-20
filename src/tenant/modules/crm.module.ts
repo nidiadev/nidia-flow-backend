@@ -5,6 +5,7 @@ import { CustomerContactController } from '../controllers/crm/customer-contact.c
 import { DealController } from '../controllers/crm/deal.controller';
 import { DealStageController } from '../controllers/crm/deal-stage.controller';
 import { InboxController } from '../controllers/crm/inbox.controller';
+import { CalendarController } from '../controllers/crm/calendar.controller';
 import { CustomerService } from '../services/crm/customer.service';
 import { InteractionService } from '../services/crm/interaction.service';
 import { CustomerContactService } from '../services/crm/customer-contact.service';
@@ -26,6 +27,7 @@ import { PlansModule } from '../../plans/plans.module';
     DealController,
     DealStageController,
     InboxController,
+    CalendarController,
   ],
   providers: [
     CustomerService,

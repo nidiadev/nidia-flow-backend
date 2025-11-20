@@ -218,17 +218,38 @@ exports.Prisma.InteractionScalarFieldEnum = {
   content: 'content',
   status: 'status',
   scheduledAt: 'scheduledAt',
+  scheduledEndAt: 'scheduledEndAt',
   durationMinutes: 'durationMinutes',
+  priority: 'priority',
+  isRecurring: 'isRecurring',
+  recurrenceRule: 'recurrenceRule',
+  recurrenceEndDate: 'recurrenceEndDate',
+  parentInteractionId: 'parentInteractionId',
+  assignedTo: 'assignedTo',
   outcome: 'outcome',
   nextAction: 'nextAction',
   nextActionDate: 'nextActionDate',
+  completedAt: 'completedAt',
   relatedOrderId: 'relatedOrderId',
   relatedTaskId: 'relatedTaskId',
   relatedDealId: 'relatedDealId',
+  location: 'location',
+  locationUrl: 'locationUrl',
   metadata: 'metadata',
   createdBy: 'createdBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ActivityReminderScalarFieldEnum = {
+  id: 'id',
+  interactionId: 'interactionId',
+  reminderMinutes: 'reminderMinutes',
+  reminderAt: 'reminderAt',
+  sentAt: 'sentAt',
+  notificationSent: 'notificationSent',
+  emailSent: 'emailSent',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.DealStageScalarFieldEnum = {
@@ -803,6 +824,7 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   CustomerContact: 'CustomerContact',
   Interaction: 'Interaction',
+  ActivityReminder: 'ActivityReminder',
   DealStage: 'DealStage',
   Deal: 'Deal',
   DealContact: 'DealContact',
