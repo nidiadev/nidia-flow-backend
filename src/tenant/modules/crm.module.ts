@@ -4,11 +4,13 @@ import { InteractionController } from '../controllers/crm/interaction.controller
 import { CustomerContactController } from '../controllers/crm/customer-contact.controller';
 import { DealController } from '../controllers/crm/deal.controller';
 import { DealStageController } from '../controllers/crm/deal-stage.controller';
+import { InboxController } from '../controllers/crm/inbox.controller';
 import { CustomerService } from '../services/crm/customer.service';
 import { InteractionService } from '../services/crm/interaction.service';
 import { CustomerContactService } from '../services/crm/customer-contact.service';
 import { DealService } from '../services/crm/deal.service';
 import { DealStageService } from '../services/crm/deal-stage.service';
+import { ConversationService } from '../services/crm/conversation.service';
 import { PlansModule } from '../../plans/plans.module';
 // TenantPrismaService, TenantProvisioningService, TenantService se obtienen del TenantModule (global)
 // BusinessEventEmitterService se obtiene del EventsModule (global)
@@ -23,6 +25,7 @@ import { PlansModule } from '../../plans/plans.module';
     CustomerContactController,
     DealController,
     DealStageController,
+    InboxController,
   ],
   providers: [
     CustomerService,
@@ -30,6 +33,7 @@ import { PlansModule } from '../../plans/plans.module';
     CustomerContactService,
     DealService,
     DealStageService,
+    ConversationService,
   ],
   exports: [
     CustomerService,
@@ -37,6 +41,7 @@ import { PlansModule } from '../../plans/plans.module';
     CustomerContactService,
     DealService,
     DealStageService,
+    ConversationService,
   ],
 })
 export class CrmModule {}
