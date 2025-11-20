@@ -9,6 +9,7 @@ import { TenantPrismaService } from '../tenant-prisma.service';
 import { BusinessEventEmitterService } from '../../../common/events/event-emitter.service';
 import { BusinessEventTypes } from '../../../common/events/business-events';
 import { CustomerService } from './customer.service';
+import { CustomerType } from '../../dto/crm/customer.dto';
 import {
   CreateWebFormDto,
   UpdateWebFormDto,
@@ -258,7 +259,7 @@ export class WebFormService {
             phone: submitDto.data.phone,
             companyName: submitDto.data.companyName || submitDto.data.company,
             leadSource: settings?.defaultLeadSource || 'web_form',
-            type: 'LEAD',
+            type: CustomerType.LEAD,
             assignedTo: settings?.assignTo,
           },
           'system', // Created by system
