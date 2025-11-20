@@ -205,6 +205,30 @@ export interface DealLostEvent {
   timestamp: Date;
 }
 
+// Eventos de Conversaciones/Inbox
+export interface ConversationCreatedEvent {
+  conversationId: string;
+  channel: string;
+  customerId?: string;
+  createdBy: string;
+  timestamp: Date;
+}
+
+export interface ConversationAssignedEvent {
+  conversationId: string;
+  assignedTo: string;
+  assignedBy: string;
+  timestamp: Date;
+}
+
+export interface ConversationStatusChangedEvent {
+  conversationId: string;
+  oldStatus: string;
+  newStatus: string;
+  changedBy: string;
+  timestamp: Date;
+}
+
 // Eventos de Comunicaciones
 export interface MessageSentEvent {
   messageId: string;
@@ -332,6 +356,12 @@ export const BusinessEventTypes = {
   DEAL_STAGE_CHANGED: 'deal.stage.changed',
   DEAL_WON: 'deal.won',
   DEAL_LOST: 'deal.lost',
+  
+  // Conversaciones/Inbox
+  CONVERSATION_CREATED: 'conversation.created',
+  CONVERSATION_ASSIGNED: 'conversation.assigned',
+  CONVERSATION_STATUS_CHANGED: 'conversation.status.changed',
+  MESSAGE_RECEIVED: 'message.received',
   
   // Comunicaciones
   MESSAGE_SENT: 'message.sent',
