@@ -5,6 +5,7 @@ import { TenantProvisioningService } from './services/tenant-provisioning.servic
 import { TenantService } from './tenant.service';
 import { UsersModule } from '../users/users.module';
 import { PlansModule } from '../plans/plans.module';
+import { TenantModule } from './tenant.module';
 
 /**
  * TenantProvisioningModule
