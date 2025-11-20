@@ -563,6 +563,41 @@ export class InteractionResponseDto {
   @ApiPropertyOptional({ description: 'Duration in minutes' })
   durationMinutes?: number;
 
+  @ApiPropertyOptional({ description: 'Priority', enum: ['low', 'normal', 'high', 'urgent'] })
+  priority?: string;
+
+  @ApiPropertyOptional({ description: 'Assigned user ID', format: 'uuid' })
+  assignedTo?: string;
+
+  @ApiPropertyOptional({ description: 'Assigned user information' })
+  assignedToUser?: {
+    id: string;
+    firstName?: string;
+    lastName?: string;
+    email: string;
+  };
+
+  @ApiPropertyOptional({ description: 'Location' })
+  location?: string;
+
+  @ApiPropertyOptional({ description: 'Location URL' })
+  locationUrl?: string;
+
+  @ApiPropertyOptional({ description: 'Is recurring' })
+  isRecurring?: boolean;
+
+  @ApiPropertyOptional({ description: 'Recurrence rule' })
+  recurrenceRule?: string;
+
+  @ApiPropertyOptional({ description: 'Recurrence end date', format: 'date-time' })
+  recurrenceEndDate?: string;
+
+  @ApiPropertyOptional({ description: 'Parent interaction ID (for recurring series)', format: 'uuid' })
+  parentInteractionId?: string;
+
+  @ApiPropertyOptional({ description: 'Completed at', format: 'date-time' })
+  completedAt?: string;
+
   @ApiPropertyOptional({ description: 'Interaction outcome', enum: InteractionOutcome })
   outcome?: InteractionOutcome;
 
