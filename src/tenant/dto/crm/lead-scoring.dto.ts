@@ -229,7 +229,7 @@ export class LeadScoringRuleResponseDto {
   @ApiProperty({ description: 'Whether the rule is a system rule' })
   isSystem: boolean;
 
-  @ApiProperty({ description: 'Rule condition', type: 'object' })
+  @ApiProperty({ description: 'Rule condition', type: Object })
   condition: any;
 
   @ApiProperty({ description: 'Points to add/subtract' })
@@ -311,7 +311,7 @@ export class LeadScoreSummaryDto {
   @ApiProperty({ description: 'Score classification', enum: LeadScoreClassification })
   classification: LeadScoreClassification;
 
-  @ApiProperty({ description: 'Score breakdown by category', type: 'object' })
+  @ApiProperty({ description: 'Score breakdown by category', type: Object })
   breakdown: {
     demographic: number;
     engagement: number;

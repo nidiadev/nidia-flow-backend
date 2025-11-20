@@ -205,6 +205,26 @@ export interface DealLostEvent {
   timestamp: Date;
 }
 
+// Eventos de Lead Scoring
+export interface LeadScoreChangedEvent {
+  customerId: string;
+  oldScore: number;
+  newScore: number;
+  change: number;
+  triggerType: string;
+  triggerId?: string;
+  timestamp: Date;
+}
+
+export interface LeadScoreThresholdCrossedEvent {
+  customerId: string;
+  oldScore: number;
+  newScore: number;
+  threshold: number;
+  direction: 'up' | 'down';
+  timestamp: Date;
+}
+
 // Eventos de Conversaciones/Inbox
 export interface ConversationCreatedEvent {
   conversationId: string;
@@ -350,6 +370,10 @@ export const BusinessEventTypes = {
   CUSTOMER_CREATED: 'customer.created',
   CUSTOMER_STATUS_CHANGED: 'customer.status.changed',
   LEAD_CONVERTED: 'lead.converted',
+  
+  // Lead Scoring
+  LEAD_SCORE_CHANGED: 'lead.score.changed',
+  LEAD_SCORE_THRESHOLD_CROSSED: 'lead.score.threshold.crossed',
   
   // Deals/Oportunidades
   DEAL_CREATED: 'deal.created',

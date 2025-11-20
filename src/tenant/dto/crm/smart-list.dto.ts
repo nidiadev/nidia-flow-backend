@@ -257,7 +257,7 @@ export class SmartListResponseDto {
   @ApiProperty({ description: 'Whether the list is a system list' })
   isSystem: boolean;
 
-  @ApiProperty({ description: 'Filter configuration', type: 'object' })
+  @ApiProperty({ description: 'Filter configuration', type: Object })
   filterConfig: any;
 
   @ApiProperty({ description: 'Filter logic', enum: ['AND', 'OR'] })
