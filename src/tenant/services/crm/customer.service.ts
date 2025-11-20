@@ -33,6 +33,11 @@ export class CustomerService {
     try {
       const prisma = await this.tenantPrisma.getTenantClient();
       
+      // Validate at least one contact method is provided
+      if (!createCustomerDto.email && !createCustomerDto.phone && !createCustomerDto.mobile && !createCustomerDto.whatsapp) {
+        throw new BadRequestException('At least one contact method (email, phone, mobile, or whatsapp) must be provided');
+      }
+      
       // Check if customer with same email already exists
       if (createCustomerDto.email) {
         const existingCustomer = await prisma.customer.findFirst({
@@ -41,6 +46,17 @@ export class CustomerService {
         
         if (existingCustomer) {
           throw new BadRequestException('Customer with this email already exists');
+        }
+      }
+      
+      // Check if customer with same taxId already exists (if provided)
+      if (createCustomerDto.taxId) {
+        const existingCustomer = await prisma.customer.findFirst({
+          where: { taxId: createCustomerDto.taxId }
+        });
+        
+        if (existingCustomer) {
+          throw new BadRequestException('Customer with this Tax ID already exists');
         }
       }
 
