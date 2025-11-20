@@ -628,6 +628,9 @@ export class InteractionResponseDto {
     type: string;
   };
 
+  @ApiPropertyOptional({ description: 'Created by user ID', format: 'uuid' })
+  createdBy?: string;
+
   @ApiPropertyOptional({ description: 'Created by user info' })
   createdByUser?: {
     id: string;
