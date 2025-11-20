@@ -68,6 +68,19 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
         removeOnFail: 50,
       },
     }),
+    // Registrar queue de workflows
+    BullModule.registerQueue({
+      name: 'workflows',
+      defaultJobOptions: {
+        attempts: 3,
+        backoff: {
+          type: 'exponential',
+          delay: 5000,
+        },
+        removeOnComplete: 100,
+        removeOnFail: 100,
+      },
+    }),
     EventsModule, // Módulo global de eventos (incluye EventEmitterModule)
     AuthModule, // Importar AuthModule PRIMERO para que JwtStrategy esté disponible
     UsersModule,

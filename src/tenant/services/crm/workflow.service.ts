@@ -22,6 +22,7 @@ import {
 import { Prisma } from '../../../../generated/tenant-prisma';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
+import { OnEvent } from '@nestjs/event-emitter';
 
 /**
  * WorkflowService
