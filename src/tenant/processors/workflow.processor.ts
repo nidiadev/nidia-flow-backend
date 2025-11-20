@@ -278,7 +278,6 @@ export class WorkflowProcessor extends WorkerHost {
               assignedTo: actionConfig.assignedTo,
             },
             triggerData.userId || triggerData.createdBy || 'system',
-            [],
           );
         }
         break;
@@ -295,11 +294,7 @@ export class WorkflowProcessor extends WorkerHost {
 
       case WorkflowActionType.ADD_TAG:
         if (triggerData.customerId && actionConfig.tags) {
-          const customer = await this.customerService.findById(
-            triggerData.customerId,
-            triggerData.userId || 'system',
-            [],
-          );
+          const customer = await this.customerService.findById(triggerData.customerId);
           const currentTags = customer.tags || [];
           const newTags = [...new Set([...currentTags, ...actionConfig.tags])];
           await this.customerService.update(
@@ -312,11 +307,7 @@ export class WorkflowProcessor extends WorkerHost {
 
       case WorkflowActionType.UPDATE_CUSTOM_FIELD:
         if (triggerData.customerId && actionConfig.field && actionConfig.value !== undefined) {
-          const customer = await this.customerService.findById(
-            triggerData.customerId,
-            triggerData.userId || 'system',
-            [],
-          );
+          const customer = await this.customerService.findById(triggerData.customerId);
           const customFields = customer.customFields || {};
           customFields[actionConfig.field] = actionConfig.value;
           await this.customerService.update(
