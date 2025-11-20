@@ -116,30 +116,54 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   email?: string;
 
   @ApiPropertyOptional({ 
-    description: 'Phone number',
+    description: 'Phone number with country code (E.164 format)',
     example: '+57 300 123 4567'
   })
   @IsOptional()
   @IsString()
-  @Matches(/^[\+]?[0-9\s\-\(\)]+$/, { message: 'Invalid phone number format' })
+  @Matches(/^\+[1-9]\d{1,14}$/, { 
+    message: 'Phone number must include country code in E.164 format (e.g., +57 300 123 4567)' 
+  })
+  @Transform(({ value }) => {
+    if (!value) return value;
+    // Remove spaces and ensure it starts with +
+    const cleaned = value.replace(/\s/g, '');
+    return cleaned.startsWith('+') ? cleaned : `+${cleaned}`;
+  })
   phone?: string;
 
   @ApiPropertyOptional({ 
-    description: 'Mobile number',
+    description: 'Mobile number with country code (E.164 format)',
     example: '+57 300 123 4567'
   })
   @IsOptional()
   @IsString()
-  @Matches(/^[\+]?[0-9\s\-\(\)]+$/, { message: 'Invalid mobile number format' })
+  @Matches(/^\+[1-9]\d{1,14}$/, { 
+    message: 'Mobile number must include country code in E.164 format (e.g., +57 300 123 4567)' 
+  })
+  @Transform(({ value }) => {
+    if (!value) return value;
+    // Remove spaces and ensure it starts with +
+    const cleaned = value.replace(/\s/g, '');
+    return cleaned.startsWith('+') ? cleaned : `+${cleaned}`;
+  })
   mobile?: string;
 
   @ApiPropertyOptional({ 
-    description: 'WhatsApp number',
+    description: 'WhatsApp number with country code (E.164 format)',
     example: '+57 300 123 4567'
   })
   @IsOptional()
   @IsString()
-  @Matches(/^[\+]?[0-9\s\-\(\)]+$/, { message: 'Invalid WhatsApp number format' })
+  @Matches(/^\+[1-9]\d{1,14}$/, { 
+    message: 'WhatsApp number must include country code in E.164 format (e.g., +57 300 123 4567)' 
+  })
+  @Transform(({ value }) => {
+    if (!value) return value;
+    // Remove spaces and ensure it starts with +
+    const cleaned = value.replace(/\s/g, '');
+    return cleaned.startsWith('+') ? cleaned : `+${cleaned}`;
+  })
   whatsapp?: string;
 
   @ApiPropertyOptional({ 
