@@ -17,6 +17,7 @@ export interface TenantProvisioningData {
   adminFirstName?: string;
   adminLastName?: string;
   companyName: string;
+  planId?: string; // Plan ID para crear suscripción automáticamente
 }
 
 export interface ProvisioningProgress {

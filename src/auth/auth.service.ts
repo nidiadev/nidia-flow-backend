@@ -1,9 +1,10 @@
-import { Injectable, UnauthorizedException, BadRequestException, ConflictException, Inject, forwardRef } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException, ConflictException, Inject, forwardRef, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { UsersService } from '../users/users.service';
 import { TenantService } from '../tenant/tenant.service';
+import { PlansService } from '../plans/plans.service';
 import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
 import prisma from '../lib/prisma';
@@ -27,6 +28,7 @@ export class AuthService {
     private jwtService: JwtService,
     @Inject(forwardRef(() => TenantService))
     private tenantService: TenantService,
+    private plansService: PlansService,
     @InjectQueue('tenant-provisioning')
     private provisioningQueue: Queue,
   ) {}
@@ -409,10 +411,33 @@ export class AuthService {
     // 3. Hash password
     const hashedPassword = await bcrypt.hash(registerDto.password, 12);
 
-    // 4. Generar UUID para el tenant (se usará para el nombre de BD)
+    // 4. Obtener plan (del planId proporcionado o plan gratuito por defecto)
+    let plan;
+    if (registerDto.planId) {
+      plan = await this.plansService.findOne(registerDto.planId);
+      if (!plan) {
+        throw new NotFoundException(`Plan with ID ${registerDto.planId} not found`);
+      }
+      if (!plan.isActive) {
+        throw new BadRequestException(`Plan ${plan.displayName} is not active`);
+      }
+    } else {
+      // Buscar plan gratuito por defecto
+      plan = await this.plansService.findByName('free');
+      if (!plan) {
+        // Si no existe plan 'free', buscar el primer plan activo ordenado por sortOrder
+        const allPlans = await this.plansService.findAll();
+        plan = allPlans.find(p => p.isActive) || allPlans[0];
+        if (!plan) {
+          throw new BadRequestException('No active plans available. Please contact support.');
+        }
+      }
+    }
+
+    // 5. Generar UUID para el tenant (se usará para el nombre de BD)
     const tenantId = crypto.randomUUID();
     
-    // 5. Crear tenant en SuperAdmin (INACTIVO)
+    // 6. Crear tenant en SuperAdmin (INACTIVO)
     // IMPORTANTE: Extraer host y puerto del DATABASE_URL real (no usar localhost por defecto)
     const databaseUrl = process.env.DATABASE_URL;
     if (!databaseUrl) {
@@ -470,7 +495,7 @@ export class AuthService {
       },
     });
 
-    // 5. Crear usuario en SuperAdmin (INACTIVO)
+    // 7. Crear usuario en SuperAdmin (INACTIVO)
     const user = await this.usersService.create({
       email: registerDto.email,
       passwordHash: hashedPassword,
@@ -488,8 +513,8 @@ export class AuthService {
       data: { isActive: false },
     });
 
-    // 6. Encolar job de provisioning (ASÍNCRONO)
-    console.log(`🚀 [AUTH] Encolando job de provisioning para tenant ${tenant.id}`);
+    // 8. Encolar job de provisioning (ASÍNCRONO) con planId
+    console.log(`🚀 [AUTH] Encolando job de provisioning para tenant ${tenant.id} con plan ${plan.id} (${plan.displayName})`);
     const job = await this.provisioningQueue.add(
       'provision-tenant',
       {
@@ -501,6 +526,7 @@ export class AuthService {
         adminFirstName: registerDto.firstName,
         adminLastName: registerDto.lastName,
         companyName: registerDto.companyName,
+        planId: plan.id, // Pasar planId al job de provisioning
       } as TenantProvisioningData,
       {
         attempts: 3,
@@ -514,7 +540,7 @@ export class AuthService {
     );
     console.log(`✅ [AUTH] Job de provisioning encolado con ID: ${job.id}`);
 
-    // 7. Retornar respuesta INMEDIATA (sin token)
+    // 9. Retornar respuesta INMEDIATA (sin token)
     return {
       message: 'Registro exitoso. Estamos configurando tu espacio de trabajo...',
       status: 'provisioning',

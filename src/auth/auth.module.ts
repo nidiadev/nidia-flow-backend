@@ -13,6 +13,7 @@ import { PermissionsGuard } from './guards/permissions.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { UsersModule } from '../users/users.module';
 import { TenantModule } from '../tenant/tenant.module';
+import { PlansModule } from '../plans/plans.module';
 
 @Global() // Hacer AuthModule global para que PassportModule y JwtStrategy estén disponibles en todos los módulos
 @Module({
@@ -27,6 +28,7 @@ import { TenantModule } from '../tenant/tenant.module';
     }),
     forwardRef(() => UsersModule), // Usar forwardRef para manejar dependencias circulares
     forwardRef(() => TenantModule), // Importar TenantModule para tener acceso a TenantService, TenantGuard y TenantModulesService
+    forwardRef(() => PlansModule), // Importar PlansModule para usar PlansService en AuthService
   ],
   providers: [
     AuthService,

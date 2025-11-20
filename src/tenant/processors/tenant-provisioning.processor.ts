@@ -5,6 +5,7 @@ import * as crypto from 'crypto';
 import { TenantProvisioningService } from '../services/tenant-provisioning.service';
 import { TenantService } from '../tenant.service';
 import { UsersService } from '../../users/users.service';
+import { PlansService } from '../../plans/plans.service';
 import prisma from '../../lib/prisma';
 import {
   TenantProvisioningData,
@@ -31,6 +32,7 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
     private readonly provisioningService: TenantProvisioningService,
     private readonly tenantService: TenantService,
     private readonly usersService: UsersService,
+    private readonly plansService: PlansService,
   ) {
     super();
     // Usar REDIS_URL si está disponible (prioridad), sino usar variables individuales
@@ -55,7 +57,7 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
   }
 
   async process(job: Job<TenantProvisioningData>): Promise<void> {
-    const { tenantId, slug, dbName, adminEmail, adminPassword, adminFirstName, adminLastName, companyName } = job.data;
+    const { tenantId, slug, dbName, adminEmail, adminPassword, adminFirstName, adminLastName, companyName, planId } = job.data;
     const startedAt = new Date();
 
     this.logger.log(`🚀 [PROCESSOR] ==========================================`);
@@ -242,8 +244,8 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
       }
       this.logger.log(`✅ Final verification: Database ${dbName} exists and provisioning is complete`);
 
-      // Activar tenant y usuario en SuperAdmin
-      await this.activateTenant(tenantId, adminEmail);
+      // Activar tenant, crear suscripción y activar usuario en SuperAdmin
+      await this.activateTenant(tenantId, adminEmail, planId, slug);
 
       this.logger.log(`✅ Provisioning completed successfully for tenant ${tenantId}`);
       
@@ -304,8 +306,76 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
     }
   }
 
-  private async activateTenant(tenantId: string, adminEmail: string): Promise<void> {
-    // Activar tenant
+  private async activateTenant(tenantId: string, adminEmail: string, planId: string | undefined, slug: string): Promise<void> {
+    // 1. Obtener plan (del planId proporcionado o plan gratuito por defecto)
+    let plan;
+    if (planId) {
+      plan = await this.plansService.findOne(planId);
+      if (!plan) {
+        this.logger.warn(`Plan with ID ${planId} not found, using free plan as fallback`);
+        plan = await this.plansService.findByName('free');
+      }
+    } else {
+      // Buscar plan gratuito por defecto
+      plan = await this.plansService.findByName('free');
+      if (!plan) {
+        // Si no existe plan 'free', buscar el primer plan activo ordenado por sortOrder
+        const allPlans = await this.plansService.findAll();
+        plan = allPlans.find(p => p.isActive) || allPlans[0];
+      }
+    }
+
+    if (!plan) {
+      this.logger.error(`No plan found for tenant ${tenantId}. Cannot create subscription.`);
+      throw new Error('No plan available for subscription creation');
+    }
+
+    this.logger.log(`📦 Using plan ${plan.id} (${plan.displayName}) for tenant ${tenantId}`);
+
+    // 2. Crear suscripción automáticamente (1 mes gratis, todos los planes)
+    try {
+      const now = new Date();
+      const currentPeriodStart = now;
+      const currentPeriodEnd = new Date(now);
+      currentPeriodEnd.setMonth(currentPeriodEnd.getMonth() + 1); // 1 mes desde ahora
+
+      // Calcular montos (todos los planes son gratis por ahora)
+      const amount = 0; // Todos los planes son gratis por ahora
+      const discountAmount = 0;
+      const totalAmount = 0;
+      const currency = plan.currency || 'USD';
+
+      // Crear suscripción activa (sin trial, directamente activa)
+      const subscription = await prisma.subscription.create({
+        data: {
+          tenantId: tenantId,
+          planId: plan.id,
+          billingCycle: 'monthly',
+          amount,
+          discountAmount,
+          totalAmount,
+          currency,
+          status: 'active', // Activa directamente (todos los planes son gratis)
+          currentPeriodStart,
+          currentPeriodEnd,
+          trialStart: null, // Sin trial
+          trialEnd: null,
+          cancelAtPeriodEnd: false,
+          metadata: {
+            createdFrom: 'tenant_provisioning',
+            tenantSlug: slug,
+            autoCreated: true,
+          },
+        },
+      });
+
+      this.logger.log(`✅ Subscription created successfully for tenant ${tenantId}: ${subscription.id} (Plan: ${plan.displayName})`);
+    } catch (subscriptionError: any) {
+      this.logger.error(`❌ Failed to create subscription for tenant ${tenantId}:`, subscriptionError);
+      // No lanzamos error, el tenant ya está provisionado, pero logueamos el error
+    }
+
+    // 3. Activar tenant
     await prisma.tenant.update({
       where: { id: tenantId },
       data: {
@@ -315,13 +385,16 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
       },
     });
 
-    // Activar usuario en SuperAdmin
+    // 4. Activar usuario en SuperAdmin
     const user = await this.usersService.findByEmail(adminEmail);
     if (user) {
       await prisma.user.update({
         where: { id: user.id },
         data: { isActive: true },
       });
+      this.logger.log(`✅ User ${user.id} activated for tenant ${tenantId}`);
+    } else {
+      this.logger.warn(`⚠️ User with email ${adminEmail} not found in SuperAdmin database`);
     }
   }
 
