@@ -12,6 +12,7 @@ import { SmartListController } from '../controllers/crm/smart-list.controller';
 import { LeadScoringController } from '../controllers/crm/lead-scoring.controller';
 import { CrmReportsController } from '../controllers/crm/reports.controller';
 import { WorkflowController } from '../controllers/crm/workflow.controller';
+import { WebFormController, PublicWebFormController } from '../controllers/crm/web-form.controller';
 import { CustomerService } from '../services/crm/customer.service';
 import { InteractionService } from '../services/crm/interaction.service';
 import { CustomerContactService } from '../services/crm/customer-contact.service';
@@ -23,6 +24,7 @@ import { LeadScoringService } from '../services/crm/lead-scoring.service';
 import { CrmReportsService } from '../services/crm/crm-reports.service';
 import { WorkflowService } from '../services/crm/workflow.service';
 import { WorkflowEventHandlerService } from '../services/crm/workflow-event-handler.service';
+import { WebFormService } from '../services/crm/web-form.service';
 import { ActivityReminderProcessor } from '../processors/activity-reminder.processor';
 import { WorkflowProcessor } from '../processors/workflow.processor';
 import { ActivityReminderService } from '../services/crm/activity-reminder.service';
@@ -59,6 +61,8 @@ import { CommunicationsModule } from './communications.module';
     LeadScoringController,
     CrmReportsController,
     WorkflowController,
+    WebFormController,
+    PublicWebFormController,
   ],
   providers: [
     CustomerService,
@@ -72,6 +76,7 @@ import { CommunicationsModule } from './communications.module';
     CrmReportsService,
     WorkflowService,
     WorkflowEventHandlerService,
+    WebFormService,
     ActivityReminderProcessor,
     WorkflowProcessor,
     ActivityReminderService,
