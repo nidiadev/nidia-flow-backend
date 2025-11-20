@@ -48,7 +48,8 @@ model User {
   usersCreated              User[]              @relation("UserCreatedBy")
   customersCreated          Customer[]          @relation("CustomerCreatedBy")
   customersAssigned         Customer[]          @relation("CustomerAssignedTo")
-  interactions              Interaction[]
+  interactions              Interaction[]       @relation("InteractionCreatedBy")
+  interactionsAssigned      Interaction[]       @relation("InteractionAssignedTo")
   ordersCreated             Order[]             @relation("OrderCreatedBy")
   ordersAssigned            Order[]             @relation("OrderAssignedTo")
   tasksCreated              Task[]              @relation("TaskCreatedBy")
@@ -208,17 +209,31 @@ model Interaction {
 
   // Scheduling
   scheduledAt     DateTime? @map("scheduled_at")
+  scheduledEndAt  DateTime? @map("scheduled_end_at") // End time for meetings
   durationMinutes Int?      @map("duration_minutes")
+
+  // Priority and recurrence
+  priority            String    @default("normal") @db.VarChar(20) // low, normal, high, urgent
+  isRecurring         Boolean   @default(false) @map("is_recurring")
+  recurrenceRule      String?   @map("recurrence_rule") @db.VarChar(100) // daily, weekly, monthly, custom (RRULE format)
+  recurrenceEndDate   DateTime? @map("recurrence_end_date")
+  parentInteractionId String?   @map("parent_interaction_id") @db.Uuid // For recurring series
+  assignedTo          String?   @map("assigned_to") @db.Uuid // User assigned to this activity
 
   // Results
   outcome        String?   @db.VarChar(100) // interested, not_interested, callback, closed
   nextAction     String?   @map("next_action") @db.VarChar(255)
   nextActionDate DateTime? @map("next_action_date")
+  completedAt    DateTime? @map("completed_at")
 
   // References
   relatedOrderId String? @map("related_order_id") @db.Uuid
   relatedTaskId  String? @map("related_task_id") @db.Uuid
   relatedDealId  String? @map("related_deal_id") @db.Uuid
+
+  // Location (for meetings)
+  location    String? @db.VarChar(255)
+  locationUrl String? @map("location_url") @db.VarChar(500) // For video calls
 
   // Metadata
   metadata Json @default("{}") @map("metadata") // Email headers, call recording URL, etc
@@ -229,17 +244,46 @@ model Interaction {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  createdByUser User     @relation(fields: [createdBy], references: [id])
-  deal          Deal?    @relation(fields: [relatedDealId], references: [id])
+  customer          Customer           @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  createdByUser     User               @relation("InteractionCreatedBy", fields: [createdBy], references: [id])
+  assignedToUser    User?              @relation("InteractionAssignedTo", fields: [assignedTo], references: [id])
+  deal              Deal?              @relation(fields: [relatedDealId], references: [id])
+  parentInteraction Interaction?       @relation("RecurringInteractions", fields: [parentInteractionId], references: [id])
+  childInteractions Interaction[]      @relation("RecurringInteractions")
+  reminders         ActivityReminder[]
 
   @@index([customerId])
   @@index([type])
   @@index([createdBy])
+  @@index([assignedTo])
   @@index([scheduledAt])
+  @@index([status])
   @@index([createdAt])
   @@index([relatedDealId])
+  @@index([parentInteractionId])
+  @@index([scheduledAt, status])
+  @@index([assignedTo, scheduledAt])
   @@map("interactions")
+}
+
+model ActivityReminder {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  interactionId    String    @map("interaction_id") @db.Uuid
+  reminderMinutes  Int       @map("reminder_minutes") // Minutes before scheduledAt (e.g., 5, 60, 1440)
+  reminderAt       DateTime  @map("reminder_at") // Calculated: scheduledAt - reminderMinutes
+  sentAt           DateTime? @map("sent_at") // When reminder was sent
+  notificationSent Boolean   @default(false) @map("notification_sent")
+  emailSent        Boolean   @default(false) @map("email_sent")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  interaction Interaction @relation(fields: [interactionId], references: [id], onDelete: Cascade)
+
+  @@index([interactionId])
+  @@index([reminderAt])
+  @@index([notificationSent])
+  @@map("activity_reminders")
 }
 
 // ============================================
