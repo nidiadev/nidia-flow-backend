@@ -8,12 +8,16 @@ import { DealController } from '../controllers/crm/deal.controller';
 import { DealStageController } from '../controllers/crm/deal-stage.controller';
 import { InboxController } from '../controllers/crm/inbox.controller';
 import { CalendarController } from '../controllers/crm/calendar.controller';
+import { SmartListController } from '../controllers/crm/smart-list.controller';
+import { LeadScoringController } from '../controllers/crm/lead-scoring.controller';
 import { CustomerService } from '../services/crm/customer.service';
 import { InteractionService } from '../services/crm/interaction.service';
 import { CustomerContactService } from '../services/crm/customer-contact.service';
 import { DealService } from '../services/crm/deal.service';
 import { DealStageService } from '../services/crm/deal-stage.service';
 import { ConversationService } from '../services/crm/conversation.service';
+import { SmartListService } from '../services/crm/smart-list.service';
+import { LeadScoringService } from '../services/crm/lead-scoring.service';
 import { ActivityReminderProcessor } from '../processors/activity-reminder.processor';
 import { ActivityReminderService } from '../services/crm/activity-reminder.service';
 import { PlansModule } from '../../plans/plans.module';
@@ -42,6 +46,8 @@ import { CommunicationsModule } from './communications.module';
     DealStageController,
     InboxController,
     CalendarController,
+    SmartListController,
+    LeadScoringController,
   ],
   providers: [
     CustomerService,
@@ -50,6 +56,8 @@ import { CommunicationsModule } from './communications.module';
     DealService,
     DealStageService,
     ConversationService,
+    SmartListService,
+    LeadScoringService,
     ActivityReminderProcessor,
     ActivityReminderService,
   ],
@@ -60,6 +68,8 @@ import { CommunicationsModule } from './communications.module';
     DealService,
     DealStageService,
     ConversationService,
+    SmartListService,
+    LeadScoringService,
   ],
 })
 export class CrmModule {}
