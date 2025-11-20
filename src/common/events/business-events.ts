@@ -170,6 +170,41 @@ export interface LeadConvertedEvent {
   timestamp: Date;
 }
 
+// Eventos de Deals/Oportunidades
+export interface DealCreatedEvent {
+  dealId: string;
+  dealName: string;
+  customerId: string;
+  stageId: string;
+  amount: number;
+  createdBy: string;
+  timestamp: Date;
+}
+
+export interface DealStageChangedEvent {
+  dealId: string;
+  oldStageId: string;
+  newStageId: string;
+  changedBy: string;
+  timestamp: Date;
+}
+
+export interface DealWonEvent {
+  dealId: string;
+  dealName: string;
+  amount: number;
+  wonBy: string;
+  timestamp: Date;
+}
+
+export interface DealLostEvent {
+  dealId: string;
+  dealName: string;
+  lostReason: string;
+  lostBy: string;
+  timestamp: Date;
+}
+
 // Eventos de Comunicaciones
 export interface MessageSentEvent {
   messageId: string;
@@ -291,6 +326,12 @@ export const BusinessEventTypes = {
   CUSTOMER_CREATED: 'customer.created',
   CUSTOMER_STATUS_CHANGED: 'customer.status.changed',
   LEAD_CONVERTED: 'lead.converted',
+  
+  // Deals/Oportunidades
+  DEAL_CREATED: 'deal.created',
+  DEAL_STAGE_CHANGED: 'deal.stage.changed',
+  DEAL_WON: 'deal.won',
+  DEAL_LOST: 'deal.lost',
   
   // Comunicaciones
   MESSAGE_SENT: 'message.sent',
