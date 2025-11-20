@@ -41,7 +41,8 @@
     "validate:setup": "node scripts/validate-setup.js",
     "provision:tenant": "ts-node scripts/provision-tenant.ts",
     "migrate:all-tenants": "ts-node scripts/migrate-all-tenants.ts",
-    "assign:modules-to-plans": "ts-node scripts/assign-all-modules-to-plans.ts"
+    "assign:modules-to-plans": "ts-node scripts/assign-all-modules-to-plans.ts",
+    "cleanup:duplicate-jobs": "ts-node scripts/cleanup-duplicate-jobs.ts"
   },
   "dependencies": {
     "@nestjs/bullmq": "^11.0.4",
