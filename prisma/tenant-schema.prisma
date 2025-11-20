@@ -66,6 +66,9 @@ model User {
   companySettingsUpdated    CompanySetting[]    @relation("CompanySettingUpdatedBy")
   dealsCreated              Deal[]              @relation("DealCreatedBy")
   dealsAssigned             Deal[]              @relation("DealAssignedTo")
+  conversationsCreated      Conversation[]      @relation("ConversationCreatedBy")
+  conversationsAssigned     Conversation[]      @relation("ConversationAssignedTo")
+  conversationNotes         ConversationNote[]
 
   @@index([email])
   @@index([role])
@@ -155,6 +158,7 @@ model Customer {
   tasks          Task[]
   messageLogs    MessageLog[]
   deals          Deal[]
+  conversations  Conversation[]
 
   @@index([type])
   @@index([email])
@@ -182,8 +186,9 @@ model CustomerContact {
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
-  customer     Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  dealContacts DealContact[]
+  customer      Customer       @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  dealContacts  DealContact[]
+  conversations Conversation[]
 
   @@index([customerId])
   @@index([email])
@@ -963,6 +968,7 @@ model MessageLog {
   createdAt DateTime @default(now()) @map("created_at")
 
   customer Customer? @relation(fields: [customerId], references: [id])
+  message  Message?
 
   @@index([customerId])
   @@index([channel])
@@ -970,6 +976,137 @@ model MessageLog {
   @@index([createdAt])
   @@index([channel, status])
   @@map("message_logs")
+}
+
+// ============================================
+// CRM - UNIFIED INBOX / CONVERSATIONS
+// ============================================
+
+model Conversation {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Customer and contact
+  customerId String? @map("customer_id") @db.Uuid
+  contactId  String? @map("contact_id") @db.Uuid // CustomerContact ID if specific contact
+
+  // Channel and identification
+  channel       String  @db.VarChar(50) // whatsapp, email, sms
+  channelId     String? @map("channel_id") @db.VarChar(255) // External ID from provider (e.g., WhatsApp conversation ID)
+  recipient     String  @db.VarChar(255) // Email, phone number, etc.
+  recipientName String? @map("recipient_name") @db.VarChar(255)
+
+  // Status and assignment
+  status     String  @default("open") @db.VarChar(50) // open, pending, resolved, spam, archived
+  assignedTo String? @map("assigned_to") @db.Uuid
+  priority   String  @default("normal") @db.VarChar(20) // low, normal, high, urgent
+
+  // SLA tracking
+  slaMinutes      Int?      @map("sla_minutes") // SLA en minutos (ej: 60 = 1 hora)
+  firstMessageAt  DateTime? @map("first_message_at") // Primera vez que se recibió mensaje
+  firstResponseAt DateTime? @map("first_response_at") // Primera vez que se respondió
+  lastMessageAt   DateTime? @map("last_message_at") // Último mensaje recibido
+  lastResponseAt  DateTime? @map("last_response_at") // Última respuesta enviada
+  resolvedAt      DateTime? @map("resolved_at")
+  archivedAt      DateTime? @map("archived_at")
+
+  // Metadata
+  tags         String[] @map("tags")
+  metadata     Json     @default("{}") @map("metadata")
+  customFields Json     @default("{}") @map("custom_fields")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  customer       Customer?          @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  contact        CustomerContact?   @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  assignedToUser User?              @relation("ConversationAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser  User               @relation("ConversationCreatedBy", fields: [createdBy], references: [id])
+  messages       Message[]
+  notes          ConversationNote[]
+
+  @@index([customerId])
+  @@index([contactId])
+  @@index([channel])
+  @@index([status])
+  @@index([assignedTo])
+  @@index([createdAt])
+  @@index([lastMessageAt])
+  @@index([channel, status])
+  @@index([assignedTo, status])
+  @@map("conversations")
+}
+
+model Message {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Conversation
+  conversationId String @map("conversation_id") @db.Uuid
+
+  // Message details
+  direction String  @db.VarChar(20) // inbound, outbound
+  channel   String  @db.VarChar(50) // whatsapp, email, sms
+  type      String? @db.VarChar(50) // text, image, video, audio, document, location, etc.
+
+  // Content
+  subject  String? @db.VarChar(255) // For emails
+  body     String? @db.Text
+  bodyHtml String? @map("body_html") @db.Text // HTML content for emails
+
+  // Attachments
+  attachments Json @default("[]") @map("attachments") // Array of {url, filename, mimeType, size}
+
+  // Status tracking
+  status            String  @default("sent") @db.VarChar(50) // sent, delivered, read, failed
+  providerMessageId String? @map("provider_message_id") @db.VarChar(255) // External provider ID
+
+  // Timestamps
+  sentAt      DateTime? @map("sent_at")
+  deliveredAt DateTime? @map("delivered_at")
+  readAt      DateTime? @map("read_at")
+  failedAt    DateTime? @map("failed_at")
+
+  // Error handling
+  errorMessage String? @map("error_message") @db.Text
+
+  // Metadata
+  metadata  Json     @default("{}") @map("metadata")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  messageLog   MessageLog?  @relation(fields: [messageLogId], references: [id], onDelete: SetNull)
+  messageLogId String?      @unique @map("message_log_id") @db.Uuid
+
+  @@index([conversationId])
+  @@index([channel])
+  @@index([direction])
+  @@index([status])
+  @@index([createdAt])
+  @@map("messages")
+}
+
+model ConversationNote {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  conversationId String  @map("conversation_id") @db.Uuid
+  content        String  @db.Text
+  isInternal     Boolean @default(true) @map("is_internal") // Not visible to customer
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  conversation  Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  createdByUser User         @relation(fields: [createdBy], references: [id])
+
+  @@index([conversationId])
+  @@index([createdBy])
+  @@map("conversation_notes")
 }
 
 model Notification {
