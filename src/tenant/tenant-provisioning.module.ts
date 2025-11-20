@@ -1,12 +1,11 @@
-import { Module, forwardRef, Scope } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { TenantProvisioningProcessor } from './processors/tenant-provisioning.processor';
-import { TenantProvisioningService } from './services/tenant-provisioning.service';
 import { TenantProvisioningController } from './controllers/tenant-provisioning.controller';
-import { TenantService } from './tenant.service';
 import { UsersModule } from '../users/users.module';
 import { PlansModule } from '../plans/plans.module';
-import { TenantModule } from './tenant.module';
+// NO importar TenantModule directamente - es @Global() y tiene servicios REQUEST-scoped
+// Los servicios TenantService y TenantProvisioningService estarán disponibles por ser globales
 
 /**
  * TenantProvisioningModule
@@ -31,7 +30,8 @@ import { TenantModule } from './tenant.module';
     }),
     forwardRef(() => UsersModule),
     forwardRef(() => PlansModule),
-    forwardRef(() => TenantModule), // Importar TenantModule para acceder a TenantService y TenantProvisioningService
+    // NO importar TenantModule - es @Global() y sus servicios (TenantService, TenantProvisioningService) 
+    // estarán disponibles automáticamente sin necesidad de importarlo
   ],
   controllers: [
     TenantProvisioningController,
