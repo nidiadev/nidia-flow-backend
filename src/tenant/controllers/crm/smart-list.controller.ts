@@ -106,7 +106,7 @@ export class SmartListController {
   async delete(
     @Param('id') id: string,
     @Request() req: any,
-  ): Promise<ApiResponseDto<void>> {
+  ): Promise<ApiResponseDto<null>> {
     await this.smartListService.delete(id, req.user.userId);
     return {
       success: true,
@@ -145,7 +145,7 @@ export class SmartListController {
   async updateMembers(
     @Param('id') id: string,
     @Request() req: any,
-  ): Promise<ApiResponseDto<void>> {
+  ): Promise<ApiResponseDto<null>> {
     await this.smartListService.updateListMembers(id);
     return {
       success: true,

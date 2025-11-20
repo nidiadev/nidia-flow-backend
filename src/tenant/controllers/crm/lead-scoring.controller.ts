@@ -103,7 +103,7 @@ export class LeadScoringController {
   @ApiResponse({ status: 200, description: 'Rule deleted successfully' })
   async deleteRule(
     @Param('id') id: string,
-  ): Promise<ApiResponseDto<void>> {
+  ): Promise<ApiResponseDto<null>> {
     await this.leadScoringService.delete(id);
     return {
       success: true,
@@ -181,7 +181,7 @@ export class LeadScoringController {
   @ApiResponse({ status: 200, description: 'Default rules initialized successfully' })
   async initializeDefaults(
     @Request() req: any,
-  ): Promise<ApiResponseDto<void>> {
+  ): Promise<ApiResponseDto<null>> {
     await this.leadScoringService.initializeDefaultRules(req.user.userId);
     return {
       success: true,
