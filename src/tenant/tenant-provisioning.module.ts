@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module, forwardRef, Scope } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { TenantProvisioningProcessor } from './processors/tenant-provisioning.processor';
 import { TenantProvisioningService } from './services/tenant-provisioning.service';
@@ -37,7 +37,11 @@ import { TenantModule } from './tenant.module';
     TenantProvisioningController,
   ],
   providers: [
-    TenantProvisioningProcessor,
+    {
+      provide: TenantProvisioningProcessor,
+      useClass: TenantProvisioningProcessor,
+      scope: Scope.DEFAULT, // Forzar scope singleton explícitamente
+    },
     // TenantProvisioningService y TenantService se obtienen de TenantModule (global)
   ],
   exports: [
