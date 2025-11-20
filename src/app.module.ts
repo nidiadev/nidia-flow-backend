@@ -4,6 +4,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TenantModule } from './tenant/tenant.module';
+import { TenantProvisioningModule } from './tenant/tenant-provisioning.module';
 import { PlansModule } from './plans/plans.module';
 import { ModulesModule } from './modules/modules.module';
 import { OrdersModule } from './orders/orders.module';
@@ -42,19 +43,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
         };
       })(),
     }),
-    // Registrar queue de provisioning
-    BullModule.registerQueue({
-      name: 'tenant-provisioning',
-      defaultJobOptions: {
-        attempts: 3,
-        backoff: {
-          type: 'exponential',
-          delay: 5000, // 5s, 10s, 20s
-        },
-        removeOnComplete: 100, // Mantener últimos 100 completados
-        removeOnFail: 100, // Mantener últimos 100 fallidos
-      },
-    }),
+    // Queue de provisioning registrada en TenantProvisioningModule
     // Registrar queue de recordatorios de actividades
     BullModule.registerQueue({
       name: 'activity-reminders',
@@ -86,6 +75,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     UsersModule,
     ModulesModule, // Módulo para gestión de módulos del sistema - DEBE estar ANTES de TenantModule para que tenga prioridad en el routing
     PlansModule, // Módulo independiente para gestión de planes
+    TenantProvisioningModule, // Módulo separado para el procesador de provisioning (debe estar antes de TenantModule)
     TenantModule, // TenantModule depende de AuthModule
     OrdersModule,
     TasksModule,

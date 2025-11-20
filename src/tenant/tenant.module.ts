@@ -12,7 +12,7 @@ import { TenantContextMiddleware } from './middleware/tenant-context.middleware'
 import { TenantPrismaService } from './services/tenant-prisma.service';
 import { TenantHealthService } from './services/tenant-health.service';
 import { TenantProvisioningService } from './services/tenant-provisioning.service';
-import { TenantProvisioningProcessor } from './processors/tenant-provisioning.processor';
+// TenantProvisioningProcessor movido a TenantProvisioningModule
 import { TenantPermissionsGuard } from './guards/tenant-permissions.guard';
 import { TenantPrismaInterceptor } from './interceptors/tenant-prisma.interceptor';
 import { PlanLimitsGuard } from './guards/plan-limits.guard';
@@ -44,9 +44,7 @@ import { DashboardService } from './services/dashboard.service';
     }),
     forwardRef(() => PlansModule), // Importar PlansModule para usar PlansService en SubscriptionsController (usar forwardRef para evitar dependencia circular)
     forwardRef(() => UsersModule), // Para usar UsersService en processor
-    BullModule.registerQueue({
-      name: 'tenant-provisioning',
-    }),
+    // BullModule.registerQueue para tenant-provisioning movido a TenantProvisioningModule
     forwardRef(() => CrmModule), // Use forwardRef to avoid circular dependency with DashboardService
     ProductsModule,
     FinancialModule,
@@ -62,7 +60,7 @@ import { DashboardService } from './services/dashboard.service';
     TenantPrismaService,
     TenantHealthService,
     TenantProvisioningService,
-    TenantProvisioningProcessor,
+    // TenantProvisioningProcessor movido a TenantProvisioningModule para evitar problemas de scope
     TenantModulesService,
     DataScopeService,
     DashboardService,
