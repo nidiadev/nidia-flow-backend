@@ -33,11 +33,18 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
     private readonly usersService: UsersService,
   ) {
     super();
-    this.redis = new Redis({
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379'),
-      password: process.env.REDIS_PASSWORD || undefined,
-    });
+    // Usar REDIS_URL si está disponible (prioridad), sino usar variables individuales
+    if (process.env.REDIS_URL) {
+      this.redis = new Redis(process.env.REDIS_URL);
+      this.logger.log('✅ Redis connection initialized using REDIS_URL');
+    } else {
+      this.redis = new Redis({
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+        password: process.env.REDIS_PASSWORD || undefined,
+      });
+      this.logger.log('✅ Redis connection initialized using individual variables');
+    }
   }
 
   async onModuleDestroy() {
@@ -54,7 +61,9 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
     this.logger.log(`🚀 [PROCESSOR] ==========================================`);
     this.logger.log(`🚀 [PROCESSOR] Starting provisioning for tenant ${tenantId} (${slug})`);
     this.logger.log(`🚀 [PROCESSOR] Job ID: ${job.id}`);
+    this.logger.log(`🚀 [PROCESSOR] Job state: ${job.state}`);
     this.logger.log(`🚀 [PROCESSOR] Job data: ${JSON.stringify({ tenantId, slug, dbName, adminEmail, companyName })}`);
+    this.logger.log(`🚀 [PROCESSOR] Redis connection: ${this.redis ? 'OK' : 'FAILED'}`);
     this.logger.log(`🚀 [PROCESSOR] ==========================================`);
 
     try {

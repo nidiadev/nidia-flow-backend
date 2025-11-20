@@ -14,11 +14,16 @@ export class TenantProvisioningController {
     private provisioningQueue: Queue,
   ) {
     // Inicializar Redis para leer progreso
-    this.redis = new Redis({
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379'),
-      password: process.env.REDIS_PASSWORD || undefined,
-    });
+    // Usar REDIS_URL si está disponible (prioridad), sino usar variables individuales
+    if (process.env.REDIS_URL) {
+      this.redis = new Redis(process.env.REDIS_URL);
+    } else {
+      this.redis = new Redis({
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+        password: process.env.REDIS_PASSWORD || undefined,
+      });
+    }
   }
 
   @Get(':tenantId/status')
@@ -27,6 +32,19 @@ export class TenantProvisioningController {
       // 1. Obtener status desde Redis
       const key = `provisioning:${tenantId}`;
       const statusStr = await this.redis.get(key);
+
+      // 2. Obtener info del job en BullMQ (hacerlo antes para tener más información)
+      const jobs = await this.provisioningQueue.getJobs([
+        'active',
+        'waiting',
+        'completed',
+        'failed',
+      ]);
+
+      const job = jobs.find((j) => j.data?.tenantId === tenantId);
+
+      // Log para debugging
+      console.log(`[STATUS] Tenant ${tenantId}: Redis key exists: ${!!statusStr}, Job found: ${!!job}, Job state: ${job?.state || 'N/A'}`);
 
       if (!statusStr) {
         // Si no hay status en Redis, verificar en la BD si el tenant ya está provisionado
@@ -45,6 +63,8 @@ export class TenantProvisioningController {
             status: 'not_found',
             message: 'No se encontró información de provisioning',
             progress: 0,
+            jobId: job?.id,
+            jobState: job?.state,
           };
         }
 
@@ -56,6 +76,8 @@ export class TenantProvisioningController {
             currentStep: 'Provisioning completado',
             startedAt: tenant.provisionedAt || new Date(),
             completedAt: tenant.provisionedAt || new Date(),
+            jobId: job?.id,
+            jobState: job?.state,
           };
         }
 
@@ -66,6 +88,22 @@ export class TenantProvisioningController {
             progress: 0,
             currentStep: 'Error en provisioning',
             error: tenant.provisioningError || 'Error desconocido',
+            jobId: job?.id,
+            jobState: job?.state,
+          };
+        }
+
+        // Si está en proceso pero no hay Redis, verificar si hay un job activo
+        if (job && (job.state === 'active' || job.state === 'waiting')) {
+          return {
+            status: tenant.provisioningStatus || 'provisioning',
+            progress: job.progress || 0,
+            currentStep: 'Procesando...',
+            message: 'El job está en proceso pero no hay información de progreso en Redis',
+            jobId: job.id,
+            jobState: job.state,
+            attempts: job.attemptsMade || 0,
+            maxAttempts: job.opts?.attempts || 3,
           };
         }
 
@@ -75,25 +113,18 @@ export class TenantProvisioningController {
           progress: 0,
           currentStep: 'Verificando estado...',
           message: 'No se encontró información de progreso en tiempo real',
+          jobId: job?.id,
+          jobState: job?.state,
         };
       }
 
       const status: ProvisioningProgress = JSON.parse(statusStr);
 
-      // 2. Obtener info del job en BullMQ
-      const jobs = await this.provisioningQueue.getJobs([
-        'active',
-        'waiting',
-        'completed',
-        'failed',
-      ]);
-
-      const job = jobs.find((j) => j.data.tenantId === tenantId);
-
       // 3. Retornar información completa
       return {
         ...status,
         jobId: job?.id,
+        jobState: job?.state,
         attempts: job?.attemptsMade || 0,
         maxAttempts: job?.opts?.attempts || 3,
         nextRetryAt: job?.opts?.backoff && job?.attemptsMade && job.attemptsMade < (job?.opts?.attempts || 3)
@@ -101,6 +132,7 @@ export class TenantProvisioningController {
           : null,
       };
     } catch (error: any) {
+      console.error(`[STATUS] Error obteniendo status para tenant ${tenantId}:`, error);
       throw new BadRequestException(`Error obteniendo status: ${error.message}`);
     }
   }
