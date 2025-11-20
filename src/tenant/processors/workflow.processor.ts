@@ -306,7 +306,6 @@ export class WorkflowProcessor extends WorkerHost {
             triggerData.customerId,
             { tags: newTags },
             triggerData.userId || 'system',
-            [],
           );
         }
         break;
@@ -324,7 +323,6 @@ export class WorkflowProcessor extends WorkerHost {
             triggerData.customerId,
             { customFields },
             triggerData.userId || 'system',
-            [],
           );
         }
         break;
@@ -335,7 +333,6 @@ export class WorkflowProcessor extends WorkerHost {
             triggerData.customerId,
             { status: actionConfig.status },
             triggerData.userId || 'system',
-            [],
           );
         }
         break;
