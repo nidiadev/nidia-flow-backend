@@ -39,7 +39,8 @@
     "db:validate": "ts-node scripts/validate-schema.ts",
     "db:cleanup": "ts-node scripts/cleanup-sessions.ts",
     "validate:setup": "node scripts/validate-setup.js",
-    "provision:tenant": "ts-node scripts/provision-tenant.ts"
+    "provision:tenant": "ts-node scripts/provision-tenant.ts",
+    "migrate:all-tenants": "ts-node scripts/migrate-all-tenants.ts"
   },
   "dependencies": {
     "@nestjs/bullmq": "^11.0.4",
