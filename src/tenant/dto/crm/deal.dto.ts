@@ -269,9 +269,15 @@ export class DealFilterDto extends SearchDto {
     minimum: 0
   })
   @IsOptional()
-  @IsNumber()
-  @Min(0)
-  @Transform(({ value }) => parseFloat(value))
+  @Transform(({ value }) => {
+    if (value === undefined || value === null || value === '') {
+      return undefined;
+    }
+    const num = parseFloat(value);
+    return isNaN(num) ? undefined : num;
+  })
+  @IsNumber({}, { message: 'minAmount must be a number' })
+  @Min(0, { message: 'minAmount must not be less than 0' })
   minAmount?: number;
 
   @ApiPropertyOptional({ 
@@ -279,9 +285,15 @@ export class DealFilterDto extends SearchDto {
     minimum: 0
   })
   @IsOptional()
-  @IsNumber()
-  @Min(0)
-  @Transform(({ value }) => parseFloat(value))
+  @Transform(({ value }) => {
+    if (value === undefined || value === null || value === '') {
+      return undefined;
+    }
+    const num = parseFloat(value);
+    return isNaN(num) ? undefined : num;
+  })
+  @IsNumber({}, { message: 'maxAmount must be a number' })
+  @Min(0, { message: 'maxAmount must not be less than 0' })
   maxAmount?: number;
 
   @ApiPropertyOptional({ 
