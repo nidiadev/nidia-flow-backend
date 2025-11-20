@@ -224,8 +224,73 @@ exports.Prisma.InteractionScalarFieldEnum = {
   nextActionDate: 'nextActionDate',
   relatedOrderId: 'relatedOrderId',
   relatedTaskId: 'relatedTaskId',
+  relatedDealId: 'relatedDealId',
   metadata: 'metadata',
   createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DealStageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  displayName: 'displayName',
+  description: 'description',
+  probability: 'probability',
+  sortOrder: 'sortOrder',
+  isActive: 'isActive',
+  isDefault: 'isDefault',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DealScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  customerId: 'customerId',
+  stageId: 'stageId',
+  probability: 'probability',
+  amount: 'amount',
+  currency: 'currency',
+  expectedCloseDate: 'expectedCloseDate',
+  status: 'status',
+  lostReason: 'lostReason',
+  wonAt: 'wonAt',
+  lostAt: 'lostAt',
+  assignedTo: 'assignedTo',
+  createdBy: 'createdBy',
+  daysInStage: 'daysInStage',
+  lastStageChangeAt: 'lastStageChangeAt',
+  stageHistory: 'stageHistory',
+  tags: 'tags',
+  notes: 'notes',
+  customFields: 'customFields',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DealContactScalarFieldEnum = {
+  id: 'id',
+  dealId: 'dealId',
+  contactId: 'contactId',
+  role: 'role',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DealProductScalarFieldEnum = {
+  id: 'id',
+  dealId: 'dealId',
+  productId: 'productId',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  discount: 'discount',
+  total: 'total',
+  notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -344,6 +409,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   cancellationReason: 'cancellationReason',
   customFields: 'customFields',
   metadata: 'metadata',
+  dealId: 'dealId',
   createdBy: 'createdBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -679,6 +745,10 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   CustomerContact: 'CustomerContact',
   Interaction: 'Interaction',
+  DealStage: 'DealStage',
+  Deal: 'Deal',
+  DealContact: 'DealContact',
+  DealProduct: 'DealProduct',
   Category: 'Category',
   Product: 'Product',
   ProductVariant: 'ProductVariant',

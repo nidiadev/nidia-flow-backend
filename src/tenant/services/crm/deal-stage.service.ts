@@ -199,7 +199,7 @@ export class DealStageService {
   /**
    * Get default stages (for seeding)
    */
-  getDefaultStages(): Array<Omit<CreateDealStageDto, 'name' | 'displayName'>> {
+  getDefaultStages(): Array<CreateDealStageDto> {
     return [
       { name: 'qualification', displayName: 'Calificación', probability: 10, sortOrder: 0, color: '#94a3b8' },
       { name: 'proposal', displayName: 'Propuesta', probability: 30, sortOrder: 1, color: '#3b82f6' },
@@ -225,13 +225,18 @@ export class DealStageService {
       }
 
       const defaultStages = this.getDefaultStages();
-      const createdStages = [];
+      const createdStages: any[] = [];
 
       for (let i = 0; i < defaultStages.length; i++) {
         const stageData = defaultStages[i];
         const stage = await prisma.dealStage.create({
           data: {
-            ...stageData,
+            name: stageData.name,
+            displayName: stageData.displayName,
+            description: stageData.description,
+            probability: stageData.probability,
+            sortOrder: stageData.sortOrder ?? i,
+            color: stageData.color,
             isDefault: i === 0, // First stage is default
           },
         });

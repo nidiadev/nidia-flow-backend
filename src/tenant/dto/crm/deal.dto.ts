@@ -26,6 +26,40 @@ export enum DealStatus {
 }
 
 /**
+ * Deal Product DTO (used in CreateDealDto)
+ */
+export class DealProductDto {
+  @ApiProperty({ description: 'Product ID', format: 'uuid' })
+  @IsUUID()
+  productId: string;
+
+  @ApiProperty({ description: 'Quantity', minimum: 1, example: 1 })
+  @IsNumber()
+  @Min(1)
+  @Transform(({ value }) => parseInt(value))
+  quantity: number;
+
+  @ApiProperty({ description: 'Unit price', minimum: 0, example: 1000000.00 })
+  @IsNumber()
+  @Min(0)
+  @Transform(({ value }) => parseFloat(value))
+  unitPrice: number;
+
+  @ApiPropertyOptional({ description: 'Discount percentage', minimum: 0, maximum: 100, example: 10 })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(100)
+  @Transform(({ value }) => parseFloat(value || 0))
+  discount?: number;
+
+  @ApiPropertyOptional({ description: 'Notes about this product in the deal' })
+  @IsOptional()
+  @IsString()
+  notes?: string;
+}
+
+/**
  * Create Deal DTO
  */
 export class CreateDealDto extends BaseCustomFieldsDto {
@@ -146,54 +180,13 @@ export class CreateDealDto extends BaseCustomFieldsDto {
 
   @ApiPropertyOptional({ 
     description: 'Product IDs with quantities and prices',
-    type: 'array',
-    items: {
-      type: 'object',
-      properties: {
-        productId: { type: 'string', format: 'uuid' },
-        quantity: { type: 'number', minimum: 1 },
-        unitPrice: { type: 'number', minimum: 0 },
-        discount: { type: 'number', minimum: 0, maximum: 100 },
-        notes: { type: 'string' }
-      }
-    }
+    type: [DealProductDto]
   })
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => DealProductDto)
   products?: DealProductDto[];
-}
-
-export class DealProductDto {
-  @ApiProperty({ description: 'Product ID', format: 'uuid' })
-  @IsUUID()
-  productId: string;
-
-  @ApiProperty({ description: 'Quantity', minimum: 1, example: 1 })
-  @IsNumber()
-  @Min(1)
-  @Transform(({ value }) => parseInt(value))
-  quantity: number;
-
-  @ApiProperty({ description: 'Unit price', minimum: 0, example: 1000000.00 })
-  @IsNumber()
-  @Min(0)
-  @Transform(({ value }) => parseFloat(value))
-  unitPrice: number;
-
-  @ApiPropertyOptional({ description: 'Discount percentage', minimum: 0, maximum: 100, example: 10 })
-  @IsOptional()
-  @IsNumber()
-  @Min(0)
-  @Max(100)
-  @Transform(({ value }) => parseFloat(value || 0))
-  discount?: number;
-
-  @ApiPropertyOptional({ description: 'Notes about this product in the deal' })
-  @IsOptional()
-  @IsString()
-  notes?: string;
 }
 
 /**
@@ -452,7 +445,11 @@ export class DealResponseDto {
   @ApiPropertyOptional({ description: 'Notes' })
   notes?: string;
 
-  @ApiProperty({ description: 'Custom fields', type: 'object' })
+  @ApiProperty({ 
+    description: 'Custom fields', 
+    type: 'object',
+    additionalProperties: true,
+  })
   customFields: Record<string, any>;
 
   @ApiProperty({ description: 'Linked contacts', type: 'array' })

@@ -39,6 +39,26 @@ export type CustomerContact = $Result.DefaultSelection<Prisma.$CustomerContactPa
  */
 export type Interaction = $Result.DefaultSelection<Prisma.$InteractionPayload>
 /**
+ * Model DealStage
+ * 
+ */
+export type DealStage = $Result.DefaultSelection<Prisma.$DealStagePayload>
+/**
+ * Model Deal
+ * 
+ */
+export type Deal = $Result.DefaultSelection<Prisma.$DealPayload>
+/**
+ * Model DealContact
+ * 
+ */
+export type DealContact = $Result.DefaultSelection<Prisma.$DealContactPayload>
+/**
+ * Model DealProduct
+ * 
+ */
+export type DealProduct = $Result.DefaultSelection<Prisma.$DealProductPayload>
+/**
  * Model Category
  * 
  */
@@ -321,6 +341,46 @@ export class PrismaClient<
     * ```
     */
   get interaction(): Prisma.InteractionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dealStage`: Exposes CRUD operations for the **DealStage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DealStages
+    * const dealStages = await prisma.dealStage.findMany()
+    * ```
+    */
+  get dealStage(): Prisma.DealStageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.deal`: Exposes CRUD operations for the **Deal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Deals
+    * const deals = await prisma.deal.findMany()
+    * ```
+    */
+  get deal(): Prisma.DealDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dealContact`: Exposes CRUD operations for the **DealContact** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DealContacts
+    * const dealContacts = await prisma.dealContact.findMany()
+    * ```
+    */
+  get dealContact(): Prisma.DealContactDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.dealProduct`: Exposes CRUD operations for the **DealProduct** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DealProducts
+    * const dealProducts = await prisma.dealProduct.findMany()
+    * ```
+    */
+  get dealProduct(): Prisma.DealProductDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.category`: Exposes CRUD operations for the **Category** model.
@@ -996,6 +1056,10 @@ export namespace Prisma {
     Customer: 'Customer',
     CustomerContact: 'CustomerContact',
     Interaction: 'Interaction',
+    DealStage: 'DealStage',
+    Deal: 'Deal',
+    DealContact: 'DealContact',
+    DealProduct: 'DealProduct',
     Category: 'Category',
     Product: 'Product',
     ProductVariant: 'ProductVariant',
@@ -1037,7 +1101,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
+      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1408,6 +1472,302 @@ export namespace Prisma {
           count: {
             args: Prisma.InteractionCountArgs<ExtArgs>
             result: $Utils.Optional<InteractionCountAggregateOutputType> | number
+          }
+        }
+      }
+      DealStage: {
+        payload: Prisma.$DealStagePayload<ExtArgs>
+        fields: Prisma.DealStageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DealStageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DealStageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>
+          }
+          findFirst: {
+            args: Prisma.DealStageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DealStageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>
+          }
+          findMany: {
+            args: Prisma.DealStageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>[]
+          }
+          create: {
+            args: Prisma.DealStageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>
+          }
+          createMany: {
+            args: Prisma.DealStageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DealStageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>[]
+          }
+          delete: {
+            args: Prisma.DealStageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>
+          }
+          update: {
+            args: Prisma.DealStageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>
+          }
+          deleteMany: {
+            args: Prisma.DealStageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DealStageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DealStageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>[]
+          }
+          upsert: {
+            args: Prisma.DealStageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealStagePayload>
+          }
+          aggregate: {
+            args: Prisma.DealStageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDealStage>
+          }
+          groupBy: {
+            args: Prisma.DealStageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DealStageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DealStageCountArgs<ExtArgs>
+            result: $Utils.Optional<DealStageCountAggregateOutputType> | number
+          }
+        }
+      }
+      Deal: {
+        payload: Prisma.$DealPayload<ExtArgs>
+        fields: Prisma.DealFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DealFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DealFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          findFirst: {
+            args: Prisma.DealFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DealFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          findMany: {
+            args: Prisma.DealFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>[]
+          }
+          create: {
+            args: Prisma.DealCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          createMany: {
+            args: Prisma.DealCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DealCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>[]
+          }
+          delete: {
+            args: Prisma.DealDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          update: {
+            args: Prisma.DealUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          deleteMany: {
+            args: Prisma.DealDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DealUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DealUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>[]
+          }
+          upsert: {
+            args: Prisma.DealUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          aggregate: {
+            args: Prisma.DealAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeal>
+          }
+          groupBy: {
+            args: Prisma.DealGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DealGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DealCountArgs<ExtArgs>
+            result: $Utils.Optional<DealCountAggregateOutputType> | number
+          }
+        }
+      }
+      DealContact: {
+        payload: Prisma.$DealContactPayload<ExtArgs>
+        fields: Prisma.DealContactFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DealContactFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DealContactFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>
+          }
+          findFirst: {
+            args: Prisma.DealContactFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DealContactFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>
+          }
+          findMany: {
+            args: Prisma.DealContactFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>[]
+          }
+          create: {
+            args: Prisma.DealContactCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>
+          }
+          createMany: {
+            args: Prisma.DealContactCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DealContactCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>[]
+          }
+          delete: {
+            args: Prisma.DealContactDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>
+          }
+          update: {
+            args: Prisma.DealContactUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>
+          }
+          deleteMany: {
+            args: Prisma.DealContactDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DealContactUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DealContactUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>[]
+          }
+          upsert: {
+            args: Prisma.DealContactUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealContactPayload>
+          }
+          aggregate: {
+            args: Prisma.DealContactAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDealContact>
+          }
+          groupBy: {
+            args: Prisma.DealContactGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DealContactGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DealContactCountArgs<ExtArgs>
+            result: $Utils.Optional<DealContactCountAggregateOutputType> | number
+          }
+        }
+      }
+      DealProduct: {
+        payload: Prisma.$DealProductPayload<ExtArgs>
+        fields: Prisma.DealProductFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DealProductFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DealProductFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>
+          }
+          findFirst: {
+            args: Prisma.DealProductFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DealProductFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>
+          }
+          findMany: {
+            args: Prisma.DealProductFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>[]
+          }
+          create: {
+            args: Prisma.DealProductCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>
+          }
+          createMany: {
+            args: Prisma.DealProductCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DealProductCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>[]
+          }
+          delete: {
+            args: Prisma.DealProductDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>
+          }
+          update: {
+            args: Prisma.DealProductUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>
+          }
+          deleteMany: {
+            args: Prisma.DealProductDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DealProductUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DealProductUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>[]
+          }
+          upsert: {
+            args: Prisma.DealProductUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealProductPayload>
+          }
+          aggregate: {
+            args: Prisma.DealProductAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDealProduct>
+          }
+          groupBy: {
+            args: Prisma.DealProductGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DealProductGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DealProductCountArgs<ExtArgs>
+            result: $Utils.Optional<DealProductCountAggregateOutputType> | number
           }
         }
       }
@@ -3214,6 +3574,10 @@ export namespace Prisma {
     customer?: CustomerOmit
     customerContact?: CustomerContactOmit
     interaction?: InteractionOmit
+    dealStage?: DealStageOmit
+    deal?: DealOmit
+    dealContact?: DealContactOmit
+    dealProduct?: DealProductOmit
     category?: CategoryOmit
     product?: ProductOmit
     productVariant?: ProductVariantOmit
@@ -3336,6 +3700,8 @@ export namespace Prisma {
     taskChecklistsCompleted: number
     auditLogsUser: number
     companySettingsUpdated: number
+    dealsCreated: number
+    dealsAssigned: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3358,6 +3724,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: boolean | UserCountOutputTypeCountTaskChecklistsCompletedArgs
     auditLogsUser?: boolean | UserCountOutputTypeCountAuditLogsUserArgs
     companySettingsUpdated?: boolean | UserCountOutputTypeCountCompanySettingsUpdatedArgs
+    dealsCreated?: boolean | UserCountOutputTypeCountDealsCreatedArgs
+    dealsAssigned?: boolean | UserCountOutputTypeCountDealsAssignedArgs
   }
 
   // Custom InputTypes
@@ -3504,6 +3872,20 @@ export namespace Prisma {
     where?: CompanySettingWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDealsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDealsAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
 
   /**
    * Count Type CustomerCountOutputType
@@ -3515,6 +3897,7 @@ export namespace Prisma {
     orders: number
     tasks: number
     messageLogs: number
+    deals: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3523,6 +3906,7 @@ export namespace Prisma {
     orders?: boolean | CustomerCountOutputTypeCountOrdersArgs
     tasks?: boolean | CustomerCountOutputTypeCountTasksArgs
     messageLogs?: boolean | CustomerCountOutputTypeCountMessageLogsArgs
+    deals?: boolean | CustomerCountOutputTypeCountDealsArgs
   }
 
   // Custom InputTypes
@@ -3569,6 +3953,133 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountMessageLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageLogWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+
+  /**
+   * Count Type CustomerContactCountOutputType
+   */
+
+  export type CustomerContactCountOutputType = {
+    dealContacts: number
+  }
+
+  export type CustomerContactCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dealContacts?: boolean | CustomerContactCountOutputTypeCountDealContactsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CustomerContactCountOutputType without action
+   */
+  export type CustomerContactCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerContactCountOutputType
+     */
+    select?: CustomerContactCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CustomerContactCountOutputType without action
+   */
+  export type CustomerContactCountOutputTypeCountDealContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealContactWhereInput
+  }
+
+
+  /**
+   * Count Type DealStageCountOutputType
+   */
+
+  export type DealStageCountOutputType = {
+    deals: number
+  }
+
+  export type DealStageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deals?: boolean | DealStageCountOutputTypeCountDealsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DealStageCountOutputType without action
+   */
+  export type DealStageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStageCountOutputType
+     */
+    select?: DealStageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DealStageCountOutputType without action
+   */
+  export type DealStageCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+
+  /**
+   * Count Type DealCountOutputType
+   */
+
+  export type DealCountOutputType = {
+    contacts: number
+    products: number
+    interactions: number
+    orders: number
+  }
+
+  export type DealCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contacts?: boolean | DealCountOutputTypeCountContactsArgs
+    products?: boolean | DealCountOutputTypeCountProductsArgs
+    interactions?: boolean | DealCountOutputTypeCountInteractionsArgs
+    orders?: boolean | DealCountOutputTypeCountOrdersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DealCountOutputType without action
+   */
+  export type DealCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealCountOutputType
+     */
+    select?: DealCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DealCountOutputType without action
+   */
+  export type DealCountOutputTypeCountContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealContactWhereInput
+  }
+
+  /**
+   * DealCountOutputType without action
+   */
+  export type DealCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealProductWhereInput
+  }
+
+  /**
+   * DealCountOutputType without action
+   */
+  export type DealCountOutputTypeCountInteractionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InteractionWhereInput
+  }
+
+  /**
+   * DealCountOutputType without action
+   */
+  export type DealCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
   }
 
 
@@ -3623,6 +4134,7 @@ export namespace Prisma {
     comboItemsAsCombo: number
     comboItemsAsProduct: number
     stockAlerts: number
+    dealProducts: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3632,6 +4144,7 @@ export namespace Prisma {
     comboItemsAsCombo?: boolean | ProductCountOutputTypeCountComboItemsAsComboArgs
     comboItemsAsProduct?: boolean | ProductCountOutputTypeCountComboItemsAsProductArgs
     stockAlerts?: boolean | ProductCountOutputTypeCountStockAlertsArgs
+    dealProducts?: boolean | ProductCountOutputTypeCountDealProductsArgs
   }
 
   // Custom InputTypes
@@ -3685,6 +4198,13 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountStockAlertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StockAlertWhereInput
+  }
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountDealProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealProductWhereInput
   }
 
 
@@ -4145,6 +4665,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: boolean | User$taskChecklistsCompletedArgs<ExtArgs>
     auditLogsUser?: boolean | User$auditLogsUserArgs<ExtArgs>
     companySettingsUpdated?: boolean | User$companySettingsUpdatedArgs<ExtArgs>
+    dealsCreated?: boolean | User$dealsCreatedArgs<ExtArgs>
+    dealsAssigned?: boolean | User$dealsAssignedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4235,6 +4757,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: boolean | User$taskChecklistsCompletedArgs<ExtArgs>
     auditLogsUser?: boolean | User$auditLogsUserArgs<ExtArgs>
     companySettingsUpdated?: boolean | User$companySettingsUpdatedArgs<ExtArgs>
+    dealsCreated?: boolean | User$dealsCreatedArgs<ExtArgs>
+    dealsAssigned?: boolean | User$dealsAssignedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4267,6 +4791,8 @@ export namespace Prisma {
       taskChecklistsCompleted: Prisma.$TaskChecklistPayload<ExtArgs>[]
       auditLogsUser: Prisma.$AuditLogPayload<ExtArgs>[]
       companySettingsUpdated: Prisma.$CompanySettingPayload<ExtArgs>[]
+      dealsCreated: Prisma.$DealPayload<ExtArgs>[]
+      dealsAssigned: Prisma.$DealPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4701,6 +5227,8 @@ export namespace Prisma {
     taskChecklistsCompleted<T extends User$taskChecklistsCompletedArgs<ExtArgs> = {}>(args?: Subset<T, User$taskChecklistsCompletedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     auditLogsUser<T extends User$auditLogsUserArgs<ExtArgs> = {}>(args?: Subset<T, User$auditLogsUserArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     companySettingsUpdated<T extends User$companySettingsUpdatedArgs<ExtArgs> = {}>(args?: Subset<T, User$companySettingsUpdatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanySettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dealsCreated<T extends User$dealsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$dealsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dealsAssigned<T extends User$dealsAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$dealsAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5616,6 +6144,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CompanySettingScalarFieldEnum | CompanySettingScalarFieldEnum[]
+  }
+
+  /**
+   * User.dealsCreated
+   */
+  export type User$dealsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * User.dealsAssigned
+   */
+  export type User$dealsAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
   }
 
   /**
@@ -7127,6 +7703,7 @@ export namespace Prisma {
     orders?: boolean | Customer$ordersArgs<ExtArgs>
     tasks?: boolean | Customer$tasksArgs<ExtArgs>
     messageLogs?: boolean | Customer$messageLogsArgs<ExtArgs>
+    deals?: boolean | Customer$dealsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -7266,6 +7843,7 @@ export namespace Prisma {
     orders?: boolean | Customer$ordersArgs<ExtArgs>
     tasks?: boolean | Customer$tasksArgs<ExtArgs>
     messageLogs?: boolean | Customer$messageLogsArgs<ExtArgs>
+    deals?: boolean | Customer$dealsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7287,6 +7865,7 @@ export namespace Prisma {
       orders: Prisma.$OrderPayload<ExtArgs>[]
       tasks: Prisma.$TaskPayload<ExtArgs>[]
       messageLogs: Prisma.$MessageLogPayload<ExtArgs>[]
+      deals: Prisma.$DealPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7728,6 +8307,7 @@ export namespace Prisma {
     orders<T extends Customer$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tasks<T extends Customer$tasksArgs<ExtArgs> = {}>(args?: Subset<T, Customer$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     messageLogs<T extends Customer$messageLogsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$messageLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    deals<T extends Customer$dealsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8330,6 +8910,30 @@ export namespace Prisma {
   }
 
   /**
+   * Customer.deals
+   */
+  export type Customer$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
    * Customer without action
    */
   export type CustomerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8585,6 +9189,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    dealContacts?: boolean | CustomerContact$dealContactsArgs<ExtArgs>
+    _count?: boolean | CustomerContactCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customerContact"]>
 
   export type CustomerContactSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -8643,6 +9249,8 @@ export namespace Prisma {
   export type CustomerContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "firstName" | "lastName" | "position" | "department" | "email" | "phone" | "mobile" | "isPrimary" | "isActive" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["customerContact"]>
   export type CustomerContactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    dealContacts?: boolean | CustomerContact$dealContactsArgs<ExtArgs>
+    _count?: boolean | CustomerContactCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
@@ -8655,6 +9263,7 @@ export namespace Prisma {
     name: "CustomerContact"
     objects: {
       customer: Prisma.$CustomerPayload<ExtArgs>
+      dealContacts: Prisma.$DealContactPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9066,6 +9675,7 @@ export namespace Prisma {
   export interface Prisma__CustomerContactClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    dealContacts<T extends CustomerContact$dealContactsArgs<ExtArgs> = {}>(args?: Subset<T, CustomerContact$dealContactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9505,6 +10115,30 @@ export namespace Prisma {
   }
 
   /**
+   * CustomerContact.dealContacts
+   */
+  export type CustomerContact$dealContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    where?: DealContactWhereInput
+    orderBy?: DealContactOrderByWithRelationInput | DealContactOrderByWithRelationInput[]
+    cursor?: DealContactWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealContactScalarFieldEnum | DealContactScalarFieldEnum[]
+  }
+
+  /**
    * CustomerContact without action
    */
   export type CustomerContactDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9558,6 +10192,7 @@ export namespace Prisma {
     nextActionDate: Date | null
     relatedOrderId: string | null
     relatedTaskId: string | null
+    relatedDealId: string | null
     createdBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9578,6 +10213,7 @@ export namespace Prisma {
     nextActionDate: Date | null
     relatedOrderId: string | null
     relatedTaskId: string | null
+    relatedDealId: string | null
     createdBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -9598,6 +10234,7 @@ export namespace Prisma {
     nextActionDate: number
     relatedOrderId: number
     relatedTaskId: number
+    relatedDealId: number
     metadata: number
     createdBy: number
     createdAt: number
@@ -9629,6 +10266,7 @@ export namespace Prisma {
     nextActionDate?: true
     relatedOrderId?: true
     relatedTaskId?: true
+    relatedDealId?: true
     createdBy?: true
     createdAt?: true
     updatedAt?: true
@@ -9649,6 +10287,7 @@ export namespace Prisma {
     nextActionDate?: true
     relatedOrderId?: true
     relatedTaskId?: true
+    relatedDealId?: true
     createdBy?: true
     createdAt?: true
     updatedAt?: true
@@ -9669,6 +10308,7 @@ export namespace Prisma {
     nextActionDate?: true
     relatedOrderId?: true
     relatedTaskId?: true
+    relatedDealId?: true
     metadata?: true
     createdBy?: true
     createdAt?: true
@@ -9777,6 +10417,7 @@ export namespace Prisma {
     nextActionDate: Date | null
     relatedOrderId: string | null
     relatedTaskId: string | null
+    relatedDealId: string | null
     metadata: JsonValue
     createdBy: string
     createdAt: Date
@@ -9817,12 +10458,14 @@ export namespace Prisma {
     nextActionDate?: boolean
     relatedOrderId?: boolean
     relatedTaskId?: boolean
+    relatedDealId?: boolean
     metadata?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    deal?: boolean | Interaction$dealArgs<ExtArgs>
   }, ExtArgs["result"]["interaction"]>
 
   export type InteractionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9840,12 +10483,14 @@ export namespace Prisma {
     nextActionDate?: boolean
     relatedOrderId?: boolean
     relatedTaskId?: boolean
+    relatedDealId?: boolean
     metadata?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    deal?: boolean | Interaction$dealArgs<ExtArgs>
   }, ExtArgs["result"]["interaction"]>
 
   export type InteractionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9863,12 +10508,14 @@ export namespace Prisma {
     nextActionDate?: boolean
     relatedOrderId?: boolean
     relatedTaskId?: boolean
+    relatedDealId?: boolean
     metadata?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    deal?: boolean | Interaction$dealArgs<ExtArgs>
   }, ExtArgs["result"]["interaction"]>
 
   export type InteractionSelectScalar = {
@@ -9886,24 +10533,28 @@ export namespace Prisma {
     nextActionDate?: boolean
     relatedOrderId?: boolean
     relatedTaskId?: boolean
+    relatedDealId?: boolean
     metadata?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type InteractionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "type" | "direction" | "subject" | "content" | "status" | "scheduledAt" | "durationMinutes" | "outcome" | "nextAction" | "nextActionDate" | "relatedOrderId" | "relatedTaskId" | "metadata" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["interaction"]>
+  export type InteractionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "type" | "direction" | "subject" | "content" | "status" | "scheduledAt" | "durationMinutes" | "outcome" | "nextAction" | "nextActionDate" | "relatedOrderId" | "relatedTaskId" | "relatedDealId" | "metadata" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["interaction"]>
   export type InteractionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    deal?: boolean | Interaction$dealArgs<ExtArgs>
   }
   export type InteractionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    deal?: boolean | Interaction$dealArgs<ExtArgs>
   }
   export type InteractionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    deal?: boolean | Interaction$dealArgs<ExtArgs>
   }
 
   export type $InteractionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9911,6 +10562,7 @@ export namespace Prisma {
     objects: {
       customer: Prisma.$CustomerPayload<ExtArgs>
       createdByUser: Prisma.$UserPayload<ExtArgs>
+      deal: Prisma.$DealPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9927,6 +10579,7 @@ export namespace Prisma {
       nextActionDate: Date | null
       relatedOrderId: string | null
       relatedTaskId: string | null
+      relatedDealId: string | null
       metadata: Prisma.JsonValue
       createdBy: string
       createdAt: Date
@@ -10327,6 +10980,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     createdByUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deal<T extends Interaction$dealArgs<ExtArgs> = {}>(args?: Subset<T, Interaction$dealArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10370,6 +11024,7 @@ export namespace Prisma {
     readonly nextActionDate: FieldRef<"Interaction", 'DateTime'>
     readonly relatedOrderId: FieldRef<"Interaction", 'String'>
     readonly relatedTaskId: FieldRef<"Interaction", 'String'>
+    readonly relatedDealId: FieldRef<"Interaction", 'String'>
     readonly metadata: FieldRef<"Interaction", 'Json'>
     readonly createdBy: FieldRef<"Interaction", 'String'>
     readonly createdAt: FieldRef<"Interaction", 'DateTime'>
@@ -10770,6 +11425,25 @@ export namespace Prisma {
   }
 
   /**
+   * Interaction.deal
+   */
+  export type Interaction$dealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+  }
+
+  /**
    * Interaction without action
    */
   export type InteractionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10785,6 +11459,4949 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: InteractionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DealStage
+   */
+
+  export type AggregateDealStage = {
+    _count: DealStageCountAggregateOutputType | null
+    _avg: DealStageAvgAggregateOutputType | null
+    _sum: DealStageSumAggregateOutputType | null
+    _min: DealStageMinAggregateOutputType | null
+    _max: DealStageMaxAggregateOutputType | null
+  }
+
+  export type DealStageAvgAggregateOutputType = {
+    probability: number | null
+    sortOrder: number | null
+  }
+
+  export type DealStageSumAggregateOutputType = {
+    probability: number | null
+    sortOrder: number | null
+  }
+
+  export type DealStageMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    displayName: string | null
+    description: string | null
+    probability: number | null
+    sortOrder: number | null
+    isActive: boolean | null
+    isDefault: boolean | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealStageMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    displayName: string | null
+    description: string | null
+    probability: number | null
+    sortOrder: number | null
+    isActive: boolean | null
+    isDefault: boolean | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealStageCountAggregateOutputType = {
+    id: number
+    name: number
+    displayName: number
+    description: number
+    probability: number
+    sortOrder: number
+    isActive: number
+    isDefault: number
+    color: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DealStageAvgAggregateInputType = {
+    probability?: true
+    sortOrder?: true
+  }
+
+  export type DealStageSumAggregateInputType = {
+    probability?: true
+    sortOrder?: true
+  }
+
+  export type DealStageMinAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    probability?: true
+    sortOrder?: true
+    isActive?: true
+    isDefault?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealStageMaxAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    probability?: true
+    sortOrder?: true
+    isActive?: true
+    isDefault?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealStageCountAggregateInputType = {
+    id?: true
+    name?: true
+    displayName?: true
+    description?: true
+    probability?: true
+    sortOrder?: true
+    isActive?: true
+    isDefault?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DealStageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DealStage to aggregate.
+     */
+    where?: DealStageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealStages to fetch.
+     */
+    orderBy?: DealStageOrderByWithRelationInput | DealStageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DealStageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealStages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealStages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DealStages
+    **/
+    _count?: true | DealStageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DealStageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DealStageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DealStageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DealStageMaxAggregateInputType
+  }
+
+  export type GetDealStageAggregateType<T extends DealStageAggregateArgs> = {
+        [P in keyof T & keyof AggregateDealStage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDealStage[P]>
+      : GetScalarType<T[P], AggregateDealStage[P]>
+  }
+
+
+
+
+  export type DealStageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealStageWhereInput
+    orderBy?: DealStageOrderByWithAggregationInput | DealStageOrderByWithAggregationInput[]
+    by: DealStageScalarFieldEnum[] | DealStageScalarFieldEnum
+    having?: DealStageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DealStageCountAggregateInputType | true
+    _avg?: DealStageAvgAggregateInputType
+    _sum?: DealStageSumAggregateInputType
+    _min?: DealStageMinAggregateInputType
+    _max?: DealStageMaxAggregateInputType
+  }
+
+  export type DealStageGroupByOutputType = {
+    id: string
+    name: string
+    displayName: string
+    description: string | null
+    probability: number
+    sortOrder: number
+    isActive: boolean
+    isDefault: boolean
+    color: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DealStageCountAggregateOutputType | null
+    _avg: DealStageAvgAggregateOutputType | null
+    _sum: DealStageSumAggregateOutputType | null
+    _min: DealStageMinAggregateOutputType | null
+    _max: DealStageMaxAggregateOutputType | null
+  }
+
+  type GetDealStageGroupByPayload<T extends DealStageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DealStageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DealStageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DealStageGroupByOutputType[P]>
+            : GetScalarType<T[P], DealStageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DealStageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    displayName?: boolean
+    description?: boolean
+    probability?: boolean
+    sortOrder?: boolean
+    isActive?: boolean
+    isDefault?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deals?: boolean | DealStage$dealsArgs<ExtArgs>
+    _count?: boolean | DealStageCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealStage"]>
+
+  export type DealStageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    displayName?: boolean
+    description?: boolean
+    probability?: boolean
+    sortOrder?: boolean
+    isActive?: boolean
+    isDefault?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["dealStage"]>
+
+  export type DealStageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    displayName?: boolean
+    description?: boolean
+    probability?: boolean
+    sortOrder?: boolean
+    isActive?: boolean
+    isDefault?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["dealStage"]>
+
+  export type DealStageSelectScalar = {
+    id?: boolean
+    name?: boolean
+    displayName?: boolean
+    description?: boolean
+    probability?: boolean
+    sortOrder?: boolean
+    isActive?: boolean
+    isDefault?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DealStageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "displayName" | "description" | "probability" | "sortOrder" | "isActive" | "isDefault" | "color" | "createdAt" | "updatedAt", ExtArgs["result"]["dealStage"]>
+  export type DealStageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deals?: boolean | DealStage$dealsArgs<ExtArgs>
+    _count?: boolean | DealStageCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DealStageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DealStageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DealStagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DealStage"
+    objects: {
+      deals: Prisma.$DealPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      displayName: string
+      description: string | null
+      probability: number
+      sortOrder: number
+      isActive: boolean
+      isDefault: boolean
+      color: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dealStage"]>
+    composites: {}
+  }
+
+  type DealStageGetPayload<S extends boolean | null | undefined | DealStageDefaultArgs> = $Result.GetResult<Prisma.$DealStagePayload, S>
+
+  type DealStageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DealStageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DealStageCountAggregateInputType | true
+    }
+
+  export interface DealStageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DealStage'], meta: { name: 'DealStage' } }
+    /**
+     * Find zero or one DealStage that matches the filter.
+     * @param {DealStageFindUniqueArgs} args - Arguments to find a DealStage
+     * @example
+     * // Get one DealStage
+     * const dealStage = await prisma.dealStage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DealStageFindUniqueArgs>(args: SelectSubset<T, DealStageFindUniqueArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DealStage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DealStageFindUniqueOrThrowArgs} args - Arguments to find a DealStage
+     * @example
+     * // Get one DealStage
+     * const dealStage = await prisma.dealStage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DealStageFindUniqueOrThrowArgs>(args: SelectSubset<T, DealStageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DealStage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageFindFirstArgs} args - Arguments to find a DealStage
+     * @example
+     * // Get one DealStage
+     * const dealStage = await prisma.dealStage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DealStageFindFirstArgs>(args?: SelectSubset<T, DealStageFindFirstArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DealStage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageFindFirstOrThrowArgs} args - Arguments to find a DealStage
+     * @example
+     * // Get one DealStage
+     * const dealStage = await prisma.dealStage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DealStageFindFirstOrThrowArgs>(args?: SelectSubset<T, DealStageFindFirstOrThrowArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DealStages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DealStages
+     * const dealStages = await prisma.dealStage.findMany()
+     * 
+     * // Get first 10 DealStages
+     * const dealStages = await prisma.dealStage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dealStageWithIdOnly = await prisma.dealStage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DealStageFindManyArgs>(args?: SelectSubset<T, DealStageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DealStage.
+     * @param {DealStageCreateArgs} args - Arguments to create a DealStage.
+     * @example
+     * // Create one DealStage
+     * const DealStage = await prisma.dealStage.create({
+     *   data: {
+     *     // ... data to create a DealStage
+     *   }
+     * })
+     * 
+     */
+    create<T extends DealStageCreateArgs>(args: SelectSubset<T, DealStageCreateArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DealStages.
+     * @param {DealStageCreateManyArgs} args - Arguments to create many DealStages.
+     * @example
+     * // Create many DealStages
+     * const dealStage = await prisma.dealStage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DealStageCreateManyArgs>(args?: SelectSubset<T, DealStageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DealStages and returns the data saved in the database.
+     * @param {DealStageCreateManyAndReturnArgs} args - Arguments to create many DealStages.
+     * @example
+     * // Create many DealStages
+     * const dealStage = await prisma.dealStage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DealStages and only return the `id`
+     * const dealStageWithIdOnly = await prisma.dealStage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DealStageCreateManyAndReturnArgs>(args?: SelectSubset<T, DealStageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DealStage.
+     * @param {DealStageDeleteArgs} args - Arguments to delete one DealStage.
+     * @example
+     * // Delete one DealStage
+     * const DealStage = await prisma.dealStage.delete({
+     *   where: {
+     *     // ... filter to delete one DealStage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DealStageDeleteArgs>(args: SelectSubset<T, DealStageDeleteArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DealStage.
+     * @param {DealStageUpdateArgs} args - Arguments to update one DealStage.
+     * @example
+     * // Update one DealStage
+     * const dealStage = await prisma.dealStage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DealStageUpdateArgs>(args: SelectSubset<T, DealStageUpdateArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DealStages.
+     * @param {DealStageDeleteManyArgs} args - Arguments to filter DealStages to delete.
+     * @example
+     * // Delete a few DealStages
+     * const { count } = await prisma.dealStage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DealStageDeleteManyArgs>(args?: SelectSubset<T, DealStageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DealStages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DealStages
+     * const dealStage = await prisma.dealStage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DealStageUpdateManyArgs>(args: SelectSubset<T, DealStageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DealStages and returns the data updated in the database.
+     * @param {DealStageUpdateManyAndReturnArgs} args - Arguments to update many DealStages.
+     * @example
+     * // Update many DealStages
+     * const dealStage = await prisma.dealStage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DealStages and only return the `id`
+     * const dealStageWithIdOnly = await prisma.dealStage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DealStageUpdateManyAndReturnArgs>(args: SelectSubset<T, DealStageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DealStage.
+     * @param {DealStageUpsertArgs} args - Arguments to update or create a DealStage.
+     * @example
+     * // Update or create a DealStage
+     * const dealStage = await prisma.dealStage.upsert({
+     *   create: {
+     *     // ... data to create a DealStage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DealStage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DealStageUpsertArgs>(args: SelectSubset<T, DealStageUpsertArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DealStages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageCountArgs} args - Arguments to filter DealStages to count.
+     * @example
+     * // Count the number of DealStages
+     * const count = await prisma.dealStage.count({
+     *   where: {
+     *     // ... the filter for the DealStages we want to count
+     *   }
+     * })
+    **/
+    count<T extends DealStageCountArgs>(
+      args?: Subset<T, DealStageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DealStageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DealStage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DealStageAggregateArgs>(args: Subset<T, DealStageAggregateArgs>): Prisma.PrismaPromise<GetDealStageAggregateType<T>>
+
+    /**
+     * Group by DealStage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealStageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DealStageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DealStageGroupByArgs['orderBy'] }
+        : { orderBy?: DealStageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DealStageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDealStageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DealStage model
+   */
+  readonly fields: DealStageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DealStage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DealStageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    deals<T extends DealStage$dealsArgs<ExtArgs> = {}>(args?: Subset<T, DealStage$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DealStage model
+   */
+  interface DealStageFieldRefs {
+    readonly id: FieldRef<"DealStage", 'String'>
+    readonly name: FieldRef<"DealStage", 'String'>
+    readonly displayName: FieldRef<"DealStage", 'String'>
+    readonly description: FieldRef<"DealStage", 'String'>
+    readonly probability: FieldRef<"DealStage", 'Int'>
+    readonly sortOrder: FieldRef<"DealStage", 'Int'>
+    readonly isActive: FieldRef<"DealStage", 'Boolean'>
+    readonly isDefault: FieldRef<"DealStage", 'Boolean'>
+    readonly color: FieldRef<"DealStage", 'String'>
+    readonly createdAt: FieldRef<"DealStage", 'DateTime'>
+    readonly updatedAt: FieldRef<"DealStage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DealStage findUnique
+   */
+  export type DealStageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStage to fetch.
+     */
+    where: DealStageWhereUniqueInput
+  }
+
+  /**
+   * DealStage findUniqueOrThrow
+   */
+  export type DealStageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStage to fetch.
+     */
+    where: DealStageWhereUniqueInput
+  }
+
+  /**
+   * DealStage findFirst
+   */
+  export type DealStageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStage to fetch.
+     */
+    where?: DealStageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealStages to fetch.
+     */
+    orderBy?: DealStageOrderByWithRelationInput | DealStageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DealStages.
+     */
+    cursor?: DealStageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealStages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealStages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DealStages.
+     */
+    distinct?: DealStageScalarFieldEnum | DealStageScalarFieldEnum[]
+  }
+
+  /**
+   * DealStage findFirstOrThrow
+   */
+  export type DealStageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStage to fetch.
+     */
+    where?: DealStageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealStages to fetch.
+     */
+    orderBy?: DealStageOrderByWithRelationInput | DealStageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DealStages.
+     */
+    cursor?: DealStageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealStages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealStages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DealStages.
+     */
+    distinct?: DealStageScalarFieldEnum | DealStageScalarFieldEnum[]
+  }
+
+  /**
+   * DealStage findMany
+   */
+  export type DealStageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * Filter, which DealStages to fetch.
+     */
+    where?: DealStageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealStages to fetch.
+     */
+    orderBy?: DealStageOrderByWithRelationInput | DealStageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DealStages.
+     */
+    cursor?: DealStageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealStages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealStages.
+     */
+    skip?: number
+    distinct?: DealStageScalarFieldEnum | DealStageScalarFieldEnum[]
+  }
+
+  /**
+   * DealStage create
+   */
+  export type DealStageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DealStage.
+     */
+    data: XOR<DealStageCreateInput, DealStageUncheckedCreateInput>
+  }
+
+  /**
+   * DealStage createMany
+   */
+  export type DealStageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DealStages.
+     */
+    data: DealStageCreateManyInput | DealStageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DealStage createManyAndReturn
+   */
+  export type DealStageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * The data used to create many DealStages.
+     */
+    data: DealStageCreateManyInput | DealStageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DealStage update
+   */
+  export type DealStageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DealStage.
+     */
+    data: XOR<DealStageUpdateInput, DealStageUncheckedUpdateInput>
+    /**
+     * Choose, which DealStage to update.
+     */
+    where: DealStageWhereUniqueInput
+  }
+
+  /**
+   * DealStage updateMany
+   */
+  export type DealStageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DealStages.
+     */
+    data: XOR<DealStageUpdateManyMutationInput, DealStageUncheckedUpdateManyInput>
+    /**
+     * Filter which DealStages to update
+     */
+    where?: DealStageWhereInput
+    /**
+     * Limit how many DealStages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealStage updateManyAndReturn
+   */
+  export type DealStageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * The data used to update DealStages.
+     */
+    data: XOR<DealStageUpdateManyMutationInput, DealStageUncheckedUpdateManyInput>
+    /**
+     * Filter which DealStages to update
+     */
+    where?: DealStageWhereInput
+    /**
+     * Limit how many DealStages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealStage upsert
+   */
+  export type DealStageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DealStage to update in case it exists.
+     */
+    where: DealStageWhereUniqueInput
+    /**
+     * In case the DealStage found by the `where` argument doesn't exist, create a new DealStage with this data.
+     */
+    create: XOR<DealStageCreateInput, DealStageUncheckedCreateInput>
+    /**
+     * In case the DealStage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DealStageUpdateInput, DealStageUncheckedUpdateInput>
+  }
+
+  /**
+   * DealStage delete
+   */
+  export type DealStageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+    /**
+     * Filter which DealStage to delete.
+     */
+    where: DealStageWhereUniqueInput
+  }
+
+  /**
+   * DealStage deleteMany
+   */
+  export type DealStageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DealStages to delete
+     */
+    where?: DealStageWhereInput
+    /**
+     * Limit how many DealStages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealStage.deals
+   */
+  export type DealStage$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * DealStage without action
+   */
+  export type DealStageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealStage
+     */
+    select?: DealStageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealStage
+     */
+    omit?: DealStageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealStageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Deal
+   */
+
+  export type AggregateDeal = {
+    _count: DealCountAggregateOutputType | null
+    _avg: DealAvgAggregateOutputType | null
+    _sum: DealSumAggregateOutputType | null
+    _min: DealMinAggregateOutputType | null
+    _max: DealMaxAggregateOutputType | null
+  }
+
+  export type DealAvgAggregateOutputType = {
+    probability: number | null
+    amount: Decimal | null
+    daysInStage: number | null
+  }
+
+  export type DealSumAggregateOutputType = {
+    probability: number | null
+    amount: Decimal | null
+    daysInStage: number | null
+  }
+
+  export type DealMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    customerId: string | null
+    stageId: string | null
+    probability: number | null
+    amount: Decimal | null
+    currency: string | null
+    expectedCloseDate: Date | null
+    status: string | null
+    lostReason: string | null
+    wonAt: Date | null
+    lostAt: Date | null
+    assignedTo: string | null
+    createdBy: string | null
+    daysInStage: number | null
+    lastStageChangeAt: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    customerId: string | null
+    stageId: string | null
+    probability: number | null
+    amount: Decimal | null
+    currency: string | null
+    expectedCloseDate: Date | null
+    status: string | null
+    lostReason: string | null
+    wonAt: Date | null
+    lostAt: Date | null
+    assignedTo: string | null
+    createdBy: string | null
+    daysInStage: number | null
+    lastStageChangeAt: Date | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    customerId: number
+    stageId: number
+    probability: number
+    amount: number
+    currency: number
+    expectedCloseDate: number
+    status: number
+    lostReason: number
+    wonAt: number
+    lostAt: number
+    assignedTo: number
+    createdBy: number
+    daysInStage: number
+    lastStageChangeAt: number
+    stageHistory: number
+    tags: number
+    notes: number
+    customFields: number
+    metadata: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DealAvgAggregateInputType = {
+    probability?: true
+    amount?: true
+    daysInStage?: true
+  }
+
+  export type DealSumAggregateInputType = {
+    probability?: true
+    amount?: true
+    daysInStage?: true
+  }
+
+  export type DealMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    customerId?: true
+    stageId?: true
+    probability?: true
+    amount?: true
+    currency?: true
+    expectedCloseDate?: true
+    status?: true
+    lostReason?: true
+    wonAt?: true
+    lostAt?: true
+    assignedTo?: true
+    createdBy?: true
+    daysInStage?: true
+    lastStageChangeAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    customerId?: true
+    stageId?: true
+    probability?: true
+    amount?: true
+    currency?: true
+    expectedCloseDate?: true
+    status?: true
+    lostReason?: true
+    wonAt?: true
+    lostAt?: true
+    assignedTo?: true
+    createdBy?: true
+    daysInStage?: true
+    lastStageChangeAt?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    customerId?: true
+    stageId?: true
+    probability?: true
+    amount?: true
+    currency?: true
+    expectedCloseDate?: true
+    status?: true
+    lostReason?: true
+    wonAt?: true
+    lostAt?: true
+    assignedTo?: true
+    createdBy?: true
+    daysInStage?: true
+    lastStageChangeAt?: true
+    stageHistory?: true
+    tags?: true
+    notes?: true
+    customFields?: true
+    metadata?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DealAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Deal to aggregate.
+     */
+    where?: DealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Deals to fetch.
+     */
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Deals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Deals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Deals
+    **/
+    _count?: true | DealCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DealAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DealSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DealMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DealMaxAggregateInputType
+  }
+
+  export type GetDealAggregateType<T extends DealAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeal[P]>
+      : GetScalarType<T[P], AggregateDeal[P]>
+  }
+
+
+
+
+  export type DealGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithAggregationInput | DealOrderByWithAggregationInput[]
+    by: DealScalarFieldEnum[] | DealScalarFieldEnum
+    having?: DealScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DealCountAggregateInputType | true
+    _avg?: DealAvgAggregateInputType
+    _sum?: DealSumAggregateInputType
+    _min?: DealMinAggregateInputType
+    _max?: DealMaxAggregateInputType
+  }
+
+  export type DealGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    customerId: string
+    stageId: string
+    probability: number
+    amount: Decimal
+    currency: string
+    expectedCloseDate: Date | null
+    status: string
+    lostReason: string | null
+    wonAt: Date | null
+    lostAt: Date | null
+    assignedTo: string | null
+    createdBy: string
+    daysInStage: number
+    lastStageChangeAt: Date | null
+    stageHistory: JsonValue
+    tags: string[]
+    notes: string | null
+    customFields: JsonValue
+    metadata: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    _count: DealCountAggregateOutputType | null
+    _avg: DealAvgAggregateOutputType | null
+    _sum: DealSumAggregateOutputType | null
+    _min: DealMinAggregateOutputType | null
+    _max: DealMaxAggregateOutputType | null
+  }
+
+  type GetDealGroupByPayload<T extends DealGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DealGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DealGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DealGroupByOutputType[P]>
+            : GetScalarType<T[P], DealGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DealSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    customerId?: boolean
+    stageId?: boolean
+    probability?: boolean
+    amount?: boolean
+    currency?: boolean
+    expectedCloseDate?: boolean
+    status?: boolean
+    lostReason?: boolean
+    wonAt?: boolean
+    lostAt?: boolean
+    assignedTo?: boolean
+    createdBy?: boolean
+    daysInStage?: boolean
+    lastStageChangeAt?: boolean
+    stageHistory?: boolean
+    tags?: boolean
+    notes?: boolean
+    customFields?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    stage?: boolean | DealStageDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Deal$assignedToUserArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    contacts?: boolean | Deal$contactsArgs<ExtArgs>
+    products?: boolean | Deal$productsArgs<ExtArgs>
+    interactions?: boolean | Deal$interactionsArgs<ExtArgs>
+    orders?: boolean | Deal$ordersArgs<ExtArgs>
+    _count?: boolean | DealCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deal"]>
+
+  export type DealSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    customerId?: boolean
+    stageId?: boolean
+    probability?: boolean
+    amount?: boolean
+    currency?: boolean
+    expectedCloseDate?: boolean
+    status?: boolean
+    lostReason?: boolean
+    wonAt?: boolean
+    lostAt?: boolean
+    assignedTo?: boolean
+    createdBy?: boolean
+    daysInStage?: boolean
+    lastStageChangeAt?: boolean
+    stageHistory?: boolean
+    tags?: boolean
+    notes?: boolean
+    customFields?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    stage?: boolean | DealStageDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Deal$assignedToUserArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deal"]>
+
+  export type DealSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    customerId?: boolean
+    stageId?: boolean
+    probability?: boolean
+    amount?: boolean
+    currency?: boolean
+    expectedCloseDate?: boolean
+    status?: boolean
+    lostReason?: boolean
+    wonAt?: boolean
+    lostAt?: boolean
+    assignedTo?: boolean
+    createdBy?: boolean
+    daysInStage?: boolean
+    lastStageChangeAt?: boolean
+    stageHistory?: boolean
+    tags?: boolean
+    notes?: boolean
+    customFields?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    stage?: boolean | DealStageDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Deal$assignedToUserArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deal"]>
+
+  export type DealSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    customerId?: boolean
+    stageId?: boolean
+    probability?: boolean
+    amount?: boolean
+    currency?: boolean
+    expectedCloseDate?: boolean
+    status?: boolean
+    lostReason?: boolean
+    wonAt?: boolean
+    lostAt?: boolean
+    assignedTo?: boolean
+    createdBy?: boolean
+    daysInStage?: boolean
+    lastStageChangeAt?: boolean
+    stageHistory?: boolean
+    tags?: boolean
+    notes?: boolean
+    customFields?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DealOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "customerId" | "stageId" | "probability" | "amount" | "currency" | "expectedCloseDate" | "status" | "lostReason" | "wonAt" | "lostAt" | "assignedTo" | "createdBy" | "daysInStage" | "lastStageChangeAt" | "stageHistory" | "tags" | "notes" | "customFields" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["deal"]>
+  export type DealInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    stage?: boolean | DealStageDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Deal$assignedToUserArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+    contacts?: boolean | Deal$contactsArgs<ExtArgs>
+    products?: boolean | Deal$productsArgs<ExtArgs>
+    interactions?: boolean | Deal$interactionsArgs<ExtArgs>
+    orders?: boolean | Deal$ordersArgs<ExtArgs>
+    _count?: boolean | DealCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DealIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    stage?: boolean | DealStageDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Deal$assignedToUserArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DealIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    stage?: boolean | DealStageDefaultArgs<ExtArgs>
+    assignedToUser?: boolean | Deal$assignedToUserArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Deal"
+    objects: {
+      customer: Prisma.$CustomerPayload<ExtArgs>
+      stage: Prisma.$DealStagePayload<ExtArgs>
+      assignedToUser: Prisma.$UserPayload<ExtArgs> | null
+      createdByUser: Prisma.$UserPayload<ExtArgs>
+      contacts: Prisma.$DealContactPayload<ExtArgs>[]
+      products: Prisma.$DealProductPayload<ExtArgs>[]
+      interactions: Prisma.$InteractionPayload<ExtArgs>[]
+      orders: Prisma.$OrderPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      customerId: string
+      stageId: string
+      probability: number
+      amount: Prisma.Decimal
+      currency: string
+      expectedCloseDate: Date | null
+      status: string
+      lostReason: string | null
+      wonAt: Date | null
+      lostAt: Date | null
+      assignedTo: string | null
+      createdBy: string
+      daysInStage: number
+      lastStageChangeAt: Date | null
+      stageHistory: Prisma.JsonValue
+      tags: string[]
+      notes: string | null
+      customFields: Prisma.JsonValue
+      metadata: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["deal"]>
+    composites: {}
+  }
+
+  type DealGetPayload<S extends boolean | null | undefined | DealDefaultArgs> = $Result.GetResult<Prisma.$DealPayload, S>
+
+  type DealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DealFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DealCountAggregateInputType | true
+    }
+
+  export interface DealDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Deal'], meta: { name: 'Deal' } }
+    /**
+     * Find zero or one Deal that matches the filter.
+     * @param {DealFindUniqueArgs} args - Arguments to find a Deal
+     * @example
+     * // Get one Deal
+     * const deal = await prisma.deal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DealFindUniqueArgs>(args: SelectSubset<T, DealFindUniqueArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Deal that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DealFindUniqueOrThrowArgs} args - Arguments to find a Deal
+     * @example
+     * // Get one Deal
+     * const deal = await prisma.deal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DealFindUniqueOrThrowArgs>(args: SelectSubset<T, DealFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Deal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealFindFirstArgs} args - Arguments to find a Deal
+     * @example
+     * // Get one Deal
+     * const deal = await prisma.deal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DealFindFirstArgs>(args?: SelectSubset<T, DealFindFirstArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Deal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealFindFirstOrThrowArgs} args - Arguments to find a Deal
+     * @example
+     * // Get one Deal
+     * const deal = await prisma.deal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DealFindFirstOrThrowArgs>(args?: SelectSubset<T, DealFindFirstOrThrowArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Deals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Deals
+     * const deals = await prisma.deal.findMany()
+     * 
+     * // Get first 10 Deals
+     * const deals = await prisma.deal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dealWithIdOnly = await prisma.deal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DealFindManyArgs>(args?: SelectSubset<T, DealFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Deal.
+     * @param {DealCreateArgs} args - Arguments to create a Deal.
+     * @example
+     * // Create one Deal
+     * const Deal = await prisma.deal.create({
+     *   data: {
+     *     // ... data to create a Deal
+     *   }
+     * })
+     * 
+     */
+    create<T extends DealCreateArgs>(args: SelectSubset<T, DealCreateArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Deals.
+     * @param {DealCreateManyArgs} args - Arguments to create many Deals.
+     * @example
+     * // Create many Deals
+     * const deal = await prisma.deal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DealCreateManyArgs>(args?: SelectSubset<T, DealCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Deals and returns the data saved in the database.
+     * @param {DealCreateManyAndReturnArgs} args - Arguments to create many Deals.
+     * @example
+     * // Create many Deals
+     * const deal = await prisma.deal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Deals and only return the `id`
+     * const dealWithIdOnly = await prisma.deal.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DealCreateManyAndReturnArgs>(args?: SelectSubset<T, DealCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Deal.
+     * @param {DealDeleteArgs} args - Arguments to delete one Deal.
+     * @example
+     * // Delete one Deal
+     * const Deal = await prisma.deal.delete({
+     *   where: {
+     *     // ... filter to delete one Deal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DealDeleteArgs>(args: SelectSubset<T, DealDeleteArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Deal.
+     * @param {DealUpdateArgs} args - Arguments to update one Deal.
+     * @example
+     * // Update one Deal
+     * const deal = await prisma.deal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DealUpdateArgs>(args: SelectSubset<T, DealUpdateArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Deals.
+     * @param {DealDeleteManyArgs} args - Arguments to filter Deals to delete.
+     * @example
+     * // Delete a few Deals
+     * const { count } = await prisma.deal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DealDeleteManyArgs>(args?: SelectSubset<T, DealDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Deals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Deals
+     * const deal = await prisma.deal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DealUpdateManyArgs>(args: SelectSubset<T, DealUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Deals and returns the data updated in the database.
+     * @param {DealUpdateManyAndReturnArgs} args - Arguments to update many Deals.
+     * @example
+     * // Update many Deals
+     * const deal = await prisma.deal.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Deals and only return the `id`
+     * const dealWithIdOnly = await prisma.deal.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DealUpdateManyAndReturnArgs>(args: SelectSubset<T, DealUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Deal.
+     * @param {DealUpsertArgs} args - Arguments to update or create a Deal.
+     * @example
+     * // Update or create a Deal
+     * const deal = await prisma.deal.upsert({
+     *   create: {
+     *     // ... data to create a Deal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Deal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DealUpsertArgs>(args: SelectSubset<T, DealUpsertArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Deals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealCountArgs} args - Arguments to filter Deals to count.
+     * @example
+     * // Count the number of Deals
+     * const count = await prisma.deal.count({
+     *   where: {
+     *     // ... the filter for the Deals we want to count
+     *   }
+     * })
+    **/
+    count<T extends DealCountArgs>(
+      args?: Subset<T, DealCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DealCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Deal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DealAggregateArgs>(args: Subset<T, DealAggregateArgs>): Prisma.PrismaPromise<GetDealAggregateType<T>>
+
+    /**
+     * Group by Deal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DealGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DealGroupByArgs['orderBy'] }
+        : { orderBy?: DealGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DealGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDealGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Deal model
+   */
+  readonly fields: DealFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Deal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DealClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    stage<T extends DealStageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DealStageDefaultArgs<ExtArgs>>): Prisma__DealStageClient<$Result.GetResult<Prisma.$DealStagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    assignedToUser<T extends Deal$assignedToUserArgs<ExtArgs> = {}>(args?: Subset<T, Deal$assignedToUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    createdByUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    contacts<T extends Deal$contactsArgs<ExtArgs> = {}>(args?: Subset<T, Deal$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    products<T extends Deal$productsArgs<ExtArgs> = {}>(args?: Subset<T, Deal$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    interactions<T extends Deal$interactionsArgs<ExtArgs> = {}>(args?: Subset<T, Deal$interactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Deal$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Deal$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Deal model
+   */
+  interface DealFieldRefs {
+    readonly id: FieldRef<"Deal", 'String'>
+    readonly name: FieldRef<"Deal", 'String'>
+    readonly description: FieldRef<"Deal", 'String'>
+    readonly customerId: FieldRef<"Deal", 'String'>
+    readonly stageId: FieldRef<"Deal", 'String'>
+    readonly probability: FieldRef<"Deal", 'Int'>
+    readonly amount: FieldRef<"Deal", 'Decimal'>
+    readonly currency: FieldRef<"Deal", 'String'>
+    readonly expectedCloseDate: FieldRef<"Deal", 'DateTime'>
+    readonly status: FieldRef<"Deal", 'String'>
+    readonly lostReason: FieldRef<"Deal", 'String'>
+    readonly wonAt: FieldRef<"Deal", 'DateTime'>
+    readonly lostAt: FieldRef<"Deal", 'DateTime'>
+    readonly assignedTo: FieldRef<"Deal", 'String'>
+    readonly createdBy: FieldRef<"Deal", 'String'>
+    readonly daysInStage: FieldRef<"Deal", 'Int'>
+    readonly lastStageChangeAt: FieldRef<"Deal", 'DateTime'>
+    readonly stageHistory: FieldRef<"Deal", 'Json'>
+    readonly tags: FieldRef<"Deal", 'String[]'>
+    readonly notes: FieldRef<"Deal", 'String'>
+    readonly customFields: FieldRef<"Deal", 'Json'>
+    readonly metadata: FieldRef<"Deal", 'Json'>
+    readonly createdAt: FieldRef<"Deal", 'DateTime'>
+    readonly updatedAt: FieldRef<"Deal", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Deal findUnique
+   */
+  export type DealFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deal to fetch.
+     */
+    where: DealWhereUniqueInput
+  }
+
+  /**
+   * Deal findUniqueOrThrow
+   */
+  export type DealFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deal to fetch.
+     */
+    where: DealWhereUniqueInput
+  }
+
+  /**
+   * Deal findFirst
+   */
+  export type DealFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deal to fetch.
+     */
+    where?: DealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Deals to fetch.
+     */
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Deals.
+     */
+    cursor?: DealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Deals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Deals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Deals.
+     */
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Deal findFirstOrThrow
+   */
+  export type DealFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deal to fetch.
+     */
+    where?: DealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Deals to fetch.
+     */
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Deals.
+     */
+    cursor?: DealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Deals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Deals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Deals.
+     */
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Deal findMany
+   */
+  export type DealFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deals to fetch.
+     */
+    where?: DealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Deals to fetch.
+     */
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Deals.
+     */
+    cursor?: DealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Deals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Deals.
+     */
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Deal create
+   */
+  export type DealCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Deal.
+     */
+    data: XOR<DealCreateInput, DealUncheckedCreateInput>
+  }
+
+  /**
+   * Deal createMany
+   */
+  export type DealCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Deals.
+     */
+    data: DealCreateManyInput | DealCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Deal createManyAndReturn
+   */
+  export type DealCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * The data used to create many Deals.
+     */
+    data: DealCreateManyInput | DealCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Deal update
+   */
+  export type DealUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Deal.
+     */
+    data: XOR<DealUpdateInput, DealUncheckedUpdateInput>
+    /**
+     * Choose, which Deal to update.
+     */
+    where: DealWhereUniqueInput
+  }
+
+  /**
+   * Deal updateMany
+   */
+  export type DealUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Deals.
+     */
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyInput>
+    /**
+     * Filter which Deals to update
+     */
+    where?: DealWhereInput
+    /**
+     * Limit how many Deals to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Deal updateManyAndReturn
+   */
+  export type DealUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * The data used to update Deals.
+     */
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyInput>
+    /**
+     * Filter which Deals to update
+     */
+    where?: DealWhereInput
+    /**
+     * Limit how many Deals to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Deal upsert
+   */
+  export type DealUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Deal to update in case it exists.
+     */
+    where: DealWhereUniqueInput
+    /**
+     * In case the Deal found by the `where` argument doesn't exist, create a new Deal with this data.
+     */
+    create: XOR<DealCreateInput, DealUncheckedCreateInput>
+    /**
+     * In case the Deal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DealUpdateInput, DealUncheckedUpdateInput>
+  }
+
+  /**
+   * Deal delete
+   */
+  export type DealDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter which Deal to delete.
+     */
+    where: DealWhereUniqueInput
+  }
+
+  /**
+   * Deal deleteMany
+   */
+  export type DealDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Deals to delete
+     */
+    where?: DealWhereInput
+    /**
+     * Limit how many Deals to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Deal.assignedToUser
+   */
+  export type Deal$assignedToUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Deal.contacts
+   */
+  export type Deal$contactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    where?: DealContactWhereInput
+    orderBy?: DealContactOrderByWithRelationInput | DealContactOrderByWithRelationInput[]
+    cursor?: DealContactWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealContactScalarFieldEnum | DealContactScalarFieldEnum[]
+  }
+
+  /**
+   * Deal.products
+   */
+  export type Deal$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    where?: DealProductWhereInput
+    orderBy?: DealProductOrderByWithRelationInput | DealProductOrderByWithRelationInput[]
+    cursor?: DealProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealProductScalarFieldEnum | DealProductScalarFieldEnum[]
+  }
+
+  /**
+   * Deal.interactions
+   */
+  export type Deal$interactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Interaction
+     */
+    select?: InteractionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Interaction
+     */
+    omit?: InteractionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InteractionInclude<ExtArgs> | null
+    where?: InteractionWhereInput
+    orderBy?: InteractionOrderByWithRelationInput | InteractionOrderByWithRelationInput[]
+    cursor?: InteractionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InteractionScalarFieldEnum | InteractionScalarFieldEnum[]
+  }
+
+  /**
+   * Deal.orders
+   */
+  export type Deal$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    cursor?: OrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
+  }
+
+  /**
+   * Deal without action
+   */
+  export type DealDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DealContact
+   */
+
+  export type AggregateDealContact = {
+    _count: DealContactCountAggregateOutputType | null
+    _min: DealContactMinAggregateOutputType | null
+    _max: DealContactMaxAggregateOutputType | null
+  }
+
+  export type DealContactMinAggregateOutputType = {
+    id: string | null
+    dealId: string | null
+    contactId: string | null
+    role: string | null
+    isPrimary: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealContactMaxAggregateOutputType = {
+    id: string | null
+    dealId: string | null
+    contactId: string | null
+    role: string | null
+    isPrimary: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealContactCountAggregateOutputType = {
+    id: number
+    dealId: number
+    contactId: number
+    role: number
+    isPrimary: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DealContactMinAggregateInputType = {
+    id?: true
+    dealId?: true
+    contactId?: true
+    role?: true
+    isPrimary?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealContactMaxAggregateInputType = {
+    id?: true
+    dealId?: true
+    contactId?: true
+    role?: true
+    isPrimary?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealContactCountAggregateInputType = {
+    id?: true
+    dealId?: true
+    contactId?: true
+    role?: true
+    isPrimary?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DealContactAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DealContact to aggregate.
+     */
+    where?: DealContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealContacts to fetch.
+     */
+    orderBy?: DealContactOrderByWithRelationInput | DealContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DealContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DealContacts
+    **/
+    _count?: true | DealContactCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DealContactMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DealContactMaxAggregateInputType
+  }
+
+  export type GetDealContactAggregateType<T extends DealContactAggregateArgs> = {
+        [P in keyof T & keyof AggregateDealContact]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDealContact[P]>
+      : GetScalarType<T[P], AggregateDealContact[P]>
+  }
+
+
+
+
+  export type DealContactGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealContactWhereInput
+    orderBy?: DealContactOrderByWithAggregationInput | DealContactOrderByWithAggregationInput[]
+    by: DealContactScalarFieldEnum[] | DealContactScalarFieldEnum
+    having?: DealContactScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DealContactCountAggregateInputType | true
+    _min?: DealContactMinAggregateInputType
+    _max?: DealContactMaxAggregateInputType
+  }
+
+  export type DealContactGroupByOutputType = {
+    id: string
+    dealId: string
+    contactId: string
+    role: string | null
+    isPrimary: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DealContactCountAggregateOutputType | null
+    _min: DealContactMinAggregateOutputType | null
+    _max: DealContactMaxAggregateOutputType | null
+  }
+
+  type GetDealContactGroupByPayload<T extends DealContactGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DealContactGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DealContactGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DealContactGroupByOutputType[P]>
+            : GetScalarType<T[P], DealContactGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DealContactSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dealId?: boolean
+    contactId?: boolean
+    role?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    contact?: boolean | CustomerContactDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealContact"]>
+
+  export type DealContactSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dealId?: boolean
+    contactId?: boolean
+    role?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    contact?: boolean | CustomerContactDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealContact"]>
+
+  export type DealContactSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dealId?: boolean
+    contactId?: boolean
+    role?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    contact?: boolean | CustomerContactDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealContact"]>
+
+  export type DealContactSelectScalar = {
+    id?: boolean
+    dealId?: boolean
+    contactId?: boolean
+    role?: boolean
+    isPrimary?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DealContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dealId" | "contactId" | "role" | "isPrimary" | "createdAt" | "updatedAt", ExtArgs["result"]["dealContact"]>
+  export type DealContactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    contact?: boolean | CustomerContactDefaultArgs<ExtArgs>
+  }
+  export type DealContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    contact?: boolean | CustomerContactDefaultArgs<ExtArgs>
+  }
+  export type DealContactIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    contact?: boolean | CustomerContactDefaultArgs<ExtArgs>
+  }
+
+  export type $DealContactPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DealContact"
+    objects: {
+      deal: Prisma.$DealPayload<ExtArgs>
+      contact: Prisma.$CustomerContactPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      dealId: string
+      contactId: string
+      role: string | null
+      isPrimary: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dealContact"]>
+    composites: {}
+  }
+
+  type DealContactGetPayload<S extends boolean | null | undefined | DealContactDefaultArgs> = $Result.GetResult<Prisma.$DealContactPayload, S>
+
+  type DealContactCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DealContactFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DealContactCountAggregateInputType | true
+    }
+
+  export interface DealContactDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DealContact'], meta: { name: 'DealContact' } }
+    /**
+     * Find zero or one DealContact that matches the filter.
+     * @param {DealContactFindUniqueArgs} args - Arguments to find a DealContact
+     * @example
+     * // Get one DealContact
+     * const dealContact = await prisma.dealContact.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DealContactFindUniqueArgs>(args: SelectSubset<T, DealContactFindUniqueArgs<ExtArgs>>): Prisma__DealContactClient<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DealContact that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DealContactFindUniqueOrThrowArgs} args - Arguments to find a DealContact
+     * @example
+     * // Get one DealContact
+     * const dealContact = await prisma.dealContact.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DealContactFindUniqueOrThrowArgs>(args: SelectSubset<T, DealContactFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DealContactClient<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DealContact that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealContactFindFirstArgs} args - Arguments to find a DealContact
+     * @example
+     * // Get one DealContact
+     * const dealContact = await prisma.dealContact.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DealContactFindFirstArgs>(args?: SelectSubset<T, DealContactFindFirstArgs<ExtArgs>>): Prisma__DealContactClient<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DealContact that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealContactFindFirstOrThrowArgs} args - Arguments to find a DealContact
+     * @example
+     * // Get one DealContact
+     * const dealContact = await prisma.dealContact.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DealContactFindFirstOrThrowArgs>(args?: SelectSubset<T, DealContactFindFirstOrThrowArgs<ExtArgs>>): Prisma__DealContactClient<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DealContacts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealContactFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DealContacts
+     * const dealContacts = await prisma.dealContact.findMany()
+     * 
+     * // Get first 10 DealContacts
+     * const dealContacts = await prisma.dealContact.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dealContactWithIdOnly = await prisma.dealContact.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DealContactFindManyArgs>(args?: SelectSubset<T, DealContactFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DealContact.
+     * @param {DealContactCreateArgs} args - Arguments to create a DealContact.
+     * @example
+     * // Create one DealContact
+     * const DealContact = await prisma.dealContact.create({
+     *   data: {
+     *     // ... data to create a DealContact
+     *   }
+     * })
+     * 
+     */
+    create<T extends DealContactCreateArgs>(args: SelectSubset<T, DealContactCreateArgs<ExtArgs>>): Prisma__DealContactClient<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DealContacts.
+     * @param {DealContactCreateManyArgs} args - Arguments to create many DealContacts.
+     * @example
+     * // Create many DealContacts
+     * const dealContact = await prisma.dealContact.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DealContactCreateManyArgs>(args?: SelectSubset<T, DealContactCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DealContacts and returns the data saved in the database.
+     * @param {DealContactCreateManyAndReturnArgs} args - Arguments to create many DealContacts.
+     * @example
+     * // Create many DealContacts
+     * const dealContact = await prisma.dealContact.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DealContacts and only return the `id`
+     * const dealContactWithIdOnly = await prisma.dealContact.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DealContactCreateManyAndReturnArgs>(args?: SelectSubset<T, DealContactCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DealContact.
+     * @param {DealContactDeleteArgs} args - Arguments to delete one DealContact.
+     * @example
+     * // Delete one DealContact
+     * const DealContact = await prisma.dealContact.delete({
+     *   where: {
+     *     // ... filter to delete one DealContact
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DealContactDeleteArgs>(args: SelectSubset<T, DealContactDeleteArgs<ExtArgs>>): Prisma__DealContactClient<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DealContact.
+     * @param {DealContactUpdateArgs} args - Arguments to update one DealContact.
+     * @example
+     * // Update one DealContact
+     * const dealContact = await prisma.dealContact.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DealContactUpdateArgs>(args: SelectSubset<T, DealContactUpdateArgs<ExtArgs>>): Prisma__DealContactClient<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DealContacts.
+     * @param {DealContactDeleteManyArgs} args - Arguments to filter DealContacts to delete.
+     * @example
+     * // Delete a few DealContacts
+     * const { count } = await prisma.dealContact.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DealContactDeleteManyArgs>(args?: SelectSubset<T, DealContactDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DealContacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealContactUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DealContacts
+     * const dealContact = await prisma.dealContact.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DealContactUpdateManyArgs>(args: SelectSubset<T, DealContactUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DealContacts and returns the data updated in the database.
+     * @param {DealContactUpdateManyAndReturnArgs} args - Arguments to update many DealContacts.
+     * @example
+     * // Update many DealContacts
+     * const dealContact = await prisma.dealContact.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DealContacts and only return the `id`
+     * const dealContactWithIdOnly = await prisma.dealContact.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DealContactUpdateManyAndReturnArgs>(args: SelectSubset<T, DealContactUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DealContact.
+     * @param {DealContactUpsertArgs} args - Arguments to update or create a DealContact.
+     * @example
+     * // Update or create a DealContact
+     * const dealContact = await prisma.dealContact.upsert({
+     *   create: {
+     *     // ... data to create a DealContact
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DealContact we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DealContactUpsertArgs>(args: SelectSubset<T, DealContactUpsertArgs<ExtArgs>>): Prisma__DealContactClient<$Result.GetResult<Prisma.$DealContactPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DealContacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealContactCountArgs} args - Arguments to filter DealContacts to count.
+     * @example
+     * // Count the number of DealContacts
+     * const count = await prisma.dealContact.count({
+     *   where: {
+     *     // ... the filter for the DealContacts we want to count
+     *   }
+     * })
+    **/
+    count<T extends DealContactCountArgs>(
+      args?: Subset<T, DealContactCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DealContactCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DealContact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealContactAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DealContactAggregateArgs>(args: Subset<T, DealContactAggregateArgs>): Prisma.PrismaPromise<GetDealContactAggregateType<T>>
+
+    /**
+     * Group by DealContact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealContactGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DealContactGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DealContactGroupByArgs['orderBy'] }
+        : { orderBy?: DealContactGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DealContactGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDealContactGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DealContact model
+   */
+  readonly fields: DealContactFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DealContact.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DealContactClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    deal<T extends DealDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DealDefaultArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    contact<T extends CustomerContactDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerContactDefaultArgs<ExtArgs>>): Prisma__CustomerContactClient<$Result.GetResult<Prisma.$CustomerContactPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DealContact model
+   */
+  interface DealContactFieldRefs {
+    readonly id: FieldRef<"DealContact", 'String'>
+    readonly dealId: FieldRef<"DealContact", 'String'>
+    readonly contactId: FieldRef<"DealContact", 'String'>
+    readonly role: FieldRef<"DealContact", 'String'>
+    readonly isPrimary: FieldRef<"DealContact", 'Boolean'>
+    readonly createdAt: FieldRef<"DealContact", 'DateTime'>
+    readonly updatedAt: FieldRef<"DealContact", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DealContact findUnique
+   */
+  export type DealContactFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * Filter, which DealContact to fetch.
+     */
+    where: DealContactWhereUniqueInput
+  }
+
+  /**
+   * DealContact findUniqueOrThrow
+   */
+  export type DealContactFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * Filter, which DealContact to fetch.
+     */
+    where: DealContactWhereUniqueInput
+  }
+
+  /**
+   * DealContact findFirst
+   */
+  export type DealContactFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * Filter, which DealContact to fetch.
+     */
+    where?: DealContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealContacts to fetch.
+     */
+    orderBy?: DealContactOrderByWithRelationInput | DealContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DealContacts.
+     */
+    cursor?: DealContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DealContacts.
+     */
+    distinct?: DealContactScalarFieldEnum | DealContactScalarFieldEnum[]
+  }
+
+  /**
+   * DealContact findFirstOrThrow
+   */
+  export type DealContactFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * Filter, which DealContact to fetch.
+     */
+    where?: DealContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealContacts to fetch.
+     */
+    orderBy?: DealContactOrderByWithRelationInput | DealContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DealContacts.
+     */
+    cursor?: DealContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealContacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DealContacts.
+     */
+    distinct?: DealContactScalarFieldEnum | DealContactScalarFieldEnum[]
+  }
+
+  /**
+   * DealContact findMany
+   */
+  export type DealContactFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * Filter, which DealContacts to fetch.
+     */
+    where?: DealContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealContacts to fetch.
+     */
+    orderBy?: DealContactOrderByWithRelationInput | DealContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DealContacts.
+     */
+    cursor?: DealContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealContacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealContacts.
+     */
+    skip?: number
+    distinct?: DealContactScalarFieldEnum | DealContactScalarFieldEnum[]
+  }
+
+  /**
+   * DealContact create
+   */
+  export type DealContactCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DealContact.
+     */
+    data: XOR<DealContactCreateInput, DealContactUncheckedCreateInput>
+  }
+
+  /**
+   * DealContact createMany
+   */
+  export type DealContactCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DealContacts.
+     */
+    data: DealContactCreateManyInput | DealContactCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DealContact createManyAndReturn
+   */
+  export type DealContactCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * The data used to create many DealContacts.
+     */
+    data: DealContactCreateManyInput | DealContactCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DealContact update
+   */
+  export type DealContactUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DealContact.
+     */
+    data: XOR<DealContactUpdateInput, DealContactUncheckedUpdateInput>
+    /**
+     * Choose, which DealContact to update.
+     */
+    where: DealContactWhereUniqueInput
+  }
+
+  /**
+   * DealContact updateMany
+   */
+  export type DealContactUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DealContacts.
+     */
+    data: XOR<DealContactUpdateManyMutationInput, DealContactUncheckedUpdateManyInput>
+    /**
+     * Filter which DealContacts to update
+     */
+    where?: DealContactWhereInput
+    /**
+     * Limit how many DealContacts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealContact updateManyAndReturn
+   */
+  export type DealContactUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * The data used to update DealContacts.
+     */
+    data: XOR<DealContactUpdateManyMutationInput, DealContactUncheckedUpdateManyInput>
+    /**
+     * Filter which DealContacts to update
+     */
+    where?: DealContactWhereInput
+    /**
+     * Limit how many DealContacts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DealContact upsert
+   */
+  export type DealContactUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DealContact to update in case it exists.
+     */
+    where: DealContactWhereUniqueInput
+    /**
+     * In case the DealContact found by the `where` argument doesn't exist, create a new DealContact with this data.
+     */
+    create: XOR<DealContactCreateInput, DealContactUncheckedCreateInput>
+    /**
+     * In case the DealContact was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DealContactUpdateInput, DealContactUncheckedUpdateInput>
+  }
+
+  /**
+   * DealContact delete
+   */
+  export type DealContactDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+    /**
+     * Filter which DealContact to delete.
+     */
+    where: DealContactWhereUniqueInput
+  }
+
+  /**
+   * DealContact deleteMany
+   */
+  export type DealContactDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DealContacts to delete
+     */
+    where?: DealContactWhereInput
+    /**
+     * Limit how many DealContacts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealContact without action
+   */
+  export type DealContactDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealContact
+     */
+    select?: DealContactSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealContact
+     */
+    omit?: DealContactOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealContactInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DealProduct
+   */
+
+  export type AggregateDealProduct = {
+    _count: DealProductCountAggregateOutputType | null
+    _avg: DealProductAvgAggregateOutputType | null
+    _sum: DealProductSumAggregateOutputType | null
+    _min: DealProductMinAggregateOutputType | null
+    _max: DealProductMaxAggregateOutputType | null
+  }
+
+  export type DealProductAvgAggregateOutputType = {
+    quantity: number | null
+    unitPrice: Decimal | null
+    discount: Decimal | null
+    total: Decimal | null
+  }
+
+  export type DealProductSumAggregateOutputType = {
+    quantity: number | null
+    unitPrice: Decimal | null
+    discount: Decimal | null
+    total: Decimal | null
+  }
+
+  export type DealProductMinAggregateOutputType = {
+    id: string | null
+    dealId: string | null
+    productId: string | null
+    quantity: number | null
+    unitPrice: Decimal | null
+    discount: Decimal | null
+    total: Decimal | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealProductMaxAggregateOutputType = {
+    id: string | null
+    dealId: string | null
+    productId: string | null
+    quantity: number | null
+    unitPrice: Decimal | null
+    discount: Decimal | null
+    total: Decimal | null
+    notes: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DealProductCountAggregateOutputType = {
+    id: number
+    dealId: number
+    productId: number
+    quantity: number
+    unitPrice: number
+    discount: number
+    total: number
+    notes: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DealProductAvgAggregateInputType = {
+    quantity?: true
+    unitPrice?: true
+    discount?: true
+    total?: true
+  }
+
+  export type DealProductSumAggregateInputType = {
+    quantity?: true
+    unitPrice?: true
+    discount?: true
+    total?: true
+  }
+
+  export type DealProductMinAggregateInputType = {
+    id?: true
+    dealId?: true
+    productId?: true
+    quantity?: true
+    unitPrice?: true
+    discount?: true
+    total?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealProductMaxAggregateInputType = {
+    id?: true
+    dealId?: true
+    productId?: true
+    quantity?: true
+    unitPrice?: true
+    discount?: true
+    total?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DealProductCountAggregateInputType = {
+    id?: true
+    dealId?: true
+    productId?: true
+    quantity?: true
+    unitPrice?: true
+    discount?: true
+    total?: true
+    notes?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DealProductAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DealProduct to aggregate.
+     */
+    where?: DealProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealProducts to fetch.
+     */
+    orderBy?: DealProductOrderByWithRelationInput | DealProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DealProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealProducts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealProducts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DealProducts
+    **/
+    _count?: true | DealProductCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DealProductAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DealProductSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DealProductMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DealProductMaxAggregateInputType
+  }
+
+  export type GetDealProductAggregateType<T extends DealProductAggregateArgs> = {
+        [P in keyof T & keyof AggregateDealProduct]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDealProduct[P]>
+      : GetScalarType<T[P], AggregateDealProduct[P]>
+  }
+
+
+
+
+  export type DealProductGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealProductWhereInput
+    orderBy?: DealProductOrderByWithAggregationInput | DealProductOrderByWithAggregationInput[]
+    by: DealProductScalarFieldEnum[] | DealProductScalarFieldEnum
+    having?: DealProductScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DealProductCountAggregateInputType | true
+    _avg?: DealProductAvgAggregateInputType
+    _sum?: DealProductSumAggregateInputType
+    _min?: DealProductMinAggregateInputType
+    _max?: DealProductMaxAggregateInputType
+  }
+
+  export type DealProductGroupByOutputType = {
+    id: string
+    dealId: string
+    productId: string
+    quantity: number
+    unitPrice: Decimal
+    discount: Decimal
+    total: Decimal
+    notes: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DealProductCountAggregateOutputType | null
+    _avg: DealProductAvgAggregateOutputType | null
+    _sum: DealProductSumAggregateOutputType | null
+    _min: DealProductMinAggregateOutputType | null
+    _max: DealProductMaxAggregateOutputType | null
+  }
+
+  type GetDealProductGroupByPayload<T extends DealProductGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DealProductGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DealProductGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DealProductGroupByOutputType[P]>
+            : GetScalarType<T[P], DealProductGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DealProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dealId?: boolean
+    productId?: boolean
+    quantity?: boolean
+    unitPrice?: boolean
+    discount?: boolean
+    total?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealProduct"]>
+
+  export type DealProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dealId?: boolean
+    productId?: boolean
+    quantity?: boolean
+    unitPrice?: boolean
+    discount?: boolean
+    total?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealProduct"]>
+
+  export type DealProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dealId?: boolean
+    productId?: boolean
+    quantity?: boolean
+    unitPrice?: boolean
+    discount?: boolean
+    total?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dealProduct"]>
+
+  export type DealProductSelectScalar = {
+    id?: boolean
+    dealId?: boolean
+    productId?: boolean
+    quantity?: boolean
+    unitPrice?: boolean
+    discount?: boolean
+    total?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DealProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dealId" | "productId" | "quantity" | "unitPrice" | "discount" | "total" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["dealProduct"]>
+  export type DealProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type DealProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+  export type DealProductIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deal?: boolean | DealDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+
+  export type $DealProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DealProduct"
+    objects: {
+      deal: Prisma.$DealPayload<ExtArgs>
+      product: Prisma.$ProductPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      dealId: string
+      productId: string
+      quantity: number
+      unitPrice: Prisma.Decimal
+      discount: Prisma.Decimal
+      total: Prisma.Decimal
+      notes: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["dealProduct"]>
+    composites: {}
+  }
+
+  type DealProductGetPayload<S extends boolean | null | undefined | DealProductDefaultArgs> = $Result.GetResult<Prisma.$DealProductPayload, S>
+
+  type DealProductCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DealProductFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DealProductCountAggregateInputType | true
+    }
+
+  export interface DealProductDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DealProduct'], meta: { name: 'DealProduct' } }
+    /**
+     * Find zero or one DealProduct that matches the filter.
+     * @param {DealProductFindUniqueArgs} args - Arguments to find a DealProduct
+     * @example
+     * // Get one DealProduct
+     * const dealProduct = await prisma.dealProduct.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DealProductFindUniqueArgs>(args: SelectSubset<T, DealProductFindUniqueArgs<ExtArgs>>): Prisma__DealProductClient<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DealProduct that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DealProductFindUniqueOrThrowArgs} args - Arguments to find a DealProduct
+     * @example
+     * // Get one DealProduct
+     * const dealProduct = await prisma.dealProduct.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DealProductFindUniqueOrThrowArgs>(args: SelectSubset<T, DealProductFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DealProductClient<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DealProduct that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealProductFindFirstArgs} args - Arguments to find a DealProduct
+     * @example
+     * // Get one DealProduct
+     * const dealProduct = await prisma.dealProduct.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DealProductFindFirstArgs>(args?: SelectSubset<T, DealProductFindFirstArgs<ExtArgs>>): Prisma__DealProductClient<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DealProduct that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealProductFindFirstOrThrowArgs} args - Arguments to find a DealProduct
+     * @example
+     * // Get one DealProduct
+     * const dealProduct = await prisma.dealProduct.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DealProductFindFirstOrThrowArgs>(args?: SelectSubset<T, DealProductFindFirstOrThrowArgs<ExtArgs>>): Prisma__DealProductClient<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DealProducts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealProductFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DealProducts
+     * const dealProducts = await prisma.dealProduct.findMany()
+     * 
+     * // Get first 10 DealProducts
+     * const dealProducts = await prisma.dealProduct.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dealProductWithIdOnly = await prisma.dealProduct.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DealProductFindManyArgs>(args?: SelectSubset<T, DealProductFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DealProduct.
+     * @param {DealProductCreateArgs} args - Arguments to create a DealProduct.
+     * @example
+     * // Create one DealProduct
+     * const DealProduct = await prisma.dealProduct.create({
+     *   data: {
+     *     // ... data to create a DealProduct
+     *   }
+     * })
+     * 
+     */
+    create<T extends DealProductCreateArgs>(args: SelectSubset<T, DealProductCreateArgs<ExtArgs>>): Prisma__DealProductClient<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DealProducts.
+     * @param {DealProductCreateManyArgs} args - Arguments to create many DealProducts.
+     * @example
+     * // Create many DealProducts
+     * const dealProduct = await prisma.dealProduct.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DealProductCreateManyArgs>(args?: SelectSubset<T, DealProductCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DealProducts and returns the data saved in the database.
+     * @param {DealProductCreateManyAndReturnArgs} args - Arguments to create many DealProducts.
+     * @example
+     * // Create many DealProducts
+     * const dealProduct = await prisma.dealProduct.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DealProducts and only return the `id`
+     * const dealProductWithIdOnly = await prisma.dealProduct.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DealProductCreateManyAndReturnArgs>(args?: SelectSubset<T, DealProductCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DealProduct.
+     * @param {DealProductDeleteArgs} args - Arguments to delete one DealProduct.
+     * @example
+     * // Delete one DealProduct
+     * const DealProduct = await prisma.dealProduct.delete({
+     *   where: {
+     *     // ... filter to delete one DealProduct
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DealProductDeleteArgs>(args: SelectSubset<T, DealProductDeleteArgs<ExtArgs>>): Prisma__DealProductClient<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DealProduct.
+     * @param {DealProductUpdateArgs} args - Arguments to update one DealProduct.
+     * @example
+     * // Update one DealProduct
+     * const dealProduct = await prisma.dealProduct.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DealProductUpdateArgs>(args: SelectSubset<T, DealProductUpdateArgs<ExtArgs>>): Prisma__DealProductClient<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DealProducts.
+     * @param {DealProductDeleteManyArgs} args - Arguments to filter DealProducts to delete.
+     * @example
+     * // Delete a few DealProducts
+     * const { count } = await prisma.dealProduct.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DealProductDeleteManyArgs>(args?: SelectSubset<T, DealProductDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DealProducts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealProductUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DealProducts
+     * const dealProduct = await prisma.dealProduct.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DealProductUpdateManyArgs>(args: SelectSubset<T, DealProductUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DealProducts and returns the data updated in the database.
+     * @param {DealProductUpdateManyAndReturnArgs} args - Arguments to update many DealProducts.
+     * @example
+     * // Update many DealProducts
+     * const dealProduct = await prisma.dealProduct.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DealProducts and only return the `id`
+     * const dealProductWithIdOnly = await prisma.dealProduct.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DealProductUpdateManyAndReturnArgs>(args: SelectSubset<T, DealProductUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DealProduct.
+     * @param {DealProductUpsertArgs} args - Arguments to update or create a DealProduct.
+     * @example
+     * // Update or create a DealProduct
+     * const dealProduct = await prisma.dealProduct.upsert({
+     *   create: {
+     *     // ... data to create a DealProduct
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DealProduct we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DealProductUpsertArgs>(args: SelectSubset<T, DealProductUpsertArgs<ExtArgs>>): Prisma__DealProductClient<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DealProducts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealProductCountArgs} args - Arguments to filter DealProducts to count.
+     * @example
+     * // Count the number of DealProducts
+     * const count = await prisma.dealProduct.count({
+     *   where: {
+     *     // ... the filter for the DealProducts we want to count
+     *   }
+     * })
+    **/
+    count<T extends DealProductCountArgs>(
+      args?: Subset<T, DealProductCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DealProductCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DealProduct.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealProductAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DealProductAggregateArgs>(args: Subset<T, DealProductAggregateArgs>): Prisma.PrismaPromise<GetDealProductAggregateType<T>>
+
+    /**
+     * Group by DealProduct.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealProductGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DealProductGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DealProductGroupByArgs['orderBy'] }
+        : { orderBy?: DealProductGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DealProductGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDealProductGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DealProduct model
+   */
+  readonly fields: DealProductFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DealProduct.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DealProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    deal<T extends DealDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DealDefaultArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DealProduct model
+   */
+  interface DealProductFieldRefs {
+    readonly id: FieldRef<"DealProduct", 'String'>
+    readonly dealId: FieldRef<"DealProduct", 'String'>
+    readonly productId: FieldRef<"DealProduct", 'String'>
+    readonly quantity: FieldRef<"DealProduct", 'Int'>
+    readonly unitPrice: FieldRef<"DealProduct", 'Decimal'>
+    readonly discount: FieldRef<"DealProduct", 'Decimal'>
+    readonly total: FieldRef<"DealProduct", 'Decimal'>
+    readonly notes: FieldRef<"DealProduct", 'String'>
+    readonly createdAt: FieldRef<"DealProduct", 'DateTime'>
+    readonly updatedAt: FieldRef<"DealProduct", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DealProduct findUnique
+   */
+  export type DealProductFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * Filter, which DealProduct to fetch.
+     */
+    where: DealProductWhereUniqueInput
+  }
+
+  /**
+   * DealProduct findUniqueOrThrow
+   */
+  export type DealProductFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * Filter, which DealProduct to fetch.
+     */
+    where: DealProductWhereUniqueInput
+  }
+
+  /**
+   * DealProduct findFirst
+   */
+  export type DealProductFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * Filter, which DealProduct to fetch.
+     */
+    where?: DealProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealProducts to fetch.
+     */
+    orderBy?: DealProductOrderByWithRelationInput | DealProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DealProducts.
+     */
+    cursor?: DealProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealProducts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealProducts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DealProducts.
+     */
+    distinct?: DealProductScalarFieldEnum | DealProductScalarFieldEnum[]
+  }
+
+  /**
+   * DealProduct findFirstOrThrow
+   */
+  export type DealProductFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * Filter, which DealProduct to fetch.
+     */
+    where?: DealProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealProducts to fetch.
+     */
+    orderBy?: DealProductOrderByWithRelationInput | DealProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DealProducts.
+     */
+    cursor?: DealProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealProducts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealProducts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DealProducts.
+     */
+    distinct?: DealProductScalarFieldEnum | DealProductScalarFieldEnum[]
+  }
+
+  /**
+   * DealProduct findMany
+   */
+  export type DealProductFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * Filter, which DealProducts to fetch.
+     */
+    where?: DealProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DealProducts to fetch.
+     */
+    orderBy?: DealProductOrderByWithRelationInput | DealProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DealProducts.
+     */
+    cursor?: DealProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DealProducts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DealProducts.
+     */
+    skip?: number
+    distinct?: DealProductScalarFieldEnum | DealProductScalarFieldEnum[]
+  }
+
+  /**
+   * DealProduct create
+   */
+  export type DealProductCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DealProduct.
+     */
+    data: XOR<DealProductCreateInput, DealProductUncheckedCreateInput>
+  }
+
+  /**
+   * DealProduct createMany
+   */
+  export type DealProductCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DealProducts.
+     */
+    data: DealProductCreateManyInput | DealProductCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DealProduct createManyAndReturn
+   */
+  export type DealProductCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * The data used to create many DealProducts.
+     */
+    data: DealProductCreateManyInput | DealProductCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DealProduct update
+   */
+  export type DealProductUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DealProduct.
+     */
+    data: XOR<DealProductUpdateInput, DealProductUncheckedUpdateInput>
+    /**
+     * Choose, which DealProduct to update.
+     */
+    where: DealProductWhereUniqueInput
+  }
+
+  /**
+   * DealProduct updateMany
+   */
+  export type DealProductUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DealProducts.
+     */
+    data: XOR<DealProductUpdateManyMutationInput, DealProductUncheckedUpdateManyInput>
+    /**
+     * Filter which DealProducts to update
+     */
+    where?: DealProductWhereInput
+    /**
+     * Limit how many DealProducts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealProduct updateManyAndReturn
+   */
+  export type DealProductUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * The data used to update DealProducts.
+     */
+    data: XOR<DealProductUpdateManyMutationInput, DealProductUncheckedUpdateManyInput>
+    /**
+     * Filter which DealProducts to update
+     */
+    where?: DealProductWhereInput
+    /**
+     * Limit how many DealProducts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DealProduct upsert
+   */
+  export type DealProductUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DealProduct to update in case it exists.
+     */
+    where: DealProductWhereUniqueInput
+    /**
+     * In case the DealProduct found by the `where` argument doesn't exist, create a new DealProduct with this data.
+     */
+    create: XOR<DealProductCreateInput, DealProductUncheckedCreateInput>
+    /**
+     * In case the DealProduct was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DealProductUpdateInput, DealProductUncheckedUpdateInput>
+  }
+
+  /**
+   * DealProduct delete
+   */
+  export type DealProductDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    /**
+     * Filter which DealProduct to delete.
+     */
+    where: DealProductWhereUniqueInput
+  }
+
+  /**
+   * DealProduct deleteMany
+   */
+  export type DealProductDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DealProducts to delete
+     */
+    where?: DealProductWhereInput
+    /**
+     * Limit how many DealProducts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DealProduct without action
+   */
+  export type DealProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
   }
 
 
@@ -12416,6 +18033,7 @@ export namespace Prisma {
     comboItemsAsCombo?: boolean | Product$comboItemsAsComboArgs<ExtArgs>
     comboItemsAsProduct?: boolean | Product$comboItemsAsProductArgs<ExtArgs>
     stockAlerts?: boolean | Product$stockAlertsArgs<ExtArgs>
+    dealProducts?: boolean | Product$dealProductsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -12526,6 +18144,7 @@ export namespace Prisma {
     comboItemsAsCombo?: boolean | Product$comboItemsAsComboArgs<ExtArgs>
     comboItemsAsProduct?: boolean | Product$comboItemsAsProductArgs<ExtArgs>
     stockAlerts?: boolean | Product$stockAlertsArgs<ExtArgs>
+    dealProducts?: boolean | Product$dealProductsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12548,6 +18167,7 @@ export namespace Prisma {
       comboItemsAsCombo: Prisma.$ComboItemPayload<ExtArgs>[]
       comboItemsAsProduct: Prisma.$ComboItemPayload<ExtArgs>[]
       stockAlerts: Prisma.$StockAlertPayload<ExtArgs>[]
+      dealProducts: Prisma.$DealProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12980,6 +18600,7 @@ export namespace Prisma {
     comboItemsAsCombo<T extends Product$comboItemsAsComboArgs<ExtArgs> = {}>(args?: Subset<T, Product$comboItemsAsComboArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComboItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     comboItemsAsProduct<T extends Product$comboItemsAsProductArgs<ExtArgs> = {}>(args?: Subset<T, Product$comboItemsAsProductArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComboItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     stockAlerts<T extends Product$stockAlertsArgs<ExtArgs> = {}>(args?: Subset<T, Product$stockAlertsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StockAlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    dealProducts<T extends Product$dealProductsArgs<ExtArgs> = {}>(args?: Subset<T, Product$dealProductsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13612,6 +19233,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StockAlertScalarFieldEnum | StockAlertScalarFieldEnum[]
+  }
+
+  /**
+   * Product.dealProducts
+   */
+  export type Product$dealProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealProduct
+     */
+    select?: DealProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DealProduct
+     */
+    omit?: DealProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealProductInclude<ExtArgs> | null
+    where?: DealProductWhereInput
+    orderBy?: DealProductOrderByWithRelationInput | DealProductOrderByWithRelationInput[]
+    cursor?: DealProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealProductScalarFieldEnum | DealProductScalarFieldEnum[]
   }
 
   /**
@@ -17310,6 +22955,7 @@ export namespace Prisma {
     internalNotes: string | null
     cancelledAt: Date | null
     cancellationReason: string | null
+    dealId: string | null
     createdBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -17342,6 +22988,7 @@ export namespace Prisma {
     internalNotes: string | null
     cancelledAt: Date | null
     cancellationReason: string | null
+    dealId: string | null
     createdBy: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -17376,6 +23023,7 @@ export namespace Prisma {
     cancellationReason: number
     customFields: number
     metadata: number
+    dealId: number
     createdBy: number
     createdAt: number
     updatedAt: number
@@ -17430,6 +23078,7 @@ export namespace Prisma {
     internalNotes?: true
     cancelledAt?: true
     cancellationReason?: true
+    dealId?: true
     createdBy?: true
     createdAt?: true
     updatedAt?: true
@@ -17462,6 +23111,7 @@ export namespace Prisma {
     internalNotes?: true
     cancelledAt?: true
     cancellationReason?: true
+    dealId?: true
     createdBy?: true
     createdAt?: true
     updatedAt?: true
@@ -17496,6 +23146,7 @@ export namespace Prisma {
     cancellationReason?: true
     customFields?: true
     metadata?: true
+    dealId?: true
     createdBy?: true
     createdAt?: true
     updatedAt?: true
@@ -17617,6 +23268,7 @@ export namespace Prisma {
     cancellationReason: string | null
     customFields: JsonValue
     metadata: JsonValue
+    dealId: string | null
     createdBy: string
     createdAt: Date
     updatedAt: Date
@@ -17670,6 +23322,7 @@ export namespace Prisma {
     cancellationReason?: boolean
     customFields?: boolean
     metadata?: boolean
+    dealId?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -17679,6 +23332,7 @@ export namespace Prisma {
     items?: boolean | Order$itemsArgs<ExtArgs>
     tasks?: boolean | Order$tasksArgs<ExtArgs>
     payments?: boolean | Order$paymentsArgs<ExtArgs>
+    deal?: boolean | Order$dealArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
@@ -17711,12 +23365,14 @@ export namespace Prisma {
     cancellationReason?: boolean
     customFields?: boolean
     metadata?: boolean
+    dealId?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
     assignedToUser?: boolean | Order$assignedToUserArgs<ExtArgs>
+    deal?: boolean | Order$dealArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17748,12 +23404,14 @@ export namespace Prisma {
     cancellationReason?: boolean
     customFields?: boolean
     metadata?: boolean
+    dealId?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
     assignedToUser?: boolean | Order$assignedToUserArgs<ExtArgs>
+    deal?: boolean | Order$dealArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectScalar = {
@@ -17785,12 +23443,13 @@ export namespace Prisma {
     cancellationReason?: boolean
     customFields?: boolean
     metadata?: boolean
+    dealId?: boolean
     createdBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderNumber" | "customerId" | "type" | "status" | "subtotal" | "discountAmount" | "taxAmount" | "total" | "paymentStatus" | "paymentMethod" | "paidAmount" | "scheduledDate" | "scheduledTimeStart" | "scheduledTimeEnd" | "startedAt" | "completedAt" | "serviceAddress" | "serviceCity" | "serviceLatitude" | "serviceLongitude" | "assignedTo" | "customerNotes" | "internalNotes" | "cancelledAt" | "cancellationReason" | "customFields" | "metadata" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderNumber" | "customerId" | "type" | "status" | "subtotal" | "discountAmount" | "taxAmount" | "total" | "paymentStatus" | "paymentMethod" | "paidAmount" | "scheduledDate" | "scheduledTimeStart" | "scheduledTimeEnd" | "startedAt" | "completedAt" | "serviceAddress" | "serviceCity" | "serviceLatitude" | "serviceLongitude" | "assignedTo" | "customerNotes" | "internalNotes" | "cancelledAt" | "cancellationReason" | "customFields" | "metadata" | "dealId" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
@@ -17798,17 +23457,20 @@ export namespace Prisma {
     items?: boolean | Order$itemsArgs<ExtArgs>
     tasks?: boolean | Order$tasksArgs<ExtArgs>
     payments?: boolean | Order$paymentsArgs<ExtArgs>
+    deal?: boolean | Order$dealArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
     assignedToUser?: boolean | Order$assignedToUserArgs<ExtArgs>
+    deal?: boolean | Order$dealArgs<ExtArgs>
   }
   export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
     createdByUser?: boolean | UserDefaultArgs<ExtArgs>
     assignedToUser?: boolean | Order$assignedToUserArgs<ExtArgs>
+    deal?: boolean | Order$dealArgs<ExtArgs>
   }
 
   export type $OrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17820,6 +23482,7 @@ export namespace Prisma {
       items: Prisma.$OrderItemPayload<ExtArgs>[]
       tasks: Prisma.$TaskPayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
+      deal: Prisma.$DealPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17850,6 +23513,7 @@ export namespace Prisma {
       cancellationReason: string | null
       customFields: Prisma.JsonValue
       metadata: Prisma.JsonValue
+      dealId: string | null
       createdBy: string
       createdAt: Date
       updatedAt: Date
@@ -18253,6 +23917,7 @@ export namespace Prisma {
     items<T extends Order$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Order$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tasks<T extends Order$tasksArgs<ExtArgs> = {}>(args?: Subset<T, Order$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends Order$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Order$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    deal<T extends Order$dealArgs<ExtArgs> = {}>(args?: Subset<T, Order$dealArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18310,6 +23975,7 @@ export namespace Prisma {
     readonly cancellationReason: FieldRef<"Order", 'String'>
     readonly customFields: FieldRef<"Order", 'Json'>
     readonly metadata: FieldRef<"Order", 'Json'>
+    readonly dealId: FieldRef<"Order", 'String'>
     readonly createdBy: FieldRef<"Order", 'String'>
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly updatedAt: FieldRef<"Order", 'DateTime'>
@@ -18797,6 +24463,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Order.deal
+   */
+  export type Order$dealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Deal
+     */
+    omit?: DealOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
   }
 
   /**
@@ -39670,6 +45355,7 @@ export namespace Prisma {
     nextActionDate: 'nextActionDate',
     relatedOrderId: 'relatedOrderId',
     relatedTaskId: 'relatedTaskId',
+    relatedDealId: 'relatedDealId',
     metadata: 'metadata',
     createdBy: 'createdBy',
     createdAt: 'createdAt',
@@ -39677,6 +45363,82 @@ export namespace Prisma {
   };
 
   export type InteractionScalarFieldEnum = (typeof InteractionScalarFieldEnum)[keyof typeof InteractionScalarFieldEnum]
+
+
+  export const DealStageScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    displayName: 'displayName',
+    description: 'description',
+    probability: 'probability',
+    sortOrder: 'sortOrder',
+    isActive: 'isActive',
+    isDefault: 'isDefault',
+    color: 'color',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DealStageScalarFieldEnum = (typeof DealStageScalarFieldEnum)[keyof typeof DealStageScalarFieldEnum]
+
+
+  export const DealScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    customerId: 'customerId',
+    stageId: 'stageId',
+    probability: 'probability',
+    amount: 'amount',
+    currency: 'currency',
+    expectedCloseDate: 'expectedCloseDate',
+    status: 'status',
+    lostReason: 'lostReason',
+    wonAt: 'wonAt',
+    lostAt: 'lostAt',
+    assignedTo: 'assignedTo',
+    createdBy: 'createdBy',
+    daysInStage: 'daysInStage',
+    lastStageChangeAt: 'lastStageChangeAt',
+    stageHistory: 'stageHistory',
+    tags: 'tags',
+    notes: 'notes',
+    customFields: 'customFields',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DealScalarFieldEnum = (typeof DealScalarFieldEnum)[keyof typeof DealScalarFieldEnum]
+
+
+  export const DealContactScalarFieldEnum: {
+    id: 'id',
+    dealId: 'dealId',
+    contactId: 'contactId',
+    role: 'role',
+    isPrimary: 'isPrimary',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DealContactScalarFieldEnum = (typeof DealContactScalarFieldEnum)[keyof typeof DealContactScalarFieldEnum]
+
+
+  export const DealProductScalarFieldEnum: {
+    id: 'id',
+    dealId: 'dealId',
+    productId: 'productId',
+    quantity: 'quantity',
+    unitPrice: 'unitPrice',
+    discount: 'discount',
+    total: 'total',
+    notes: 'notes',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DealProductScalarFieldEnum = (typeof DealProductScalarFieldEnum)[keyof typeof DealProductScalarFieldEnum]
 
 
   export const CategoryScalarFieldEnum: {
@@ -39808,6 +45570,7 @@ export namespace Prisma {
     cancellationReason: 'cancellationReason',
     customFields: 'customFields',
     metadata: 'metadata',
+    dealId: 'dealId',
     createdBy: 'createdBy',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -40349,6 +46112,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistListRelationFilter
     auditLogsUser?: AuditLogListRelationFilter
     companySettingsUpdated?: CompanySettingListRelationFilter
+    dealsCreated?: DealListRelationFilter
+    dealsAssigned?: DealListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -40390,6 +46155,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistOrderByRelationAggregateInput
     auditLogsUser?: AuditLogOrderByRelationAggregateInput
     companySettingsUpdated?: CompanySettingOrderByRelationAggregateInput
+    dealsCreated?: DealOrderByRelationAggregateInput
+    dealsAssigned?: DealOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -40434,6 +46201,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistListRelationFilter
     auditLogsUser?: AuditLogListRelationFilter
     companySettingsUpdated?: CompanySettingListRelationFilter
+    dealsCreated?: DealListRelationFilter
+    dealsAssigned?: DealListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -40595,6 +46364,7 @@ export namespace Prisma {
     orders?: OrderListRelationFilter
     tasks?: TaskListRelationFilter
     messageLogs?: MessageLogListRelationFilter
+    deals?: DealListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -40643,6 +46413,7 @@ export namespace Prisma {
     orders?: OrderOrderByRelationAggregateInput
     tasks?: TaskOrderByRelationAggregateInput
     messageLogs?: MessageLogOrderByRelationAggregateInput
+    deals?: DealOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -40694,6 +46465,7 @@ export namespace Prisma {
     orders?: OrderListRelationFilter
     tasks?: TaskListRelationFilter
     messageLogs?: MessageLogListRelationFilter
+    deals?: DealListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -40805,6 +46577,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CustomerContact"> | Date | string
     updatedAt?: DateTimeFilter<"CustomerContact"> | Date | string
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    dealContacts?: DealContactListRelationFilter
   }
 
   export type CustomerContactOrderByWithRelationInput = {
@@ -40823,6 +46596,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer?: CustomerOrderByWithRelationInput
+    dealContacts?: DealContactOrderByRelationAggregateInput
   }
 
   export type CustomerContactWhereUniqueInput = Prisma.AtLeast<{
@@ -40844,6 +46618,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CustomerContact"> | Date | string
     updatedAt?: DateTimeFilter<"CustomerContact"> | Date | string
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    dealContacts?: DealContactListRelationFilter
   }, "id">
 
   export type CustomerContactOrderByWithAggregationInput = {
@@ -40904,12 +46679,14 @@ export namespace Prisma {
     nextActionDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     relatedOrderId?: UuidNullableFilter<"Interaction"> | string | null
     relatedTaskId?: UuidNullableFilter<"Interaction"> | string | null
+    relatedDealId?: UuidNullableFilter<"Interaction"> | string | null
     metadata?: JsonFilter<"Interaction">
     createdBy?: UuidFilter<"Interaction"> | string
     createdAt?: DateTimeFilter<"Interaction"> | Date | string
     updatedAt?: DateTimeFilter<"Interaction"> | Date | string
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    deal?: XOR<DealNullableScalarRelationFilter, DealWhereInput> | null
   }
 
   export type InteractionOrderByWithRelationInput = {
@@ -40927,12 +46704,14 @@ export namespace Prisma {
     nextActionDate?: SortOrderInput | SortOrder
     relatedOrderId?: SortOrderInput | SortOrder
     relatedTaskId?: SortOrderInput | SortOrder
+    relatedDealId?: SortOrderInput | SortOrder
     metadata?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     customer?: CustomerOrderByWithRelationInput
     createdByUser?: UserOrderByWithRelationInput
+    deal?: DealOrderByWithRelationInput
   }
 
   export type InteractionWhereUniqueInput = Prisma.AtLeast<{
@@ -40953,12 +46732,14 @@ export namespace Prisma {
     nextActionDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     relatedOrderId?: UuidNullableFilter<"Interaction"> | string | null
     relatedTaskId?: UuidNullableFilter<"Interaction"> | string | null
+    relatedDealId?: UuidNullableFilter<"Interaction"> | string | null
     metadata?: JsonFilter<"Interaction">
     createdBy?: UuidFilter<"Interaction"> | string
     createdAt?: DateTimeFilter<"Interaction"> | Date | string
     updatedAt?: DateTimeFilter<"Interaction"> | Date | string
     customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
     createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    deal?: XOR<DealNullableScalarRelationFilter, DealWhereInput> | null
   }, "id">
 
   export type InteractionOrderByWithAggregationInput = {
@@ -40976,6 +46757,7 @@ export namespace Prisma {
     nextActionDate?: SortOrderInput | SortOrder
     relatedOrderId?: SortOrderInput | SortOrder
     relatedTaskId?: SortOrderInput | SortOrder
+    relatedDealId?: SortOrderInput | SortOrder
     metadata?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
@@ -41005,10 +46787,425 @@ export namespace Prisma {
     nextActionDate?: DateTimeNullableWithAggregatesFilter<"Interaction"> | Date | string | null
     relatedOrderId?: UuidNullableWithAggregatesFilter<"Interaction"> | string | null
     relatedTaskId?: UuidNullableWithAggregatesFilter<"Interaction"> | string | null
+    relatedDealId?: UuidNullableWithAggregatesFilter<"Interaction"> | string | null
     metadata?: JsonWithAggregatesFilter<"Interaction">
     createdBy?: UuidWithAggregatesFilter<"Interaction"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Interaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Interaction"> | Date | string
+  }
+
+  export type DealStageWhereInput = {
+    AND?: DealStageWhereInput | DealStageWhereInput[]
+    OR?: DealStageWhereInput[]
+    NOT?: DealStageWhereInput | DealStageWhereInput[]
+    id?: UuidFilter<"DealStage"> | string
+    name?: StringFilter<"DealStage"> | string
+    displayName?: StringFilter<"DealStage"> | string
+    description?: StringNullableFilter<"DealStage"> | string | null
+    probability?: IntFilter<"DealStage"> | number
+    sortOrder?: IntFilter<"DealStage"> | number
+    isActive?: BoolFilter<"DealStage"> | boolean
+    isDefault?: BoolFilter<"DealStage"> | boolean
+    color?: StringNullableFilter<"DealStage"> | string | null
+    createdAt?: DateTimeFilter<"DealStage"> | Date | string
+    updatedAt?: DateTimeFilter<"DealStage"> | Date | string
+    deals?: DealListRelationFilter
+  }
+
+  export type DealStageOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrderInput | SortOrder
+    probability?: SortOrder
+    sortOrder?: SortOrder
+    isActive?: SortOrder
+    isDefault?: SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deals?: DealOrderByRelationAggregateInput
+  }
+
+  export type DealStageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DealStageWhereInput | DealStageWhereInput[]
+    OR?: DealStageWhereInput[]
+    NOT?: DealStageWhereInput | DealStageWhereInput[]
+    name?: StringFilter<"DealStage"> | string
+    displayName?: StringFilter<"DealStage"> | string
+    description?: StringNullableFilter<"DealStage"> | string | null
+    probability?: IntFilter<"DealStage"> | number
+    sortOrder?: IntFilter<"DealStage"> | number
+    isActive?: BoolFilter<"DealStage"> | boolean
+    isDefault?: BoolFilter<"DealStage"> | boolean
+    color?: StringNullableFilter<"DealStage"> | string | null
+    createdAt?: DateTimeFilter<"DealStage"> | Date | string
+    updatedAt?: DateTimeFilter<"DealStage"> | Date | string
+    deals?: DealListRelationFilter
+  }, "id">
+
+  export type DealStageOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrderInput | SortOrder
+    probability?: SortOrder
+    sortOrder?: SortOrder
+    isActive?: SortOrder
+    isDefault?: SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DealStageCountOrderByAggregateInput
+    _avg?: DealStageAvgOrderByAggregateInput
+    _max?: DealStageMaxOrderByAggregateInput
+    _min?: DealStageMinOrderByAggregateInput
+    _sum?: DealStageSumOrderByAggregateInput
+  }
+
+  export type DealStageScalarWhereWithAggregatesInput = {
+    AND?: DealStageScalarWhereWithAggregatesInput | DealStageScalarWhereWithAggregatesInput[]
+    OR?: DealStageScalarWhereWithAggregatesInput[]
+    NOT?: DealStageScalarWhereWithAggregatesInput | DealStageScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"DealStage"> | string
+    name?: StringWithAggregatesFilter<"DealStage"> | string
+    displayName?: StringWithAggregatesFilter<"DealStage"> | string
+    description?: StringNullableWithAggregatesFilter<"DealStage"> | string | null
+    probability?: IntWithAggregatesFilter<"DealStage"> | number
+    sortOrder?: IntWithAggregatesFilter<"DealStage"> | number
+    isActive?: BoolWithAggregatesFilter<"DealStage"> | boolean
+    isDefault?: BoolWithAggregatesFilter<"DealStage"> | boolean
+    color?: StringNullableWithAggregatesFilter<"DealStage"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DealStage"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DealStage"> | Date | string
+  }
+
+  export type DealWhereInput = {
+    AND?: DealWhereInput | DealWhereInput[]
+    OR?: DealWhereInput[]
+    NOT?: DealWhereInput | DealWhereInput[]
+    id?: UuidFilter<"Deal"> | string
+    name?: StringFilter<"Deal"> | string
+    description?: StringNullableFilter<"Deal"> | string | null
+    customerId?: UuidFilter<"Deal"> | string
+    stageId?: UuidFilter<"Deal"> | string
+    probability?: IntFilter<"Deal"> | number
+    amount?: DecimalFilter<"Deal"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"Deal"> | string
+    expectedCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    status?: StringFilter<"Deal"> | string
+    lostReason?: StringNullableFilter<"Deal"> | string | null
+    wonAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    lostAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    assignedTo?: UuidNullableFilter<"Deal"> | string | null
+    createdBy?: UuidFilter<"Deal"> | string
+    daysInStage?: IntFilter<"Deal"> | number
+    lastStageChangeAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    stageHistory?: JsonFilter<"Deal">
+    tags?: StringNullableListFilter<"Deal">
+    notes?: StringNullableFilter<"Deal"> | string | null
+    customFields?: JsonFilter<"Deal">
+    metadata?: JsonFilter<"Deal">
+    createdAt?: DateTimeFilter<"Deal"> | Date | string
+    updatedAt?: DateTimeFilter<"Deal"> | Date | string
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    stage?: XOR<DealStageScalarRelationFilter, DealStageWhereInput>
+    assignedToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    contacts?: DealContactListRelationFilter
+    products?: DealProductListRelationFilter
+    interactions?: InteractionListRelationFilter
+    orders?: OrderListRelationFilter
+  }
+
+  export type DealOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    customerId?: SortOrder
+    stageId?: SortOrder
+    probability?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrderInput | SortOrder
+    status?: SortOrder
+    lostReason?: SortOrderInput | SortOrder
+    wonAt?: SortOrderInput | SortOrder
+    lostAt?: SortOrderInput | SortOrder
+    assignedTo?: SortOrderInput | SortOrder
+    createdBy?: SortOrder
+    daysInStage?: SortOrder
+    lastStageChangeAt?: SortOrderInput | SortOrder
+    stageHistory?: SortOrder
+    tags?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    customFields?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    customer?: CustomerOrderByWithRelationInput
+    stage?: DealStageOrderByWithRelationInput
+    assignedToUser?: UserOrderByWithRelationInput
+    createdByUser?: UserOrderByWithRelationInput
+    contacts?: DealContactOrderByRelationAggregateInput
+    products?: DealProductOrderByRelationAggregateInput
+    interactions?: InteractionOrderByRelationAggregateInput
+    orders?: OrderOrderByRelationAggregateInput
+  }
+
+  export type DealWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DealWhereInput | DealWhereInput[]
+    OR?: DealWhereInput[]
+    NOT?: DealWhereInput | DealWhereInput[]
+    name?: StringFilter<"Deal"> | string
+    description?: StringNullableFilter<"Deal"> | string | null
+    customerId?: UuidFilter<"Deal"> | string
+    stageId?: UuidFilter<"Deal"> | string
+    probability?: IntFilter<"Deal"> | number
+    amount?: DecimalFilter<"Deal"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"Deal"> | string
+    expectedCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    status?: StringFilter<"Deal"> | string
+    lostReason?: StringNullableFilter<"Deal"> | string | null
+    wonAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    lostAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    assignedTo?: UuidNullableFilter<"Deal"> | string | null
+    createdBy?: UuidFilter<"Deal"> | string
+    daysInStage?: IntFilter<"Deal"> | number
+    lastStageChangeAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    stageHistory?: JsonFilter<"Deal">
+    tags?: StringNullableListFilter<"Deal">
+    notes?: StringNullableFilter<"Deal"> | string | null
+    customFields?: JsonFilter<"Deal">
+    metadata?: JsonFilter<"Deal">
+    createdAt?: DateTimeFilter<"Deal"> | Date | string
+    updatedAt?: DateTimeFilter<"Deal"> | Date | string
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    stage?: XOR<DealStageScalarRelationFilter, DealStageWhereInput>
+    assignedToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+    contacts?: DealContactListRelationFilter
+    products?: DealProductListRelationFilter
+    interactions?: InteractionListRelationFilter
+    orders?: OrderListRelationFilter
+  }, "id">
+
+  export type DealOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    customerId?: SortOrder
+    stageId?: SortOrder
+    probability?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrderInput | SortOrder
+    status?: SortOrder
+    lostReason?: SortOrderInput | SortOrder
+    wonAt?: SortOrderInput | SortOrder
+    lostAt?: SortOrderInput | SortOrder
+    assignedTo?: SortOrderInput | SortOrder
+    createdBy?: SortOrder
+    daysInStage?: SortOrder
+    lastStageChangeAt?: SortOrderInput | SortOrder
+    stageHistory?: SortOrder
+    tags?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    customFields?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DealCountOrderByAggregateInput
+    _avg?: DealAvgOrderByAggregateInput
+    _max?: DealMaxOrderByAggregateInput
+    _min?: DealMinOrderByAggregateInput
+    _sum?: DealSumOrderByAggregateInput
+  }
+
+  export type DealScalarWhereWithAggregatesInput = {
+    AND?: DealScalarWhereWithAggregatesInput | DealScalarWhereWithAggregatesInput[]
+    OR?: DealScalarWhereWithAggregatesInput[]
+    NOT?: DealScalarWhereWithAggregatesInput | DealScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Deal"> | string
+    name?: StringWithAggregatesFilter<"Deal"> | string
+    description?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    customerId?: UuidWithAggregatesFilter<"Deal"> | string
+    stageId?: UuidWithAggregatesFilter<"Deal"> | string
+    probability?: IntWithAggregatesFilter<"Deal"> | number
+    amount?: DecimalWithAggregatesFilter<"Deal"> | Decimal | DecimalJsLike | number | string
+    currency?: StringWithAggregatesFilter<"Deal"> | string
+    expectedCloseDate?: DateTimeNullableWithAggregatesFilter<"Deal"> | Date | string | null
+    status?: StringWithAggregatesFilter<"Deal"> | string
+    lostReason?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    wonAt?: DateTimeNullableWithAggregatesFilter<"Deal"> | Date | string | null
+    lostAt?: DateTimeNullableWithAggregatesFilter<"Deal"> | Date | string | null
+    assignedTo?: UuidNullableWithAggregatesFilter<"Deal"> | string | null
+    createdBy?: UuidWithAggregatesFilter<"Deal"> | string
+    daysInStage?: IntWithAggregatesFilter<"Deal"> | number
+    lastStageChangeAt?: DateTimeNullableWithAggregatesFilter<"Deal"> | Date | string | null
+    stageHistory?: JsonWithAggregatesFilter<"Deal">
+    tags?: StringNullableListFilter<"Deal">
+    notes?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    customFields?: JsonWithAggregatesFilter<"Deal">
+    metadata?: JsonWithAggregatesFilter<"Deal">
+    createdAt?: DateTimeWithAggregatesFilter<"Deal"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Deal"> | Date | string
+  }
+
+  export type DealContactWhereInput = {
+    AND?: DealContactWhereInput | DealContactWhereInput[]
+    OR?: DealContactWhereInput[]
+    NOT?: DealContactWhereInput | DealContactWhereInput[]
+    id?: UuidFilter<"DealContact"> | string
+    dealId?: UuidFilter<"DealContact"> | string
+    contactId?: UuidFilter<"DealContact"> | string
+    role?: StringNullableFilter<"DealContact"> | string | null
+    isPrimary?: BoolFilter<"DealContact"> | boolean
+    createdAt?: DateTimeFilter<"DealContact"> | Date | string
+    updatedAt?: DateTimeFilter<"DealContact"> | Date | string
+    deal?: XOR<DealScalarRelationFilter, DealWhereInput>
+    contact?: XOR<CustomerContactScalarRelationFilter, CustomerContactWhereInput>
+  }
+
+  export type DealContactOrderByWithRelationInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    contactId?: SortOrder
+    role?: SortOrderInput | SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deal?: DealOrderByWithRelationInput
+    contact?: CustomerContactOrderByWithRelationInput
+  }
+
+  export type DealContactWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    dealId_contactId?: DealContactDealIdContactIdCompoundUniqueInput
+    AND?: DealContactWhereInput | DealContactWhereInput[]
+    OR?: DealContactWhereInput[]
+    NOT?: DealContactWhereInput | DealContactWhereInput[]
+    dealId?: UuidFilter<"DealContact"> | string
+    contactId?: UuidFilter<"DealContact"> | string
+    role?: StringNullableFilter<"DealContact"> | string | null
+    isPrimary?: BoolFilter<"DealContact"> | boolean
+    createdAt?: DateTimeFilter<"DealContact"> | Date | string
+    updatedAt?: DateTimeFilter<"DealContact"> | Date | string
+    deal?: XOR<DealScalarRelationFilter, DealWhereInput>
+    contact?: XOR<CustomerContactScalarRelationFilter, CustomerContactWhereInput>
+  }, "id" | "dealId_contactId">
+
+  export type DealContactOrderByWithAggregationInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    contactId?: SortOrder
+    role?: SortOrderInput | SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DealContactCountOrderByAggregateInput
+    _max?: DealContactMaxOrderByAggregateInput
+    _min?: DealContactMinOrderByAggregateInput
+  }
+
+  export type DealContactScalarWhereWithAggregatesInput = {
+    AND?: DealContactScalarWhereWithAggregatesInput | DealContactScalarWhereWithAggregatesInput[]
+    OR?: DealContactScalarWhereWithAggregatesInput[]
+    NOT?: DealContactScalarWhereWithAggregatesInput | DealContactScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"DealContact"> | string
+    dealId?: UuidWithAggregatesFilter<"DealContact"> | string
+    contactId?: UuidWithAggregatesFilter<"DealContact"> | string
+    role?: StringNullableWithAggregatesFilter<"DealContact"> | string | null
+    isPrimary?: BoolWithAggregatesFilter<"DealContact"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"DealContact"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DealContact"> | Date | string
+  }
+
+  export type DealProductWhereInput = {
+    AND?: DealProductWhereInput | DealProductWhereInput[]
+    OR?: DealProductWhereInput[]
+    NOT?: DealProductWhereInput | DealProductWhereInput[]
+    id?: UuidFilter<"DealProduct"> | string
+    dealId?: UuidFilter<"DealProduct"> | string
+    productId?: UuidFilter<"DealProduct"> | string
+    quantity?: IntFilter<"DealProduct"> | number
+    unitPrice?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    total?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    notes?: StringNullableFilter<"DealProduct"> | string | null
+    createdAt?: DateTimeFilter<"DealProduct"> | Date | string
+    updatedAt?: DateTimeFilter<"DealProduct"> | Date | string
+    deal?: XOR<DealScalarRelationFilter, DealWhereInput>
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }
+
+  export type DealProductOrderByWithRelationInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    discount?: SortOrder
+    total?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deal?: DealOrderByWithRelationInput
+    product?: ProductOrderByWithRelationInput
+  }
+
+  export type DealProductWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DealProductWhereInput | DealProductWhereInput[]
+    OR?: DealProductWhereInput[]
+    NOT?: DealProductWhereInput | DealProductWhereInput[]
+    dealId?: UuidFilter<"DealProduct"> | string
+    productId?: UuidFilter<"DealProduct"> | string
+    quantity?: IntFilter<"DealProduct"> | number
+    unitPrice?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    total?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    notes?: StringNullableFilter<"DealProduct"> | string | null
+    createdAt?: DateTimeFilter<"DealProduct"> | Date | string
+    updatedAt?: DateTimeFilter<"DealProduct"> | Date | string
+    deal?: XOR<DealScalarRelationFilter, DealWhereInput>
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }, "id">
+
+  export type DealProductOrderByWithAggregationInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    discount?: SortOrder
+    total?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DealProductCountOrderByAggregateInput
+    _avg?: DealProductAvgOrderByAggregateInput
+    _max?: DealProductMaxOrderByAggregateInput
+    _min?: DealProductMinOrderByAggregateInput
+    _sum?: DealProductSumOrderByAggregateInput
+  }
+
+  export type DealProductScalarWhereWithAggregatesInput = {
+    AND?: DealProductScalarWhereWithAggregatesInput | DealProductScalarWhereWithAggregatesInput[]
+    OR?: DealProductScalarWhereWithAggregatesInput[]
+    NOT?: DealProductScalarWhereWithAggregatesInput | DealProductScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"DealProduct"> | string
+    dealId?: UuidWithAggregatesFilter<"DealProduct"> | string
+    productId?: UuidWithAggregatesFilter<"DealProduct"> | string
+    quantity?: IntWithAggregatesFilter<"DealProduct"> | number
+    unitPrice?: DecimalWithAggregatesFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    discount?: DecimalWithAggregatesFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    total?: DecimalWithAggregatesFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    notes?: StringNullableWithAggregatesFilter<"DealProduct"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DealProduct"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DealProduct"> | Date | string
   }
 
   export type CategoryWhereInput = {
@@ -41139,6 +47336,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemListRelationFilter
     comboItemsAsProduct?: ComboItemListRelationFilter
     stockAlerts?: StockAlertListRelationFilter
+    dealProducts?: DealProductListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -41178,6 +47376,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemOrderByRelationAggregateInput
     comboItemsAsProduct?: ComboItemOrderByRelationAggregateInput
     stockAlerts?: StockAlertOrderByRelationAggregateInput
+    dealProducts?: DealProductOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -41220,6 +47419,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemListRelationFilter
     comboItemsAsProduct?: ComboItemListRelationFilter
     stockAlerts?: StockAlertListRelationFilter
+    dealProducts?: DealProductListRelationFilter
   }, "id" | "sku">
 
   export type ProductOrderByWithAggregationInput = {
@@ -41595,6 +47795,7 @@ export namespace Prisma {
     cancellationReason?: StringNullableFilter<"Order"> | string | null
     customFields?: JsonFilter<"Order">
     metadata?: JsonFilter<"Order">
+    dealId?: UuidNullableFilter<"Order"> | string | null
     createdBy?: UuidFilter<"Order"> | string
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -41604,6 +47805,7 @@ export namespace Prisma {
     items?: OrderItemListRelationFilter
     tasks?: TaskListRelationFilter
     payments?: PaymentListRelationFilter
+    deal?: XOR<DealNullableScalarRelationFilter, DealWhereInput> | null
   }
 
   export type OrderOrderByWithRelationInput = {
@@ -41635,6 +47837,7 @@ export namespace Prisma {
     cancellationReason?: SortOrderInput | SortOrder
     customFields?: SortOrder
     metadata?: SortOrder
+    dealId?: SortOrderInput | SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -41644,6 +47847,7 @@ export namespace Prisma {
     items?: OrderItemOrderByRelationAggregateInput
     tasks?: TaskOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
+    deal?: DealOrderByWithRelationInput
   }
 
   export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -41678,6 +47882,7 @@ export namespace Prisma {
     cancellationReason?: StringNullableFilter<"Order"> | string | null
     customFields?: JsonFilter<"Order">
     metadata?: JsonFilter<"Order">
+    dealId?: UuidNullableFilter<"Order"> | string | null
     createdBy?: UuidFilter<"Order"> | string
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -41687,6 +47892,7 @@ export namespace Prisma {
     items?: OrderItemListRelationFilter
     tasks?: TaskListRelationFilter
     payments?: PaymentListRelationFilter
+    deal?: XOR<DealNullableScalarRelationFilter, DealWhereInput> | null
   }, "id" | "orderNumber">
 
   export type OrderOrderByWithAggregationInput = {
@@ -41718,6 +47924,7 @@ export namespace Prisma {
     cancellationReason?: SortOrderInput | SortOrder
     customFields?: SortOrder
     metadata?: SortOrder
+    dealId?: SortOrderInput | SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -41760,6 +47967,7 @@ export namespace Prisma {
     cancellationReason?: StringNullableWithAggregatesFilter<"Order"> | string | null
     customFields?: JsonWithAggregatesFilter<"Order">
     metadata?: JsonWithAggregatesFilter<"Order">
+    dealId?: UuidNullableWithAggregatesFilter<"Order"> | string | null
     createdBy?: UuidWithAggregatesFilter<"Order"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -43577,6 +49785,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -43617,6 +49827,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUpdateInput = {
@@ -43657,6 +49869,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -43697,6 +49911,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -43875,6 +50091,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCustomerInput
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -43921,6 +50138,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -43967,6 +50185,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -44013,6 +50232,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -44151,6 +50371,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer: CustomerCreateNestedOneWithoutContactsInput
+    dealContacts?: DealContactCreateNestedManyWithoutContactInput
   }
 
   export type CustomerContactUncheckedCreateInput = {
@@ -44168,6 +50389,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    dealContacts?: DealContactUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type CustomerContactUpdateInput = {
@@ -44185,6 +50407,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutContactsNestedInput
+    dealContacts?: DealContactUpdateManyWithoutContactNestedInput
   }
 
   export type CustomerContactUncheckedUpdateInput = {
@@ -44202,6 +50425,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dealContacts?: DealContactUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type CustomerContactCreateManyInput = {
@@ -44273,6 +50497,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     customer: CustomerCreateNestedOneWithoutInteractionsInput
     createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    deal?: DealCreateNestedOneWithoutInteractionsInput
   }
 
   export type InteractionUncheckedCreateInput = {
@@ -44290,6 +50515,7 @@ export namespace Prisma {
     nextActionDate?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    relatedDealId?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
@@ -44315,6 +50541,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
     createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    deal?: DealUpdateOneWithoutInteractionsNestedInput
   }
 
   export type InteractionUncheckedUpdateInput = {
@@ -44332,6 +50559,7 @@ export namespace Prisma {
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44353,6 +50581,7 @@ export namespace Prisma {
     nextActionDate?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    relatedDealId?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
@@ -44393,8 +50622,469 @@ export namespace Prisma {
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealStageCreateInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    probability?: number
+    sortOrder?: number
+    isActive?: boolean
+    isDefault?: boolean
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealCreateNestedManyWithoutStageInput
+  }
+
+  export type DealStageUncheckedCreateInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    probability?: number
+    sortOrder?: number
+    isActive?: boolean
+    isDefault?: boolean
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealUncheckedCreateNestedManyWithoutStageInput
+  }
+
+  export type DealStageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUpdateManyWithoutStageNestedInput
+  }
+
+  export type DealStageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUncheckedUpdateManyWithoutStageNestedInput
+  }
+
+  export type DealStageCreateManyInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    probability?: number
+    sortOrder?: number
+    isActive?: boolean
+    isDefault?: boolean
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealStageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealStageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDealsInput
+    stage: DealStageCreateNestedOneWithoutDealsInput
+    assignedToUser?: UserCreateNestedOneWithoutDealsAssignedInput
+    createdByUser: UserCreateNestedOneWithoutDealsCreatedInput
+    contacts?: DealContactCreateNestedManyWithoutDealInput
+    products?: DealProductCreateNestedManyWithoutDealInput
+    interactions?: InteractionCreateNestedManyWithoutDealInput
+    orders?: OrderCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: DealContactUncheckedCreateNestedManyWithoutDealInput
+    products?: DealProductUncheckedCreateNestedManyWithoutDealInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutDealInput
+    orders?: OrderUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDealsNestedInput
+    stage?: DealStageUpdateOneRequiredWithoutDealsNestedInput
+    assignedToUser?: UserUpdateOneWithoutDealsAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutDealsCreatedNestedInput
+    contacts?: DealContactUpdateManyWithoutDealNestedInput
+    products?: DealProductUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUpdateManyWithoutDealNestedInput
+    orders?: OrderUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
+    products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutDealNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealContactCreateInput = {
+    id?: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deal: DealCreateNestedOneWithoutContactsInput
+    contact: CustomerContactCreateNestedOneWithoutDealContactsInput
+  }
+
+  export type DealContactUncheckedCreateInput = {
+    id?: string
+    dealId: string
+    contactId: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealContactUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deal?: DealUpdateOneRequiredWithoutContactsNestedInput
+    contact?: CustomerContactUpdateOneRequiredWithoutDealContactsNestedInput
+  }
+
+  export type DealContactUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dealId?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealContactCreateManyInput = {
+    id?: string
+    dealId: string
+    contactId: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealContactUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealContactUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dealId?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealProductCreateInput = {
+    id?: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deal: DealCreateNestedOneWithoutProductsInput
+    product: ProductCreateNestedOneWithoutDealProductsInput
+  }
+
+  export type DealProductUncheckedCreateInput = {
+    id?: string
+    dealId: string
+    productId: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealProductUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deal?: DealUpdateOneRequiredWithoutProductsNestedInput
+    product?: ProductUpdateOneRequiredWithoutDealProductsNestedInput
+  }
+
+  export type DealProductUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dealId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealProductCreateManyInput = {
+    id?: string
+    dealId: string
+    productId: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealProductUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealProductUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dealId?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44532,6 +51222,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -44569,6 +51260,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -44606,6 +51298,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -44643,6 +51336,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -45060,6 +51754,7 @@ export namespace Prisma {
     items?: OrderItemCreateNestedManyWithoutOrderInput
     tasks?: TaskCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
+    deal?: DealCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateInput = {
@@ -45091,6 +51786,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -45134,6 +51830,7 @@ export namespace Prisma {
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     tasks?: TaskUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
+    deal?: DealUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateInput = {
@@ -45165,6 +51862,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45202,6 +51900,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -45267,6 +51966,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47521,6 +54221,12 @@ export namespace Prisma {
     none?: CompanySettingWhereInput
   }
 
+  export type DealListRelationFilter = {
+    every?: DealWhereInput
+    some?: DealWhereInput
+    none?: DealWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -47587,6 +54293,10 @@ export namespace Prisma {
   }
 
   export type CompanySettingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DealOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -48032,6 +54742,16 @@ export namespace Prisma {
     isNot?: CustomerWhereInput
   }
 
+  export type DealContactListRelationFilter = {
+    every?: DealContactWhereInput
+    some?: DealContactWhereInput
+    none?: DealContactWhereInput
+  }
+
+  export type DealContactOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CustomerContactCountOrderByAggregateInput = {
     id?: SortOrder
     customerId?: SortOrder
@@ -48094,6 +54814,11 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type DealNullableScalarRelationFilter = {
+    is?: DealWhereInput | null
+    isNot?: DealWhereInput | null
+  }
+
   export type InteractionCountOrderByAggregateInput = {
     id?: SortOrder
     customerId?: SortOrder
@@ -48109,6 +54834,7 @@ export namespace Prisma {
     nextActionDate?: SortOrder
     relatedOrderId?: SortOrder
     relatedTaskId?: SortOrder
+    relatedDealId?: SortOrder
     metadata?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
@@ -48134,6 +54860,7 @@ export namespace Prisma {
     nextActionDate?: SortOrder
     relatedOrderId?: SortOrder
     relatedTaskId?: SortOrder
+    relatedDealId?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -48154,6 +54881,7 @@ export namespace Prisma {
     nextActionDate?: SortOrder
     relatedOrderId?: SortOrder
     relatedTaskId?: SortOrder
+    relatedDealId?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -48177,6 +54905,288 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DealStageCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    probability?: SortOrder
+    sortOrder?: SortOrder
+    isActive?: SortOrder
+    isDefault?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealStageAvgOrderByAggregateInput = {
+    probability?: SortOrder
+    sortOrder?: SortOrder
+  }
+
+  export type DealStageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    probability?: SortOrder
+    sortOrder?: SortOrder
+    isActive?: SortOrder
+    isDefault?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealStageMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    displayName?: SortOrder
+    description?: SortOrder
+    probability?: SortOrder
+    sortOrder?: SortOrder
+    isActive?: SortOrder
+    isDefault?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealStageSumOrderByAggregateInput = {
+    probability?: SortOrder
+    sortOrder?: SortOrder
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type DealStageScalarRelationFilter = {
+    is?: DealStageWhereInput
+    isNot?: DealStageWhereInput
+  }
+
+  export type DealProductListRelationFilter = {
+    every?: DealProductWhereInput
+    some?: DealProductWhereInput
+    none?: DealProductWhereInput
+  }
+
+  export type DealProductOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DealCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    customerId?: SortOrder
+    stageId?: SortOrder
+    probability?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrder
+    status?: SortOrder
+    lostReason?: SortOrder
+    wonAt?: SortOrder
+    lostAt?: SortOrder
+    assignedTo?: SortOrder
+    createdBy?: SortOrder
+    daysInStage?: SortOrder
+    lastStageChangeAt?: SortOrder
+    stageHistory?: SortOrder
+    tags?: SortOrder
+    notes?: SortOrder
+    customFields?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealAvgOrderByAggregateInput = {
+    probability?: SortOrder
+    amount?: SortOrder
+    daysInStage?: SortOrder
+  }
+
+  export type DealMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    customerId?: SortOrder
+    stageId?: SortOrder
+    probability?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrder
+    status?: SortOrder
+    lostReason?: SortOrder
+    wonAt?: SortOrder
+    lostAt?: SortOrder
+    assignedTo?: SortOrder
+    createdBy?: SortOrder
+    daysInStage?: SortOrder
+    lastStageChangeAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    customerId?: SortOrder
+    stageId?: SortOrder
+    probability?: SortOrder
+    amount?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrder
+    status?: SortOrder
+    lostReason?: SortOrder
+    wonAt?: SortOrder
+    lostAt?: SortOrder
+    assignedTo?: SortOrder
+    createdBy?: SortOrder
+    daysInStage?: SortOrder
+    lastStageChangeAt?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealSumOrderByAggregateInput = {
+    probability?: SortOrder
+    amount?: SortOrder
+    daysInStage?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type DealScalarRelationFilter = {
+    is?: DealWhereInput
+    isNot?: DealWhereInput
+  }
+
+  export type CustomerContactScalarRelationFilter = {
+    is?: CustomerContactWhereInput
+    isNot?: CustomerContactWhereInput
+  }
+
+  export type DealContactDealIdContactIdCompoundUniqueInput = {
+    dealId: string
+    contactId: string
+  }
+
+  export type DealContactCountOrderByAggregateInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    contactId?: SortOrder
+    role?: SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealContactMaxOrderByAggregateInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    contactId?: SortOrder
+    role?: SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealContactMinOrderByAggregateInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    contactId?: SortOrder
+    role?: SortOrder
+    isPrimary?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProductScalarRelationFilter = {
+    is?: ProductWhereInput
+    isNot?: ProductWhereInput
+  }
+
+  export type DealProductCountOrderByAggregateInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    discount?: SortOrder
+    total?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealProductAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    discount?: SortOrder
+    total?: SortOrder
+  }
+
+  export type DealProductMaxOrderByAggregateInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    discount?: SortOrder
+    total?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealProductMinOrderByAggregateInput = {
+    id?: SortOrder
+    dealId?: SortOrder
+    productId?: SortOrder
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    discount?: SortOrder
+    total?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DealProductSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    unitPrice?: SortOrder
+    discount?: SortOrder
+    total?: SortOrder
   }
 
   export type CategoryNullableScalarRelationFilter = {
@@ -48237,17 +55247,6 @@ export namespace Prisma {
 
   export type CategorySumOrderByAggregateInput = {
     sortOrder?: SortOrder
-  }
-
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
   export type ProductVariantListRelationFilter = {
@@ -48393,27 +55392,6 @@ export namespace Prisma {
     stockQuantity?: SortOrder
     stockMin?: SortOrder
     durationMinutes?: SortOrder
-  }
-
-  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type ProductScalarRelationFilter = {
-    is?: ProductWhereInput
-    isNot?: ProductWhereInput
   }
 
   export type ProductVariantCountOrderByAggregateInput = {
@@ -48607,6 +55585,7 @@ export namespace Prisma {
     cancellationReason?: SortOrder
     customFields?: SortOrder
     metadata?: SortOrder
+    dealId?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -48649,6 +55628,7 @@ export namespace Prisma {
     internalNotes?: SortOrder
     cancelledAt?: SortOrder
     cancellationReason?: SortOrder
+    dealId?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -48681,6 +55661,7 @@ export namespace Prisma {
     internalNotes?: SortOrder
     cancelledAt?: SortOrder
     cancellationReason?: SortOrder
+    dealId?: SortOrder
     createdBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -49921,6 +56902,20 @@ export namespace Prisma {
     connect?: CompanySettingWhereUniqueInput | CompanySettingWhereUniqueInput[]
   }
 
+  export type DealCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<DealCreateWithoutCreatedByUserInput, DealUncheckedCreateWithoutCreatedByUserInput> | DealCreateWithoutCreatedByUserInput[] | DealUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutCreatedByUserInput | DealCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: DealCreateManyCreatedByUserInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type DealCreateNestedManyWithoutAssignedToUserInput = {
+    create?: XOR<DealCreateWithoutAssignedToUserInput, DealUncheckedCreateWithoutAssignedToUserInput> | DealCreateWithoutAssignedToUserInput[] | DealUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutAssignedToUserInput | DealCreateOrConnectWithoutAssignedToUserInput[]
+    createMany?: DealCreateManyAssignedToUserInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
   export type UserUncheckedCreateNestedManyWithoutCreatedByUserInput = {
     create?: XOR<UserCreateWithoutCreatedByUserInput, UserUncheckedCreateWithoutCreatedByUserInput> | UserCreateWithoutCreatedByUserInput[] | UserUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCreatedByUserInput | UserCreateOrConnectWithoutCreatedByUserInput[]
@@ -50052,6 +57047,20 @@ export namespace Prisma {
     connectOrCreate?: CompanySettingCreateOrConnectWithoutUpdatedByUserInput | CompanySettingCreateOrConnectWithoutUpdatedByUserInput[]
     createMany?: CompanySettingCreateManyUpdatedByUserInputEnvelope
     connect?: CompanySettingWhereUniqueInput | CompanySettingWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<DealCreateWithoutCreatedByUserInput, DealUncheckedCreateWithoutCreatedByUserInput> | DealCreateWithoutCreatedByUserInput[] | DealUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutCreatedByUserInput | DealCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: DealCreateManyCreatedByUserInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutAssignedToUserInput = {
+    create?: XOR<DealCreateWithoutAssignedToUserInput, DealUncheckedCreateWithoutAssignedToUserInput> | DealCreateWithoutAssignedToUserInput[] | DealUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutAssignedToUserInput | DealCreateOrConnectWithoutAssignedToUserInput[]
+    createMany?: DealCreateManyAssignedToUserInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -50350,6 +57359,34 @@ export namespace Prisma {
     deleteMany?: CompanySettingScalarWhereInput | CompanySettingScalarWhereInput[]
   }
 
+  export type DealUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<DealCreateWithoutCreatedByUserInput, DealUncheckedCreateWithoutCreatedByUserInput> | DealCreateWithoutCreatedByUserInput[] | DealUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutCreatedByUserInput | DealCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutCreatedByUserInput | DealUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: DealCreateManyCreatedByUserInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutCreatedByUserInput | DealUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutCreatedByUserInput | DealUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type DealUpdateManyWithoutAssignedToUserNestedInput = {
+    create?: XOR<DealCreateWithoutAssignedToUserInput, DealUncheckedCreateWithoutAssignedToUserInput> | DealCreateWithoutAssignedToUserInput[] | DealUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutAssignedToUserInput | DealCreateOrConnectWithoutAssignedToUserInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutAssignedToUserInput | DealUpsertWithWhereUniqueWithoutAssignedToUserInput[]
+    createMany?: DealCreateManyAssignedToUserInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutAssignedToUserInput | DealUpdateWithWhereUniqueWithoutAssignedToUserInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutAssignedToUserInput | DealUpdateManyWithWhereWithoutAssignedToUserInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
   export type UserUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
     create?: XOR<UserCreateWithoutCreatedByUserInput, UserUncheckedCreateWithoutCreatedByUserInput> | UserCreateWithoutCreatedByUserInput[] | UserUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: UserCreateOrConnectWithoutCreatedByUserInput | UserCreateOrConnectWithoutCreatedByUserInput[]
@@ -50616,6 +57653,34 @@ export namespace Prisma {
     deleteMany?: CompanySettingScalarWhereInput | CompanySettingScalarWhereInput[]
   }
 
+  export type DealUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<DealCreateWithoutCreatedByUserInput, DealUncheckedCreateWithoutCreatedByUserInput> | DealCreateWithoutCreatedByUserInput[] | DealUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutCreatedByUserInput | DealCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutCreatedByUserInput | DealUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: DealCreateManyCreatedByUserInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutCreatedByUserInput | DealUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutCreatedByUserInput | DealUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutAssignedToUserNestedInput = {
+    create?: XOR<DealCreateWithoutAssignedToUserInput, DealUncheckedCreateWithoutAssignedToUserInput> | DealCreateWithoutAssignedToUserInput[] | DealUncheckedCreateWithoutAssignedToUserInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutAssignedToUserInput | DealCreateOrConnectWithoutAssignedToUserInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutAssignedToUserInput | DealUpsertWithWhereUniqueWithoutAssignedToUserInput[]
+    createMany?: DealCreateManyAssignedToUserInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutAssignedToUserInput | DealUpdateWithWhereUniqueWithoutAssignedToUserInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutAssignedToUserInput | DealUpdateManyWithWhereWithoutAssignedToUserInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
   export type CustomerCreatetagsInput = {
     set: string[]
   }
@@ -50667,6 +57732,13 @@ export namespace Prisma {
     connect?: MessageLogWhereUniqueInput | MessageLogWhereUniqueInput[]
   }
 
+  export type DealCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<DealCreateWithoutCustomerInput, DealUncheckedCreateWithoutCustomerInput> | DealCreateWithoutCustomerInput[] | DealUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutCustomerInput | DealCreateOrConnectWithoutCustomerInput[]
+    createMany?: DealCreateManyCustomerInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
   export type CustomerContactUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<CustomerContactCreateWithoutCustomerInput, CustomerContactUncheckedCreateWithoutCustomerInput> | CustomerContactCreateWithoutCustomerInput[] | CustomerContactUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerContactCreateOrConnectWithoutCustomerInput | CustomerContactCreateOrConnectWithoutCustomerInput[]
@@ -50700,6 +57772,13 @@ export namespace Prisma {
     connectOrCreate?: MessageLogCreateOrConnectWithoutCustomerInput | MessageLogCreateOrConnectWithoutCustomerInput[]
     createMany?: MessageLogCreateManyCustomerInputEnvelope
     connect?: MessageLogWhereUniqueInput | MessageLogWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<DealCreateWithoutCustomerInput, DealUncheckedCreateWithoutCustomerInput> | DealCreateWithoutCustomerInput[] | DealUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutCustomerInput | DealCreateOrConnectWithoutCustomerInput[]
+    createMany?: DealCreateManyCustomerInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -50811,6 +57890,20 @@ export namespace Prisma {
     deleteMany?: MessageLogScalarWhereInput | MessageLogScalarWhereInput[]
   }
 
+  export type DealUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<DealCreateWithoutCustomerInput, DealUncheckedCreateWithoutCustomerInput> | DealCreateWithoutCustomerInput[] | DealUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutCustomerInput | DealCreateOrConnectWithoutCustomerInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutCustomerInput | DealUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: DealCreateManyCustomerInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutCustomerInput | DealUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutCustomerInput | DealUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
   export type CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<CustomerContactCreateWithoutCustomerInput, CustomerContactUncheckedCreateWithoutCustomerInput> | CustomerContactCreateWithoutCustomerInput[] | CustomerContactUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerContactCreateOrConnectWithoutCustomerInput | CustomerContactCreateOrConnectWithoutCustomerInput[]
@@ -50881,10 +57974,38 @@ export namespace Prisma {
     deleteMany?: MessageLogScalarWhereInput | MessageLogScalarWhereInput[]
   }
 
+  export type DealUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<DealCreateWithoutCustomerInput, DealUncheckedCreateWithoutCustomerInput> | DealCreateWithoutCustomerInput[] | DealUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutCustomerInput | DealCreateOrConnectWithoutCustomerInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutCustomerInput | DealUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: DealCreateManyCustomerInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutCustomerInput | DealUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutCustomerInput | DealUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
   export type CustomerCreateNestedOneWithoutContactsInput = {
     create?: XOR<CustomerCreateWithoutContactsInput, CustomerUncheckedCreateWithoutContactsInput>
     connectOrCreate?: CustomerCreateOrConnectWithoutContactsInput
     connect?: CustomerWhereUniqueInput
+  }
+
+  export type DealContactCreateNestedManyWithoutContactInput = {
+    create?: XOR<DealContactCreateWithoutContactInput, DealContactUncheckedCreateWithoutContactInput> | DealContactCreateWithoutContactInput[] | DealContactUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: DealContactCreateOrConnectWithoutContactInput | DealContactCreateOrConnectWithoutContactInput[]
+    createMany?: DealContactCreateManyContactInputEnvelope
+    connect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+  }
+
+  export type DealContactUncheckedCreateNestedManyWithoutContactInput = {
+    create?: XOR<DealContactCreateWithoutContactInput, DealContactUncheckedCreateWithoutContactInput> | DealContactCreateWithoutContactInput[] | DealContactUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: DealContactCreateOrConnectWithoutContactInput | DealContactCreateOrConnectWithoutContactInput[]
+    createMany?: DealContactCreateManyContactInputEnvelope
+    connect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
   }
 
   export type CustomerUpdateOneRequiredWithoutContactsNestedInput = {
@@ -50893,6 +58014,34 @@ export namespace Prisma {
     upsert?: CustomerUpsertWithoutContactsInput
     connect?: CustomerWhereUniqueInput
     update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutContactsInput, CustomerUpdateWithoutContactsInput>, CustomerUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type DealContactUpdateManyWithoutContactNestedInput = {
+    create?: XOR<DealContactCreateWithoutContactInput, DealContactUncheckedCreateWithoutContactInput> | DealContactCreateWithoutContactInput[] | DealContactUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: DealContactCreateOrConnectWithoutContactInput | DealContactCreateOrConnectWithoutContactInput[]
+    upsert?: DealContactUpsertWithWhereUniqueWithoutContactInput | DealContactUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: DealContactCreateManyContactInputEnvelope
+    set?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    disconnect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    delete?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    connect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    update?: DealContactUpdateWithWhereUniqueWithoutContactInput | DealContactUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: DealContactUpdateManyWithWhereWithoutContactInput | DealContactUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: DealContactScalarWhereInput | DealContactScalarWhereInput[]
+  }
+
+  export type DealContactUncheckedUpdateManyWithoutContactNestedInput = {
+    create?: XOR<DealContactCreateWithoutContactInput, DealContactUncheckedCreateWithoutContactInput> | DealContactCreateWithoutContactInput[] | DealContactUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: DealContactCreateOrConnectWithoutContactInput | DealContactCreateOrConnectWithoutContactInput[]
+    upsert?: DealContactUpsertWithWhereUniqueWithoutContactInput | DealContactUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: DealContactCreateManyContactInputEnvelope
+    set?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    disconnect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    delete?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    connect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    update?: DealContactUpdateWithWhereUniqueWithoutContactInput | DealContactUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: DealContactUpdateManyWithWhereWithoutContactInput | DealContactUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: DealContactScalarWhereInput | DealContactScalarWhereInput[]
   }
 
   export type CustomerCreateNestedOneWithoutInteractionsInput = {
@@ -50905,6 +58054,12 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutInteractionsInput, UserUncheckedCreateWithoutInteractionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutInteractionsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type DealCreateNestedOneWithoutInteractionsInput = {
+    create?: XOR<DealCreateWithoutInteractionsInput, DealUncheckedCreateWithoutInteractionsInput>
+    connectOrCreate?: DealCreateOrConnectWithoutInteractionsInput
+    connect?: DealWhereUniqueInput
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -50929,6 +58084,357 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutInteractionsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInteractionsInput, UserUpdateWithoutInteractionsInput>, UserUncheckedUpdateWithoutInteractionsInput>
+  }
+
+  export type DealUpdateOneWithoutInteractionsNestedInput = {
+    create?: XOR<DealCreateWithoutInteractionsInput, DealUncheckedCreateWithoutInteractionsInput>
+    connectOrCreate?: DealCreateOrConnectWithoutInteractionsInput
+    upsert?: DealUpsertWithoutInteractionsInput
+    disconnect?: DealWhereInput | boolean
+    delete?: DealWhereInput | boolean
+    connect?: DealWhereUniqueInput
+    update?: XOR<XOR<DealUpdateToOneWithWhereWithoutInteractionsInput, DealUpdateWithoutInteractionsInput>, DealUncheckedUpdateWithoutInteractionsInput>
+  }
+
+  export type DealCreateNestedManyWithoutStageInput = {
+    create?: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput> | DealCreateWithoutStageInput[] | DealUncheckedCreateWithoutStageInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageInput | DealCreateOrConnectWithoutStageInput[]
+    createMany?: DealCreateManyStageInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutStageInput = {
+    create?: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput> | DealCreateWithoutStageInput[] | DealUncheckedCreateWithoutStageInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageInput | DealCreateOrConnectWithoutStageInput[]
+    createMany?: DealCreateManyStageInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type DealUpdateManyWithoutStageNestedInput = {
+    create?: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput> | DealCreateWithoutStageInput[] | DealUncheckedCreateWithoutStageInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageInput | DealCreateOrConnectWithoutStageInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutStageInput | DealUpsertWithWhereUniqueWithoutStageInput[]
+    createMany?: DealCreateManyStageInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutStageInput | DealUpdateWithWhereUniqueWithoutStageInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutStageInput | DealUpdateManyWithWhereWithoutStageInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutStageNestedInput = {
+    create?: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput> | DealCreateWithoutStageInput[] | DealUncheckedCreateWithoutStageInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageInput | DealCreateOrConnectWithoutStageInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutStageInput | DealUpsertWithWhereUniqueWithoutStageInput[]
+    createMany?: DealCreateManyStageInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutStageInput | DealUpdateWithWhereUniqueWithoutStageInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutStageInput | DealUpdateManyWithWhereWithoutStageInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type DealCreatetagsInput = {
+    set: string[]
+  }
+
+  export type CustomerCreateNestedOneWithoutDealsInput = {
+    create?: XOR<CustomerCreateWithoutDealsInput, CustomerUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutDealsInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type DealStageCreateNestedOneWithoutDealsInput = {
+    create?: XOR<DealStageCreateWithoutDealsInput, DealStageUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: DealStageCreateOrConnectWithoutDealsInput
+    connect?: DealStageWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDealsAssignedInput = {
+    create?: XOR<UserCreateWithoutDealsAssignedInput, UserUncheckedCreateWithoutDealsAssignedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDealsAssignedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDealsCreatedInput = {
+    create?: XOR<UserCreateWithoutDealsCreatedInput, UserUncheckedCreateWithoutDealsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDealsCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DealContactCreateNestedManyWithoutDealInput = {
+    create?: XOR<DealContactCreateWithoutDealInput, DealContactUncheckedCreateWithoutDealInput> | DealContactCreateWithoutDealInput[] | DealContactUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: DealContactCreateOrConnectWithoutDealInput | DealContactCreateOrConnectWithoutDealInput[]
+    createMany?: DealContactCreateManyDealInputEnvelope
+    connect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+  }
+
+  export type DealProductCreateNestedManyWithoutDealInput = {
+    create?: XOR<DealProductCreateWithoutDealInput, DealProductUncheckedCreateWithoutDealInput> | DealProductCreateWithoutDealInput[] | DealProductUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: DealProductCreateOrConnectWithoutDealInput | DealProductCreateOrConnectWithoutDealInput[]
+    createMany?: DealProductCreateManyDealInputEnvelope
+    connect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+  }
+
+  export type InteractionCreateNestedManyWithoutDealInput = {
+    create?: XOR<InteractionCreateWithoutDealInput, InteractionUncheckedCreateWithoutDealInput> | InteractionCreateWithoutDealInput[] | InteractionUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutDealInput | InteractionCreateOrConnectWithoutDealInput[]
+    createMany?: InteractionCreateManyDealInputEnvelope
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+  }
+
+  export type OrderCreateNestedManyWithoutDealInput = {
+    create?: XOR<OrderCreateWithoutDealInput, OrderUncheckedCreateWithoutDealInput> | OrderCreateWithoutDealInput[] | OrderUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutDealInput | OrderCreateOrConnectWithoutDealInput[]
+    createMany?: OrderCreateManyDealInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
+  export type DealContactUncheckedCreateNestedManyWithoutDealInput = {
+    create?: XOR<DealContactCreateWithoutDealInput, DealContactUncheckedCreateWithoutDealInput> | DealContactCreateWithoutDealInput[] | DealContactUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: DealContactCreateOrConnectWithoutDealInput | DealContactCreateOrConnectWithoutDealInput[]
+    createMany?: DealContactCreateManyDealInputEnvelope
+    connect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+  }
+
+  export type DealProductUncheckedCreateNestedManyWithoutDealInput = {
+    create?: XOR<DealProductCreateWithoutDealInput, DealProductUncheckedCreateWithoutDealInput> | DealProductCreateWithoutDealInput[] | DealProductUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: DealProductCreateOrConnectWithoutDealInput | DealProductCreateOrConnectWithoutDealInput[]
+    createMany?: DealProductCreateManyDealInputEnvelope
+    connect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+  }
+
+  export type InteractionUncheckedCreateNestedManyWithoutDealInput = {
+    create?: XOR<InteractionCreateWithoutDealInput, InteractionUncheckedCreateWithoutDealInput> | InteractionCreateWithoutDealInput[] | InteractionUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutDealInput | InteractionCreateOrConnectWithoutDealInput[]
+    createMany?: InteractionCreateManyDealInputEnvelope
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+  }
+
+  export type OrderUncheckedCreateNestedManyWithoutDealInput = {
+    create?: XOR<OrderCreateWithoutDealInput, OrderUncheckedCreateWithoutDealInput> | OrderCreateWithoutDealInput[] | OrderUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutDealInput | OrderCreateOrConnectWithoutDealInput[]
+    createMany?: OrderCreateManyDealInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type DealUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type CustomerUpdateOneRequiredWithoutDealsNestedInput = {
+    create?: XOR<CustomerCreateWithoutDealsInput, CustomerUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutDealsInput
+    upsert?: CustomerUpsertWithoutDealsInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutDealsInput, CustomerUpdateWithoutDealsInput>, CustomerUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type DealStageUpdateOneRequiredWithoutDealsNestedInput = {
+    create?: XOR<DealStageCreateWithoutDealsInput, DealStageUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: DealStageCreateOrConnectWithoutDealsInput
+    upsert?: DealStageUpsertWithoutDealsInput
+    connect?: DealStageWhereUniqueInput
+    update?: XOR<XOR<DealStageUpdateToOneWithWhereWithoutDealsInput, DealStageUpdateWithoutDealsInput>, DealStageUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type UserUpdateOneWithoutDealsAssignedNestedInput = {
+    create?: XOR<UserCreateWithoutDealsAssignedInput, UserUncheckedCreateWithoutDealsAssignedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDealsAssignedInput
+    upsert?: UserUpsertWithoutDealsAssignedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDealsAssignedInput, UserUpdateWithoutDealsAssignedInput>, UserUncheckedUpdateWithoutDealsAssignedInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDealsCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutDealsCreatedInput, UserUncheckedCreateWithoutDealsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDealsCreatedInput
+    upsert?: UserUpsertWithoutDealsCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDealsCreatedInput, UserUpdateWithoutDealsCreatedInput>, UserUncheckedUpdateWithoutDealsCreatedInput>
+  }
+
+  export type DealContactUpdateManyWithoutDealNestedInput = {
+    create?: XOR<DealContactCreateWithoutDealInput, DealContactUncheckedCreateWithoutDealInput> | DealContactCreateWithoutDealInput[] | DealContactUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: DealContactCreateOrConnectWithoutDealInput | DealContactCreateOrConnectWithoutDealInput[]
+    upsert?: DealContactUpsertWithWhereUniqueWithoutDealInput | DealContactUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: DealContactCreateManyDealInputEnvelope
+    set?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    disconnect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    delete?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    connect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    update?: DealContactUpdateWithWhereUniqueWithoutDealInput | DealContactUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: DealContactUpdateManyWithWhereWithoutDealInput | DealContactUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: DealContactScalarWhereInput | DealContactScalarWhereInput[]
+  }
+
+  export type DealProductUpdateManyWithoutDealNestedInput = {
+    create?: XOR<DealProductCreateWithoutDealInput, DealProductUncheckedCreateWithoutDealInput> | DealProductCreateWithoutDealInput[] | DealProductUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: DealProductCreateOrConnectWithoutDealInput | DealProductCreateOrConnectWithoutDealInput[]
+    upsert?: DealProductUpsertWithWhereUniqueWithoutDealInput | DealProductUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: DealProductCreateManyDealInputEnvelope
+    set?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    disconnect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    delete?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    connect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    update?: DealProductUpdateWithWhereUniqueWithoutDealInput | DealProductUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: DealProductUpdateManyWithWhereWithoutDealInput | DealProductUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: DealProductScalarWhereInput | DealProductScalarWhereInput[]
+  }
+
+  export type InteractionUpdateManyWithoutDealNestedInput = {
+    create?: XOR<InteractionCreateWithoutDealInput, InteractionUncheckedCreateWithoutDealInput> | InteractionCreateWithoutDealInput[] | InteractionUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutDealInput | InteractionCreateOrConnectWithoutDealInput[]
+    upsert?: InteractionUpsertWithWhereUniqueWithoutDealInput | InteractionUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: InteractionCreateManyDealInputEnvelope
+    set?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    disconnect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    delete?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    update?: InteractionUpdateWithWhereUniqueWithoutDealInput | InteractionUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: InteractionUpdateManyWithWhereWithoutDealInput | InteractionUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
+  }
+
+  export type OrderUpdateManyWithoutDealNestedInput = {
+    create?: XOR<OrderCreateWithoutDealInput, OrderUncheckedCreateWithoutDealInput> | OrderCreateWithoutDealInput[] | OrderUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutDealInput | OrderCreateOrConnectWithoutDealInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutDealInput | OrderUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: OrderCreateManyDealInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutDealInput | OrderUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutDealInput | OrderUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
+  export type DealContactUncheckedUpdateManyWithoutDealNestedInput = {
+    create?: XOR<DealContactCreateWithoutDealInput, DealContactUncheckedCreateWithoutDealInput> | DealContactCreateWithoutDealInput[] | DealContactUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: DealContactCreateOrConnectWithoutDealInput | DealContactCreateOrConnectWithoutDealInput[]
+    upsert?: DealContactUpsertWithWhereUniqueWithoutDealInput | DealContactUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: DealContactCreateManyDealInputEnvelope
+    set?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    disconnect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    delete?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    connect?: DealContactWhereUniqueInput | DealContactWhereUniqueInput[]
+    update?: DealContactUpdateWithWhereUniqueWithoutDealInput | DealContactUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: DealContactUpdateManyWithWhereWithoutDealInput | DealContactUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: DealContactScalarWhereInput | DealContactScalarWhereInput[]
+  }
+
+  export type DealProductUncheckedUpdateManyWithoutDealNestedInput = {
+    create?: XOR<DealProductCreateWithoutDealInput, DealProductUncheckedCreateWithoutDealInput> | DealProductCreateWithoutDealInput[] | DealProductUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: DealProductCreateOrConnectWithoutDealInput | DealProductCreateOrConnectWithoutDealInput[]
+    upsert?: DealProductUpsertWithWhereUniqueWithoutDealInput | DealProductUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: DealProductCreateManyDealInputEnvelope
+    set?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    disconnect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    delete?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    connect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    update?: DealProductUpdateWithWhereUniqueWithoutDealInput | DealProductUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: DealProductUpdateManyWithWhereWithoutDealInput | DealProductUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: DealProductScalarWhereInput | DealProductScalarWhereInput[]
+  }
+
+  export type InteractionUncheckedUpdateManyWithoutDealNestedInput = {
+    create?: XOR<InteractionCreateWithoutDealInput, InteractionUncheckedCreateWithoutDealInput> | InteractionCreateWithoutDealInput[] | InteractionUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: InteractionCreateOrConnectWithoutDealInput | InteractionCreateOrConnectWithoutDealInput[]
+    upsert?: InteractionUpsertWithWhereUniqueWithoutDealInput | InteractionUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: InteractionCreateManyDealInputEnvelope
+    set?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    disconnect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    delete?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+    update?: InteractionUpdateWithWhereUniqueWithoutDealInput | InteractionUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: InteractionUpdateManyWithWhereWithoutDealInput | InteractionUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
+  }
+
+  export type OrderUncheckedUpdateManyWithoutDealNestedInput = {
+    create?: XOR<OrderCreateWithoutDealInput, OrderUncheckedCreateWithoutDealInput> | OrderCreateWithoutDealInput[] | OrderUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutDealInput | OrderCreateOrConnectWithoutDealInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutDealInput | OrderUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: OrderCreateManyDealInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutDealInput | OrderUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutDealInput | OrderUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
+  export type DealCreateNestedOneWithoutContactsInput = {
+    create?: XOR<DealCreateWithoutContactsInput, DealUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: DealCreateOrConnectWithoutContactsInput
+    connect?: DealWhereUniqueInput
+  }
+
+  export type CustomerContactCreateNestedOneWithoutDealContactsInput = {
+    create?: XOR<CustomerContactCreateWithoutDealContactsInput, CustomerContactUncheckedCreateWithoutDealContactsInput>
+    connectOrCreate?: CustomerContactCreateOrConnectWithoutDealContactsInput
+    connect?: CustomerContactWhereUniqueInput
+  }
+
+  export type DealUpdateOneRequiredWithoutContactsNestedInput = {
+    create?: XOR<DealCreateWithoutContactsInput, DealUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: DealCreateOrConnectWithoutContactsInput
+    upsert?: DealUpsertWithoutContactsInput
+    connect?: DealWhereUniqueInput
+    update?: XOR<XOR<DealUpdateToOneWithWhereWithoutContactsInput, DealUpdateWithoutContactsInput>, DealUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type CustomerContactUpdateOneRequiredWithoutDealContactsNestedInput = {
+    create?: XOR<CustomerContactCreateWithoutDealContactsInput, CustomerContactUncheckedCreateWithoutDealContactsInput>
+    connectOrCreate?: CustomerContactCreateOrConnectWithoutDealContactsInput
+    upsert?: CustomerContactUpsertWithoutDealContactsInput
+    connect?: CustomerContactWhereUniqueInput
+    update?: XOR<XOR<CustomerContactUpdateToOneWithWhereWithoutDealContactsInput, CustomerContactUpdateWithoutDealContactsInput>, CustomerContactUncheckedUpdateWithoutDealContactsInput>
+  }
+
+  export type DealCreateNestedOneWithoutProductsInput = {
+    create?: XOR<DealCreateWithoutProductsInput, DealUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: DealCreateOrConnectWithoutProductsInput
+    connect?: DealWhereUniqueInput
+  }
+
+  export type ProductCreateNestedOneWithoutDealProductsInput = {
+    create?: XOR<ProductCreateWithoutDealProductsInput, ProductUncheckedCreateWithoutDealProductsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutDealProductsInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type DealUpdateOneRequiredWithoutProductsNestedInput = {
+    create?: XOR<DealCreateWithoutProductsInput, DealUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: DealCreateOrConnectWithoutProductsInput
+    upsert?: DealUpsertWithoutProductsInput
+    connect?: DealWhereUniqueInput
+    update?: XOR<XOR<DealUpdateToOneWithWhereWithoutProductsInput, DealUpdateWithoutProductsInput>, DealUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type ProductUpdateOneRequiredWithoutDealProductsNestedInput = {
+    create?: XOR<ProductCreateWithoutDealProductsInput, ProductUncheckedCreateWithoutDealProductsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutDealProductsInput
+    upsert?: ProductUpsertWithoutDealProductsInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutDealProductsInput, ProductUpdateWithoutDealProductsInput>, ProductUncheckedUpdateWithoutDealProductsInput>
   }
 
   export type CategoryCreateNestedOneWithoutChildrenInput = {
@@ -51093,6 +58599,13 @@ export namespace Prisma {
     connect?: StockAlertWhereUniqueInput | StockAlertWhereUniqueInput[]
   }
 
+  export type DealProductCreateNestedManyWithoutProductInput = {
+    create?: XOR<DealProductCreateWithoutProductInput, DealProductUncheckedCreateWithoutProductInput> | DealProductCreateWithoutProductInput[] | DealProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: DealProductCreateOrConnectWithoutProductInput | DealProductCreateOrConnectWithoutProductInput[]
+    createMany?: DealProductCreateManyProductInputEnvelope
+    connect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+  }
+
   export type ProductVariantUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<ProductVariantCreateWithoutProductInput, ProductVariantUncheckedCreateWithoutProductInput> | ProductVariantCreateWithoutProductInput[] | ProductVariantUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductVariantCreateOrConnectWithoutProductInput | ProductVariantCreateOrConnectWithoutProductInput[]
@@ -51135,17 +58648,16 @@ export namespace Prisma {
     connect?: StockAlertWhereUniqueInput | StockAlertWhereUniqueInput[]
   }
 
+  export type DealProductUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<DealProductCreateWithoutProductInput, DealProductUncheckedCreateWithoutProductInput> | DealProductCreateWithoutProductInput[] | DealProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: DealProductCreateOrConnectWithoutProductInput | DealProductCreateOrConnectWithoutProductInput[]
+    createMany?: DealProductCreateManyProductInputEnvelope
+    connect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+  }
+
   export type ProductUpdatetagsInput = {
     set?: string[]
     push?: string | string[]
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type ProductUpdateimagesInput = {
@@ -51257,6 +58769,20 @@ export namespace Prisma {
     deleteMany?: StockAlertScalarWhereInput | StockAlertScalarWhereInput[]
   }
 
+  export type DealProductUpdateManyWithoutProductNestedInput = {
+    create?: XOR<DealProductCreateWithoutProductInput, DealProductUncheckedCreateWithoutProductInput> | DealProductCreateWithoutProductInput[] | DealProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: DealProductCreateOrConnectWithoutProductInput | DealProductCreateOrConnectWithoutProductInput[]
+    upsert?: DealProductUpsertWithWhereUniqueWithoutProductInput | DealProductUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: DealProductCreateManyProductInputEnvelope
+    set?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    disconnect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    delete?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    connect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    update?: DealProductUpdateWithWhereUniqueWithoutProductInput | DealProductUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: DealProductUpdateManyWithWhereWithoutProductInput | DealProductUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: DealProductScalarWhereInput | DealProductScalarWhereInput[]
+  }
+
   export type ProductVariantUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<ProductVariantCreateWithoutProductInput, ProductVariantUncheckedCreateWithoutProductInput> | ProductVariantCreateWithoutProductInput[] | ProductVariantUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductVariantCreateOrConnectWithoutProductInput | ProductVariantCreateOrConnectWithoutProductInput[]
@@ -51339,6 +58865,20 @@ export namespace Prisma {
     update?: StockAlertUpdateWithWhereUniqueWithoutProductInput | StockAlertUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: StockAlertUpdateManyWithWhereWithoutProductInput | StockAlertUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: StockAlertScalarWhereInput | StockAlertScalarWhereInput[]
+  }
+
+  export type DealProductUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<DealProductCreateWithoutProductInput, DealProductUncheckedCreateWithoutProductInput> | DealProductCreateWithoutProductInput[] | DealProductUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: DealProductCreateOrConnectWithoutProductInput | DealProductCreateOrConnectWithoutProductInput[]
+    upsert?: DealProductUpsertWithWhereUniqueWithoutProductInput | DealProductUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: DealProductCreateManyProductInputEnvelope
+    set?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    disconnect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    delete?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    connect?: DealProductWhereUniqueInput | DealProductWhereUniqueInput[]
+    update?: DealProductUpdateWithWhereUniqueWithoutProductInput | DealProductUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: DealProductUpdateManyWithWhereWithoutProductInput | DealProductUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: DealProductScalarWhereInput | DealProductScalarWhereInput[]
   }
 
   export type ProductCreateNestedOneWithoutVariantsInput = {
@@ -51550,6 +59090,12 @@ export namespace Prisma {
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
+  export type DealCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<DealCreateWithoutOrdersInput, DealUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: DealCreateOrConnectWithoutOrdersInput
+    connect?: DealWhereUniqueInput
+  }
+
   export type OrderItemUncheckedCreateNestedManyWithoutOrderInput = {
     create?: XOR<OrderItemCreateWithoutOrderInput, OrderItemUncheckedCreateWithoutOrderInput> | OrderItemCreateWithoutOrderInput[] | OrderItemUncheckedCreateWithoutOrderInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutOrderInput | OrderItemCreateOrConnectWithoutOrderInput[]
@@ -51637,6 +59183,16 @@ export namespace Prisma {
     update?: PaymentUpdateWithWhereUniqueWithoutOrderInput | PaymentUpdateWithWhereUniqueWithoutOrderInput[]
     updateMany?: PaymentUpdateManyWithWhereWithoutOrderInput | PaymentUpdateManyWithWhereWithoutOrderInput[]
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
+  }
+
+  export type DealUpdateOneWithoutOrdersNestedInput = {
+    create?: XOR<DealCreateWithoutOrdersInput, DealUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: DealCreateOrConnectWithoutOrdersInput
+    upsert?: DealUpsertWithoutOrdersInput
+    disconnect?: DealWhereInput | boolean
+    delete?: DealWhereInput | boolean
+    connect?: DealWhereUniqueInput
+    update?: XOR<XOR<DealUpdateToOneWithWhereWithoutOrdersInput, DealUpdateWithoutOrdersInput>, DealUncheckedUpdateWithoutOrdersInput>
   }
 
   export type OrderItemUncheckedUpdateManyWithoutOrderNestedInput = {
@@ -52608,6 +60164,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutUsersCreatedInput = {
@@ -52647,6 +60205,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutUsersCreatedInput = {
@@ -52691,6 +60251,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedByUserInput = {
@@ -52730,6 +60292,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedByUserInput = {
@@ -52785,6 +60349,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCustomerInput
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutCreatedByUserInput = {
@@ -52830,6 +60395,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutCreatedByUserInput = {
@@ -52885,6 +60451,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCustomerInput
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutAssignedToUserInput = {
@@ -52930,6 +60497,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutAssignedToUserInput = {
@@ -52960,6 +60528,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     customer: CustomerCreateNestedOneWithoutInteractionsInput
+    deal?: DealCreateNestedOneWithoutInteractionsInput
   }
 
   export type InteractionUncheckedCreateWithoutCreatedByUserInput = {
@@ -52977,6 +60546,7 @@ export namespace Prisma {
     nextActionDate?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    relatedDealId?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -53026,6 +60596,7 @@ export namespace Prisma {
     items?: OrderItemCreateNestedManyWithoutOrderInput
     tasks?: TaskCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
+    deal?: DealCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutCreatedByUserInput = {
@@ -53057,6 +60628,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -53108,6 +60680,7 @@ export namespace Prisma {
     items?: OrderItemCreateNestedManyWithoutOrderInput
     tasks?: TaskCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
+    deal?: DealCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutAssignedToUserInput = {
@@ -53138,6 +60711,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -53422,6 +60996,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCreatedByUserInput = {
@@ -53458,6 +61033,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCreatedByUserInput = {
@@ -53866,6 +61442,146 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DealCreateWithoutCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDealsInput
+    stage: DealStageCreateNestedOneWithoutDealsInput
+    assignedToUser?: UserCreateNestedOneWithoutDealsAssignedInput
+    contacts?: DealContactCreateNestedManyWithoutDealInput
+    products?: DealProductCreateNestedManyWithoutDealInput
+    interactions?: InteractionCreateNestedManyWithoutDealInput
+    orders?: OrderCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: DealContactUncheckedCreateNestedManyWithoutDealInput
+    products?: DealProductUncheckedCreateNestedManyWithoutDealInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutDealInput
+    orders?: OrderUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutCreatedByUserInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutCreatedByUserInput, DealUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type DealCreateManyCreatedByUserInputEnvelope = {
+    data: DealCreateManyCreatedByUserInput | DealCreateManyCreatedByUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DealCreateWithoutAssignedToUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDealsInput
+    stage: DealStageCreateNestedOneWithoutDealsInput
+    createdByUser: UserCreateNestedOneWithoutDealsCreatedInput
+    contacts?: DealContactCreateNestedManyWithoutDealInput
+    products?: DealProductCreateNestedManyWithoutDealInput
+    interactions?: InteractionCreateNestedManyWithoutDealInput
+    orders?: OrderCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutAssignedToUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: DealContactUncheckedCreateNestedManyWithoutDealInput
+    products?: DealProductUncheckedCreateNestedManyWithoutDealInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutDealInput
+    orders?: OrderUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutAssignedToUserInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutAssignedToUserInput, DealUncheckedCreateWithoutAssignedToUserInput>
+  }
+
+  export type DealCreateManyAssignedToUserInputEnvelope = {
+    data: DealCreateManyAssignedToUserInput | DealCreateManyAssignedToUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutUsersCreatedInput = {
     update: XOR<UserUpdateWithoutUsersCreatedInput, UserUncheckedUpdateWithoutUsersCreatedInput>
     create: XOR<UserCreateWithoutUsersCreatedInput, UserUncheckedCreateWithoutUsersCreatedInput>
@@ -53914,6 +61630,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUsersCreatedInput = {
@@ -53953,6 +61671,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -54105,6 +61825,7 @@ export namespace Prisma {
     nextActionDate?: DateTimeNullableFilter<"Interaction"> | Date | string | null
     relatedOrderId?: UuidNullableFilter<"Interaction"> | string | null
     relatedTaskId?: UuidNullableFilter<"Interaction"> | string | null
+    relatedDealId?: UuidNullableFilter<"Interaction"> | string | null
     metadata?: JsonFilter<"Interaction">
     createdBy?: UuidFilter<"Interaction"> | string
     createdAt?: DateTimeFilter<"Interaction"> | Date | string
@@ -54159,6 +61880,7 @@ export namespace Prisma {
     cancellationReason?: StringNullableFilter<"Order"> | string | null
     customFields?: JsonFilter<"Order">
     metadata?: JsonFilter<"Order">
+    dealId?: UuidNullableFilter<"Order"> | string | null
     createdBy?: UuidFilter<"Order"> | string
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -54674,6 +62396,68 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CompanySetting"> | Date | string
   }
 
+  export type DealUpsertWithWhereUniqueWithoutCreatedByUserInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutCreatedByUserInput, DealUncheckedUpdateWithoutCreatedByUserInput>
+    create: XOR<DealCreateWithoutCreatedByUserInput, DealUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutCreatedByUserInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutCreatedByUserInput, DealUncheckedUpdateWithoutCreatedByUserInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutCreatedByUserInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutCreatedByUserInput>
+  }
+
+  export type DealScalarWhereInput = {
+    AND?: DealScalarWhereInput | DealScalarWhereInput[]
+    OR?: DealScalarWhereInput[]
+    NOT?: DealScalarWhereInput | DealScalarWhereInput[]
+    id?: UuidFilter<"Deal"> | string
+    name?: StringFilter<"Deal"> | string
+    description?: StringNullableFilter<"Deal"> | string | null
+    customerId?: UuidFilter<"Deal"> | string
+    stageId?: UuidFilter<"Deal"> | string
+    probability?: IntFilter<"Deal"> | number
+    amount?: DecimalFilter<"Deal"> | Decimal | DecimalJsLike | number | string
+    currency?: StringFilter<"Deal"> | string
+    expectedCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    status?: StringFilter<"Deal"> | string
+    lostReason?: StringNullableFilter<"Deal"> | string | null
+    wonAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    lostAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    assignedTo?: UuidNullableFilter<"Deal"> | string | null
+    createdBy?: UuidFilter<"Deal"> | string
+    daysInStage?: IntFilter<"Deal"> | number
+    lastStageChangeAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    stageHistory?: JsonFilter<"Deal">
+    tags?: StringNullableListFilter<"Deal">
+    notes?: StringNullableFilter<"Deal"> | string | null
+    customFields?: JsonFilter<"Deal">
+    metadata?: JsonFilter<"Deal">
+    createdAt?: DateTimeFilter<"Deal"> | Date | string
+    updatedAt?: DateTimeFilter<"Deal"> | Date | string
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutAssignedToUserInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutAssignedToUserInput, DealUncheckedUpdateWithoutAssignedToUserInput>
+    create: XOR<DealCreateWithoutAssignedToUserInput, DealUncheckedCreateWithoutAssignedToUserInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutAssignedToUserInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutAssignedToUserInput, DealUncheckedUpdateWithoutAssignedToUserInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutAssignedToUserInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutAssignedToUserInput>
+  }
+
   export type UserCreateWithoutCustomersAssignedInput = {
     id?: string
     email: string
@@ -54711,6 +62495,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomersAssignedInput = {
@@ -54750,6 +62536,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomersAssignedInput = {
@@ -54794,6 +62582,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomersCreatedInput = {
@@ -54833,6 +62623,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomersCreatedInput = {
@@ -54854,6 +62646,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    dealContacts?: DealContactCreateNestedManyWithoutContactInput
   }
 
   export type CustomerContactUncheckedCreateWithoutCustomerInput = {
@@ -54870,6 +62663,7 @@ export namespace Prisma {
     notes?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    dealContacts?: DealContactUncheckedCreateNestedManyWithoutContactInput
   }
 
   export type CustomerContactCreateOrConnectWithoutCustomerInput = {
@@ -54900,6 +62694,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     createdByUser: UserCreateNestedOneWithoutInteractionsInput
+    deal?: DealCreateNestedOneWithoutInteractionsInput
   }
 
   export type InteractionUncheckedCreateWithoutCustomerInput = {
@@ -54916,6 +62711,7 @@ export namespace Prisma {
     nextActionDate?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    relatedDealId?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
@@ -54966,6 +62762,7 @@ export namespace Prisma {
     items?: OrderItemCreateNestedManyWithoutOrderInput
     tasks?: TaskCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
+    deal?: DealCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutCustomerInput = {
@@ -54996,6 +62793,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -55158,6 +62956,76 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DealCreateWithoutCustomerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    stage: DealStageCreateNestedOneWithoutDealsInput
+    assignedToUser?: UserCreateNestedOneWithoutDealsAssignedInput
+    createdByUser: UserCreateNestedOneWithoutDealsCreatedInput
+    contacts?: DealContactCreateNestedManyWithoutDealInput
+    products?: DealProductCreateNestedManyWithoutDealInput
+    interactions?: InteractionCreateNestedManyWithoutDealInput
+    orders?: OrderCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: DealContactUncheckedCreateNestedManyWithoutDealInput
+    products?: DealProductUncheckedCreateNestedManyWithoutDealInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutDealInput
+    orders?: OrderUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutCustomerInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutCustomerInput, DealUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type DealCreateManyCustomerInputEnvelope = {
+    data: DealCreateManyCustomerInput | DealCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutCustomersAssignedInput = {
     update: XOR<UserUpdateWithoutCustomersAssignedInput, UserUncheckedUpdateWithoutCustomersAssignedInput>
     create: XOR<UserCreateWithoutCustomersAssignedInput, UserUncheckedCreateWithoutCustomersAssignedInput>
@@ -55206,6 +63074,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersAssignedInput = {
@@ -55245,6 +63115,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUpsertWithoutCustomersCreatedInput = {
@@ -55295,6 +63167,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomersCreatedInput = {
@@ -55334,6 +63208,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type CustomerContactUpsertWithWhereUniqueWithoutCustomerInput = {
@@ -55460,6 +63336,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"MessageLog"> | Date | string
   }
 
+  export type DealUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutCustomerInput, DealUncheckedUpdateWithoutCustomerInput>
+    create: XOR<DealCreateWithoutCustomerInput, DealUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutCustomerInput, DealUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutCustomerInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutCustomerInput>
+  }
+
   export type CustomerCreateWithoutContactsInput = {
     id?: string
     type?: string
@@ -55503,6 +63395,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCustomerInput
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutContactsInput = {
@@ -55548,11 +63441,40 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutContactsInput = {
     where: CustomerWhereUniqueInput
     create: XOR<CustomerCreateWithoutContactsInput, CustomerUncheckedCreateWithoutContactsInput>
+  }
+
+  export type DealContactCreateWithoutContactInput = {
+    id?: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deal: DealCreateNestedOneWithoutContactsInput
+  }
+
+  export type DealContactUncheckedCreateWithoutContactInput = {
+    id?: string
+    dealId: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealContactCreateOrConnectWithoutContactInput = {
+    where: DealContactWhereUniqueInput
+    create: XOR<DealContactCreateWithoutContactInput, DealContactUncheckedCreateWithoutContactInput>
+  }
+
+  export type DealContactCreateManyContactInputEnvelope = {
+    data: DealContactCreateManyContactInput | DealContactCreateManyContactInput[]
+    skipDuplicates?: boolean
   }
 
   export type CustomerUpsertWithoutContactsInput = {
@@ -55609,6 +63531,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutContactsInput = {
@@ -55654,6 +63577,36 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type DealContactUpsertWithWhereUniqueWithoutContactInput = {
+    where: DealContactWhereUniqueInput
+    update: XOR<DealContactUpdateWithoutContactInput, DealContactUncheckedUpdateWithoutContactInput>
+    create: XOR<DealContactCreateWithoutContactInput, DealContactUncheckedCreateWithoutContactInput>
+  }
+
+  export type DealContactUpdateWithWhereUniqueWithoutContactInput = {
+    where: DealContactWhereUniqueInput
+    data: XOR<DealContactUpdateWithoutContactInput, DealContactUncheckedUpdateWithoutContactInput>
+  }
+
+  export type DealContactUpdateManyWithWhereWithoutContactInput = {
+    where: DealContactScalarWhereInput
+    data: XOR<DealContactUpdateManyMutationInput, DealContactUncheckedUpdateManyWithoutContactInput>
+  }
+
+  export type DealContactScalarWhereInput = {
+    AND?: DealContactScalarWhereInput | DealContactScalarWhereInput[]
+    OR?: DealContactScalarWhereInput[]
+    NOT?: DealContactScalarWhereInput | DealContactScalarWhereInput[]
+    id?: UuidFilter<"DealContact"> | string
+    dealId?: UuidFilter<"DealContact"> | string
+    contactId?: UuidFilter<"DealContact"> | string
+    role?: StringNullableFilter<"DealContact"> | string | null
+    isPrimary?: BoolFilter<"DealContact"> | boolean
+    createdAt?: DateTimeFilter<"DealContact"> | Date | string
+    updatedAt?: DateTimeFilter<"DealContact"> | Date | string
   }
 
   export type CustomerCreateWithoutInteractionsInput = {
@@ -55699,6 +63652,7 @@ export namespace Prisma {
     orders?: OrderCreateNestedManyWithoutCustomerInput
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutInteractionsInput = {
@@ -55744,6 +63698,7 @@ export namespace Prisma {
     orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutInteractionsInput = {
@@ -55788,6 +63743,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutInteractionsInput = {
@@ -55827,11 +63784,78 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutInteractionsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutInteractionsInput, UserUncheckedCreateWithoutInteractionsInput>
+  }
+
+  export type DealCreateWithoutInteractionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDealsInput
+    stage: DealStageCreateNestedOneWithoutDealsInput
+    assignedToUser?: UserCreateNestedOneWithoutDealsAssignedInput
+    createdByUser: UserCreateNestedOneWithoutDealsCreatedInput
+    contacts?: DealContactCreateNestedManyWithoutDealInput
+    products?: DealProductCreateNestedManyWithoutDealInput
+    orders?: OrderCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutInteractionsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: DealContactUncheckedCreateNestedManyWithoutDealInput
+    products?: DealProductUncheckedCreateNestedManyWithoutDealInput
+    orders?: OrderUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutInteractionsInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutInteractionsInput, DealUncheckedCreateWithoutInteractionsInput>
   }
 
   export type CustomerUpsertWithoutInteractionsInput = {
@@ -55888,6 +63912,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutInteractionsInput = {
@@ -55933,6 +63958,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutInteractionsInput = {
@@ -55983,6 +64009,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInteractionsInput = {
@@ -56022,6 +64050,1595 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
+  }
+
+  export type DealUpsertWithoutInteractionsInput = {
+    update: XOR<DealUpdateWithoutInteractionsInput, DealUncheckedUpdateWithoutInteractionsInput>
+    create: XOR<DealCreateWithoutInteractionsInput, DealUncheckedCreateWithoutInteractionsInput>
+    where?: DealWhereInput
+  }
+
+  export type DealUpdateToOneWithWhereWithoutInteractionsInput = {
+    where?: DealWhereInput
+    data: XOR<DealUpdateWithoutInteractionsInput, DealUncheckedUpdateWithoutInteractionsInput>
+  }
+
+  export type DealUpdateWithoutInteractionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDealsNestedInput
+    stage?: DealStageUpdateOneRequiredWithoutDealsNestedInput
+    assignedToUser?: UserUpdateOneWithoutDealsAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutDealsCreatedNestedInput
+    contacts?: DealContactUpdateManyWithoutDealNestedInput
+    products?: DealProductUpdateManyWithoutDealNestedInput
+    orders?: OrderUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutInteractionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
+    products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealCreateWithoutStageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDealsInput
+    assignedToUser?: UserCreateNestedOneWithoutDealsAssignedInput
+    createdByUser: UserCreateNestedOneWithoutDealsCreatedInput
+    contacts?: DealContactCreateNestedManyWithoutDealInput
+    products?: DealProductCreateNestedManyWithoutDealInput
+    interactions?: InteractionCreateNestedManyWithoutDealInput
+    orders?: OrderCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutStageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: DealContactUncheckedCreateNestedManyWithoutDealInput
+    products?: DealProductUncheckedCreateNestedManyWithoutDealInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutDealInput
+    orders?: OrderUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutStageInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput>
+  }
+
+  export type DealCreateManyStageInputEnvelope = {
+    data: DealCreateManyStageInput | DealCreateManyStageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutStageInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutStageInput, DealUncheckedUpdateWithoutStageInput>
+    create: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutStageInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutStageInput, DealUncheckedUpdateWithoutStageInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutStageInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutStageInput>
+  }
+
+  export type CustomerCreateWithoutDealsInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToUser?: UserCreateNestedOneWithoutCustomersAssignedInput
+    createdByUser: UserCreateNestedOneWithoutCustomersCreatedInput
+    contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
+    tasks?: TaskCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutDealsInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: string | null
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutDealsInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutDealsInput, CustomerUncheckedCreateWithoutDealsInput>
+  }
+
+  export type DealStageCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    probability?: number
+    sortOrder?: number
+    isActive?: boolean
+    isDefault?: boolean
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealStageUncheckedCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    displayName: string
+    description?: string | null
+    probability?: number
+    sortOrder?: number
+    isActive?: boolean
+    isDefault?: boolean
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealStageCreateOrConnectWithoutDealsInput = {
+    where: DealStageWhereUniqueInput
+    create: XOR<DealStageCreateWithoutDealsInput, DealStageUncheckedCreateWithoutDealsInput>
+  }
+
+  export type UserCreateWithoutDealsAssignedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser?: UserCreateNestedOneWithoutUsersCreatedInput
+    usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    filesUploaded?: FileCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDealsAssignedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentUncheckedCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductUncheckedCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    filesUploaded?: FileUncheckedCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportUncheckedCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDealsAssignedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDealsAssignedInput, UserUncheckedCreateWithoutDealsAssignedInput>
+  }
+
+  export type UserCreateWithoutDealsCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser?: UserCreateNestedOneWithoutUsersCreatedInput
+    usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    filesUploaded?: FileCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDealsCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentUncheckedCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductUncheckedCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    filesUploaded?: FileUncheckedCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportUncheckedCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDealsCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDealsCreatedInput, UserUncheckedCreateWithoutDealsCreatedInput>
+  }
+
+  export type DealContactCreateWithoutDealInput = {
+    id?: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contact: CustomerContactCreateNestedOneWithoutDealContactsInput
+  }
+
+  export type DealContactUncheckedCreateWithoutDealInput = {
+    id?: string
+    contactId: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealContactCreateOrConnectWithoutDealInput = {
+    where: DealContactWhereUniqueInput
+    create: XOR<DealContactCreateWithoutDealInput, DealContactUncheckedCreateWithoutDealInput>
+  }
+
+  export type DealContactCreateManyDealInputEnvelope = {
+    data: DealContactCreateManyDealInput | DealContactCreateManyDealInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DealProductCreateWithoutDealInput = {
+    id?: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    product: ProductCreateNestedOneWithoutDealProductsInput
+  }
+
+  export type DealProductUncheckedCreateWithoutDealInput = {
+    id?: string
+    productId: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealProductCreateOrConnectWithoutDealInput = {
+    where: DealProductWhereUniqueInput
+    create: XOR<DealProductCreateWithoutDealInput, DealProductUncheckedCreateWithoutDealInput>
+  }
+
+  export type DealProductCreateManyDealInputEnvelope = {
+    data: DealProductCreateManyDealInput | DealProductCreateManyDealInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InteractionCreateWithoutDealInput = {
+    id?: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    durationMinutes?: number | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutInteractionsInput
+    createdByUser: UserCreateNestedOneWithoutInteractionsInput
+  }
+
+  export type InteractionUncheckedCreateWithoutDealInput = {
+    id?: string
+    customerId: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    durationMinutes?: number | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InteractionCreateOrConnectWithoutDealInput = {
+    where: InteractionWhereUniqueInput
+    create: XOR<InteractionCreateWithoutDealInput, InteractionUncheckedCreateWithoutDealInput>
+  }
+
+  export type InteractionCreateManyDealInputEnvelope = {
+    data: InteractionCreateManyDealInput | InteractionCreateManyDealInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrderCreateWithoutDealInput = {
+    id?: string
+    orderNumber: string
+    type: string
+    status?: string
+    subtotal: Decimal | DecimalJsLike | number | string
+    discountAmount?: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    paymentStatus?: string
+    paymentMethod?: string | null
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    scheduledDate?: Date | string | null
+    scheduledTimeStart?: Date | string | null
+    scheduledTimeEnd?: Date | string | null
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    serviceAddress?: string | null
+    serviceCity?: string | null
+    serviceLatitude?: Decimal | DecimalJsLike | number | string | null
+    serviceLongitude?: Decimal | DecimalJsLike | number | string | null
+    customerNotes?: string | null
+    internalNotes?: string | null
+    cancelledAt?: Date | string | null
+    cancellationReason?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutOrdersInput
+    createdByUser: UserCreateNestedOneWithoutOrdersCreatedInput
+    assignedToUser?: UserCreateNestedOneWithoutOrdersAssignedInput
+    items?: OrderItemCreateNestedManyWithoutOrderInput
+    tasks?: TaskCreateNestedManyWithoutOrderInput
+    payments?: PaymentCreateNestedManyWithoutOrderInput
+  }
+
+  export type OrderUncheckedCreateWithoutDealInput = {
+    id?: string
+    orderNumber: string
+    customerId: string
+    type: string
+    status?: string
+    subtotal: Decimal | DecimalJsLike | number | string
+    discountAmount?: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    paymentStatus?: string
+    paymentMethod?: string | null
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    scheduledDate?: Date | string | null
+    scheduledTimeStart?: Date | string | null
+    scheduledTimeEnd?: Date | string | null
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    serviceAddress?: string | null
+    serviceCity?: string | null
+    serviceLatitude?: Decimal | DecimalJsLike | number | string | null
+    serviceLongitude?: Decimal | DecimalJsLike | number | string | null
+    assignedTo?: string | null
+    customerNotes?: string | null
+    internalNotes?: string | null
+    cancelledAt?: Date | string | null
+    cancellationReason?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutOrderInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutOrderInput
+  }
+
+  export type OrderCreateOrConnectWithoutDealInput = {
+    where: OrderWhereUniqueInput
+    create: XOR<OrderCreateWithoutDealInput, OrderUncheckedCreateWithoutDealInput>
+  }
+
+  export type OrderCreateManyDealInputEnvelope = {
+    data: OrderCreateManyDealInput | OrderCreateManyDealInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerUpsertWithoutDealsInput = {
+    update: XOR<CustomerUpdateWithoutDealsInput, CustomerUncheckedUpdateWithoutDealsInput>
+    create: XOR<CustomerCreateWithoutDealsInput, CustomerUncheckedCreateWithoutDealsInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutDealsInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutDealsInput, CustomerUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type CustomerUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUser?: UserUpdateOneWithoutCustomersAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutCustomersCreatedNestedInput
+    contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type DealStageUpsertWithoutDealsInput = {
+    update: XOR<DealStageUpdateWithoutDealsInput, DealStageUncheckedUpdateWithoutDealsInput>
+    create: XOR<DealStageCreateWithoutDealsInput, DealStageUncheckedCreateWithoutDealsInput>
+    where?: DealStageWhereInput
+  }
+
+  export type DealStageUpdateToOneWithWhereWithoutDealsInput = {
+    where?: DealStageWhereInput
+    data: XOR<DealStageUpdateWithoutDealsInput, DealStageUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type DealStageUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealStageUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    sortOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutDealsAssignedInput = {
+    update: XOR<UserUpdateWithoutDealsAssignedInput, UserUncheckedUpdateWithoutDealsAssignedInput>
+    create: XOR<UserCreateWithoutDealsAssignedInput, UserUncheckedCreateWithoutDealsAssignedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDealsAssignedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDealsAssignedInput, UserUncheckedUpdateWithoutDealsAssignedInput>
+  }
+
+  export type UserUpdateWithoutDealsAssignedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneWithoutUsersCreatedNestedInput
+    usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDealsAssignedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUncheckedUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserUpsertWithoutDealsCreatedInput = {
+    update: XOR<UserUpdateWithoutDealsCreatedInput, UserUncheckedUpdateWithoutDealsCreatedInput>
+    create: XOR<UserCreateWithoutDealsCreatedInput, UserUncheckedCreateWithoutDealsCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDealsCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDealsCreatedInput, UserUncheckedUpdateWithoutDealsCreatedInput>
+  }
+
+  export type UserUpdateWithoutDealsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneWithoutUsersCreatedNestedInput
+    usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDealsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUncheckedUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
+  }
+
+  export type DealContactUpsertWithWhereUniqueWithoutDealInput = {
+    where: DealContactWhereUniqueInput
+    update: XOR<DealContactUpdateWithoutDealInput, DealContactUncheckedUpdateWithoutDealInput>
+    create: XOR<DealContactCreateWithoutDealInput, DealContactUncheckedCreateWithoutDealInput>
+  }
+
+  export type DealContactUpdateWithWhereUniqueWithoutDealInput = {
+    where: DealContactWhereUniqueInput
+    data: XOR<DealContactUpdateWithoutDealInput, DealContactUncheckedUpdateWithoutDealInput>
+  }
+
+  export type DealContactUpdateManyWithWhereWithoutDealInput = {
+    where: DealContactScalarWhereInput
+    data: XOR<DealContactUpdateManyMutationInput, DealContactUncheckedUpdateManyWithoutDealInput>
+  }
+
+  export type DealProductUpsertWithWhereUniqueWithoutDealInput = {
+    where: DealProductWhereUniqueInput
+    update: XOR<DealProductUpdateWithoutDealInput, DealProductUncheckedUpdateWithoutDealInput>
+    create: XOR<DealProductCreateWithoutDealInput, DealProductUncheckedCreateWithoutDealInput>
+  }
+
+  export type DealProductUpdateWithWhereUniqueWithoutDealInput = {
+    where: DealProductWhereUniqueInput
+    data: XOR<DealProductUpdateWithoutDealInput, DealProductUncheckedUpdateWithoutDealInput>
+  }
+
+  export type DealProductUpdateManyWithWhereWithoutDealInput = {
+    where: DealProductScalarWhereInput
+    data: XOR<DealProductUpdateManyMutationInput, DealProductUncheckedUpdateManyWithoutDealInput>
+  }
+
+  export type DealProductScalarWhereInput = {
+    AND?: DealProductScalarWhereInput | DealProductScalarWhereInput[]
+    OR?: DealProductScalarWhereInput[]
+    NOT?: DealProductScalarWhereInput | DealProductScalarWhereInput[]
+    id?: UuidFilter<"DealProduct"> | string
+    dealId?: UuidFilter<"DealProduct"> | string
+    productId?: UuidFilter<"DealProduct"> | string
+    quantity?: IntFilter<"DealProduct"> | number
+    unitPrice?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    total?: DecimalFilter<"DealProduct"> | Decimal | DecimalJsLike | number | string
+    notes?: StringNullableFilter<"DealProduct"> | string | null
+    createdAt?: DateTimeFilter<"DealProduct"> | Date | string
+    updatedAt?: DateTimeFilter<"DealProduct"> | Date | string
+  }
+
+  export type InteractionUpsertWithWhereUniqueWithoutDealInput = {
+    where: InteractionWhereUniqueInput
+    update: XOR<InteractionUpdateWithoutDealInput, InteractionUncheckedUpdateWithoutDealInput>
+    create: XOR<InteractionCreateWithoutDealInput, InteractionUncheckedCreateWithoutDealInput>
+  }
+
+  export type InteractionUpdateWithWhereUniqueWithoutDealInput = {
+    where: InteractionWhereUniqueInput
+    data: XOR<InteractionUpdateWithoutDealInput, InteractionUncheckedUpdateWithoutDealInput>
+  }
+
+  export type InteractionUpdateManyWithWhereWithoutDealInput = {
+    where: InteractionScalarWhereInput
+    data: XOR<InteractionUpdateManyMutationInput, InteractionUncheckedUpdateManyWithoutDealInput>
+  }
+
+  export type OrderUpsertWithWhereUniqueWithoutDealInput = {
+    where: OrderWhereUniqueInput
+    update: XOR<OrderUpdateWithoutDealInput, OrderUncheckedUpdateWithoutDealInput>
+    create: XOR<OrderCreateWithoutDealInput, OrderUncheckedCreateWithoutDealInput>
+  }
+
+  export type OrderUpdateWithWhereUniqueWithoutDealInput = {
+    where: OrderWhereUniqueInput
+    data: XOR<OrderUpdateWithoutDealInput, OrderUncheckedUpdateWithoutDealInput>
+  }
+
+  export type OrderUpdateManyWithWhereWithoutDealInput = {
+    where: OrderScalarWhereInput
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutDealInput>
+  }
+
+  export type DealCreateWithoutContactsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDealsInput
+    stage: DealStageCreateNestedOneWithoutDealsInput
+    assignedToUser?: UserCreateNestedOneWithoutDealsAssignedInput
+    createdByUser: UserCreateNestedOneWithoutDealsCreatedInput
+    products?: DealProductCreateNestedManyWithoutDealInput
+    interactions?: InteractionCreateNestedManyWithoutDealInput
+    orders?: OrderCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutContactsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: DealProductUncheckedCreateNestedManyWithoutDealInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutDealInput
+    orders?: OrderUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutContactsInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutContactsInput, DealUncheckedCreateWithoutContactsInput>
+  }
+
+  export type CustomerContactCreateWithoutDealContactsInput = {
+    id?: string
+    firstName: string
+    lastName?: string | null
+    position?: string | null
+    department?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    isPrimary?: boolean
+    isActive?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutContactsInput
+  }
+
+  export type CustomerContactUncheckedCreateWithoutDealContactsInput = {
+    id?: string
+    customerId: string
+    firstName: string
+    lastName?: string | null
+    position?: string | null
+    department?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    isPrimary?: boolean
+    isActive?: boolean
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerContactCreateOrConnectWithoutDealContactsInput = {
+    where: CustomerContactWhereUniqueInput
+    create: XOR<CustomerContactCreateWithoutDealContactsInput, CustomerContactUncheckedCreateWithoutDealContactsInput>
+  }
+
+  export type DealUpsertWithoutContactsInput = {
+    update: XOR<DealUpdateWithoutContactsInput, DealUncheckedUpdateWithoutContactsInput>
+    create: XOR<DealCreateWithoutContactsInput, DealUncheckedCreateWithoutContactsInput>
+    where?: DealWhereInput
+  }
+
+  export type DealUpdateToOneWithWhereWithoutContactsInput = {
+    where?: DealWhereInput
+    data: XOR<DealUpdateWithoutContactsInput, DealUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type DealUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDealsNestedInput
+    stage?: DealStageUpdateOneRequiredWithoutDealsNestedInput
+    assignedToUser?: UserUpdateOneWithoutDealsAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutDealsCreatedNestedInput
+    products?: DealProductUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUpdateManyWithoutDealNestedInput
+    orders?: OrderUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutDealNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type CustomerContactUpsertWithoutDealContactsInput = {
+    update: XOR<CustomerContactUpdateWithoutDealContactsInput, CustomerContactUncheckedUpdateWithoutDealContactsInput>
+    create: XOR<CustomerContactCreateWithoutDealContactsInput, CustomerContactUncheckedCreateWithoutDealContactsInput>
+    where?: CustomerContactWhereInput
+  }
+
+  export type CustomerContactUpdateToOneWithWhereWithoutDealContactsInput = {
+    where?: CustomerContactWhereInput
+    data: XOR<CustomerContactUpdateWithoutDealContactsInput, CustomerContactUncheckedUpdateWithoutDealContactsInput>
+  }
+
+  export type CustomerContactUpdateWithoutDealContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutContactsNestedInput
+  }
+
+  export type CustomerContactUncheckedUpdateWithoutDealContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealCreateWithoutProductsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDealsInput
+    stage: DealStageCreateNestedOneWithoutDealsInput
+    assignedToUser?: UserCreateNestedOneWithoutDealsAssignedInput
+    createdByUser: UserCreateNestedOneWithoutDealsCreatedInput
+    contacts?: DealContactCreateNestedManyWithoutDealInput
+    interactions?: InteractionCreateNestedManyWithoutDealInput
+    orders?: OrderCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutProductsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: DealContactUncheckedCreateNestedManyWithoutDealInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutDealInput
+    orders?: OrderUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutProductsInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutProductsInput, DealUncheckedCreateWithoutProductsInput>
+  }
+
+  export type ProductCreateWithoutDealProductsInput = {
+    id?: string
+    type: string
+    name: string
+    description?: string | null
+    sku: string
+    barcode?: string | null
+    brand?: string | null
+    tags?: ProductCreatetagsInput | string[]
+    price: Decimal | DecimalJsLike | number | string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    taxRate?: Decimal | DecimalJsLike | number | string
+    discountPercentage?: Decimal | DecimalJsLike | number | string
+    trackInventory?: boolean
+    stockQuantity?: number
+    stockMin?: number
+    stockUnit?: string
+    durationMinutes?: number | null
+    requiresScheduling?: boolean
+    imageUrl?: string | null
+    images?: ProductCreateimagesInput | string[]
+    isActive?: boolean
+    isFeatured?: boolean
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category?: CategoryCreateNestedOneWithoutProductsInput
+    createdByUser?: UserCreateNestedOneWithoutProductsCreatedInput
+    variants?: ProductVariantCreateNestedManyWithoutProductInput
+    inventoryMovements?: InventoryMovementCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
+    comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
+    comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
+    stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutDealProductsInput = {
+    id?: string
+    type: string
+    name: string
+    description?: string | null
+    sku: string
+    barcode?: string | null
+    categoryId?: string | null
+    brand?: string | null
+    tags?: ProductCreatetagsInput | string[]
+    price: Decimal | DecimalJsLike | number | string
+    cost?: Decimal | DecimalJsLike | number | string | null
+    taxRate?: Decimal | DecimalJsLike | number | string
+    discountPercentage?: Decimal | DecimalJsLike | number | string
+    trackInventory?: boolean
+    stockQuantity?: number
+    stockMin?: number
+    stockUnit?: string
+    durationMinutes?: number | null
+    requiresScheduling?: boolean
+    imageUrl?: string | null
+    images?: ProductCreateimagesInput | string[]
+    isActive?: boolean
+    isFeatured?: boolean
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    variants?: ProductVariantUncheckedCreateNestedManyWithoutProductInput
+    inventoryMovements?: InventoryMovementUncheckedCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+    comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
+    comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
+    stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutDealProductsInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutDealProductsInput, ProductUncheckedCreateWithoutDealProductsInput>
+  }
+
+  export type DealUpsertWithoutProductsInput = {
+    update: XOR<DealUpdateWithoutProductsInput, DealUncheckedUpdateWithoutProductsInput>
+    create: XOR<DealCreateWithoutProductsInput, DealUncheckedCreateWithoutProductsInput>
+    where?: DealWhereInput
+  }
+
+  export type DealUpdateToOneWithWhereWithoutProductsInput = {
+    where?: DealWhereInput
+    data: XOR<DealUpdateWithoutProductsInput, DealUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type DealUpdateWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDealsNestedInput
+    stage?: DealStageUpdateOneRequiredWithoutDealsNestedInput
+    assignedToUser?: UserUpdateOneWithoutDealsAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutDealsCreatedNestedInput
+    contacts?: DealContactUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUpdateManyWithoutDealNestedInput
+    orders?: OrderUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutDealNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type ProductUpsertWithoutDealProductsInput = {
+    update: XOR<ProductUpdateWithoutDealProductsInput, ProductUncheckedUpdateWithoutDealProductsInput>
+    create: XOR<ProductCreateWithoutDealProductsInput, ProductUncheckedCreateWithoutDealProductsInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutDealProductsInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutDealProductsInput, ProductUncheckedUpdateWithoutDealProductsInput>
+  }
+
+  export type ProductUpdateWithoutDealProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: ProductUpdatetagsInput | string[]
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    trackInventory?: BoolFieldUpdateOperationsInput | boolean
+    stockQuantity?: IntFieldUpdateOperationsInput | number
+    stockMin?: IntFieldUpdateOperationsInput | number
+    stockUnit?: StringFieldUpdateOperationsInput | string
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    requiresScheduling?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: ProductUpdateimagesInput | string[]
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneWithoutProductsNestedInput
+    createdByUser?: UserUpdateOneWithoutProductsCreatedNestedInput
+    variants?: ProductVariantUpdateManyWithoutProductNestedInput
+    inventoryMovements?: InventoryMovementUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
+    comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
+    comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
+    stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutDealProductsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    barcode?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: ProductUpdatetagsInput | string[]
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    cost?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    taxRate?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountPercentage?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    trackInventory?: BoolFieldUpdateOperationsInput | boolean
+    stockQuantity?: IntFieldUpdateOperationsInput | number
+    stockMin?: IntFieldUpdateOperationsInput | number
+    stockUnit?: StringFieldUpdateOperationsInput | string
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    requiresScheduling?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    images?: ProductUpdateimagesInput | string[]
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    variants?: ProductVariantUncheckedUpdateManyWithoutProductNestedInput
+    inventoryMovements?: InventoryMovementUncheckedUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+    comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
+    comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
+    stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type CategoryCreateWithoutChildrenInput = {
@@ -56129,6 +65746,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutCategoryInput = {
@@ -56165,6 +65783,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutCategoryInput = {
@@ -56334,6 +65953,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutProductsCreatedInput = {
@@ -56373,6 +65994,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutProductsCreatedInput = {
@@ -56582,6 +66205,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DealProductCreateWithoutProductInput = {
+    id?: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deal: DealCreateNestedOneWithoutProductsInput
+  }
+
+  export type DealProductUncheckedCreateWithoutProductInput = {
+    id?: string
+    dealId: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealProductCreateOrConnectWithoutProductInput = {
+    where: DealProductWhereUniqueInput
+    create: XOR<DealProductCreateWithoutProductInput, DealProductUncheckedCreateWithoutProductInput>
+  }
+
+  export type DealProductCreateManyProductInputEnvelope = {
+    data: DealProductCreateManyProductInput | DealProductCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CategoryUpsertWithoutProductsInput = {
     update: XOR<CategoryUpdateWithoutProductsInput, CategoryUncheckedUpdateWithoutProductsInput>
     create: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
@@ -56669,6 +66326,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProductsCreatedInput = {
@@ -56708,6 +66367,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type ProductVariantUpsertWithWhereUniqueWithoutProductInput = {
@@ -56868,6 +66529,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"StockAlert"> | Date | string
   }
 
+  export type DealProductUpsertWithWhereUniqueWithoutProductInput = {
+    where: DealProductWhereUniqueInput
+    update: XOR<DealProductUpdateWithoutProductInput, DealProductUncheckedUpdateWithoutProductInput>
+    create: XOR<DealProductCreateWithoutProductInput, DealProductUncheckedCreateWithoutProductInput>
+  }
+
+  export type DealProductUpdateWithWhereUniqueWithoutProductInput = {
+    where: DealProductWhereUniqueInput
+    data: XOR<DealProductUpdateWithoutProductInput, DealProductUncheckedUpdateWithoutProductInput>
+  }
+
+  export type DealProductUpdateManyWithWhereWithoutProductInput = {
+    where: DealProductScalarWhereInput
+    data: XOR<DealProductUpdateManyMutationInput, DealProductUncheckedUpdateManyWithoutProductInput>
+  }
+
   export type ProductCreateWithoutVariantsInput = {
     id?: string
     type: string
@@ -56902,6 +66579,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutVariantsInput = {
@@ -56938,6 +66616,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutVariantsInput = {
@@ -57070,6 +66749,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutVariantsInput = {
@@ -57106,6 +66786,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type InventoryMovementUpsertWithWhereUniqueWithoutProductVariantInput = {
@@ -57174,6 +66855,7 @@ export namespace Prisma {
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutComboItemsAsComboInput = {
@@ -57210,6 +66892,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutComboItemsAsComboInput = {
@@ -57251,6 +66934,7 @@ export namespace Prisma {
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
     stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutComboItemsAsProductInput = {
@@ -57287,6 +66971,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
     stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutComboItemsAsProductInput = {
@@ -57339,6 +67024,7 @@ export namespace Prisma {
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutComboItemsAsComboInput = {
@@ -57375,6 +67061,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUpsertWithoutComboItemsAsProductInput = {
@@ -57422,6 +67109,7 @@ export namespace Prisma {
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
     stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutComboItemsAsProductInput = {
@@ -57458,6 +67146,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
     stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateWithoutInventoryMovementsInput = {
@@ -57494,6 +67183,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutInventoryMovementsInput = {
@@ -57530,6 +67220,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutInventoryMovementsInput = {
@@ -57613,6 +67304,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutInventoryMovementsCreatedInput = {
@@ -57652,6 +67345,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutInventoryMovementsCreatedInput = {
@@ -57704,6 +67399,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutInventoryMovementsInput = {
@@ -57740,6 +67436,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductVariantUpsertWithoutInventoryMovementsInput = {
@@ -57835,6 +67532,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryMovementsCreatedInput = {
@@ -57874,6 +67573,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type CustomerCreateWithoutOrdersInput = {
@@ -57919,6 +67620,7 @@ export namespace Prisma {
     interactions?: InteractionCreateNestedManyWithoutCustomerInput
     tasks?: TaskCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutOrdersInput = {
@@ -57964,6 +67666,7 @@ export namespace Prisma {
     interactions?: InteractionUncheckedCreateNestedManyWithoutCustomerInput
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutOrdersInput = {
@@ -58008,6 +67711,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersCreatedInput = {
@@ -58047,6 +67752,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersCreatedInput = {
@@ -58091,6 +67798,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersAssignedInput = {
@@ -58130,6 +67839,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersAssignedInput = {
@@ -58313,6 +68024,71 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DealCreateWithoutOrdersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutDealsInput
+    stage: DealStageCreateNestedOneWithoutDealsInput
+    assignedToUser?: UserCreateNestedOneWithoutDealsAssignedInput
+    createdByUser: UserCreateNestedOneWithoutDealsCreatedInput
+    contacts?: DealContactCreateNestedManyWithoutDealInput
+    products?: DealProductCreateNestedManyWithoutDealInput
+    interactions?: InteractionCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutOrdersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: DealContactUncheckedCreateNestedManyWithoutDealInput
+    products?: DealProductUncheckedCreateNestedManyWithoutDealInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutOrdersInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutOrdersInput, DealUncheckedCreateWithoutOrdersInput>
+  }
+
   export type CustomerUpsertWithoutOrdersInput = {
     update: XOR<CustomerUpdateWithoutOrdersInput, CustomerUncheckedUpdateWithoutOrdersInput>
     create: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
@@ -58367,6 +68143,7 @@ export namespace Prisma {
     interactions?: InteractionUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutOrdersInput = {
@@ -58412,6 +68189,7 @@ export namespace Prisma {
     interactions?: InteractionUncheckedUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutOrdersCreatedInput = {
@@ -58462,6 +68240,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersCreatedInput = {
@@ -58501,6 +68281,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUpsertWithoutOrdersAssignedInput = {
@@ -58551,6 +68333,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersAssignedInput = {
@@ -58590,6 +68374,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -58640,6 +68426,77 @@ export namespace Prisma {
     data: XOR<PaymentUpdateManyMutationInput, PaymentUncheckedUpdateManyWithoutOrderInput>
   }
 
+  export type DealUpsertWithoutOrdersInput = {
+    update: XOR<DealUpdateWithoutOrdersInput, DealUncheckedUpdateWithoutOrdersInput>
+    create: XOR<DealCreateWithoutOrdersInput, DealUncheckedCreateWithoutOrdersInput>
+    where?: DealWhereInput
+  }
+
+  export type DealUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: DealWhereInput
+    data: XOR<DealUpdateWithoutOrdersInput, DealUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type DealUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDealsNestedInput
+    stage?: DealStageUpdateOneRequiredWithoutDealsNestedInput
+    assignedToUser?: UserUpdateOneWithoutDealsAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutDealsCreatedNestedInput
+    contacts?: DealContactUpdateManyWithoutDealNestedInput
+    products?: DealProductUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
+    products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutDealNestedInput
+  }
+
   export type OrderCreateWithoutItemsInput = {
     id?: string
     orderNumber: string
@@ -58674,6 +68531,7 @@ export namespace Prisma {
     assignedToUser?: UserCreateNestedOneWithoutOrdersAssignedInput
     tasks?: TaskCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
+    deal?: DealCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutItemsInput = {
@@ -58705,6 +68563,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -58751,6 +68610,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutOrderItemsInput = {
@@ -58787,6 +68647,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
     stockAlerts?: StockAlertUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutOrderItemsInput = {
@@ -58878,6 +68739,7 @@ export namespace Prisma {
     assignedToUser?: UserUpdateOneWithoutOrdersAssignedNestedInput
     tasks?: TaskUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
+    deal?: DealUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutItemsInput = {
@@ -58909,6 +68771,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -58961,6 +68824,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutOrderItemsInput = {
@@ -58997,6 +68861,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductVariantUpsertWithoutOrderItemsInput = {
@@ -59078,6 +68943,7 @@ export namespace Prisma {
     assignedToUser?: UserCreateNestedOneWithoutOrdersAssignedInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     payments?: PaymentCreateNestedManyWithoutOrderInput
+    deal?: DealCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutTasksInput = {
@@ -59109,6 +68975,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -59164,6 +69031,7 @@ export namespace Prisma {
     interactions?: InteractionCreateNestedManyWithoutCustomerInput
     orders?: OrderCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutTasksInput = {
@@ -59209,6 +69077,7 @@ export namespace Prisma {
     interactions?: InteractionUncheckedCreateNestedManyWithoutCustomerInput
     orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
     messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutTasksInput = {
@@ -59253,6 +69122,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutTasksAssignedInput = {
@@ -59292,6 +69163,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutTasksAssignedInput = {
@@ -59336,6 +69209,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutTasksCreatedInput = {
@@ -59375,6 +69250,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutTasksCreatedInput = {
@@ -59505,6 +69382,7 @@ export namespace Prisma {
     assignedToUser?: UserUpdateOneWithoutOrdersAssignedNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
+    deal?: DealUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutTasksInput = {
@@ -59536,6 +69414,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -59597,6 +69476,7 @@ export namespace Prisma {
     interactions?: InteractionUpdateManyWithoutCustomerNestedInput
     orders?: OrderUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutTasksInput = {
@@ -59642,6 +69522,7 @@ export namespace Prisma {
     interactions?: InteractionUncheckedUpdateManyWithoutCustomerNestedInput
     orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutTasksAssignedInput = {
@@ -59692,6 +69573,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTasksAssignedInput = {
@@ -59731,6 +69614,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUpsertWithoutTasksCreatedInput = {
@@ -59781,6 +69666,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTasksCreatedInput = {
@@ -59820,6 +69707,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type TaskChecklistUpsertWithWhereUniqueWithoutTaskInput = {
@@ -60007,6 +69896,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutTaskChecklistsCompletedInput = {
@@ -60046,6 +69937,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutTaskChecklistsCompletedInput = {
@@ -60196,6 +70089,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaskChecklistsCompletedInput = {
@@ -60235,6 +70130,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type TaskCreateWithoutDependenciesInput = {
@@ -60639,6 +70536,7 @@ export namespace Prisma {
     assignedToUser?: UserCreateNestedOneWithoutOrdersAssignedInput
     items?: OrderItemCreateNestedManyWithoutOrderInput
     tasks?: TaskCreateNestedManyWithoutOrderInput
+    deal?: DealCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutPaymentsInput = {
@@ -60670,6 +70568,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -60719,6 +70618,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutPaymentsCreatedInput = {
@@ -60758,6 +70659,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutPaymentsCreatedInput = {
@@ -60810,6 +70713,7 @@ export namespace Prisma {
     assignedToUser?: UserUpdateOneWithoutOrdersAssignedNestedInput
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     tasks?: TaskUpdateManyWithoutOrderNestedInput
+    deal?: DealUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutPaymentsInput = {
@@ -60841,6 +70745,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -60896,6 +70801,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentsCreatedInput = {
@@ -60935,6 +70842,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserCreateWithoutTransactionsCreatedInput = {
@@ -60974,6 +70883,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutTransactionsCreatedInput = {
@@ -61013,6 +70924,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutTransactionsCreatedInput = {
@@ -61068,6 +70981,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTransactionsCreatedInput = {
@@ -61107,6 +71022,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserCreateWithoutMessageTemplatesCreatedInput = {
@@ -61146,6 +71063,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutMessageTemplatesCreatedInput = {
@@ -61185,6 +71104,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutMessageTemplatesCreatedInput = {
@@ -61240,6 +71161,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageTemplatesCreatedInput = {
@@ -61279,6 +71202,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type CustomerCreateWithoutMessageLogsInput = {
@@ -61324,6 +71249,7 @@ export namespace Prisma {
     interactions?: InteractionCreateNestedManyWithoutCustomerInput
     orders?: OrderCreateNestedManyWithoutCustomerInput
     tasks?: TaskCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutMessageLogsInput = {
@@ -61369,6 +71295,7 @@ export namespace Prisma {
     interactions?: InteractionUncheckedCreateNestedManyWithoutCustomerInput
     orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
     tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutMessageLogsInput = {
@@ -61430,6 +71357,7 @@ export namespace Prisma {
     interactions?: InteractionUpdateManyWithoutCustomerNestedInput
     orders?: OrderUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutMessageLogsInput = {
@@ -61475,6 +71403,7 @@ export namespace Prisma {
     interactions?: InteractionUncheckedUpdateManyWithoutCustomerNestedInput
     orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -61514,6 +71443,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -61553,6 +71484,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -61608,6 +71541,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -61647,6 +71582,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserCreateWithoutFilesUploadedInput = {
@@ -61686,6 +71623,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutFilesUploadedInput = {
@@ -61725,6 +71664,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutFilesUploadedInput = {
@@ -61780,6 +71721,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFilesUploadedInput = {
@@ -61819,6 +71762,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserCreateWithoutSavedReportsCreatedInput = {
@@ -61858,6 +71803,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutSavedReportsCreatedInput = {
@@ -61897,6 +71844,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutSavedReportsCreatedInput = {
@@ -61982,6 +71931,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSavedReportsCreatedInput = {
@@ -62021,6 +71972,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type ReportExecutionUpsertWithWhereUniqueWithoutSavedReportInput = {
@@ -62171,6 +72124,7 @@ export namespace Prisma {
     orderItems?: OrderItemCreateNestedManyWithoutProductInput
     comboItemsAsCombo?: ComboItemCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutStockAlertsInput = {
@@ -62207,6 +72161,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
     comboItemsAsCombo?: ComboItemUncheckedCreateNestedManyWithoutComboInput
     comboItemsAsProduct?: ComboItemUncheckedCreateNestedManyWithoutProductInput
+    dealProducts?: DealProductUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutStockAlertsInput = {
@@ -62259,6 +72214,7 @@ export namespace Prisma {
     orderItems?: OrderItemUpdateManyWithoutProductNestedInput
     comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutStockAlertsInput = {
@@ -62295,6 +72251,7 @@ export namespace Prisma {
     orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
     comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type UserCreateWithoutCompanySettingsUpdatedInput = {
@@ -62334,6 +72291,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutCompanySettingsUpdatedInput = {
@@ -62373,6 +72332,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutCompanySettingsUpdatedInput = {
@@ -62428,6 +72389,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCompanySettingsUpdatedInput = {
@@ -62467,6 +72430,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserCreateWithoutAuditLogsUserInput = {
@@ -62506,6 +72471,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
     taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
     companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsUserInput = {
@@ -62545,6 +72512,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
     taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
     companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsUserInput = {
@@ -62600,6 +72569,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsUserInput = {
@@ -62639,6 +72610,8 @@ export namespace Prisma {
     transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserCreateManyCreatedByUserInput = {
@@ -62756,6 +72729,7 @@ export namespace Prisma {
     nextActionDate?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    relatedDealId?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -62790,6 +72764,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -62822,6 +72797,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -63104,6 +73080,58 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DealCreateManyCreatedByUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealCreateManyAssignedToUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type UserUpdateWithoutCreatedByUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
@@ -63141,6 +73169,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedByUserInput = {
@@ -63180,6 +73210,8 @@ export namespace Prisma {
     taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
     auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
     companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -63245,6 +73277,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutCreatedByUserInput = {
@@ -63290,6 +73323,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -63375,6 +73409,7 @@ export namespace Prisma {
     orders?: OrderUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutAssignedToUserInput = {
@@ -63420,6 +73455,7 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
     messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutAssignedToUserInput = {
@@ -63480,6 +73516,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
+    deal?: DealUpdateOneWithoutInteractionsNestedInput
   }
 
   export type InteractionUncheckedUpdateWithoutCreatedByUserInput = {
@@ -63497,6 +73534,7 @@ export namespace Prisma {
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63517,6 +73555,7 @@ export namespace Prisma {
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63556,6 +73595,7 @@ export namespace Prisma {
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     tasks?: TaskUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
+    deal?: DealUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutCreatedByUserInput = {
@@ -63587,6 +73627,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -63623,6 +73664,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -63661,6 +73703,7 @@ export namespace Prisma {
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     tasks?: TaskUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
+    deal?: DealUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutAssignedToUserInput = {
@@ -63691,6 +73734,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -63727,6 +73771,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64063,6 +74108,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCreatedByUserInput = {
@@ -64099,6 +74145,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -64589,6 +74636,178 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DealUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDealsNestedInput
+    stage?: DealStageUpdateOneRequiredWithoutDealsNestedInput
+    assignedToUser?: UserUpdateOneWithoutDealsAssignedNestedInput
+    contacts?: DealContactUpdateManyWithoutDealNestedInput
+    products?: DealProductUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUpdateManyWithoutDealNestedInput
+    orders?: OrderUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
+    products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutDealNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealUpdateWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDealsNestedInput
+    stage?: DealStageUpdateOneRequiredWithoutDealsNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutDealsCreatedNestedInput
+    contacts?: DealContactUpdateManyWithoutDealNestedInput
+    products?: DealProductUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUpdateManyWithoutDealNestedInput
+    orders?: OrderUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
+    products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutDealNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutAssignedToUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CustomerContactCreateManyCustomerInput = {
     id?: string
     firstName: string
@@ -64619,6 +74838,7 @@ export namespace Prisma {
     nextActionDate?: Date | string | null
     relatedOrderId?: string | null
     relatedTaskId?: string | null
+    relatedDealId?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
     createdAt?: Date | string
@@ -64653,6 +74873,7 @@ export namespace Prisma {
     cancellationReason?: string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: string | null
     createdBy: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -64717,6 +74938,32 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type DealCreateManyCustomerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    stageId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type CustomerContactUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -64731,6 +74978,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dealContacts?: DealContactUpdateManyWithoutContactNestedInput
   }
 
   export type CustomerContactUncheckedUpdateWithoutCustomerInput = {
@@ -64747,6 +74995,7 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dealContacts?: DealContactUncheckedUpdateManyWithoutContactNestedInput
   }
 
   export type CustomerContactUncheckedUpdateManyWithoutCustomerInput = {
@@ -64783,6 +75032,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+    deal?: DealUpdateOneWithoutInteractionsNestedInput
   }
 
   export type InteractionUncheckedUpdateWithoutCustomerInput = {
@@ -64799,6 +75049,7 @@ export namespace Prisma {
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64819,6 +75070,7 @@ export namespace Prisma {
     nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
     relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedDealId?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64859,6 +75111,7 @@ export namespace Prisma {
     items?: OrderItemUpdateManyWithoutOrderNestedInput
     tasks?: TaskUpdateManyWithoutOrderNestedInput
     payments?: PaymentUpdateManyWithoutOrderNestedInput
+    deal?: DealUpdateOneWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutCustomerInput = {
@@ -64889,6 +75142,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -64925,6 +75179,7 @@ export namespace Prisma {
     cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
     customFields?: JsonNullValueInput | InputJsonValue
     metadata?: JsonNullValueInput | InputJsonValue
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
     createdBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -65113,6 +75368,550 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DealUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stage?: DealStageUpdateOneRequiredWithoutDealsNestedInput
+    assignedToUser?: UserUpdateOneWithoutDealsAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutDealsCreatedNestedInput
+    contacts?: DealContactUpdateManyWithoutDealNestedInput
+    products?: DealProductUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUpdateManyWithoutDealNestedInput
+    orders?: OrderUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
+    products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutDealNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    stageId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealContactCreateManyContactInput = {
+    id?: string
+    dealId: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealContactUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deal?: DealUpdateOneRequiredWithoutContactsNestedInput
+  }
+
+  export type DealContactUncheckedUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dealId?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealContactUncheckedUpdateManyWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dealId?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealCreateManyStageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    customerId: string
+    probability?: number
+    amount?: Decimal | DecimalJsLike | number | string
+    currency?: string
+    expectedCloseDate?: Date | string | null
+    status?: string
+    lostReason?: string | null
+    wonAt?: Date | string | null
+    lostAt?: Date | string | null
+    assignedTo?: string | null
+    createdBy: string
+    daysInStage?: number
+    lastStageChangeAt?: Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealUpdateWithoutStageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutDealsNestedInput
+    assignedToUser?: UserUpdateOneWithoutDealsAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutDealsCreatedNestedInput
+    contacts?: DealContactUpdateManyWithoutDealNestedInput
+    products?: DealProductUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUpdateManyWithoutDealNestedInput
+    orders?: OrderUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutStageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: DealContactUncheckedUpdateManyWithoutDealNestedInput
+    products?: DealProductUncheckedUpdateManyWithoutDealNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutDealNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutStageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    customerId?: StringFieldUpdateOperationsInput | string
+    probability?: IntFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: StringFieldUpdateOperationsInput | string
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    lostReason?: NullableStringFieldUpdateOperationsInput | string | null
+    wonAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lostAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    daysInStage?: IntFieldUpdateOperationsInput | number
+    lastStageChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    stageHistory?: JsonNullValueInput | InputJsonValue
+    tags?: DealUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealContactCreateManyDealInput = {
+    id?: string
+    contactId: string
+    role?: string | null
+    isPrimary?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealProductCreateManyDealInput = {
+    id?: string
+    productId: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InteractionCreateManyDealInput = {
+    id?: string
+    customerId: string
+    type: string
+    direction?: string | null
+    subject?: string | null
+    content: string
+    status?: string | null
+    scheduledAt?: Date | string | null
+    durationMinutes?: number | null
+    outcome?: string | null
+    nextAction?: string | null
+    nextActionDate?: Date | string | null
+    relatedOrderId?: string | null
+    relatedTaskId?: string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OrderCreateManyDealInput = {
+    id?: string
+    orderNumber: string
+    customerId: string
+    type: string
+    status?: string
+    subtotal: Decimal | DecimalJsLike | number | string
+    discountAmount?: Decimal | DecimalJsLike | number | string
+    taxAmount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    paymentStatus?: string
+    paymentMethod?: string | null
+    paidAmount?: Decimal | DecimalJsLike | number | string
+    scheduledDate?: Date | string | null
+    scheduledTimeStart?: Date | string | null
+    scheduledTimeEnd?: Date | string | null
+    startedAt?: Date | string | null
+    completedAt?: Date | string | null
+    serviceAddress?: string | null
+    serviceCity?: string | null
+    serviceLatitude?: Decimal | DecimalJsLike | number | string | null
+    serviceLongitude?: Decimal | DecimalJsLike | number | string | null
+    assignedTo?: string | null
+    customerNotes?: string | null
+    internalNotes?: string | null
+    cancelledAt?: Date | string | null
+    cancellationReason?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealContactUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contact?: CustomerContactUpdateOneRequiredWithoutDealContactsNestedInput
+  }
+
+  export type DealContactUncheckedUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealContactUncheckedUpdateManyWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    contactId?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrimary?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealProductUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    product?: ProductUpdateOneRequiredWithoutDealProductsNestedInput
+  }
+
+  export type DealProductUncheckedUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealProductUncheckedUpdateManyWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    productId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InteractionUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutInteractionsNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutInteractionsNestedInput
+  }
+
+  export type InteractionUncheckedUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InteractionUncheckedUpdateManyWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    direction?: NullableStringFieldUpdateOperationsInput | string | null
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    scheduledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    nextAction?: NullableStringFieldUpdateOperationsInput | string | null
+    nextActionDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    relatedOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    relatedTaskId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrderUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderNumber?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    scheduledDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledTimeStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledTimeEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLatitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    serviceLongitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    customerNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    internalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutOrdersCreatedNestedInput
+    assignedToUser?: UserUpdateOneWithoutOrdersAssignedNestedInput
+    items?: OrderItemUpdateManyWithoutOrderNestedInput
+    tasks?: TaskUpdateManyWithoutOrderNestedInput
+    payments?: PaymentUpdateManyWithoutOrderNestedInput
+  }
+
+  export type OrderUncheckedUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    scheduledDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledTimeStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledTimeEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLatitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    serviceLongitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    internalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutOrderNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutOrderNestedInput
+  }
+
+  export type OrderUncheckedUpdateManyWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    orderNumber?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    subtotal?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discountAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    taxAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    paidAmount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    scheduledDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledTimeStart?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    scheduledTimeEnd?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serviceAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCity?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceLatitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    serviceLongitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    customerNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    internalNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    cancelledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    cancellationReason?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CategoryCreateManyParentInput = {
     id?: string
     name: string
@@ -65229,6 +76028,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutCategoryInput = {
@@ -65265,6 +76065,7 @@ export namespace Prisma {
     comboItemsAsCombo?: ComboItemUncheckedUpdateManyWithoutComboNestedInput
     comboItemsAsProduct?: ComboItemUncheckedUpdateManyWithoutProductNestedInput
     stockAlerts?: StockAlertUncheckedUpdateManyWithoutProductNestedInput
+    dealProducts?: DealProductUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutCategoryInput = {
@@ -65364,6 +76165,18 @@ export namespace Prisma {
     isResolved?: boolean
     resolvedAt?: Date | string | null
     createdAt?: Date | string
+  }
+
+  export type DealProductCreateManyProductInput = {
+    id?: string
+    dealId: string
+    quantity?: number
+    unitPrice: Decimal | DecimalJsLike | number | string
+    discount?: Decimal | DecimalJsLike | number | string
+    total: Decimal | DecimalJsLike | number | string
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ProductVariantUpdateWithoutProductInput = {
@@ -65575,6 +76388,42 @@ export namespace Prisma {
     isResolved?: BoolFieldUpdateOperationsInput | boolean
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealProductUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deal?: DealUpdateOneRequiredWithoutProductsNestedInput
+  }
+
+  export type DealProductUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dealId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealProductUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dealId?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unitPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    discount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InventoryMovementCreateManyProductVariantInput = {

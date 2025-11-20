@@ -160,9 +160,17 @@ export class DealStageController {
     description: 'Updates the sort order of deal stages'
   })
   @ApiBody({
-    type: 'array',
-    items: { type: 'string' },
-    description: 'Array of stage IDs in the desired order',
+    schema: {
+      type: 'object',
+      properties: {
+        stageIds: {
+          type: 'array',
+          items: { type: 'string', format: 'uuid' },
+          description: 'Array of stage IDs in the desired order',
+        },
+      },
+      required: ['stageIds'],
+    },
   })
   @ApiResponse({
     status: HttpStatus.OK,
