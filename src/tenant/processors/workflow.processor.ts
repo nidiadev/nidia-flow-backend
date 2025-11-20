@@ -1,6 +1,7 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
-import { Logger, Injectable, Scope } from '@nestjs/common';
-import { Job } from 'bullmq';
+import { Logger, Injectable, Scope, Inject, forwardRef } from '@nestjs/common';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Job, Queue } from 'bullmq';
 import { TenantPrismaService } from '../services/tenant-prisma.service';
 import { BusinessEventEmitterService } from '../../common/events/event-emitter.service';
 import { NotificationService } from '../services/communications/notification.service';
