@@ -79,6 +79,12 @@ export class PermissionsGuard implements CanActivate {
     const rolePermissionMap: Record<string, string[]> = {
       manager: [
         'crm:read', 'crm:write', 'crm:export', 'crm:assign',
+        'crm:deals:read', 'crm:deals:write',
+        'crm:interactions:read', 'crm:interactions:write',
+        'crm:customers:read', 'crm:customers:write',
+        'crm:segments:read', 'crm:segments:write',
+        'crm:scoring:read', 'crm:scoring:write',
+        'crm:workflows:read', 'crm:workflows:write',
         'orders:read', 'orders:write', 'orders:assign', 'orders:approve',
         'tasks:read', 'tasks:write', 'tasks:assign', 'tasks:complete',
         'products:read', 'products:write', 'products:manage_inventory',
@@ -89,7 +95,10 @@ export class PermissionsGuard implements CanActivate {
       ],
       sales: [
         'crm:customers:read', 'crm:customers:write', 'crm:customers:export',
+        'crm:deals:read', 'crm:deals:write',
         'crm:interactions:read', 'crm:interactions:write',
+        'crm:segments:read',
+        'crm:scoring:read',
         'orders:read', 'orders:write',
         'tasks:read', 'tasks:write',
         'products:read',

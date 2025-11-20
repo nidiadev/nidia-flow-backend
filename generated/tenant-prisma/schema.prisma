@@ -72,6 +72,7 @@ model User {
   conversationNotes         ConversationNote[]
   smartListsCreated         SmartList[]         @relation("SmartListCreatedBy")
   leadScoringRulesCreated   LeadScoringRule[]   @relation("LeadScoringRuleCreatedBy")
+  workflowsCreated          Workflow[]          @relation("WorkflowCreatedBy")
 
   @@index([email])
   @@index([role])
@@ -1282,6 +1283,104 @@ model LeadScoreHistory {
   @@index([createdAt])
   @@index([triggerType])
   @@map("lead_score_history")
+}
+
+// ============================================
+// CRM - AUTOMATIONS / WORKFLOWS
+// ============================================
+
+model Workflow {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Basic info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  isActive    Boolean @default(true) @map("is_active")
+
+  // Trigger configuration
+  triggerType   String @map("trigger_type") @db.VarChar(50) // lead_created, deal_stage_changed, etc.
+  triggerConfig Json   @default("{}") @map("trigger_config") // Trigger-specific configuration
+
+  // Steps configuration
+  steps Json @default("[]") @map("steps") // Array of { type, action, delay, config }
+
+  // Limits
+  maxSteps Int @default(10) @map("max_steps") // Maximum steps allowed (based on plan)
+
+  // Execution stats
+  executionCount Int       @default(0) @map("execution_count")
+  lastExecutedAt DateTime? @map("last_executed_at")
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdByUser User                @relation("WorkflowCreatedBy", fields: [createdBy], references: [id])
+  executions    WorkflowExecution[]
+
+  @@index([createdBy])
+  @@index([isActive])
+  @@index([triggerType])
+  @@map("workflows")
+}
+
+model WorkflowExecution {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  workflowId String @map("workflow_id") @db.Uuid
+
+  // Execution details
+  status       String  @default("running") @db.VarChar(50) // running, completed, failed, cancelled
+  triggerData  Json    @default("{}") @map("trigger_data") // Data from trigger event
+  currentStep  Int     @default(0) @map("current_step")
+  errorMessage String? @map("error_message") @db.Text
+
+  // Timestamps
+  startedAt   DateTime  @default(now()) @map("started_at")
+  completedAt DateTime? @map("completed_at")
+  nextStepAt  DateTime? @map("next_step_at") // When next step should execute (for delays)
+
+  // Relations
+  workflow Workflow               @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  logs     WorkflowExecutionLog[]
+
+  @@index([workflowId])
+  @@index([status])
+  @@index([startedAt])
+  @@index([nextStepAt])
+  @@map("workflow_executions")
+}
+
+model WorkflowExecutionLog {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  executionId String @map("execution_id") @db.Uuid
+  stepIndex   Int    @map("step_index")
+  stepType    String @map("step_type") @db.VarChar(50) // action, delay, condition
+
+  // Execution details
+  status       String  @default("pending") @db.VarChar(50) // pending, running, completed, failed, skipped
+  actionType   String? @map("action_type") @db.VarChar(50)
+  actionConfig Json?   @map("action_config")
+  result       Json?   @map("result")
+  errorMessage String? @map("error_message") @db.Text
+
+  // Timestamps
+  executedAt DateTime? @map("executed_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  execution WorkflowExecution @relation(fields: [executionId], references: [id], onDelete: Cascade)
+
+  @@index([executionId])
+  @@index([stepIndex])
+  @@index([status])
+  @@map("workflow_execution_logs")
 }
 
 model Notification {

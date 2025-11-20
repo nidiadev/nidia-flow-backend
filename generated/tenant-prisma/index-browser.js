@@ -727,6 +727,49 @@ exports.Prisma.LeadScoreHistoryScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.WorkflowScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  triggerType: 'triggerType',
+  triggerConfig: 'triggerConfig',
+  steps: 'steps',
+  maxSteps: 'maxSteps',
+  executionCount: 'executionCount',
+  lastExecutedAt: 'lastExecutedAt',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WorkflowExecutionScalarFieldEnum = {
+  id: 'id',
+  workflowId: 'workflowId',
+  status: 'status',
+  triggerData: 'triggerData',
+  currentStep: 'currentStep',
+  errorMessage: 'errorMessage',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  nextStepAt: 'nextStepAt'
+};
+
+exports.Prisma.WorkflowExecutionLogScalarFieldEnum = {
+  id: 'id',
+  executionId: 'executionId',
+  stepIndex: 'stepIndex',
+  stepType: 'stepType',
+  status: 'status',
+  actionType: 'actionType',
+  actionConfig: 'actionConfig',
+  result: 'result',
+  errorMessage: 'errorMessage',
+  executedAt: 'executedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -907,6 +950,9 @@ exports.Prisma.ModelName = {
   SmartListMember: 'SmartListMember',
   LeadScoringRule: 'LeadScoringRule',
   LeadScoreHistory: 'LeadScoreHistory',
+  Workflow: 'Workflow',
+  WorkflowExecution: 'WorkflowExecution',
+  WorkflowExecutionLog: 'WorkflowExecutionLog',
   Notification: 'Notification',
   File: 'File',
   SavedReport: 'SavedReport',
