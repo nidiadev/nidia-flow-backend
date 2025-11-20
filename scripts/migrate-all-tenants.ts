@@ -9,7 +9,7 @@
  *   ts-node scripts/migrate-all-tenants.ts
  */
 
-import { PrismaClient as SuperAdminPrismaClient } from '@prisma/superadmin';
+import { PrismaClient as SuperAdminPrismaClient } from '../generated/prisma';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import * as crypto from 'crypto';
@@ -59,21 +59,37 @@ async function migrateTenantDatabase(tenant: {
   console.log(`   Host: ${tenant.dbHost}:${tenant.dbPort}`);
 
   try {
-    // Desencriptar contraseña
-    const dbPassword = decryptPassword(tenant.dbPasswordEncrypted);
+    // Usar credenciales de administrador para migraciones (como en TenantProvisioningService)
+    const adminConnectionUrl = process.env.DATABASE_URL;
+    if (!adminConnectionUrl) {
+      throw new Error('DATABASE_URL not configured for admin operations');
+    }
+
+    // Parse admin connection URL to extract credentials
+    const adminUrl = new URL(adminConnectionUrl);
+    const adminUser = adminUrl.username;
+    const adminPassword = adminUrl.password;
+    const adminHost = adminUrl.hostname;
+    const adminPort = adminUrl.port || '5432';
+
+    // Use admin credentials to connect to tenant database for migration
+    const tenantConnectionUrl = `postgresql://${adminUser}:${encodeURIComponent(adminPassword)}@${tenant.dbHost}:${tenant.dbPort}/${tenant.dbName}?schema=public`;
     
-    // Construir connection URL
-    const tenantConnectionUrl = `postgresql://${tenant.dbUsername}:${encodeURIComponent(dbPassword)}@${tenant.dbHost}:${tenant.dbPort}/${tenant.dbName}?schema=public`;
-    
-    // Verificar que la base de datos existe
+    // Verificar que la base de datos existe usando Prisma
     console.log('   🔍 Verificando que la base de datos existe...');
     try {
-      const { stdout } = await execAsync(
-        `psql "${tenantConnectionUrl}" -tAc "SELECT 1" 2>&1 || echo "ERROR"`
-      );
-      if (stdout.includes('ERROR') || stdout.trim() !== '1') {
-        throw new Error(`Database ${tenant.dbName} does not exist or is not accessible`);
-      }
+      const { PrismaClient: TenantPrismaClient } = await import('../generated/tenant-prisma');
+      const testClient = new TenantPrismaClient({
+        datasources: {
+          db: {
+            url: tenantConnectionUrl,
+          },
+        },
+      });
+      
+      await testClient.$connect();
+      await testClient.$queryRaw`SELECT 1`;
+      await testClient.$disconnect();
       console.log('   ✅ Base de datos verificada');
     } catch (error: any) {
       console.error(`   ❌ Error verificando base de datos: ${error.message}`);
@@ -101,24 +117,47 @@ async function migrateTenantDatabase(tenant: {
       return { success: false, error: error.message };
     }
 
-    // Verificar que las tablas se crearon correctamente
+    // Verificar que las tablas se crearon correctamente usando Prisma
     console.log('   🔍 Verificando tablas...');
     try {
-      const { stdout } = await execAsync(
-        `psql "${tenantConnectionUrl}" -tAc "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public' AND table_name NOT LIKE 'prisma_%' AND table_name NOT LIKE '_prisma_%';"`
-      );
-      const tableCount = parseInt(stdout.trim());
+      const { PrismaClient: TenantPrismaClient } = await import('../generated/tenant-prisma');
+      const verifyClient = new TenantPrismaClient({
+        datasources: {
+          db: {
+            url: tenantConnectionUrl,
+          },
+        },
+      });
+      
+      await verifyClient.$connect();
+      
+      // Contar tablas
+      const tableCountResult = await verifyClient.$queryRaw<Array<{ count: bigint }>>`
+        SELECT COUNT(*)::int as count 
+        FROM information_schema.tables 
+        WHERE table_schema = 'public' 
+        AND table_name NOT LIKE 'prisma_%' 
+        AND table_name NOT LIKE '_prisma_%'
+      `;
+      const tableCount = Number(tableCountResult[0]?.count || 0);
       console.log(`   ✅ ${tableCount} tablas encontradas`);
       
       // Verificar específicamente que deal_stages existe
-      const { stdout: dealStagesCheck } = await execAsync(
-        `psql "${tenantConnectionUrl}" -tAc "SELECT EXISTS(SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'deal_stages');"`
-      );
-      if (dealStagesCheck.trim() === 't') {
+      const dealStagesResult = await verifyClient.$queryRaw<Array<{ exists: boolean }>>`
+        SELECT EXISTS(
+          SELECT FROM information_schema.tables 
+          WHERE table_schema = 'public' 
+          AND table_name = 'deal_stages'
+        ) as exists
+      `;
+      
+      if (dealStagesResult[0]?.exists) {
         console.log('   ✅ Tabla deal_stages existe');
       } else {
         console.warn('   ⚠️  Tabla deal_stages no encontrada');
       }
+      
+      await verifyClient.$disconnect();
     } catch (error: any) {
       console.warn(`   ⚠️  No se pudo verificar tablas: ${error.message}`);
     }
