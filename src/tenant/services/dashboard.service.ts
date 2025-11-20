@@ -137,20 +137,33 @@ export class DashboardService {
 
         metrics.crm = {
           pipeline: {
-            totalValue: pipelineKPIs.totalAmount || 0,
-            weightedValue: pipelineKPIs.weightedAmount || 0,
-            dealsCount: pipelineKPIs.totalDeals || 0,
+            totalValue: pipelineKPIs?.totalAmount || pipelineKPIs?.pipelineStats?.totalAmount || 0,
+            weightedValue: pipelineKPIs?.weightedAmount || pipelineKPIs?.pipelineStats?.weightedAmount || 0,
+            dealsCount: pipelineKPIs?.totalDeals || pipelineKPIs?.pipelineStats?.totalDeals || 0,
           },
-          winRate: winRate.global.winRate,
-          averageTimeToClose: avgTimeToClose.averageDays,
+          winRate: winRate?.global?.winRate || 0,
+          averageTimeToClose: avgTimeToClose?.averageDays || 0,
           forecast: {
-            month: forecast.period,
-            expectedAmount: forecast.weightedAmount,
+            month: forecast?.period || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`,
+            expectedAmount: forecast?.weightedAmount || 0,
           },
         };
       } catch (error: any) {
-        this.logger.warn(`Failed to load CRM metrics: ${error.message}`);
-        // Continue without CRM metrics if there's an error
+        this.logger.warn(`Failed to load CRM metrics: ${error.message}`, error.stack);
+        // Continue without CRM metrics if there's an error - set defaults
+        metrics.crm = {
+          pipeline: {
+            totalValue: 0,
+            weightedValue: 0,
+            dealsCount: 0,
+          },
+          winRate: 0,
+          averageTimeToClose: 0,
+          forecast: {
+            month: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`,
+            expectedAmount: 0,
+          },
+        };
       }
     }
 

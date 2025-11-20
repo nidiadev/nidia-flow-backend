@@ -238,7 +238,13 @@ export class DealFilterDto extends SearchDto {
     enum: DealStatus
   })
   @IsOptional()
-  @IsEnum(DealStatus)
+  @IsEnum(DealStatus, { message: 'Status must be one of: open, won, lost, abandoned' })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      return value.toLowerCase();
+    }
+    return value;
+  })
   status?: DealStatus;
 
   @ApiPropertyOptional({ 

@@ -89,7 +89,7 @@ export class DealController {
     description: 'Deals retrieved successfully',
   })
   async findMany(
-    @Query(ValidationPipe) filterDto: DealFilterDto,
+    @Query(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: false })) filterDto: DealFilterDto,
     @CurrentUser('userId') userId: string,
     @UserPermissions() userPermissions: string[],
   ): Promise<ApiResponseDto<DealSummaryDto[]>> {
