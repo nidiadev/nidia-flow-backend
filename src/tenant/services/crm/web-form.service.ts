@@ -16,7 +16,7 @@ import {
   WebFormResponseDto,
   WebFormSubmissionResponseDto,
   SubmitWebFormDto,
-} from '../../dto/crm/workflow.dto';
+} from '../../dto/crm/web-form.dto';
 import { Prisma } from '../../../../generated/tenant-prisma';
 
 /**
