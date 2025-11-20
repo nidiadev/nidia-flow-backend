@@ -64,6 +64,8 @@ model User {
   taskChecklistsCompleted   TaskChecklist[]     @relation("TaskChecklistCompletedBy")
   auditLogsUser             AuditLog[]          @relation("AuditLogUser")
   companySettingsUpdated    CompanySetting[]    @relation("CompanySettingUpdatedBy")
+  dealsCreated              Deal[]               @relation("DealCreatedBy")
+  dealsAssigned             Deal[]               @relation("DealAssignedTo")
 
   @@index([email])
   @@index([role])
@@ -152,6 +154,7 @@ model Customer {
   orders         Order[]
   tasks          Task[]
   messageLogs    MessageLog[]
+  deals          Deal[]
 
   @@index([type])
   @@index([email])
@@ -180,6 +183,7 @@ model CustomerContact {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  dealContacts DealContact[]
 
   @@index([customerId])
   @@index([email])
@@ -209,6 +213,7 @@ model Interaction {
   // References
   relatedOrderId String? @map("related_order_id") @db.Uuid
   relatedTaskId  String? @map("related_task_id") @db.Uuid
+  relatedDealId  String? @map("related_deal_id") @db.Uuid
 
   // Metadata
   metadata Json @default("{}") @map("metadata") // Email headers, call recording URL, etc
@@ -221,13 +226,143 @@ model Interaction {
   // Relations
   customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
   createdByUser User     @relation(fields: [createdBy], references: [id])
+  deal          Deal?    @relation(fields: [relatedDealId], references: [id])
 
   @@index([customerId])
   @@index([type])
   @@index([createdBy])
   @@index([scheduledAt])
   @@index([createdAt])
+  @@index([relatedDealId])
   @@map("interactions")
+}
+
+// ============================================
+// CRM - DEALS / OPPORTUNITIES
+// ============================================
+
+model DealStage {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @db.VarChar(100)
+  displayName String   @map("display_name") @db.VarChar(255)
+  description String?  @db.Text
+  probability Int      @default(0) // 0-100 percentage
+  sortOrder   Int      @default(0) @map("sort_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  isDefault   Boolean  @default(false) @map("is_default") // Default stages cannot be deleted
+  color       String?  @db.VarChar(7) // Hex color for UI
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  deals Deal[]
+
+  @@index([isActive])
+  @@index([sortOrder])
+  @@map("deal_stages")
+}
+
+model Deal {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Basic info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+
+  // Customer and contacts
+  customerId String @map("customer_id") @db.Uuid
+  // Multiple contacts can be linked via DealContact junction table
+
+  // Stage and pipeline
+  stageId String @map("stage_id") @db.Uuid
+  probability Int @default(0) // Can override stage probability
+
+  // Financial
+  amount      Decimal @default(0) @db.Decimal(12, 2)
+  currency    String  @default("COP") @db.VarChar(3)
+  expectedCloseDate DateTime? @map("expected_close_date")
+
+  // Status
+  status String @default("open") @db.VarChar(50) // open, won, lost, abandoned
+  lostReason String? @map("lost_reason") @db.VarChar(255)
+  wonAt      DateTime? @map("won_at")
+  lostAt     DateTime? @map("lost_at")
+
+  // Assignment
+  assignedTo String? @map("assigned_to") @db.Uuid
+  createdBy  String  @map("created_by") @db.Uuid
+
+  // Tracking
+  daysInStage Int @default(0) @map("days_in_stage") // Calculated field
+  lastStageChangeAt DateTime? @map("last_stage_change_at")
+  stageHistory Json @default("[]") @map("stage_history") // Array of {stageId, changedAt, changedBy}
+
+  // Tags and notes
+  tags         String[] @map("tags")
+  notes        String?  @db.Text
+  customFields Json     @default("{}") @map("custom_fields")
+  metadata     Json     @default("{}") @map("metadata")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  customer      Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  stage         DealStage     @relation(fields: [stageId], references: [id])
+  assignedToUser User?        @relation("DealAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser User          @relation("DealCreatedBy", fields: [createdBy], references: [id])
+  contacts      DealContact[]
+  products      DealProduct[]
+  interactions  Interaction[]
+  orders        Order[]
+
+  @@index([customerId])
+  @@index([stageId])
+  @@index([assignedTo])
+  @@index([status])
+  @@index([expectedCloseDate])
+  @@index([createdAt])
+  @@index([stageId, status])
+  @@map("deals")
+}
+
+model DealContact {
+  id       String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  dealId   String   @map("deal_id") @db.Uuid
+  contactId String  @map("contact_id") @db.Uuid
+  role     String?  @db.VarChar(100) // decision_maker, influencer, user, etc.
+  isPrimary Boolean @default(false) @map("is_primary")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  deal    Deal            @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  contact CustomerContact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@unique([dealId, contactId])
+  @@index([dealId])
+  @@index([contactId])
+  @@map("deal_contacts")
+}
+
+model DealProduct {
+  id       String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  dealId   String   @map("deal_id") @db.Uuid
+  productId String  @map("product_id") @db.Uuid
+  quantity Int      @default(1)
+  unitPrice Decimal @map("unit_price") @db.Decimal(10, 2)
+  discount Decimal  @default(0) @db.Decimal(5, 2) // Percentage
+  total    Decimal  @db.Decimal(12, 2) // Calculated: quantity * unitPrice * (1 - discount/100)
+  notes    String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  deal    Deal    @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([dealId])
+  @@index([productId])
+  @@map("deal_products")
 }
 
 // ============================================
@@ -318,6 +453,7 @@ model Product {
   comboItemsAsCombo   ComboItem[]         @relation("ComboProduct")
   comboItemsAsProduct ComboItem[]         @relation("ComboItemProduct")
   stockAlerts         StockAlert[]
+  dealProducts        DealProduct[]
 
   @@index([sku])
   @@index([categoryId])
@@ -468,6 +604,9 @@ model Order {
   customFields Json @default("{}") @map("custom_fields")
   metadata     Json @default("{}") @map("metadata")
 
+  // References
+  dealId String? @map("deal_id") @db.Uuid
+
   // Audit
   createdBy String   @map("created_by") @db.Uuid
   createdAt DateTime @default(now()) @map("created_at")
@@ -480,6 +619,7 @@ model Order {
   items          OrderItem[]
   tasks          Task[]
   payments       Payment[]
+  deal           Deal?       @relation(fields: [dealId], references: [id])
 
   @@index([orderNumber])
   @@index([customerId])
@@ -488,6 +628,7 @@ model Order {
   @@index([assignedTo])
   @@index([scheduledDate])
   @@index([createdAt])
+  @@index([dealId])
   @@index([status, scheduledDate])
   @@map("orders")
 }
