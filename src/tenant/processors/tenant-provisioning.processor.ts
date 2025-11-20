@@ -35,18 +35,20 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
     private readonly plansService: PlansService,
   ) {
     super();
+    this.logger.log('🔧 [PROCESSOR] TenantProvisioningProcessor constructor called');
     // Usar REDIS_URL si está disponible (prioridad), sino usar variables individuales
     if (process.env.REDIS_URL) {
       this.redis = new Redis(process.env.REDIS_URL);
-      this.logger.log('✅ Redis connection initialized using REDIS_URL');
+      this.logger.log('✅ [PROCESSOR] Redis connection initialized using REDIS_URL');
     } else {
       this.redis = new Redis({
         host: process.env.REDIS_HOST || 'localhost',
         port: parseInt(process.env.REDIS_PORT || '6379'),
         password: process.env.REDIS_PASSWORD || undefined,
       });
-      this.logger.log('✅ Redis connection initialized using individual variables');
+      this.logger.log('✅ [PROCESSOR] Redis connection initialized using individual variables');
     }
+    this.logger.log('✅ [PROCESSOR] TenantProvisioningProcessor initialized successfully');
   }
 
   async onModuleDestroy() {

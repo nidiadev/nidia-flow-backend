@@ -101,8 +101,13 @@ async function flushRedis() {
     console.error('❌ Error durante la limpieza:', error);
     throw error;
   } finally {
-    await redis.quit();
-    console.log('✅ Conexión cerrada');
+    try {
+      await redis.quit();
+      console.log('✅ Conexión cerrada');
+    } catch (closeError) {
+      // Ignorar errores al cerrar si ya estaba cerrada
+      console.log('⚠️  Conexión ya estaba cerrada');
+    }
   }
 }
 
