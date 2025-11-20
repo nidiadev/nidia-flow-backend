@@ -361,7 +361,6 @@ export const BusinessEventTypes = {
   CONVERSATION_CREATED: 'conversation.created',
   CONVERSATION_ASSIGNED: 'conversation.assigned',
   CONVERSATION_STATUS_CHANGED: 'conversation.status.changed',
-  MESSAGE_RECEIVED: 'message.received',
   
   // Comunicaciones
   MESSAGE_SENT: 'message.sent',

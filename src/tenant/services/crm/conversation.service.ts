@@ -616,13 +616,6 @@ export class ConversationService {
     // SLA violation filter - handled in service layer after query
     // We'll filter results after fetching
 
-    if (filterDto.search) {
-      where.OR = [
-        { recipient: { contains: filterDto.search, mode: 'insensitive' } },
-        { recipientName: { contains: filterDto.search, mode: 'insensitive' } },
-      ];
-    }
-
     return where;
   }
 
