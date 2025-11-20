@@ -33,6 +33,22 @@ export class CustomerService {
     try {
       const prisma = await this.tenantPrisma.getTenantClient();
       
+      // Validate userId exists in tenant database
+      if (!userId) {
+        throw new BadRequestException('User ID is required to create a customer');
+      }
+
+      // Verify user exists in tenant database
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { id: true, email: true },
+      });
+
+      if (!user) {
+        this.logger.error(`User with ID ${userId} not found in tenant database`);
+        throw new BadRequestException(`User with ID ${userId} not found. Please ensure you are authenticated correctly.`);
+      }
+      
       // Validate at least one contact method is provided
       if (!createCustomerDto.email && !createCustomerDto.phone && !createCustomerDto.mobile && !createCustomerDto.whatsapp) {
         throw new BadRequestException('At least one contact method (email, phone, mobile, or whatsapp) must be provided');
