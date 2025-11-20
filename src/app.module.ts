@@ -55,6 +55,19 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
         removeOnFail: 100, // Mantener últimos 100 fallidos
       },
     }),
+    // Registrar queue de recordatorios de actividades
+    BullModule.registerQueue({
+      name: 'activity-reminders',
+      defaultJobOptions: {
+        attempts: 2,
+        backoff: {
+          type: 'exponential',
+          delay: 2000,
+        },
+        removeOnComplete: 50,
+        removeOnFail: 50,
+      },
+    }),
     EventsModule, // Módulo global de eventos (incluye EventEmitterModule)
     AuthModule, // Importar AuthModule PRIMERO para que JwtStrategy esté disponible
     UsersModule,

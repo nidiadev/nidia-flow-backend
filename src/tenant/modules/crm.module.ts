@@ -1,4 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
+import { BullModule } from '@nestjs/bullmq';
+import { ScheduleModule } from '@nestjs/schedule';
 import { CustomerController } from '../controllers/crm/customer.controller';
 import { InteractionController } from '../controllers/crm/interaction.controller';
 import { CustomerContactController } from '../controllers/crm/customer-contact.controller';
@@ -12,14 +14,26 @@ import { CustomerContactService } from '../services/crm/customer-contact.service
 import { DealService } from '../services/crm/deal.service';
 import { DealStageService } from '../services/crm/deal-stage.service';
 import { ConversationService } from '../services/crm/conversation.service';
+import { ActivityReminderProcessor } from '../processors/activity-reminder.processor';
+import { ActivityReminderService } from '../services/crm/activity-reminder.service';
 import { PlansModule } from '../../plans/plans.module';
+import { CommunicationsModule } from './communications.module';
 // TenantPrismaService, TenantProvisioningService, TenantService se obtienen del TenantModule (global)
 // BusinessEventEmitterService se obtiene del EventsModule (global)
 // DataScopeService se obtiene del TenantModule (global)
+// NotificationService se obtiene del CommunicationsModule
+// WebSocketEventService se obtiene del EventsModule
 // No deben registrarse aquí para evitar múltiples instancias con scope REQUEST
 
 @Module({
-  imports: [forwardRef(() => PlansModule)],
+  imports: [
+    forwardRef(() => PlansModule),
+    forwardRef(() => CommunicationsModule),
+    ScheduleModule.forRoot(),
+    BullModule.registerQueue({
+      name: 'activity-reminders',
+    }),
+  ],
   controllers: [
     CustomerController,
     InteractionController,
@@ -36,6 +50,8 @@ import { PlansModule } from '../../plans/plans.module';
     DealService,
     DealStageService,
     ConversationService,
+    ActivityReminderProcessor,
+    ActivityReminderService,
   ],
   exports: [
     CustomerService,
