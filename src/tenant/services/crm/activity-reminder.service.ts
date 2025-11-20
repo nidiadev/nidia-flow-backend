@@ -26,6 +26,9 @@ export class ActivityReminderService implements OnModuleInit {
   /**
    * Schedule periodic reminder check
    * Runs every minute to check for reminders that need to be sent
+   * 
+   * NOTE: This processor works per-tenant. Each tenant needs to have
+   * its context set before processing reminders.
    */
   @Cron(CronExpression.EVERY_MINUTE)
   async scheduleReminderCheck() {
@@ -40,6 +43,8 @@ export class ActivityReminderService implements OnModuleInit {
       }
 
       // Add job to queue
+      // NOTE: This job will process reminders for the current tenant context
+      // For multi-tenant processing, each tenant should trigger its own job
       await this.reminderQueue.add(
         'check-reminders',
         {},

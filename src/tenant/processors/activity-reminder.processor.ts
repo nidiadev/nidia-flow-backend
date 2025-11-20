@@ -30,6 +30,15 @@ export class ActivityReminderProcessor extends WorkerHost {
     this.logger.log(`Processing activity reminders job: ${job.id}`);
 
     try {
+      // Get tenantId from context (stored in TenantPrismaService)
+      // NOTE: This processor requires tenant context to be set before processing
+      const tenantContext = this.tenantPrisma.getTenantContext();
+      if (!tenantContext) {
+        this.logger.warn('No tenant context available, skipping reminder processing');
+        return { processed: 0, success: false, error: 'No tenant context' };
+      }
+      const tenantId = tenantContext.tenantId;
+
       const prisma = await this.tenantPrisma.getTenantClient();
       const now = new Date();
 
@@ -69,7 +78,7 @@ export class ActivityReminderProcessor extends WorkerHost {
 
       for (const reminder of remindersToSend) {
         try {
-          await this.sendReminder(reminder);
+          await this.sendReminder(reminder, tenantId);
           
           // Mark reminder as sent
           await prisma.activityReminder.update({
@@ -100,7 +109,7 @@ export class ActivityReminderProcessor extends WorkerHost {
   /**
    * Send reminder notification
    */
-  private async sendReminder(reminder: any): Promise<void> {
+  private async sendReminder(reminder: any, tenantId: string): Promise<void> {
     const interaction = reminder.interaction;
     const assignedUser = interaction.assignedToUser;
 
@@ -131,16 +140,16 @@ export class ActivityReminderProcessor extends WorkerHost {
     });
 
     // Send WebSocket notification
-    await this.websocketService.emitToUser(assignedUser.id, {
-      type: 'activity_reminder',
-      payload: {
-        interactionId: interaction.id,
+    await this.websocketService.broadcastNotification(
+      tenantId,
+      {
         title,
         message,
-        scheduledAt: interaction.scheduledAt,
-        reminderMinutes: reminder.reminderMinutes,
+        type: 'info',
+        userId: assignedUser.id,
+        actionUrl: `/crm/calendar/activities/${interaction.id}`,
       },
-    });
+    );
 
     this.logger.log(`Reminder notification sent to user ${assignedUser.id}`);
   }
