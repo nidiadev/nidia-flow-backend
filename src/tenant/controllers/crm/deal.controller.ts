@@ -342,10 +342,11 @@ export class DealController {
   async delete(
     @Param('id', ParseUUIDPipe) id: string,
     @CurrentUser('userId') userId: string,
-  ): Promise<ApiResponseDto<void>> {
+  ): Promise<ApiResponseDto<null>> {
     await this.dealService.delete(id, userId);
     return {
       success: true,
+      data: null,
       message: 'Deal deleted successfully',
     };
   }

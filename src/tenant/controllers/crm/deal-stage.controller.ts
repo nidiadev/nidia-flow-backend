@@ -193,10 +193,11 @@ export class DealStageController {
   })
   async delete(
     @Param('id', ParseUUIDPipe) id: string,
-  ): Promise<ApiResponseDto<void>> {
+  ): Promise<ApiResponseDto<null>> {
     await this.dealStageService.delete(id);
     return {
       success: true,
+      data: null,
       message: 'Deal stage deleted successfully',
     };
   }
