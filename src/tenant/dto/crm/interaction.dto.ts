@@ -107,6 +107,14 @@ export class CreateInteractionDto extends BaseCustomFieldsDto {
   scheduledAt?: string;
 
   @ApiPropertyOptional({ 
+    description: 'Scheduled end date and time (for meetings)',
+    example: '2024-12-25T11:00:00.000Z'
+  })
+  @IsOptional()
+  @IsDateString()
+  scheduledEndAt?: string;
+
+  @ApiPropertyOptional({ 
     description: 'Duration in minutes',
     minimum: 1,
     example: 30
@@ -115,6 +123,69 @@ export class CreateInteractionDto extends BaseCustomFieldsDto {
   @IsNumber()
   @Min(1)
   durationMinutes?: number;
+
+  @ApiPropertyOptional({ 
+    description: 'Priority level',
+    enum: ['low', 'normal', 'high', 'urgent'],
+    default: 'normal',
+    example: 'normal'
+  })
+  @IsOptional()
+  @IsEnum(['low', 'normal', 'high', 'urgent'])
+  priority?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Assigned user ID',
+    format: 'uuid'
+  })
+  @IsOptional()
+  @IsUUID()
+  assignedTo?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Location (for meetings)',
+    maxLength: 255,
+    example: 'Oficina principal, Calle 123'
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  location?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Location URL (for video calls)',
+    maxLength: 500,
+    example: 'https://meet.google.com/abc-defg-hij'
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(500)
+  locationUrl?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Is this a recurring activity',
+    default: false
+  })
+  @IsOptional()
+  isRecurring?: boolean;
+
+  @ApiPropertyOptional({ 
+    description: 'Recurrence rule (daily, weekly, monthly, or RRULE format)',
+    maxLength: 100,
+    example: 'weekly'
+  })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  recurrenceRule?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Recurrence end date',
+    example: '2025-12-31T23:59:59.000Z'
+  })
+  @IsOptional()
+  @IsDateString()
+  recurrenceEndDate?: string;
 
   @ApiPropertyOptional({ 
     description: 'Interaction outcome',
@@ -235,6 +306,146 @@ export class InteractionFilterDto extends SearchDto {
   })
   @IsOptional()
   nextActionDate?: DateRangeDto;
+
+  @ApiPropertyOptional({ 
+    description: 'Filter by assigned user ID',
+    format: 'uuid'
+  })
+  @IsOptional()
+  @IsUUID()
+  assignedTo?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Filter by priority',
+    enum: ['low', 'normal', 'high', 'urgent']
+  })
+  @IsOptional()
+  @IsEnum(['low', 'normal', 'high', 'urgent'])
+  priority?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Show only recurring activities',
+    default: false
+  })
+  @IsOptional()
+  isRecurring?: boolean;
+}
+
+/**
+ * Calendar View Filter DTO
+ */
+export class CalendarFilterDto {
+  @ApiProperty({ 
+    description: 'View type',
+    enum: ['month', 'week', 'day'],
+    example: 'month'
+  })
+  @IsEnum(['month', 'week', 'day'])
+  view: 'month' | 'week' | 'day';
+
+  @ApiProperty({ 
+    description: 'Year',
+    example: 2024
+  })
+  @IsNumber()
+  year: number;
+
+  @ApiProperty({ 
+    description: 'Month (1-12)',
+    example: 12,
+    minimum: 1,
+    maximum: 12
+  })
+  @IsNumber()
+  @Min(1)
+  @Max(12)
+  month: number;
+
+  @ApiPropertyOptional({ 
+    description: 'Week number (1-53) - required for week view',
+    minimum: 1,
+    maximum: 53
+  })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Max(53)
+  week?: number;
+
+  @ApiPropertyOptional({ 
+    description: 'Day (1-31) - required for day view',
+    minimum: 1,
+    maximum: 31
+  })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Max(31)
+  day?: number;
+
+  @ApiPropertyOptional({ 
+    description: 'Filter by assigned user ID',
+    format: 'uuid'
+  })
+  @IsOptional()
+  @IsUUID()
+  assignedTo?: string;
+
+  @ApiPropertyOptional({ 
+    description: 'Filter by interaction type',
+    enum: InteractionType
+  })
+  @IsOptional()
+  @IsEnum(InteractionType)
+  type?: InteractionType;
+
+  @ApiPropertyOptional({ 
+    description: 'Filter by priority',
+    enum: ['low', 'normal', 'high', 'urgent']
+  })
+  @IsOptional()
+  @IsEnum(['low', 'normal', 'high', 'urgent'])
+  priority?: string;
+}
+
+/**
+ * Create Recurring Activity DTO
+ */
+export class CreateRecurringActivityDto extends CreateInteractionDto {
+  @ApiProperty({ 
+    description: 'Recurrence rule',
+    enum: ['daily', 'weekly', 'monthly'],
+    example: 'weekly'
+  })
+  @IsEnum(['daily', 'weekly', 'monthly'])
+  recurrenceRule: string;
+
+  @ApiProperty({ 
+    description: 'Recurrence end date',
+    example: '2025-12-31T23:59:59.000Z'
+  })
+  @IsDateString()
+  recurrenceEndDate: string;
+
+  @ApiProperty({ 
+    description: 'Must be scheduled',
+    default: true
+  })
+  declare status: InteractionStatus.SCHEDULED;
+}
+
+/**
+ * Create Reminder DTO
+ */
+export class CreateReminderDto {
+  @ApiProperty({ 
+    description: 'Reminder minutes before scheduled time',
+    example: 15,
+    minimum: 1
+  })
+  @IsNumber()
+  @Min(1)
+  reminderMinutes: number;
 }
 
 /**
