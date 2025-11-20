@@ -37,11 +37,7 @@ import { TenantModule } from './tenant.module';
     TenantProvisioningController,
   ],
   providers: [
-    {
-      provide: TenantProvisioningProcessor,
-      useClass: TenantProvisioningProcessor,
-      scope: Scope.DEFAULT, // Forzar scope singleton explícitamente
-    },
+    TenantProvisioningProcessor,
     // TenantProvisioningService y TenantService se obtienen de TenantModule (global)
   ],
   exports: [

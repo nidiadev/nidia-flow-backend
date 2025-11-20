@@ -1,6 +1,6 @@
 import { Processor, WorkerHost, OnWorkerEvent } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-import { Logger, Injectable, OnModuleDestroy } from '@nestjs/common';
+import { Logger, Injectable, OnModuleDestroy, Scope } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { TenantProvisioningService } from '../services/tenant-provisioning.service';
 import { TenantService } from '../tenant.service';
