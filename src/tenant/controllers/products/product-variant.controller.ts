@@ -24,6 +24,7 @@ import {
     CreateProductVariantDto,
     UpdateProductVariantDto,
     ProductVariantResponseDto,
+    BulkCreateVariantsDto,
 } from '../../dto/products/product-variant.dto';
 
 @ApiTags('Product Variants')
@@ -218,6 +219,93 @@ export class ProductVariantController {
             success: true,
             data: this.mapToResponseDto(variant),
             message: 'Product variant updated successfully',
+        };
+    }
+
+    @Post('bulk')
+    @ApiOperation({
+        summary: 'Bulk create product variants',
+        description: 'Creates multiple variants at once using option combinations (e.g., all size/color combinations).'
+    })
+    @ApiParam({ name: 'productId', description: 'Product ID' })
+    @ApiResponse({
+        status: HttpStatus.CREATED,
+        description: 'Product variants created successfully',
+        type: [ProductVariantResponseDto],
+    })
+    @ApiResponse({
+        status: HttpStatus.NOT_FOUND,
+        description: 'Product not found',
+    })
+    async bulkCreate(
+        @Param('productId', ParseUUIDPipe) productId: string,
+        @Body() bulkDto: BulkCreateVariantsDto,
+    ): Promise<{ success: boolean; data: ProductVariantResponseDto[]; message: string }> {
+        const prisma = await this.tenantPrisma.getTenantClient();
+
+        // Verify product exists
+        const product = await prisma.product.findUnique({
+            where: { id: productId },
+        });
+
+        if (!product) {
+            throw new Error('Product not found');
+        }
+
+        // Generate all combinations
+        const variants: any[] = [];
+        const option1Values = bulkDto.option1.values;
+        const option2Values = bulkDto.option2?.values || [];
+
+        if (option2Values.length > 0) {
+            // Two-option system (e.g., Color + Size)
+            for (const value1 of option1Values) {
+                for (const value2 of option2Values) {
+                    const name = `${value1} - ${value2}`;
+                    const sku = `${product.sku}-${value1.replace(/\s+/g, '-').toLowerCase()}-${value2.replace(/\s+/g, '-').toLowerCase()}`;
+                    
+                    variants.push({
+                        productId,
+                        name,
+                        sku,
+                        option1Name: bulkDto.option1.name,
+                        option1Value: value1,
+                        option2Name: bulkDto.option2!.name,
+                        option2Value: value2,
+                        priceAdjustment: bulkDto.defaultPriceAdjustment || 0,
+                        stockQuantity: bulkDto.defaultStockQuantity || 0,
+                        isActive: true,
+                    });
+                }
+            }
+        } else {
+            // Single-option system
+            for (const value1 of option1Values) {
+                const name = value1;
+                const sku = `${product.sku}-${value1.replace(/\s+/g, '-').toLowerCase()}`;
+                
+                variants.push({
+                    productId,
+                    name,
+                    sku,
+                    option1Name: bulkDto.option1.name,
+                    option1Value: value1,
+                    priceAdjustment: bulkDto.defaultPriceAdjustment || 0,
+                    stockQuantity: bulkDto.defaultStockQuantity || 0,
+                    isActive: true,
+                });
+            }
+        }
+
+        // Create all variants
+        const createdVariants = await prisma.$transaction(
+            variants.map(variant => prisma.productVariant.create({ data: variant }))
+        );
+
+        return {
+            success: true,
+            data: createdVariants.map(v => this.mapToResponseDto(v)),
+            message: `${createdVariants.length} variants created successfully`,
         };
     }
 
