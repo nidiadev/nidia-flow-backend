@@ -319,7 +319,7 @@ export class TenantProvisioningService {
   }
 
   async runTenantMigration(config: TenantDatabaseConfig): Promise<void> {
-    this.logger.log(`Running migration for tenant: ${config.database}`);
+    this.logger.log(`🔄 [runTenantMigration] Starting migration for tenant: ${config.database}`);
 
     try {
       // CRITICAL VERIFICATION: Ensure database exists before running migrations
@@ -333,7 +333,7 @@ export class TenantProvisioningService {
         throw new Error(errorMsg);
       }
       
-      this.logger.log(`✅ Database ${config.database} verified before running migrations`);
+      this.logger.log(`✅ [runTenantMigration] Database ${config.database} verified before running migrations`);
 
       // Ensure temp directory exists
       this.ensureTempDirectory();
@@ -355,21 +355,66 @@ export class TenantProvisioningService {
       // Use admin credentials to connect to tenant database for migration
       const adminTenantConnectionUrl = `postgresql://${adminUser}:${encodeURIComponent(adminPassword)}@${adminHost}:${adminPort}/${config.database}?schema=public`;
 
+      this.logger.log(`🔄 [runTenantMigration] Executing Prisma db push for ${config.database}...`);
+      this.logger.log(`🔄 [runTenantMigration] Connection URL (masked): ${adminTenantConnectionUrl.replace(/:[^:@]+@/, ':***@')}`);
+      this.logger.log(`🔄 [runTenantMigration] Command: npx prisma db push --schema=prisma/tenant-schema.prisma --accept-data-loss`);
+
+      // Verify schema file exists
+      const schemaPath = resolve(process.cwd(), 'prisma', 'tenant-schema.prisma');
+      const schemaExists = existsSync(schemaPath);
+      if (!schemaExists) {
+        const errorMsg = `❌ CRITICAL ERROR: Schema file not found at ${schemaPath}. Cannot run migrations.`;
+        this.logger.error(errorMsg);
+        throw new Error(errorMsg);
+      }
+      this.logger.log(`✅ [runTenantMigration] Schema file found at: ${schemaPath}`);
+
       // Use db push to create tables directly from schema (no migrations needed)
       // This is better for initial tenant provisioning
-      const migrationCommand = `npx prisma db push --schema=prisma/tenant-schema.prisma --accept-data-loss`;
-      await execAsync(migrationCommand, {
-        env: {
-          ...process.env,
-          DATABASE_URL: adminTenantConnectionUrl,
-        },
-        cwd: process.cwd(),
-      });
+      const migrationCommand = `npx prisma db push --schema=prisma/tenant-schema.prisma --accept-data-loss --skip-generate`;
+      
+      this.logger.log(`🔄 [runTenantMigration] Executing command in directory: ${process.cwd()}`);
+      const startTime = Date.now();
+      try {
+        const { stdout, stderr } = await execAsync(migrationCommand, {
+          env: {
+            ...process.env,
+            DATABASE_URL: adminTenantConnectionUrl,
+          },
+          cwd: process.cwd(),
+          maxBuffer: 10 * 1024 * 1024, // 10MB buffer
+          timeout: 300000, // 5 minutos timeout
+        });
 
-      this.logger.log(`Migration completed for tenant: ${config.database}`);
+        const duration = Date.now() - startTime;
+        this.logger.log(`✅ [runTenantMigration] Migration command completed in ${duration}ms`);
+        
+        if (stdout) {
+          this.logger.log(`📋 [runTenantMigration] stdout: ${stdout.substring(0, 500)}${stdout.length > 500 ? '...' : ''}`);
+        }
+        if (stderr) {
+          this.logger.warn(`⚠️ [runTenantMigration] stderr: ${stderr.substring(0, 500)}${stderr.length > 500 ? '...' : ''}`);
+        }
 
-    } catch (error) {
-      this.logger.error(`Failed to run migration for tenant: ${config.database}`, error);
+        this.logger.log(`✅ [runTenantMigration] Migration completed successfully for tenant: ${config.database}`);
+      } catch (execError: any) {
+        const duration = Date.now() - startTime;
+        this.logger.error(`❌ [runTenantMigration] Migration command failed after ${duration}ms`);
+        this.logger.error(`❌ [runTenantMigration] Error code: ${execError.code}`);
+        this.logger.error(`❌ [runTenantMigration] Error message: ${execError.message}`);
+        if (execError.stdout) {
+          this.logger.error(`❌ [runTenantMigration] stdout: ${execError.stdout}`);
+        }
+        if (execError.stderr) {
+          this.logger.error(`❌ [runTenantMigration] stderr: ${execError.stderr}`);
+        }
+        throw execError;
+      }
+
+    } catch (error: any) {
+      this.logger.error(`❌ [runTenantMigration] Failed to run migration for tenant: ${config.database}`, error);
+      this.logger.error(`❌ [runTenantMigration] Error type: ${error.constructor.name}`);
+      this.logger.error(`❌ [runTenantMigration] Error stack: ${error.stack}`);
       throw error;
     }
   }
@@ -466,6 +511,27 @@ export class TenantProvisioningService {
         });
 
         this.logger.log(`✅ [createInitialUser] Initial admin user created in ${config.database}: ${createdUser.email} (ID: ${createdUser.id})`);
+        
+        // Actualizar índice de usuarios de tenant en SuperAdmin (automático y transparente)
+        // Obtener tenantId desde el dbName (formato: tenant_{uuid}_{env})
+        try {
+          // Buscar tenant por dbName
+          const tenant = await prisma.tenant.findUnique({
+            where: { dbName: config.database },
+            select: { id: true },
+          });
+          
+          if (tenant) {
+            // Importar TenantUserIndexService dinámicamente para evitar dependencia circular
+            const { TenantUserIndexService } = await import('./tenant-user-index.service');
+            const indexService = new TenantUserIndexService();
+            await indexService.upsertUser(createdUser.email, tenant.id, createdUser.id, true);
+            this.logger.log(`✅ [createInitialUser] User indexed automatically: ${createdUser.email} -> tenant ${tenant.id}`);
+          }
+        } catch (indexError: any) {
+          this.logger.warn(`⚠️ [createInitialUser] Failed to index user (non-critical): ${indexError.message}`);
+          // No lanzar error, el usuario ya fue creado
+        }
       } catch (createError: any) {
         this.logger.error(`❌ [createInitialUser] Failed to create user:`, createError);
         this.logger.error(`❌ [createInitialUser] Error message: ${createError.message}`);

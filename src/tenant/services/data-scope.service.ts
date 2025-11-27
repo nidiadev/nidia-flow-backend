@@ -131,6 +131,13 @@ export class DataScopeService {
       return {};
     }
 
+    // Si userId es vacío o undefined y no tiene view_all, retornar objeto vacío
+    // Esto permite que el sistema funcione cuando un tenant_admin no tiene usuario en BD del tenant
+    // pero tiene view_all (puede ver todos los datos)
+    if (!userId || userId.trim() === '') {
+      return {};
+    }
+
     // Otherwise, user only sees data they own
     // Data is "owned" if:
     // 1. assignedTo = userId, OR
