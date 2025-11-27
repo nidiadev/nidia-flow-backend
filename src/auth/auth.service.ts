@@ -5,6 +5,7 @@ import { Queue } from 'bullmq';
 import { UsersService } from '../users/users.service';
 import { TenantService } from '../tenant/tenant.service';
 import { PlansService } from '../plans/plans.service';
+import { TenantUserIndexService } from '../tenant/services/tenant-user-index.service';
 import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
 import prisma from '../lib/prisma';
@@ -29,6 +30,8 @@ export class AuthService {
     @Inject(forwardRef(() => TenantService))
     private tenantService: TenantService,
     private plansService: PlansService,
+    @Inject(forwardRef(() => TenantUserIndexService))
+    private tenantUserIndexService: TenantUserIndexService, // Inject TenantUserIndexService
     @InjectQueue('tenant-provisioning')
     private provisioningQueue: Queue,
   ) {}
@@ -86,7 +89,7 @@ export class AuthService {
   /**
    * Buscar usuario en BD del tenant
    */
-  private async findUserInTenant(email: string, tenant: any): Promise<any | null> {
+  private async findUserInTenant(email: string, tenant: any, includePassword: boolean = true): Promise<any | null> {
     let tenantClient: any = null;
     try {
       // Desencriptar password del tenant
@@ -111,7 +114,7 @@ export class AuthService {
         select: {
           id: true,
           email: true,
-          passwordHash: true,
+          passwordHash: includePassword,
           firstName: true,
           lastName: true,
           role: true,
@@ -193,17 +196,40 @@ export class AuthService {
       return result;
     }
 
-    // Si no se encuentra en SuperAdmin, loguear para debug
-    console.log(`[AUTH] User ${email} not found in SuperAdmin DB, searching in tenant DBs...`);
+    // Si no se encuentra en SuperAdmin, buscar en índice de usuarios de tenant
+    console.log(`[AUTH] User ${email} not found in SuperAdmin DB, searching in tenant user index...`);
 
-    // 2. Si no se encuentra en SuperAdmin y hay tenant especificado, buscar en BD del tenant
-    if (tenant) {
+    // 2. Si no se encuentra en SuperAdmin, usar índice para encontrar el tenant rápidamente
+    if (!user && !tenant) {
+      try {
+        // Usar TenantUserIndexService para búsqueda rápida
+        // Inyectado en constructor para evitar dependencia circular
+        const indexResult = await this.tenantUserIndexService.findTenantByEmail(email);
+        
+        if (indexResult) {
+          // Usuario encontrado en índice, obtener información del tenant
+          tenant = await this.tenantService.getTenantById(indexResult.tenantId);
+          if (tenant) {
+            console.log(`[AUTH] User ${email} found in index, tenant: ${tenant.slug} (${tenant.id})`);
+            // Buscar usuario en la BD del tenant
+            user = await this.findUserInTenant(email, tenant);
+          }
+        }
+      } catch (error) {
+        console.error(`[AUTH] Error using tenant user index: ${error.message}`);
+        // Continuar con búsqueda tradicional si el índice falla
+      }
+    }
+
+    // 3. Si hay tenant especificado pero aún no tenemos el usuario, buscar en BD del tenant
+    if (!user && tenant) {
       user = await this.findUserInTenant(email, tenant);
     }
 
-    // 3. Si no se encuentra y no hay tenant, buscar en todas las BD de tenants activos
-    // NOTA: Esto puede ser lento si hay muchos tenants. Se recomienda especificar tenantId o tenantSlug
+    // 4. Si aún no se encuentra y no hay tenant, buscar en todas las BD de tenants activos (FALLBACK)
+    // NOTA: Esto es lento y solo se usa como último recurso. El índice debería evitar esto.
     if (!user && !tenant) {
+      console.warn(`[AUTH] User ${email} not found in index, falling back to full tenant search (SLOW)`);
       try {
         // Obtener todos los tenants activos
         const activeTenants = await prisma.tenant.findMany({
@@ -227,6 +253,7 @@ export class AuthService {
           try {
             user = await this.findUserInTenant(email, t);
             if (user) {
+              console.log(`[AUTH] User ${email} found in tenant ${t.slug} via fallback search`);
               break;
             }
           } catch (error) {
@@ -296,20 +323,27 @@ export class AuthService {
 
     console.log(`[AUTH] User validated successfully: ${user.email} (${user.systemRole})`);
 
+    // Guardar el ID original de SuperAdmin antes de cualquier modificación (solo si existe en SuperAdmin)
+    // Para usuarios que solo existen en tenant DB (tenant_user), no habrá superAdminUserId
+    const superAdminUserId = user.systemRole !== 'tenant_user' ? user.id : undefined;
+
     // 3. Obtener información completa del tenant y usuario
     let dbName: string | undefined;
     let role: string | undefined;
     let permissions: string[] | undefined;
     let finalTenantId: string | undefined;
     let tenantSlug: string | undefined;
+    let tenantUserId: string | undefined; // ID del usuario en la BD del tenant
     
     // Si es usuario de SuperAdmin (super_admin o tenant_admin inicial)
     if (user.systemRole === 'super_admin') {
       dbName = 'superadmin';
       role = 'super_admin';
       permissions = [];
+      tenantUserId = superAdminUserId; // Para super_admin, ambos IDs son el mismo
     } else if (user.systemRole === 'tenant_admin') {
       // Usuario admin del tenant (está en SuperAdmin DB)
+      // IMPORTANTE: Necesitamos obtener el ID del usuario en la BD del tenant
       finalTenantId = user.tenantId;
       try {
         const tenantInfo = await this.tenantService.getTenantById(user.tenantId);
@@ -318,17 +352,55 @@ export class AuthService {
           tenantSlug = tenantInfo.slug || undefined;
           role = 'admin';
           permissions = [];
+          
+          // SOLUCIÓN DEFINITIVA: Usar TenantUserIndex para obtener tenantUserId directamente
+          // Esto es más rápido, confiable y escalable que buscar en la BD del tenant
+          try {
+            const indexResult = await this.tenantUserIndexService.findTenantByEmail(user.email);
+            if (indexResult && indexResult.tenantId === user.tenantId) {
+              // Usuario encontrado en el índice para este tenant
+              tenantUserId = indexResult.userId;
+              console.log(`[AUTH] Found tenant user ID from index: ${tenantUserId} for email ${user.email} (SuperAdmin ID: ${superAdminUserId})`);
+            } else {
+              // No está en el índice, buscar directamente en la BD del tenant como fallback
+              console.log(`[AUTH] User ${user.email} not found in index, searching directly in tenant database...`);
+              const tenantUser = await this.findUserInTenant(user.email, tenantInfo, false);
+              if (tenantUser) {
+                tenantUserId = tenantUser.id;
+                console.log(`[AUTH] Found tenant user ID from direct search: ${tenantUserId} for email ${user.email}`);
+                
+                // Actualizar el índice para futuras búsquedas (no bloqueante)
+                if (tenantUserId) {
+                  this.tenantUserIndexService.upsertUser(user.email, user.tenantId, tenantUserId, true)
+                    .catch(err => console.warn(`[AUTH] Failed to update index (non-critical): ${err.message}`));
+                }
+              } else {
+                console.warn(`[AUTH] User ${user.email} not found in tenant database ${tenantInfo.dbName}. Tenant admin without corresponding tenant user.`);
+                // No establecer tenantUserId - será undefined, lo cual es válido para tenant_admin sin usuario en BD del tenant
+                tenantUserId = undefined;
+              }
+            }
+          } catch (error) {
+            console.error(`[AUTH] Error finding tenant user ID:`, error);
+            // No establecer tenantUserId si hay error
+            tenantUserId = undefined;
+          }
         }
       } catch (error) {
-        // Si no se puede obtener el tenant, continuar sin dbName
+        console.error(`[AUTH] Error getting tenant info:`, error);
+        // No establecer tenantUserId si hay error
+        tenantUserId = undefined;
       }
     } else if (user.systemRole === 'tenant_user') {
       // Usuario interno del tenant (está en BD del tenant)
+      // Este usuario solo existe en la BD del tenant, no en SuperAdmin
       finalTenantId = user.tenantId;
       dbName = user.dbName;
       role = user.role || 'user';
       permissions = user.permissions || [];
-      // Obtener slug del tenant desde el objeto tenant que se pasó
+      tenantUserId = user.id; // Para tenant_user, el ID ya es el de la BD del tenant
+      
+      // Obtener slug del tenant desde el objeto tenant que se pasó o buscarlo
       if (tenant) {
         tenantSlug = tenant.slug;
       } else if (finalTenantId) {
@@ -337,24 +409,58 @@ export class AuthService {
           const tenantInfo = await this.tenantService.getTenantById(finalTenantId);
           if (tenantInfo) {
             tenantSlug = tenantInfo.slug || undefined;
+            // Asegurar que dbName esté correcto
+            if (!dbName && tenantInfo.dbName) {
+              dbName = tenantInfo.dbName;
+            }
           }
         } catch (error) {
+          console.error(`[AUTH] Error getting tenant info for tenant_user:`, error);
           // Si no se puede obtener, continuar sin slug
         }
       }
+      
+      console.log(`[AUTH] Tenant user login: ${user.email} in tenant ${finalTenantId} (${tenantSlug || 'no slug'}), DB: ${dbName}`);
     }
 
     // 4. Construir payload JWT
+    // IMPORTANTE: Para tenant_admin y super_admin, sub SIEMPRE debe ser superAdminUserId
+    // porque estos usuarios siempre existen en SuperAdmin DB y el refresh token busca por sub.
+    // Para tenant_user, sub es el tenantUserId porque solo existe en tenant DB.
+    
+    // Asegurar que tenant_admin y super_admin siempre tengan '*' en sus permisos
+    let effectivePermissions = permissions || [];
+    if ((user.systemRole === 'tenant_admin' || user.systemRole === 'super_admin') && !effectivePermissions.includes('*')) {
+      effectivePermissions = ['*', 'view_all', '*:view_all', ...effectivePermissions];
+    }
+    
+    // Determinar el valor de 'sub' según el tipo de usuario
+    // Para tenant_admin y super_admin: sub = superAdminUserId (siempre existe en SuperAdmin DB)
+    // Para tenant_user: sub = tenantUserId (solo existe en tenant DB)
+    let subValue: string;
+    if (user.systemRole === 'tenant_admin' || user.systemRole === 'super_admin') {
+      // Para usuarios de SuperAdmin, sub siempre debe ser el SuperAdmin ID
+      // Esto asegura que el refresh token pueda encontrar el usuario correctamente
+      subValue = superAdminUserId || user.id;
+    } else {
+      // Para tenant_user, sub es el ID en la BD del tenant
+      subValue = tenantUserId || user.id;
+    }
+    
     const payload: JwtPayload = {
-      sub: user.id,
+      sub: subValue, // ID consistente según tipo de usuario
       email: user.email,
+      superAdminUserId: superAdminUserId, // ID del usuario en SuperAdmin DB (undefined para tenant_user puro)
+      tenantUserId: tenantUserId || (user.systemRole === 'tenant_user' ? user.id : undefined), // ID del usuario en Tenant DB
       tenantId: finalTenantId,
       tenantSlug: tenantSlug,
       dbName: dbName || (user.systemRole === 'super_admin' ? 'superadmin' : undefined),
       systemRole: user.systemRole,
       role,
-      permissions,
+      permissions: effectivePermissions, // Incluir siempre '*' para tenant_admin y super_admin
     };
+    
+    console.log(`[AUTH] JWT payload created: systemRole=${payload.systemRole}, tenantId=${payload.tenantId}, superAdminUserId=${payload.superAdminUserId || 'N/A'}, tenantUserId=${payload.tenantUserId}`);
 
     const accessToken = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payload, {
@@ -573,9 +679,17 @@ export class AuthService {
         secret: process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET,
       });
 
+      // CRÍTICO: Para tenant_admin y super_admin, usar superAdminUserId si está disponible
+      // porque estos usuarios siempre existen en SuperAdmin DB.
+      // Para tenant_user, usar sub directamente porque solo existe en tenant DB.
+      const userIdToFind = payload.superAdminUserId || payload.sub;
+      
+      console.log(`[AUTH] Refresh token - systemRole: ${payload.systemRole}, sub: ${payload.sub}, superAdminUserId: ${payload.superAdminUserId || 'N/A'}, using: ${userIdToFind}`);
+
       // Find user and validate session
-      const user = await this.usersService.findById(payload.sub);
+      const user = await this.usersService.findById(userIdToFind);
       if (!user || !user.isActive) {
+        console.error(`[AUTH] Refresh token failed - User not found or inactive: ${userIdToFind}`);
         throw new UnauthorizedException('Invalid refresh token');
       }
 
@@ -615,9 +729,18 @@ export class AuthService {
       }
 
       // Generate new tokens
+      // IMPORTANTE: Mantener la misma lógica de 'sub' que en login para consistencia
+      // Para tenant_admin y super_admin: sub = user.id (SuperAdmin ID)
+      // Para tenant_user: sub = payload.sub (tenantUserId del payload anterior)
+      const subValue = (user.systemRole === 'tenant_admin' || user.systemRole === 'super_admin')
+        ? user.id
+        : (payload.tenantUserId || payload.sub);
+      
       const newPayload: JwtPayload = {
-        sub: user.id,
+        sub: subValue,
         email: user.email,
+        superAdminUserId: (user.systemRole === 'tenant_admin' || user.systemRole === 'super_admin') ? user.id : payload.superAdminUserId,
+        tenantUserId: payload.tenantUserId || (user.systemRole === 'tenant_user' ? subValue : undefined),
         tenantId: nullToUndefined(user.tenantId),
         tenantSlug: tenantSlug, // Incluir tenantSlug en el nuevo payload
         dbName: dbName || (user.systemRole === 'super_admin' ? 'superadmin' : undefined),

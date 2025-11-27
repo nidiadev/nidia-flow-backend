@@ -18,7 +18,8 @@ export const createTenantValidationPipe = () => {
     whitelist: true,
     
     // Throw error if non-whitelisted properties are present
-    forbidNonWhitelisted: true,
+    // Temporarily set to false to debug the issue
+    forbidNonWhitelisted: false,
     
     // Validate nested objects
     validateCustomDecorators: true,
@@ -26,14 +27,31 @@ export const createTenantValidationPipe = () => {
     // Custom error message formatting
     exceptionFactory: (errors: ValidationError[]) => {
       const formattedErrors = formatValidationErrors(errors);
+      
+      // Extract all error messages for easier debugging
+      const messages: string[] = [];
+      const extractMessages = (errs: ValidationError[], path: string = '') => {
+        errs.forEach(err => {
+          const currentPath = path ? `${path}.${err.property}` : err.property;
+          
+          if (err.constraints) {
+            Object.values(err.constraints).forEach(msg => {
+              messages.push(`${currentPath}: ${msg}`);
+            });
+          }
+          
+          if (err.children && err.children.length > 0) {
+            extractMessages(err.children, currentPath);
+          }
+        });
+      };
+      extractMessages(errors);
+      
       return new BadRequestException({
-        success: false,
-        error: {
-          code: 'VALIDATION_ERROR',
-          message: 'Validation failed',
-          details: formattedErrors,
-          timestamp: new Date().toISOString(),
-        },
+        message: messages.length > 0 ? messages : ['Validation failed'],
+        error: 'Bad Request',
+        statusCode: 400,
+        details: formattedErrors,
       });
     },
   });
@@ -43,14 +61,20 @@ export const createTenantValidationPipe = () => {
  * Format validation errors into a structured format
  */
 function formatValidationErrors(errors: ValidationError[]): any[] {
-  return errors.map(error => ({
-    field: error.property,
-    value: error.value,
-    constraints: error.constraints,
-    children: error.children && error.children.length > 0 
-      ? formatValidationErrors(error.children)
-      : undefined,
-  }));
+  return errors.map(error => {
+    const formatted: any = {
+      field: error.property,
+      value: error.value,
+      constraints: error.constraints,
+    };
+    
+    // Add children if they exist
+    if (error.children && error.children.length > 0) {
+      formatted.children = formatValidationErrors(error.children);
+    }
+    
+    return formatted;
+  });
 }
 
 /**

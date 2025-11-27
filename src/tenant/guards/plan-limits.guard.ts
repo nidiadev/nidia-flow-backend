@@ -1,4 +1,4 @@
-import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException, Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { CHECK_LIMIT_KEY, LimitType } from '../decorators/check-limit.decorator';
 import { TenantModulesService } from '../services/modules.service';
@@ -6,6 +6,8 @@ import { TenantPrismaService } from '../services/tenant-prisma.service';
 
 @Injectable()
 export class PlanLimitsGuard implements CanActivate {
+  private readonly logger = new Logger(PlanLimitsGuard.name);
+
   constructor(
     private reflector: Reflector,
     private modulesService: TenantModulesService,
@@ -18,11 +20,19 @@ export class PlanLimitsGuard implements CanActivate {
 
     // Super admins bypass limits
     if (user?.systemRole === 'super_admin') {
+      this.logger.debug('[PLAN_LIMITS] Super admin bypassing limits');
+      return true;
+    }
+
+    // Tenant admins also bypass limits (they own the tenant)
+    if (user?.systemRole === 'tenant_admin') {
+      this.logger.debug('[PLAN_LIMITS] Tenant admin bypassing limits');
       return true;
     }
 
     const tenantId = user?.tenantId;
     if (!tenantId) {
+      this.logger.warn(`[PLAN_LIMITS] Tenant ID not found for user ${user?.email || 'unknown'}`);
       throw new ForbiddenException('Tenant ID not found');
     }
 

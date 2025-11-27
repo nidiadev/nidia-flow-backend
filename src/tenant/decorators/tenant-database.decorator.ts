@@ -54,7 +54,18 @@ export const TenantContext = createParamDecorator(
 export const CurrentUser = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    return request.tenant?.userId;
+    // Para operaciones en BD del tenant, siempre usar tenantUserId
+    // Prioridad: request.tenant.userId (del middleware) > request.user.tenantUserId (del JWT) > request.user.id (solo si es tenant_user)
+    // NO usar request.user.id para tenant_admin porque es el SuperAdmin ID
+    const tenantUserId = request.tenant?.userId || request.user?.tenantUserId;
+    
+    // Si es tenant_user, su ID ya es el tenantUserId
+    if (request.user?.systemRole === 'tenant_user') {
+      return tenantUserId || request.user?.id;
+    }
+    
+    // Para tenant_admin y super_admin, solo usar tenantUserId (nunca SuperAdmin ID)
+    return tenantUserId;
   },
 );
 
@@ -102,6 +113,24 @@ export const UserRole = createParamDecorator(
 export const UserPermissions = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    return request.tenant?.permissions || [];
+    const tenant = request.tenant;
+    const user = request.user;
+    
+    // Si hay permisos en request.tenant, usarlos
+    if (tenant?.permissions && tenant.permissions.length > 0) {
+      return tenant.permissions;
+    }
+    
+    // Si hay permisos en request.user, usarlos
+    if (user?.permissions && user.permissions.length > 0) {
+      return user.permissions;
+    }
+    
+    // Si es tenant_admin o super_admin, devolver permisos completos
+    if (user?.systemRole === 'tenant_admin' || user?.systemRole === 'super_admin') {
+      return ['*', 'view_all', '*:view_all'];
+    }
+    
+    return [];
   },
 );

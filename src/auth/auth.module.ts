@@ -11,6 +11,7 @@ import { PermissionsService } from './services/permissions.service';
 import { PermissionResolverService } from './services/permission-resolver.service';
 import { PermissionsGuard } from './guards/permissions.guard';
 import { RolesGuard } from './guards/roles.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UsersModule } from '../users/users.module';
 import { TenantModule } from '../tenant/tenant.module';
 import { PlansModule } from '../plans/plans.module';
@@ -38,6 +39,7 @@ import { PlansModule } from '../plans/plans.module';
     PermissionResolverService,
     PermissionsGuard,
     RolesGuard,
+    JwtAuthGuard, // JwtAuthGuard debe estar en providers para que esté disponible
   ],
   controllers: [AuthController, PermissionsController],
   exports: [
@@ -46,6 +48,7 @@ import { PlansModule } from '../plans/plans.module';
     PermissionResolverService,
     PermissionsGuard, 
     RolesGuard,
+    JwtAuthGuard, // Exportar JwtAuthGuard para que otros módulos puedan usarlo
     PassportModule, // Exportar PassportModule para que otros módulos puedan usar las estrategias
     JwtStrategy, // Exportar JwtStrategy explícitamente
   ],
