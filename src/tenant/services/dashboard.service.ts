@@ -1,9 +1,11 @@
-import { Injectable, ForbiddenException, Logger, Scope } from '@nestjs/common';
+import { Injectable, ForbiddenException, Logger, Scope, Inject, forwardRef } from '@nestjs/common';
 import { TenantPrismaService } from './tenant-prisma.service';
 import { DataScopeService } from './data-scope.service';
 import { CustomerService } from './crm/customer.service';
 import { OrdersService } from '../../orders/orders.service';
 import { OrderStatus } from '../../orders/dto/create-order.dto';
+import { DealService } from './crm/deal.service';
+import { CrmReportsService } from './crm/crm-reports.service';
 
 export interface DashboardMetrics {
   customers: {
@@ -34,6 +36,20 @@ export interface DashboardMetrics {
     leadsToOrders: number;
     ordersToSales: number;
     averageDaysToClose: number;
+  };
+  // CRM-specific metrics
+  crm?: {
+    pipeline: {
+      totalValue: number;
+      weightedValue: number;
+      dealsCount: number;
+    };
+    winRate: number;
+    averageTimeToClose: number;
+    forecast: {
+      month: string;
+      expectedAmount: number;
+    };
   };
 }
 
@@ -77,6 +93,10 @@ export class DashboardService {
     private readonly dataScope: DataScopeService,
     private readonly customerService: CustomerService,
     private readonly ordersService: OrdersService,
+    @Inject(forwardRef(() => DealService))
+    private readonly dealService: DealService,
+    @Inject(forwardRef(() => CrmReportsService))
+    private readonly crmReportsService: CrmReportsService,
   ) {}
 
   /**
@@ -88,15 +108,96 @@ export class DashboardService {
     userId: string,
     userPermissions: string[],
     days: number = 30,
+    includeCrm: boolean = true,
   ): Promise<DashboardMetrics> {
     const dateFrom = new Date();
     dateFrom.setDate(dateFrom.getDate() - days);
     const dateTo = new Date();
 
     const canViewAll = this.dataScope.canViewAll(userPermissions);
-    const targetUserId = canViewAll ? undefined : userId;
+    
+    // Si userId es cadena vacía, significa que el usuario tiene view_all pero no hay tenantUserId
+    // En ese caso, pasar undefined para ver todos los datos
+    // Si userId tiene valor pero el usuario tiene view_all, también pasar undefined
+    // Si userId tiene valor y el usuario NO tiene view_all, usar userId (que es tenantUserId)
+    const effectiveUserId = userId && userId.trim() !== '' ? userId : undefined;
+    const targetUserId = canViewAll ? undefined : effectiveUserId;
+    
+    // Para calculateMetrics, currentUserId debe ser el tenantUserId (para queries en BD del tenant)
+    // Si no hay effectiveUserId, usar cadena vacía (el método manejará el scope basado en permisos)
+    // calculateMetrics espera un string, no undefined
+    const currentUserId = effectiveUserId || '';
 
-    return this.calculateMetrics(targetUserId, dateFrom, dateTo, userPermissions, userId);
+    const metrics = await this.calculateMetrics(targetUserId, dateFrom, dateTo, userPermissions, currentUserId);
+
+    // Add CRM metrics if requested
+    if (includeCrm) {
+      try {
+        // Usar currentUserId (tenantUserId) para queries en BD del tenant
+        // Si no hay currentUserId, los métodos de CRM usarán el scope basado en permisos
+        // Si tiene view_all, getBaseScope retornará {} (sin filtro)
+        // Si NO tiene view_all, necesita currentUserId (ya validado en controller)
+        const userIdForCrm = currentUserId || '';
+        
+        // Si userIdForCrm es vacío y el usuario NO tiene view_all, es un error
+        // Pero esto ya debería estar validado en el controller
+        if (!userIdForCrm && !canViewAll) {
+          this.logger.warn(`[DASHBOARD] getMetrics - User without view_all has no tenantUserId, skipping CRM metrics`);
+          // Continuar sin métricas CRM en lugar de fallar
+        } else {
+          const pipelineKPIs = await this.crmReportsService.getPipelineKPIs(userIdForCrm, userPermissions);
+          const winRate = await this.crmReportsService.getWinRate(userIdForCrm, userPermissions);
+          const avgTimeToClose = await this.crmReportsService.getAverageTimeToClose(userIdForCrm, userPermissions);
+
+        // Get current month forecast
+        const now = new Date();
+        const forecast = await this.dealService.getForecast(
+          now.getFullYear(),
+          now.getMonth() + 1,
+            userIdForCrm,
+          userPermissions,
+        );
+
+        // Extract values from pipelineKPIs - it returns pipelineStats spread with conversionRatesByStage
+        // So it has: totalDeals, totalAmount, weightedAmount, averageDealSize, byStage, conversionRatesByStage
+        const totalAmount = Number(pipelineKPIs?.totalAmount ?? 0);
+        const weightedAmount = Number(pipelineKPIs?.weightedAmount ?? 0);
+        const totalDeals = Number(pipelineKPIs?.totalDeals ?? 0);
+
+        metrics.crm = {
+          pipeline: {
+            totalValue: totalAmount,
+            weightedValue: weightedAmount,
+            dealsCount: totalDeals,
+          },
+          winRate: winRate?.global?.winRate ?? 0,
+          averageTimeToClose: avgTimeToClose?.averageDays ?? 0,
+          forecast: {
+            month: forecast?.period || `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`,
+            expectedAmount: forecast?.weightedAmount ?? 0,
+          },
+        };
+        }
+      } catch (error: any) {
+        this.logger.warn(`Failed to load CRM metrics: ${error.message}`, error.stack);
+        // Continue without CRM metrics if there's an error - set defaults
+        metrics.crm = {
+          pipeline: {
+            totalValue: 0,
+            weightedValue: 0,
+            dealsCount: 0,
+          },
+          winRate: 0,
+          averageTimeToClose: 0,
+          forecast: {
+            month: `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`,
+            expectedAmount: 0,
+          },
+        };
+      }
+    }
+
+    return metrics;
   }
 
   /**
@@ -160,7 +261,12 @@ export class DashboardService {
     days: number = 30,
   ): Promise<UsersComparison> {
     // Verify permission
+    // Log para diagnóstico
+    this.logger.debug(`[DASHBOARD] getUsersComparison - userPermissions: ${JSON.stringify(userPermissions)}`);
+    this.logger.debug(`[DASHBOARD] canViewAll: ${this.dataScope.canViewAll(userPermissions)}`);
+    
     if (!this.dataScope.canViewAll(userPermissions)) {
+      this.logger.warn(`[DASHBOARD] Access denied for users comparison. Permissions: ${JSON.stringify(userPermissions)}`);
       throw new ForbiddenException('No tiene permiso para ver comparativas de usuarios');
     }
 
@@ -238,26 +344,19 @@ export class DashboardService {
     userPermissions: string[],
     currentUserId: string,
   ): Promise<DashboardMetrics> {
+    try {
     const prisma = await this.tenantPrisma.getTenantClient();
 
-    // Build scope filter
+      // Build scope filter (sin incluir createdAt aquí, se agregará en cada query)
     const customerScope = targetUserId
       ? { assignedTo: targetUserId }
-      : this.dataScope.getCustomerScope(userPermissions, currentUserId, {
-          createdAt: {
-            gte: dateFrom,
-            lte: dateTo,
-          },
-        });
+        : this.dataScope.getCustomerScope(userPermissions, currentUserId);
 
     const orderScope = targetUserId
       ? { assignedTo: targetUserId }
-      : this.dataScope.getOrderScope(userPermissions, currentUserId, {
-          createdAt: {
-            gte: dateFrom,
-            lte: dateTo,
-          },
-        });
+        : this.dataScope.getOrderScope(userPermissions, currentUserId);
+
+      this.logger.debug(`[DASHBOARD] calculateMetrics - targetUserId: ${targetUserId || 'undefined'}, currentUserId: ${currentUserId || 'empty'}, customerScope: ${JSON.stringify(customerScope)}, orderScope: ${JSON.stringify(orderScope)}`);
 
     // Get customer statistics
     const [customersTotal, customersByType, customersByStatus] = await Promise.all([
@@ -453,6 +552,11 @@ export class DashboardService {
         averageDaysToClose: Number(averageDaysToClose.toFixed(2)),
       },
     };
+    } catch (error: any) {
+      this.logger.error(`[DASHBOARD] Error in calculateMetrics: ${error.message}`, error.stack);
+      this.logger.error(`[DASHBOARD] Error details - targetUserId: ${targetUserId}, currentUserId: ${currentUserId}, userPermissions: ${JSON.stringify(userPermissions)}`);
+      throw error;
+    }
   }
 }
 

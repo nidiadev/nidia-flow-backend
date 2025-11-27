@@ -5,14 +5,14 @@ import { TenantService } from './tenant.service';
 import { TenantController } from './tenant.controller';
 import { TenantHealthController } from './controllers/tenant-health.controller';
 import { SubscriptionsController } from './controllers/subscriptions.controller';
-import { TenantProvisioningController } from './controllers/tenant-provisioning.controller';
+// TenantProvisioningController movido a TenantProvisioningModule
 import { TenantGuard } from './guards/tenant.guard';
 import { TenantConnectionMiddleware } from './middleware/tenant-connection.middleware';
 import { TenantContextMiddleware } from './middleware/tenant-context.middleware';
 import { TenantPrismaService } from './services/tenant-prisma.service';
 import { TenantHealthService } from './services/tenant-health.service';
 import { TenantProvisioningService } from './services/tenant-provisioning.service';
-import { TenantProvisioningProcessor } from './processors/tenant-provisioning.processor';
+// TenantProvisioningProcessor movido a TenantProvisioningModule
 import { TenantPermissionsGuard } from './guards/tenant-permissions.guard';
 import { TenantPrismaInterceptor } from './interceptors/tenant-prisma.interceptor';
 import { PlanLimitsGuard } from './guards/plan-limits.guard';
@@ -33,6 +33,9 @@ import { TenantModulesController } from './controllers/modules.controller';
 import { TenantModulesService } from './services/modules.service';
 import { DataScopeService } from './services/data-scope.service';
 import { DashboardService } from './services/dashboard.service';
+import { TenantUserIndexService } from './services/tenant-user-index.service';
+import { TenantUsersService } from './services/users.service';
+import { TenantUsersController } from './controllers/users.controller';
 
 @Global() // Hacer el módulo global para que TenantPrismaService esté disponible en todos los submódulos
 @Module({
@@ -44,10 +47,8 @@ import { DashboardService } from './services/dashboard.service';
     }),
     forwardRef(() => PlansModule), // Importar PlansModule para usar PlansService en SubscriptionsController (usar forwardRef para evitar dependencia circular)
     forwardRef(() => UsersModule), // Para usar UsersService en processor
-    BullModule.registerQueue({
-      name: 'tenant-provisioning',
-    }),
-    CrmModule,
+    // BullModule.registerQueue para tenant-provisioning movido a TenantProvisioningModule
+    forwardRef(() => CrmModule), // Use forwardRef to avoid circular dependency with DashboardService
     ProductsModule,
     FinancialModule,
     CommunicationsModule,
@@ -62,10 +63,12 @@ import { DashboardService } from './services/dashboard.service';
     TenantPrismaService,
     TenantHealthService,
     TenantProvisioningService,
-    TenantProvisioningProcessor,
+    // TenantProvisioningProcessor movido a TenantProvisioningModule para evitar problemas de scope
     TenantModulesService,
     DataScopeService,
     DashboardService,
+    TenantUserIndexService,
+    TenantUsersService,
     TenantGuard,
     TenantPermissionsGuard,
     TenantPrismaInterceptor,
@@ -76,9 +79,10 @@ import { DashboardService } from './services/dashboard.service';
     TenantController,
     TenantHealthController,
     SubscriptionsController,
-    TenantProvisioningController,
+    // TenantProvisioningController movido a TenantProvisioningModule
     DashboardController,
     TenantModulesController,
+    TenantUsersController,
   ],
   exports: [
     TenantService, // Exportar TenantService para que esté disponible en otros módulos
@@ -87,6 +91,7 @@ import { DashboardService } from './services/dashboard.service';
     TenantProvisioningService,
     TenantModulesService, // Exportar TenantModulesService para uso en AuthModule
     DataScopeService, // Exportar DataScopeService para uso en servicios de tenant
+    TenantUserIndexService, // Exportar TenantUserIndexService para uso en AuthModule y otros servicios
     TenantGuard, // Exportar TenantGuard para que esté disponible en otros módulos
     TenantPermissionsGuard,
     TenantPrismaInterceptor,

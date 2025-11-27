@@ -39,7 +39,12 @@
     "db:validate": "ts-node scripts/validate-schema.ts",
     "db:cleanup": "ts-node scripts/cleanup-sessions.ts",
     "validate:setup": "node scripts/validate-setup.js",
-    "provision:tenant": "ts-node scripts/provision-tenant.ts"
+    "provision:tenant": "ts-node scripts/provision-tenant.ts",
+    "migrate:all-tenants": "ts-node scripts/migrate-all-tenants.ts",
+    "assign:modules-to-plans": "ts-node scripts/assign-all-modules-to-plans.ts",
+    "cleanup:duplicate-jobs": "ts-node scripts/cleanup-duplicate-jobs.ts",
+    "flush:redis": "ts-node scripts/flush-redis.ts",
+    "sync:tenant-index": "ts-node scripts/sync-tenant-user-index.ts"
   },
   "dependencies": {
     "@nestjs/bullmq": "^11.0.4",
@@ -51,6 +56,7 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/platform-socket.io": "^11.1.6",
+    "@nestjs/schedule": "^6.0.1",
     "@nestjs/swagger": "^11.2.0",
     "@nestjs/websockets": "^11.1.6",
     "@prisma/client": "^6.17.1",

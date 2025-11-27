@@ -5,7 +5,11 @@ import {
   Param,
   UseGuards,
   ParseUUIDPipe,
+  Req,
+  Logger,
+  BadRequestException,
 } from '@nestjs/common';
+import { Request } from 'express';
 import {
   ApiTags,
   ApiOperation,
@@ -18,8 +22,8 @@ import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { TenantGuard } from '../guards/tenant.guard';
 import { PermissionsGuard } from '../../auth/guards/permissions.guard';
 import { RequirePermissions } from '../../auth/decorators/permissions.decorator';
-import { CurrentUser } from '../../common/decorators/current-user.decorator';
-import { UserPermissions } from '../../common/decorators/user-permissions.decorator';
+import { CurrentUser } from '../decorators/tenant-database.decorator';
+import { UserPermissions } from '../decorators/tenant-database.decorator';
 import { DashboardService } from '../services/dashboard.service';
 import { OrdersService } from '../../orders/orders.service';
 import { TenantPrismaService } from '../services/tenant-prisma.service';
@@ -31,6 +35,8 @@ import { OrderStatus } from '../../orders/dto/create-order.dto';
 @UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
 @Controller('dashboard')
 export class DashboardController {
+  private readonly logger = new Logger(DashboardController.name);
+
   constructor(
     private readonly dashboardService: DashboardService,
     private readonly ordersService: OrdersService,
@@ -57,13 +63,62 @@ export class DashboardController {
   })
   async getMetrics(
     @Query('days') days?: string,
-    @CurrentUser('userId') userId?: string,
+    @CurrentUser() userId?: string,
     @UserPermissions() userPermissions?: string[],
+    @Req() request?: Request & { tenant?: { userId: string; permissions: string[] }; user?: { id: string; tenantUserId?: string; systemRole?: string } },
   ) {
     const daysNumber = days ? parseInt(days, 10) : 30;
 
+    // CRÍTICO: Para queries en BD del tenant, necesitamos usar tenantUserId, no superAdminUserId
+    // request.user.id es el SuperAdmin ID (correcto para validaciones)
+    // request.user.tenantUserId o request.tenant.userId es el ID en BD del tenant (correcto para queries)
+    // request.tenant.userId viene del middleware y es el tenantUserId del JWT
+    const user = request?.user;
+    const tenantContext = request?.tenant;
+    
+    // Para tenant_admin: usar tenantUserId para queries en BD del tenant
+    // Para tenant_user: usar su propio ID (que ya es tenantUserId)
+    // Para super_admin: no aplica (no tiene tenant)
+    let tenantUserId = tenantContext?.userId || user?.tenantUserId || 
+                       (user?.systemRole === 'tenant_user' ? user?.id : undefined);
+    
+    // IMPORTANTE: Si tenantUserId es igual al SuperAdmin ID, significa que no hay usuario en BD del tenant
+    // En ese caso, solo podemos proceder si el usuario tiene view_all
+    if (tenantUserId && user?.id && tenantUserId === user.id && user?.systemRole === 'tenant_admin') {
+      this.logger.warn(`[DASHBOARD] tenantUserId equals SuperAdmin ID (${tenantUserId}), user has no corresponding record in tenant DB. This is OK if user has view_all.`);
+      // Si el usuario tiene view_all, podemos continuar sin tenantUserId
+      // Si no tiene view_all, esto es un error
+      const effectivePermissions = userPermissions || request?.tenant?.permissions || [];
+      const canViewAll = effectivePermissions.includes('*') || effectivePermissions.includes('view_all') || effectivePermissions.includes('*:view_all');
+      if (!canViewAll) {
+        this.logger.error(`[DASHBOARD] User without view_all has no tenantUserId. user.id: ${user?.id}, systemRole: ${user?.systemRole}`);
+        throw new BadRequestException('User ID not available for tenant-scoped metrics');
+      }
+      // Para usuarios con view_all sin tenantUserId, usar string vacío
+      tenantUserId = undefined;
+    }
+    
+    // Fallback a request.tenant.permissions si UserPermissions no funciona
+    const effectivePermissions = userPermissions || request?.tenant?.permissions || [];
+    
+    // Verificar si el usuario tiene view_all
+    const canViewAll = effectivePermissions.includes('*') || effectivePermissions.includes('view_all') || effectivePermissions.includes('*:view_all');
+    
+    // Si no hay tenantUserId y el usuario NO tiene view_all, es un error
+    if (!canViewAll && !tenantUserId) {
+      this.logger.error(`[DASHBOARD] User without view_all needs tenantUserId but it's not available. user.id: ${user?.id}, systemRole: ${user?.systemRole}`);
+      throw new BadRequestException('User ID not available for data filtering');
+    }
+    
+    // Pasar tenantUserId al servicio (o string vacío si tiene view_all y no hay tenantUserId)
+    // El servicio usará este ID para queries en BD del tenant
+    // Si tiene view_all, el servicio pasará undefined a calculateMetrics
+    const userIdForQueries = tenantUserId || '';
+    
+    this.logger.debug(`[DASHBOARD] getMetrics - userIdForQueries: ${userIdForQueries || 'empty (view_all)'}, tenantUserId: ${tenantUserId || 'none (view_all)'}, user.id: ${user?.id}, systemRole: ${user?.systemRole}, canViewAll: ${canViewAll}, effectivePermissions: ${JSON.stringify(effectivePermissions)}`);
+
     const metrics = await this.dashboardService.getMetrics(
-      userId || '',
+      userIdForQueries, // tenantUserId para queries en BD del tenant
       userPermissions || [],
       daysNumber,
     );
@@ -93,9 +148,11 @@ export class DashboardController {
   })
   async getRevenue(
     @Query('days') days?: string,
-    @CurrentUser('userId') userId?: string,
+    @CurrentUser() userId?: string,
     @UserPermissions() userPermissions?: string[],
+    @Req() request?: Request & { tenant?: { userId: string } },
   ) {
+    const effectiveUserId = userId || request?.tenant?.userId || '';
     const daysNumber = days ? parseInt(days, 10) : 30;
     const dateFrom = new Date();
     dateFrom.setDate(dateFrom.getDate() - daysNumber);
@@ -108,7 +165,7 @@ export class DashboardController {
     const revenue = await this.ordersService.getRevenueStatistics({
       dateFrom: dateFrom.toISOString(),
       groupBy: 'day',
-      assignedTo: canViewAll ? undefined : userId,
+      assignedTo: canViewAll ? undefined : effectiveUserId,
     });
 
     return {
@@ -136,9 +193,11 @@ export class DashboardController {
   })
   async getOrdersByStatus(
     @Query('days') days?: string,
-    @CurrentUser('userId') userId?: string,
+    @CurrentUser() userId?: string,
     @UserPermissions() userPermissions?: string[],
+    @Req() request?: Request & { tenant?: { userId: string } },
   ) {
+    const effectiveUserId = userId || request?.tenant?.userId || '';
     const daysNumber = days ? parseInt(days, 10) : 30;
     const dateFrom = new Date();
     dateFrom.setDate(dateFrom.getDate() - daysNumber);
@@ -150,7 +209,7 @@ export class DashboardController {
 
     const ordersByStatus = await this.ordersService.getOrdersByStatus({
       dateFrom: dateFrom.toISOString(),
-      assignedTo: canViewAll ? undefined : userId,
+      assignedTo: canViewAll ? undefined : effectiveUserId,
     });
 
     return {
@@ -185,9 +244,11 @@ export class DashboardController {
   async getTopProducts(
     @Query('days') days?: string,
     @Query('limit') limit?: string,
-    @CurrentUser('userId') userId?: string,
+    @CurrentUser() userId?: string,
     @UserPermissions() userPermissions?: string[],
+    @Req() request?: Request & { tenant?: { userId: string } },
   ) {
+    const effectiveUserId = userId || request?.tenant?.userId || '';
     const daysNumber = days ? parseInt(days, 10) : 30;
     const limitNumber = limit ? parseInt(limit, 10) : 5;
     const dateFrom = new Date();
@@ -203,7 +264,7 @@ export class DashboardController {
     const orderScope = canViewAll
       ? {}
       : {
-          OR: [{ assignedTo: userId }, { createdBy: userId }],
+          OR: [{ assignedTo: effectiveUserId }, { createdBy: effectiveUserId }],
         };
 
     // Get top products by total quantity sold
@@ -347,11 +408,17 @@ export class DashboardController {
   async getUsersComparison(
     @Query('days') days?: string,
     @UserPermissions() userPermissions?: string[],
+    @Req() request?: Request & { tenant?: { permissions: string[] } },
   ) {
     const daysNumber = days ? parseInt(days, 10) : 30;
 
+    // Fallback a request.tenant.permissions si UserPermissions no funciona
+    const effectivePermissions = userPermissions || request?.tenant?.permissions || [];
+    
+    this.logger.debug(`[DASHBOARD] getUsersComparison - effectivePermissions: ${JSON.stringify(effectivePermissions)}`);
+
     const comparison = await this.dashboardService.getUsersComparison(
-      userPermissions || [],
+      effectivePermissions,
       daysNumber,
     );
 

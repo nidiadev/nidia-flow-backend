@@ -11,24 +11,33 @@ import {
   ParseUUIDPipe,
   ParseIntPipe,
   ParseBoolPipe,
+  Req,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery, ApiParam } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto, UpdateUserDto, UpdatePasswordDto, InviteUserDto } from './dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { TenantGuard } from '../tenant/guards/tenant.guard';
 import { PermissionsGuard } from '../auth/guards/permissions.guard';
 import { PlanLimitsGuard } from '../tenant/guards/plan-limits.guard';
 import { RequirePermissions } from '../auth/decorators/permissions.decorator';
 import { CheckLimit, LimitType } from '../tenant/decorators/check-limit.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { Logger } from '@nestjs/common';
 
 @ApiTags('Users')
 @Controller('users')
-@UseGuards(AuthGuard('jwt'), TenantGuard, PermissionsGuard, PlanLimitsGuard)
+@UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard, PlanLimitsGuard)
 @ApiBearerAuth()
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  private readonly logger = new Logger(UsersController.name);
+
+  constructor(private usersService: UsersService) {
+    // Log para verificar que el controller se está inicializando correctamente
+    this.logger.debug('UsersController initialized');
+    this.logger.debug('JwtAuthGuard available:', !!JwtAuthGuard);
+  }
 
   @Post()
   @RequirePermissions('users:write')
@@ -116,14 +125,25 @@ export class UsersController {
     }
   })
   async findAll(
-    @CurrentUser('tenantId') tenantId: string,
+    @CurrentUser('tenantId') tenantId: string | undefined,
     @Query('page', new ParseIntPipe({ optional: true })) page = 1,
     @Query('limit', new ParseIntPipe({ optional: true })) limit = 10,
     @Query('search') search?: string,
     @Query('role') role?: string,
     @Query('isActive', new ParseBoolPipe({ optional: true })) isActive?: boolean,
+    @Req() request?: Request & { tenant?: { tenantId: string }; user?: { tenantId: string } },
   ) {
-    return this.usersService.findAllTenantUsers(tenantId, page, limit, search, role, isActive);
+    // Fallback to request.tenant.tenantId or request.user.tenantId if CurrentUser doesn't provide it
+    const effectiveTenantId = tenantId || request?.tenant?.tenantId || request?.user?.tenantId;
+    if (!effectiveTenantId) {
+      console.error('[UsersController] No tenantId available:', {
+        fromCurrentUser: tenantId,
+        fromRequestTenant: request?.tenant?.tenantId,
+        fromRequestUser: request?.user?.tenantId,
+      });
+      throw new Error('Tenant ID not available');
+    }
+    return this.usersService.findAllTenantUsers(effectiveTenantId, page, limit, search, role, isActive);
   }
 
   @Get('profile')

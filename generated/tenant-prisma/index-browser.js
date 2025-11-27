@@ -218,14 +218,100 @@ exports.Prisma.InteractionScalarFieldEnum = {
   content: 'content',
   status: 'status',
   scheduledAt: 'scheduledAt',
+  scheduledEndAt: 'scheduledEndAt',
   durationMinutes: 'durationMinutes',
+  priority: 'priority',
+  isRecurring: 'isRecurring',
+  recurrenceRule: 'recurrenceRule',
+  recurrenceEndDate: 'recurrenceEndDate',
+  parentInteractionId: 'parentInteractionId',
+  assignedTo: 'assignedTo',
   outcome: 'outcome',
   nextAction: 'nextAction',
   nextActionDate: 'nextActionDate',
+  completedAt: 'completedAt',
   relatedOrderId: 'relatedOrderId',
   relatedTaskId: 'relatedTaskId',
+  relatedDealId: 'relatedDealId',
+  location: 'location',
+  locationUrl: 'locationUrl',
   metadata: 'metadata',
   createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ActivityReminderScalarFieldEnum = {
+  id: 'id',
+  interactionId: 'interactionId',
+  reminderMinutes: 'reminderMinutes',
+  reminderAt: 'reminderAt',
+  sentAt: 'sentAt',
+  notificationSent: 'notificationSent',
+  emailSent: 'emailSent',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DealStageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  displayName: 'displayName',
+  description: 'description',
+  probability: 'probability',
+  sortOrder: 'sortOrder',
+  isActive: 'isActive',
+  isDefault: 'isDefault',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DealScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  customerId: 'customerId',
+  stageId: 'stageId',
+  probability: 'probability',
+  amount: 'amount',
+  currency: 'currency',
+  expectedCloseDate: 'expectedCloseDate',
+  status: 'status',
+  lostReason: 'lostReason',
+  wonAt: 'wonAt',
+  lostAt: 'lostAt',
+  assignedTo: 'assignedTo',
+  createdBy: 'createdBy',
+  daysInStage: 'daysInStage',
+  lastStageChangeAt: 'lastStageChangeAt',
+  stageHistory: 'stageHistory',
+  tags: 'tags',
+  notes: 'notes',
+  customFields: 'customFields',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DealContactScalarFieldEnum = {
+  id: 'id',
+  dealId: 'dealId',
+  contactId: 'contactId',
+  role: 'role',
+  isPrimary: 'isPrimary',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DealProductScalarFieldEnum = {
+  id: 'id',
+  dealId: 'dealId',
+  productId: 'productId',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  discount: 'discount',
+  total: 'total',
+  notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -344,6 +430,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   cancellationReason: 'cancellationReason',
   customFields: 'customFields',
   metadata: 'metadata',
+  dealId: 'dealId',
   createdBy: 'createdBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -527,6 +614,204 @@ exports.Prisma.MessageLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ConversationScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  contactId: 'contactId',
+  channel: 'channel',
+  channelId: 'channelId',
+  recipient: 'recipient',
+  recipientName: 'recipientName',
+  status: 'status',
+  assignedTo: 'assignedTo',
+  priority: 'priority',
+  slaMinutes: 'slaMinutes',
+  firstMessageAt: 'firstMessageAt',
+  firstResponseAt: 'firstResponseAt',
+  lastMessageAt: 'lastMessageAt',
+  lastResponseAt: 'lastResponseAt',
+  resolvedAt: 'resolvedAt',
+  archivedAt: 'archivedAt',
+  tags: 'tags',
+  metadata: 'metadata',
+  customFields: 'customFields',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  direction: 'direction',
+  channel: 'channel',
+  type: 'type',
+  subject: 'subject',
+  body: 'body',
+  bodyHtml: 'bodyHtml',
+  attachments: 'attachments',
+  status: 'status',
+  providerMessageId: 'providerMessageId',
+  sentAt: 'sentAt',
+  deliveredAt: 'deliveredAt',
+  readAt: 'readAt',
+  failedAt: 'failedAt',
+  errorMessage: 'errorMessage',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  messageLogId: 'messageLogId'
+};
+
+exports.Prisma.ConversationNoteScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  content: 'content',
+  isInternal: 'isInternal',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerNoteScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  content: 'content',
+  isInternal: 'isInternal',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SmartListScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  isSystem: 'isSystem',
+  filterConfig: 'filterConfig',
+  filterLogic: 'filterLogic',
+  autoUpdate: 'autoUpdate',
+  lastUpdatedAt: 'lastUpdatedAt',
+  memberCount: 'memberCount',
+  tags: 'tags',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SmartListMemberScalarFieldEnum = {
+  id: 'id',
+  smartListId: 'smartListId',
+  customerId: 'customerId',
+  addedAt: 'addedAt'
+};
+
+exports.Prisma.LeadScoringRuleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  category: 'category',
+  isActive: 'isActive',
+  isSystem: 'isSystem',
+  condition: 'condition',
+  points: 'points',
+  priority: 'priority',
+  sortOrder: 'sortOrder',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LeadScoreHistoryScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  oldScore: 'oldScore',
+  newScore: 'newScore',
+  change: 'change',
+  triggerType: 'triggerType',
+  triggerId: 'triggerId',
+  reason: 'reason',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.WorkflowScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  triggerType: 'triggerType',
+  triggerConfig: 'triggerConfig',
+  steps: 'steps',
+  maxSteps: 'maxSteps',
+  executionCount: 'executionCount',
+  lastExecutedAt: 'lastExecutedAt',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WorkflowExecutionScalarFieldEnum = {
+  id: 'id',
+  workflowId: 'workflowId',
+  status: 'status',
+  triggerData: 'triggerData',
+  currentStep: 'currentStep',
+  errorMessage: 'errorMessage',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  nextStepAt: 'nextStepAt'
+};
+
+exports.Prisma.WebFormScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  fields: 'fields',
+  settings: 'settings',
+  styles: 'styles',
+  embedCode: 'embedCode',
+  embedUrl: 'embedUrl',
+  recaptchaEnabled: 'recaptchaEnabled',
+  recaptchaSiteKey: 'recaptchaSiteKey',
+  viewCount: 'viewCount',
+  submissionCount: 'submissionCount',
+  metadata: 'metadata',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WebFormSubmissionScalarFieldEnum = {
+  id: 'id',
+  formId: 'formId',
+  data: 'data',
+  sourceUrl: 'sourceUrl',
+  userAgent: 'userAgent',
+  ipAddress: 'ipAddress',
+  customerId: 'customerId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.WorkflowExecutionLogScalarFieldEnum = {
+  id: 'id',
+  executionId: 'executionId',
+  stepIndex: 'stepIndex',
+  stepType: 'stepType',
+  status: 'status',
+  actionType: 'actionType',
+  actionConfig: 'actionConfig',
+  result: 'result',
+  errorMessage: 'errorMessage',
+  executedAt: 'executedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -679,6 +964,11 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   CustomerContact: 'CustomerContact',
   Interaction: 'Interaction',
+  ActivityReminder: 'ActivityReminder',
+  DealStage: 'DealStage',
+  Deal: 'Deal',
+  DealContact: 'DealContact',
+  DealProduct: 'DealProduct',
   Category: 'Category',
   Product: 'Product',
   ProductVariant: 'ProductVariant',
@@ -695,6 +985,19 @@ exports.Prisma.ModelName = {
   BudgetCategory: 'BudgetCategory',
   MessageTemplate: 'MessageTemplate',
   MessageLog: 'MessageLog',
+  Conversation: 'Conversation',
+  Message: 'Message',
+  ConversationNote: 'ConversationNote',
+  CustomerNote: 'CustomerNote',
+  SmartList: 'SmartList',
+  SmartListMember: 'SmartListMember',
+  LeadScoringRule: 'LeadScoringRule',
+  LeadScoreHistory: 'LeadScoreHistory',
+  Workflow: 'Workflow',
+  WorkflowExecution: 'WorkflowExecution',
+  WebForm: 'WebForm',
+  WebFormSubmission: 'WebFormSubmission',
+  WorkflowExecutionLog: 'WorkflowExecutionLog',
   Notification: 'Notification',
   File: 'File',
   SavedReport: 'SavedReport',

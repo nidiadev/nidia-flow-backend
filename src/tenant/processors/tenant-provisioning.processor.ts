@@ -1,10 +1,12 @@
 import { Processor, WorkerHost, OnWorkerEvent } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-import { Logger, Injectable, Scope, OnModuleDestroy } from '@nestjs/common';
+import { Logger, Injectable, OnModuleDestroy, Scope, Inject, Optional } from '@nestjs/common';
 import * as crypto from 'crypto';
+import { resolve } from 'path';
 import { TenantProvisioningService } from '../services/tenant-provisioning.service';
 import { TenantService } from '../tenant.service';
 import { UsersService } from '../../users/users.service';
+import { PlansService } from '../../plans/plans.service';
 import prisma from '../../lib/prisma';
 import {
   TenantProvisioningData,
@@ -20,6 +22,7 @@ import { Redis } from 'ioredis';
  * Procesa jobs de provisioning en background usando BullMQ
  * 
  * IMPORTANTE: Debe ser singleton (default) para que los event listeners funcionen
+ * NOTA: El scope DEFAULT es necesario para que BullMQ pueda registrar los event listeners
  */
 @Processor('tenant-provisioning')
 @Injectable({ scope: Scope.DEFAULT })
@@ -28,16 +31,26 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
   private redis: Redis;
 
   constructor(
-    private readonly provisioningService: TenantProvisioningService,
-    private readonly tenantService: TenantService,
-    private readonly usersService: UsersService,
+    @Optional() @Inject(TenantProvisioningService) private readonly provisioningService: TenantProvisioningService,
+    @Optional() @Inject(TenantService) private readonly tenantService: TenantService,
+    @Optional() @Inject(UsersService) private readonly usersService: UsersService,
+    @Optional() @Inject(PlansService) private readonly plansService: PlansService,
   ) {
     super();
-    this.redis = new Redis({
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379'),
-      password: process.env.REDIS_PASSWORD || undefined,
-    });
+    this.logger.log('🔧 [PROCESSOR] TenantProvisioningProcessor constructor called');
+    // Usar REDIS_URL si está disponible (prioridad), sino usar variables individuales
+    if (process.env.REDIS_URL) {
+      this.redis = new Redis(process.env.REDIS_URL);
+      this.logger.log('✅ [PROCESSOR] Redis connection initialized using REDIS_URL');
+    } else {
+      this.redis = new Redis({
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+        password: process.env.REDIS_PASSWORD || undefined,
+      });
+      this.logger.log('✅ [PROCESSOR] Redis connection initialized using individual variables');
+    }
+    this.logger.log('✅ [PROCESSOR] TenantProvisioningProcessor initialized successfully');
   }
 
   async onModuleDestroy() {
@@ -48,13 +61,14 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
   }
 
   async process(job: Job<TenantProvisioningData>): Promise<void> {
-    const { tenantId, slug, dbName, adminEmail, adminPassword, adminFirstName, adminLastName, companyName } = job.data;
+    const { tenantId, slug, dbName, adminEmail, adminPassword, adminFirstName, adminLastName, companyName, planId } = job.data;
     const startedAt = new Date();
 
     this.logger.log(`🚀 [PROCESSOR] ==========================================`);
     this.logger.log(`🚀 [PROCESSOR] Starting provisioning for tenant ${tenantId} (${slug})`);
     this.logger.log(`🚀 [PROCESSOR] Job ID: ${job.id}`);
     this.logger.log(`🚀 [PROCESSOR] Job data: ${JSON.stringify({ tenantId, slug, dbName, adminEmail, companyName })}`);
+    this.logger.log(`🚀 [PROCESSOR] Redis connection: ${this.redis ? 'OK' : 'FAILED'}`);
     this.logger.log(`🚀 [PROCESSOR] ==========================================`);
 
     try {
@@ -161,15 +175,25 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
       });
       await job.updateProgress(50);
 
-      await this.provisioningService.runTenantMigration({
-        host: dbHost,
-        port: dbPort,
-        database: dbName,
-        username: dbUsername,
-        password: dbPassword,
-      });
+      this.logger.log(`[${tenantId}] 🔄 Starting migration process for database ${dbName}...`);
+      try {
+        await this.provisioningService.runTenantMigration({
+          host: dbHost,
+          port: dbPort,
+          database: dbName,
+          username: dbUsername,
+          password: dbPassword,
+        });
+        this.logger.log(`[${tenantId}] ✅ Migration process completed successfully`);
+      } catch (migrationError: any) {
+        this.logger.error(`[${tenantId}] ❌ Migration process failed:`, migrationError);
+        this.logger.error(`[${tenantId}] Migration error message: ${migrationError.message}`);
+        this.logger.error(`[${tenantId}] Migration error stack: ${migrationError.stack}`);
+        throw migrationError;
+      }
 
       // CRITICAL VERIFICATION: Verify database still exists after migrations
+      this.logger.log(`[${tenantId}] 🔍 Verifying database exists after migrations...`);
       const dbExistsAfterMigration = await this.provisioningService.databaseExists(dbName);
       if (!dbExistsAfterMigration) {
         const errorMsg = `❌ CRITICAL: Database ${dbName} disappeared after migrations. Cannot proceed.`;
@@ -234,8 +258,10 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
       }
       this.logger.log(`✅ Final verification: Database ${dbName} exists and provisioning is complete`);
 
-      // Activar tenant y usuario en SuperAdmin
-      await this.activateTenant(tenantId, adminEmail);
+      // Activar tenant, crear suscripción y activar usuario en SuperAdmin y tenant DB
+      this.logger.log(`[${tenantId}] Step 5: Activating tenant and user...`);
+      await this.activateTenant(tenantId, adminEmail, planId, slug);
+      this.logger.log(`[${tenantId}] ✅ activateTenant completed successfully`);
 
       this.logger.log(`✅ Provisioning completed successfully for tenant ${tenantId}`);
       
@@ -296,8 +322,76 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
     }
   }
 
-  private async activateTenant(tenantId: string, adminEmail: string): Promise<void> {
-    // Activar tenant
+  private async activateTenant(tenantId: string, adminEmail: string, planId: string | undefined, slug: string): Promise<void> {
+    // 1. Obtener plan (del planId proporcionado o plan gratuito por defecto)
+    let plan;
+    if (planId) {
+      plan = await this.plansService.findOne(planId);
+      if (!plan) {
+        this.logger.warn(`Plan with ID ${planId} not found, using free plan as fallback`);
+        plan = await this.plansService.findByName('free');
+      }
+    } else {
+      // Buscar plan gratuito por defecto
+      plan = await this.plansService.findByName('free');
+      if (!plan) {
+        // Si no existe plan 'free', buscar el primer plan activo ordenado por sortOrder
+        const allPlans = await this.plansService.findAll();
+        plan = allPlans.find(p => p.isActive) || allPlans[0];
+      }
+    }
+
+    if (!plan) {
+      this.logger.error(`No plan found for tenant ${tenantId}. Cannot create subscription.`);
+      throw new Error('No plan available for subscription creation');
+    }
+
+    this.logger.log(`📦 Using plan ${plan.id} (${plan.displayName}) for tenant ${tenantId}`);
+
+    // 2. Crear suscripción automáticamente (1 mes gratis, todos los planes)
+    try {
+      const now = new Date();
+      const currentPeriodStart = now;
+      const currentPeriodEnd = new Date(now);
+      currentPeriodEnd.setMonth(currentPeriodEnd.getMonth() + 1); // 1 mes desde ahora
+
+      // Calcular montos (todos los planes son gratis por ahora)
+      const amount = 0; // Todos los planes son gratis por ahora
+      const discountAmount = 0;
+      const totalAmount = 0;
+      const currency = plan.currency || 'USD';
+
+      // Crear suscripción activa (sin trial, directamente activa)
+      const subscription = await prisma.subscription.create({
+        data: {
+          tenantId: tenantId,
+          planId: plan.id,
+          billingCycle: 'monthly',
+          amount,
+          discountAmount,
+          totalAmount,
+          currency,
+          status: 'active', // Activa directamente (todos los planes son gratis)
+          currentPeriodStart,
+          currentPeriodEnd,
+          trialStart: null, // Sin trial
+          trialEnd: null,
+          cancelAtPeriodEnd: false,
+          metadata: {
+            createdFrom: 'tenant_provisioning',
+            tenantSlug: slug,
+            autoCreated: true,
+          },
+        },
+      });
+
+      this.logger.log(`✅ Subscription created successfully for tenant ${tenantId}: ${subscription.id} (Plan: ${plan.displayName})`);
+    } catch (subscriptionError: any) {
+      this.logger.error(`❌ Failed to create subscription for tenant ${tenantId}:`, subscriptionError);
+      // No lanzamos error, el tenant ya está provisionado, pero logueamos el error
+    }
+
+    // 3. Activar tenant
     await prisma.tenant.update({
       where: { id: tenantId },
       data: {
@@ -307,13 +401,79 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
       },
     });
 
-    // Activar usuario en SuperAdmin
+    // 4. Activar usuario en SuperAdmin
     const user = await this.usersService.findByEmail(adminEmail);
     if (user) {
       await prisma.user.update({
         where: { id: user.id },
         data: { isActive: true },
       });
+      this.logger.log(`✅ User ${user.id} (${adminEmail}) activated in SuperAdmin database`);
+    } else {
+      this.logger.warn(`⚠️ User with email ${adminEmail} not found in SuperAdmin database`);
+    }
+
+    // 5. Activar usuario en la base de datos del tenant
+    try {
+      const tenant = await prisma.tenant.findUnique({
+        where: { id: tenantId },
+        select: { dbName: true, dbHost: true, dbPort: true, dbUsername: true, dbPasswordEncrypted: true },
+      });
+
+      if (!tenant) {
+        this.logger.error(`❌ Tenant ${tenantId} not found, cannot activate user in tenant database`);
+        return;
+      }
+
+      // Descifrar contraseña
+      const dbPassword = this.decryptPassword(tenant.dbPasswordEncrypted);
+      
+      // Construir URL de conexión usando credenciales admin (no las del tenant)
+      const adminConnectionUrl = process.env.DATABASE_URL;
+      if (!adminConnectionUrl) {
+        this.logger.error(`❌ DATABASE_URL not configured, cannot activate user in tenant database`);
+        return;
+      }
+
+      const adminUrl = new URL(adminConnectionUrl);
+      const adminUser = adminUrl.username;
+      const adminPassword = adminUrl.password;
+      const adminHost = adminUrl.hostname;
+      const adminPort = adminUrl.port || '5432';
+
+      const tenantConnectionUrl = `postgresql://${adminUser}:${encodeURIComponent(adminPassword)}@${adminHost}:${adminPort}/${tenant.dbName}?schema=public`;
+      
+      const tenantPrismaPath = resolve(process.cwd(), 'generated', 'tenant-prisma');
+      const { PrismaClient } = require(tenantPrismaPath);
+      const tenantClient = new PrismaClient({
+        datasources: {
+          db: {
+            url: tenantConnectionUrl,
+          },
+        },
+      });
+
+      await tenantClient.$connect();
+      
+      // Activar usuario en la base de datos del tenant
+      const tenantUser = await tenantClient.user.findUnique({
+        where: { email: adminEmail },
+      });
+
+      if (tenantUser) {
+        await tenantClient.user.update({
+          where: { id: tenantUser.id },
+          data: { isActive: true },
+        });
+        this.logger.log(`✅ User ${tenantUser.id} (${adminEmail}) activated in tenant database ${tenant.dbName}`);
+      } else {
+        this.logger.warn(`⚠️ User with email ${adminEmail} not found in tenant database ${tenant.dbName}`);
+      }
+
+      await tenantClient.$disconnect();
+    } catch (error: any) {
+      this.logger.error(`❌ Failed to activate user in tenant database: ${error.message}`, error);
+      // No lanzamos error, el tenant ya está activo, pero logueamos el error
     }
   }
 

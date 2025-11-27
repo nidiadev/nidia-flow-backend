@@ -231,13 +231,69 @@ export class ProductController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateProductDto: UpdateProductDto,
   ): Promise<{ success: boolean; data: ProductResponseDto; message: string }> {
-    // Note: Update method needs to be implemented in ProductService
-    // For now, we'll get the product to ensure it exists
-    const product = await this.productService.findById(id);
+    const product = await this.productService.update(id, updateProductDto);
     return {
       success: true,
       data: product,
-      message: 'Product update functionality will be implemented in ProductService',
+      message: 'Product updated successfully',
+    };
+  }
+
+  @Post('bulk-update-prices')
+  @ApiOperation({ 
+    summary: 'Bulk update product prices',
+    description: 'Updates prices for multiple products at once. Supports percentage or fixed amount adjustments.'
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Prices updated successfully',
+  })
+  async bulkUpdatePrices(
+    @Body() bulkUpdateDto: {
+      productIds: string[];
+      updateType: 'percentage' | 'fixed' | 'set';
+      value: number;
+      applyTo?: 'price' | 'cost' | 'both';
+    },
+  ): Promise<{ success: boolean; message: string; data: { updated: number } }> {
+    const result = await this.productService.bulkUpdatePrices(
+      bulkUpdateDto.productIds,
+      bulkUpdateDto.updateType,
+      bulkUpdateDto.value,
+      bulkUpdateDto.applyTo || 'price',
+    );
+    
+    return {
+      success: true,
+      message: `${result.updated} productos actualizados exitosamente`,
+      data: result,
+    };
+  }
+
+  @Post('bulk-update-discounts')
+  @ApiOperation({ 
+    summary: 'Bulk update product discounts',
+    description: 'Applies discount percentage to multiple products at once.'
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Discounts updated successfully',
+  })
+  async bulkUpdateDiscounts(
+    @Body() bulkUpdateDto: {
+      productIds: string[];
+      discountPercentage: number;
+    },
+  ): Promise<{ success: boolean; message: string; data: { updated: number } }> {
+    const result = await this.productService.bulkUpdateDiscounts(
+      bulkUpdateDto.productIds,
+      bulkUpdateDto.discountPercentage,
+    );
+    
+    return {
+      success: true,
+      message: `Descuento aplicado a ${result.updated} productos`,
+      data: result,
     };
   }
 
@@ -262,12 +318,10 @@ export class ProductController {
   async remove(
     @Param('id', ParseUUIDPipe) id: string,
   ): Promise<{ success: boolean; message: string }> {
-    // Note: Soft delete method needs to be implemented in ProductService
-    // For now, we'll get the product to ensure it exists
-    await this.productService.findById(id);
+    await this.productService.softDelete(id);
     return {
       success: true,
-      message: 'Product soft delete functionality will be implemented in ProductService',
+      message: 'Product deleted successfully',
     };
   }
 }

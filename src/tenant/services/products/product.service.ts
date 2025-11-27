@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, BadRequestException, Logger } from '@nestjs/common';
 import { TenantPrismaService } from '../tenant-prisma.service';
 import {
   CreateProductDto,
@@ -11,6 +11,8 @@ import {
 
 @Injectable()
 export class ProductService {
+  private readonly logger = new Logger(ProductService.name);
+
   constructor(private readonly tenantPrisma: TenantPrismaService) {}
 
   async create(createProductDto: CreateProductDto, createdBy: string): Promise<ProductResponseDto> {
@@ -62,6 +64,49 @@ export class ProductService {
       }
     }
 
+    // Validar y obtener el ID del usuario en la BD del tenant
+    let createdByUserId: string | null = null;
+    
+    if (createdBy) {
+      // Verificar que el usuario existe en la BD del tenant
+      const user = await prisma.user.findUnique({
+        where: { id: createdBy },
+        select: { id: true, email: true },
+      });
+
+      if (user) {
+        createdByUserId = user.id;
+      } else {
+        // Si el usuario no existe en la BD del tenant, buscar un usuario admin como fallback
+        const adminUser = await prisma.user.findFirst({
+          where: { role: 'admin', isActive: true },
+          select: { id: true },
+          orderBy: { createdAt: 'asc' },
+        });
+        
+        if (adminUser) {
+          createdByUserId = adminUser.id;
+          this.logger.warn(`User ${createdBy} not found in tenant DB, using admin user ${adminUser.id} as fallback for product creation`);
+        }
+      }
+    } else {
+      // Si userId es undefined, buscar un usuario admin como fallback
+      const adminUser = await prisma.user.findFirst({
+        where: { role: 'admin', isActive: true },
+        select: { id: true },
+        orderBy: { createdAt: 'asc' },
+      });
+      
+      if (adminUser) {
+        createdByUserId = adminUser.id;
+        this.logger.warn(`No userId provided, using admin user ${adminUser.id} as fallback for product creation`);
+      }
+    }
+
+    if (!createdByUserId) {
+      throw new BadRequestException('Unable to determine user for product creation. No active admin user found in tenant database.');
+    }
+
     // Crear producto con variantes y combo items en transacción
     const product = await prisma.$transaction(async (tx) => {
       // Crear producto principal
@@ -69,7 +114,7 @@ export class ProductService {
         data: {
           ...productData,
           categoryId,
-          createdBy,
+          createdBy: createdByUserId,
         },
       });
 
@@ -484,5 +529,141 @@ export class ProductService {
       createdAt: product.createdAt,
       updatedAt: product.updatedAt,
     };
+  }
+
+  async update(id: string, updateProductDto: UpdateProductDto): Promise<ProductResponseDto> {
+    const { variants, comboItems, categoryId, ...productData } = updateProductDto;
+    const prisma = await this.tenantPrisma.getTenantClient();
+
+    // Verificar que el producto existe
+    const existingProduct = await prisma.product.findUnique({
+      where: { id },
+    });
+
+    if (!existingProduct) {
+      throw new NotFoundException('Product not found');
+    }
+
+    // Verificar que el SKU no existe (si se está cambiando)
+    if (productData.sku && productData.sku !== existingProduct.sku) {
+      const skuExists = await prisma.product.findUnique({
+        where: { sku: productData.sku },
+      });
+
+      if (skuExists) {
+        throw new ConflictException('Product with this SKU already exists');
+      }
+    }
+
+    // Verificar que la categoría existe si se especifica
+    if (categoryId) {
+      const category = await prisma.category.findUnique({
+        where: { id: categoryId },
+      });
+
+      if (!category) {
+        throw new NotFoundException('Category not found');
+      }
+
+      if (!category.isActive) {
+        throw new BadRequestException('Category is not active');
+      }
+    }
+
+    // Actualizar producto
+    const updatedProduct = await prisma.product.update({
+      where: { id },
+      data: {
+        ...productData,
+        ...(categoryId !== undefined && { categoryId }),
+      },
+    });
+
+    this.logger.log(`Product ${id} updated successfully`);
+    
+    return this.findById(updatedProduct.id);
+  }
+
+  async softDelete(id: string): Promise<void> {
+    const prisma = await this.tenantPrisma.getTenantClient();
+
+    const product = await prisma.product.findUnique({
+      where: { id },
+    });
+
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+
+    await prisma.product.update({
+      where: { id },
+      data: { isActive: false },
+    });
+
+    this.logger.log(`Product ${id} soft deleted`);
+  }
+
+  async bulkUpdatePrices(
+    productIds: string[],
+    updateType: 'percentage' | 'fixed' | 'set',
+    value: number,
+    applyTo: 'price' | 'cost' | 'both' = 'price',
+  ): Promise<{ updated: number }> {
+    const prisma = await this.tenantPrisma.getTenantClient();
+    
+    const products = await prisma.product.findMany({
+      where: { id: { in: productIds } },
+    });
+
+    let updated = 0;
+    
+    for (const product of products) {
+      const updateData: any = {};
+      
+      if (applyTo === 'price' || applyTo === 'both') {
+        if (updateType === 'percentage') {
+          updateData.price = product.price * (1 + value / 100);
+        } else if (updateType === 'fixed') {
+          updateData.price = product.price + value;
+        } else if (updateType === 'set') {
+          updateData.price = value;
+        }
+      }
+      
+      if (applyTo === 'cost' || applyTo === 'both') {
+        if (product.cost !== null && product.cost !== undefined) {
+          if (updateType === 'percentage') {
+            updateData.cost = product.cost * (1 + value / 100);
+          } else if (updateType === 'fixed') {
+            updateData.cost = product.cost + value;
+          } else if (updateType === 'set') {
+            updateData.cost = value;
+          }
+        }
+      }
+      
+      await prisma.product.update({
+        where: { id: product.id },
+        data: updateData,
+      });
+      
+      updated++;
+    }
+    
+    return { updated };
+  }
+
+  async bulkUpdateDiscounts(
+    productIds: string[],
+    discountPercentage: number,
+  ): Promise<{ updated: number }> {
+    const prisma = await this.tenantPrisma.getTenantClient();
+    
+    const result = await prisma.product.updateMany({
+      where: { id: { in: productIds } },
+      data: { discountPercentage },
+    });
+    
+    return { updated: result.count };
   }
 }

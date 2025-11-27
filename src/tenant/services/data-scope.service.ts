@@ -77,6 +77,44 @@ export class DataScopeService {
   }
 
   /**
+   * Get data scope for deals
+   */
+  getDealScope(
+    userPermissions: string[],
+    userId: string,
+    additionalFilters?: PrismaWhereInput,
+  ): PrismaWhereInput {
+    const baseScope = this.getBaseScope(userPermissions, userId, {
+      assignedToField: 'assignedTo',
+      createdByField: 'createdBy',
+    });
+
+    return {
+      ...baseScope,
+      ...additionalFilters,
+    };
+  }
+
+  /**
+   * Get data scope for conversations
+   */
+  getConversationScope(
+    userPermissions: string[],
+    userId: string,
+    additionalFilters?: PrismaWhereInput,
+  ): PrismaWhereInput {
+    const baseScope = this.getBaseScope(userPermissions, userId, {
+      assignedToField: 'assignedTo',
+      createdByField: 'createdBy',
+    });
+
+    return {
+      ...baseScope,
+      ...additionalFilters,
+    };
+  }
+
+  /**
    * Generic method to get base scope for any resource
    * This is the core logic that determines if user sees all data or only their own
    */
@@ -90,6 +128,13 @@ export class DataScopeService {
   ): PrismaJsonObject {
     // If user has 'view_all' permission, they see all data (no filter)
     if (this.permissionResolver.canViewAllData(userPermissions)) {
+      return {};
+    }
+
+    // Si userId es vacío o undefined y no tiene view_all, retornar objeto vacío
+    // Esto permite que el sistema funcione cuando un tenant_admin no tiene usuario en BD del tenant
+    // pero tiene view_all (puede ver todos los datos)
+    if (!userId || userId.trim() === '') {
       return {};
     }
 

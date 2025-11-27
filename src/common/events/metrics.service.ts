@@ -98,6 +98,16 @@ export class MetricsService {
 
   @OnEvent(BusinessEventTypes.CUSTOMER_CREATED)
   async trackCustomerCreated(event: any) {
+    // Si se proporciona contexto del tenant en el evento, establecerlo antes de usar TenantPrismaService
+    if (event.tenantContext && !this.prisma.getTenantContext()) {
+      this.prisma.setTenantContext({
+        tenantId: event.tenantContext.tenantId,
+        userId: event.tenantContext.userId,
+        dbName: event.tenantContext.dbName,
+        role: event.tenantContext.role,
+      });
+    }
+    
     await this.incrementMetric('customers_created_total', 1, {
       customer_type: event.customerType,
       lead_source: event.leadSource || 'unknown',

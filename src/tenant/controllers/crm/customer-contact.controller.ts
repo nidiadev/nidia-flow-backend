@@ -34,11 +34,65 @@ import {
 } from '../../dto/crm/customer-contact.dto';
 import { ApiResponseDto } from '../../dto/base/base.dto';
 
+// Controller for all contacts (across all customers)
+@ApiTags('CRM - Customer Contacts')
+@ApiBearerAuth()
+@Controller('crm/contacts')
+@UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
+export class CustomerContactController {
+  constructor(private readonly customerContactService: CustomerContactService) {}
+
+  @Get()
+  @RequirePermissions('crm:read')
+  @ApiOperation({ 
+    summary: 'Get all customer contacts',
+    description: 'Retrieves all contacts across all customers with pagination and filters'
+  })
+  @ApiQuery({ name: 'search', required: false, type: String, description: 'Search query' })
+  @ApiQuery({ name: 'customerId', required: false, type: String, format: 'uuid', description: 'Filter by customer ID' })
+  @ApiQuery({ name: 'includeInactive', required: false, type: Boolean, description: 'Include inactive contacts' })
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Contacts retrieved successfully',
+  })
+  async findAll(
+    @Query('search') search?: string,
+    @Query('customerId') customerId?: string,
+    @Query('includeInactive') includeInactive?: boolean,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+  ): Promise<ApiResponseDto<{
+    data: CustomerContactResponseDto[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      totalPages: number;
+    };
+  }>> {
+    const result = await this.customerContactService.findAll(
+      search,
+      customerId,
+      includeInactive === true,
+      page ? Number(page) : 1,
+      limit ? Number(limit) : 10,
+    );
+    return {
+      success: true,
+      data: result,
+      message: `Found ${result.pagination.total} contacts`,
+    };
+  }
+}
+
+// Controller for contacts of a specific customer
 @ApiTags('CRM - Customer Contacts')
 @ApiBearerAuth()
 @Controller('crm/customers/:customerId/contacts')
 @UseGuards(JwtAuthGuard, TenantGuard, PermissionsGuard)
-export class CustomerContactController {
+export class CustomerContactByCustomerController {
   constructor(private readonly customerContactService: CustomerContactService) {}
 
   @Post()

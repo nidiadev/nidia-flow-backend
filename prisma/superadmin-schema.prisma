@@ -121,6 +121,7 @@ model Tenant {
   moduleTenantAssignments    ModuleTenantAssignment[]
   subModuleTenantAssignments SubModuleTenantAssignment[]
   createdByUser              User?                       @relation("TenantCreatedBy", fields: [createdBy], references: [id])
+  tenantUserIndex            TenantUserIndex[]
 
   @@index([slug])
   @@index([planType])
@@ -214,6 +215,28 @@ model User {
   @@index([systemRole])
   @@index([isActive])
   @@map("users")
+}
+
+// ============================================
+// TENANT USER INDEX (Para búsqueda rápida de usuarios de tenant)
+// ============================================
+// Esta tabla mantiene un índice de todos los usuarios que existen en las BD de tenants
+// Permite búsqueda rápida de email -> tenantId sin tener que buscar en todas las BD
+model TenantUserIndex {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email     String   @unique @db.VarChar(255) // Email único (un usuario solo puede estar en un tenant)
+  tenantId  String   @map("tenant_id") @db.Uuid
+  userId    String   @map("user_id") @db.Uuid // ID del usuario en la BD del tenant
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([email]) // Búsqueda rápida por email
+  @@index([tenantId])
+  @@index([isActive])
+  @@map("tenant_user_index")
 }
 
 model UserSession {

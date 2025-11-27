@@ -48,7 +48,9 @@ model User {
   usersCreated              User[]              @relation("UserCreatedBy")
   customersCreated          Customer[]          @relation("CustomerCreatedBy")
   customersAssigned         Customer[]          @relation("CustomerAssignedTo")
-  interactions              Interaction[]
+  interactions              Interaction[]       @relation("InteractionCreatedBy")
+  interactionsAssigned      Interaction[]       @relation("InteractionAssignedTo")
+  customerNotes             CustomerNote[]       @relation("CustomerNoteCreatedBy")
   ordersCreated             Order[]             @relation("OrderCreatedBy")
   ordersAssigned            Order[]             @relation("OrderAssignedTo")
   tasksCreated              Task[]              @relation("TaskCreatedBy")
@@ -64,6 +66,15 @@ model User {
   taskChecklistsCompleted   TaskChecklist[]     @relation("TaskChecklistCompletedBy")
   auditLogsUser             AuditLog[]          @relation("AuditLogUser")
   companySettingsUpdated    CompanySetting[]    @relation("CompanySettingUpdatedBy")
+  dealsCreated              Deal[]              @relation("DealCreatedBy")
+  dealsAssigned             Deal[]              @relation("DealAssignedTo")
+  conversationsCreated      Conversation[]      @relation("ConversationCreatedBy")
+  conversationsAssigned     Conversation[]      @relation("ConversationAssignedTo")
+  conversationNotes         ConversationNote[]
+  smartListsCreated         SmartList[]         @relation("SmartListCreatedBy")
+  leadScoringRulesCreated   LeadScoringRule[]   @relation("LeadScoringRuleCreatedBy")
+  workflowsCreated          Workflow[]          @relation("WorkflowCreatedBy")
+  webFormsCreated           WebForm[]           @relation("WebFormCreatedBy")
 
   @@index([email])
   @@index([role])
@@ -145,13 +156,19 @@ model Customer {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   // Relations
-  assignedToUser User?             @relation("CustomerAssignedTo", fields: [assignedTo], references: [id])
-  createdByUser  User              @relation("CustomerCreatedBy", fields: [createdBy], references: [id])
-  contacts       CustomerContact[]
-  interactions   Interaction[]
-  orders         Order[]
-  tasks          Task[]
-  messageLogs    MessageLog[]
+  assignedToUser    User?               @relation("CustomerAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser     User                @relation("CustomerCreatedBy", fields: [createdBy], references: [id])
+  contacts          CustomerContact[]
+  interactions      Interaction[]
+  orders            Order[]
+  tasks             Task[]
+  messageLogs       MessageLog[]
+  deals             Deal[]
+  conversations     Conversation[]
+  smartListMembers  SmartListMember[]
+  leadScoreHistory  LeadScoreHistory[]
+  WebFormSubmission WebFormSubmission[]
+  customerNotes     CustomerNote[]
 
   @@index([type])
   @@index([email])
@@ -179,7 +196,9 @@ model CustomerContact {
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
-  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customer      Customer       @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  dealContacts  DealContact[]
+  conversations Conversation[]
 
   @@index([customerId])
   @@index([email])
@@ -199,16 +218,31 @@ model Interaction {
 
   // Scheduling
   scheduledAt     DateTime? @map("scheduled_at")
+  scheduledEndAt  DateTime? @map("scheduled_end_at") // End time for meetings
   durationMinutes Int?      @map("duration_minutes")
+
+  // Priority and recurrence
+  priority            String    @default("normal") @db.VarChar(20) // low, normal, high, urgent
+  isRecurring         Boolean   @default(false) @map("is_recurring")
+  recurrenceRule      String?   @map("recurrence_rule") @db.VarChar(100) // daily, weekly, monthly, custom (RRULE format)
+  recurrenceEndDate   DateTime? @map("recurrence_end_date")
+  parentInteractionId String?   @map("parent_interaction_id") @db.Uuid // For recurring series
+  assignedTo          String?   @map("assigned_to") @db.Uuid // User assigned to this activity
 
   // Results
   outcome        String?   @db.VarChar(100) // interested, not_interested, callback, closed
   nextAction     String?   @map("next_action") @db.VarChar(255)
   nextActionDate DateTime? @map("next_action_date")
+  completedAt    DateTime? @map("completed_at")
 
   // References
   relatedOrderId String? @map("related_order_id") @db.Uuid
   relatedTaskId  String? @map("related_task_id") @db.Uuid
+  relatedDealId  String? @map("related_deal_id") @db.Uuid
+
+  // Location (for meetings)
+  location    String? @db.VarChar(255)
+  locationUrl String? @map("location_url") @db.VarChar(500) // For video calls
 
   // Metadata
   metadata Json @default("{}") @map("metadata") // Email headers, call recording URL, etc
@@ -219,15 +253,174 @@ model Interaction {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  createdByUser User     @relation(fields: [createdBy], references: [id])
+  customer          Customer           @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  createdByUser     User               @relation("InteractionCreatedBy", fields: [createdBy], references: [id])
+  assignedToUser    User?              @relation("InteractionAssignedTo", fields: [assignedTo], references: [id])
+  deal              Deal?              @relation(fields: [relatedDealId], references: [id])
+  parentInteraction Interaction?       @relation("RecurringInteractions", fields: [parentInteractionId], references: [id])
+  childInteractions Interaction[]      @relation("RecurringInteractions")
+  reminders         ActivityReminder[]
 
   @@index([customerId])
   @@index([type])
   @@index([createdBy])
+  @@index([assignedTo])
   @@index([scheduledAt])
+  @@index([status])
   @@index([createdAt])
+  @@index([relatedDealId])
+  @@index([parentInteractionId])
+  @@index([scheduledAt, status])
+  @@index([assignedTo, scheduledAt])
   @@map("interactions")
+}
+
+model ActivityReminder {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  interactionId    String    @map("interaction_id") @db.Uuid
+  reminderMinutes  Int       @map("reminder_minutes") // Minutes before scheduledAt (e.g., 5, 60, 1440)
+  reminderAt       DateTime  @map("reminder_at") // Calculated: scheduledAt - reminderMinutes
+  sentAt           DateTime? @map("sent_at") // When reminder was sent
+  notificationSent Boolean   @default(false) @map("notification_sent")
+  emailSent        Boolean   @default(false) @map("email_sent")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  interaction Interaction @relation(fields: [interactionId], references: [id], onDelete: Cascade)
+
+  @@index([interactionId])
+  @@index([reminderAt])
+  @@index([notificationSent])
+  @@map("activity_reminders")
+}
+
+// ============================================
+// CRM - DEALS / OPPORTUNITIES
+// ============================================
+
+model DealStage {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @db.VarChar(100)
+  displayName String   @map("display_name") @db.VarChar(255)
+  description String?  @db.Text
+  probability Int      @default(0) // 0-100 percentage
+  sortOrder   Int      @default(0) @map("sort_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  isDefault   Boolean  @default(false) @map("is_default") // Default stages cannot be deleted
+  color       String?  @db.VarChar(7) // Hex color for UI
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  deals Deal[]
+
+  @@index([isActive])
+  @@index([sortOrder])
+  @@map("deal_stages")
+}
+
+model Deal {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Basic info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+
+  // Customer and contacts
+  customerId String @map("customer_id") @db.Uuid
+  // Multiple contacts can be linked via DealContact junction table
+
+  // Stage and pipeline
+  stageId     String @map("stage_id") @db.Uuid
+  probability Int    @default(0) // Can override stage probability
+
+  // Financial
+  amount            Decimal   @default(0) @db.Decimal(12, 2)
+  currency          String    @default("COP") @db.VarChar(3)
+  expectedCloseDate DateTime? @map("expected_close_date")
+
+  // Status
+  status     String    @default("open") @db.VarChar(50) // open, won, lost, abandoned
+  lostReason String?   @map("lost_reason") @db.VarChar(255)
+  wonAt      DateTime? @map("won_at")
+  lostAt     DateTime? @map("lost_at")
+
+  // Assignment
+  assignedTo String? @map("assigned_to") @db.Uuid
+  createdBy  String  @map("created_by") @db.Uuid
+
+  // Tracking
+  daysInStage       Int       @default(0) @map("days_in_stage") // Calculated field
+  lastStageChangeAt DateTime? @map("last_stage_change_at")
+  stageHistory      Json      @default("[]") @map("stage_history") // Array of {stageId, changedAt, changedBy}
+
+  // Tags and notes
+  tags         String[] @map("tags")
+  notes        String?  @db.Text
+  customFields Json     @default("{}") @map("custom_fields")
+  metadata     Json     @default("{}") @map("metadata")
+
+  // Audit
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  customer       Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  stage          DealStage     @relation(fields: [stageId], references: [id])
+  assignedToUser User?         @relation("DealAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser  User          @relation("DealCreatedBy", fields: [createdBy], references: [id])
+  contacts       DealContact[]
+  products       DealProduct[]
+  interactions   Interaction[]
+  orders         Order[]
+
+  @@index([customerId])
+  @@index([stageId])
+  @@index([assignedTo])
+  @@index([status])
+  @@index([expectedCloseDate])
+  @@index([createdAt])
+  @@index([stageId, status])
+  @@map("deals")
+}
+
+model DealContact {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  dealId    String   @map("deal_id") @db.Uuid
+  contactId String   @map("contact_id") @db.Uuid
+  role      String?  @db.VarChar(100) // decision_maker, influencer, user, etc.
+  isPrimary Boolean  @default(false) @map("is_primary")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  deal    Deal            @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  contact CustomerContact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@unique([dealId, contactId])
+  @@index([dealId])
+  @@index([contactId])
+  @@map("deal_contacts")
+}
+
+model DealProduct {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  dealId    String   @map("deal_id") @db.Uuid
+  productId String   @map("product_id") @db.Uuid
+  quantity  Int      @default(1)
+  unitPrice Decimal  @map("unit_price") @db.Decimal(10, 2)
+  discount  Decimal  @default(0) @db.Decimal(5, 2) // Percentage
+  total     Decimal  @db.Decimal(12, 2) // Calculated: quantity * unitPrice * (1 - discount/100)
+  notes     String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  deal    Deal    @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([dealId])
+  @@index([productId])
+  @@map("deal_products")
 }
 
 // ============================================
@@ -318,6 +511,7 @@ model Product {
   comboItemsAsCombo   ComboItem[]         @relation("ComboProduct")
   comboItemsAsProduct ComboItem[]         @relation("ComboItemProduct")
   stockAlerts         StockAlert[]
+  dealProducts        DealProduct[]
 
   @@index([sku])
   @@index([categoryId])
@@ -468,6 +662,9 @@ model Order {
   customFields Json @default("{}") @map("custom_fields")
   metadata     Json @default("{}") @map("metadata")
 
+  // References
+  dealId String? @map("deal_id") @db.Uuid
+
   // Audit
   createdBy String   @map("created_by") @db.Uuid
   createdAt DateTime @default(now()) @map("created_at")
@@ -480,6 +677,7 @@ model Order {
   items          OrderItem[]
   tasks          Task[]
   payments       Payment[]
+  deal           Deal?       @relation(fields: [dealId], references: [id])
 
   @@index([orderNumber])
   @@index([customerId])
@@ -488,6 +686,7 @@ model Order {
   @@index([assignedTo])
   @@index([scheduledDate])
   @@index([createdAt])
+  @@index([dealId])
   @@index([status, scheduledDate])
   @@map("orders")
 }
@@ -822,6 +1021,7 @@ model MessageLog {
   createdAt DateTime @default(now()) @map("created_at")
 
   customer Customer? @relation(fields: [customerId], references: [id])
+  message  Message?
 
   @@index([customerId])
   @@index([channel])
@@ -829,6 +1029,461 @@ model MessageLog {
   @@index([createdAt])
   @@index([channel, status])
   @@map("message_logs")
+}
+
+// ============================================
+// CRM - UNIFIED INBOX / CONVERSATIONS
+// ============================================
+
+model Conversation {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Customer and contact
+  customerId String? @map("customer_id") @db.Uuid
+  contactId  String? @map("contact_id") @db.Uuid // CustomerContact ID if specific contact
+
+  // Channel and identification
+  channel       String  @db.VarChar(50) // whatsapp, email, sms
+  channelId     String? @map("channel_id") @db.VarChar(255) // External ID from provider (e.g., WhatsApp conversation ID)
+  recipient     String  @db.VarChar(255) // Email, phone number, etc.
+  recipientName String? @map("recipient_name") @db.VarChar(255)
+
+  // Status and assignment
+  status     String  @default("open") @db.VarChar(50) // open, pending, resolved, spam, archived
+  assignedTo String? @map("assigned_to") @db.Uuid
+  priority   String  @default("normal") @db.VarChar(20) // low, normal, high, urgent
+
+  // SLA tracking
+  slaMinutes      Int?      @map("sla_minutes") // SLA en minutos (ej: 60 = 1 hora)
+  firstMessageAt  DateTime? @map("first_message_at") // Primera vez que se recibió mensaje
+  firstResponseAt DateTime? @map("first_response_at") // Primera vez que se respondió
+  lastMessageAt   DateTime? @map("last_message_at") // Último mensaje recibido
+  lastResponseAt  DateTime? @map("last_response_at") // Última respuesta enviada
+  resolvedAt      DateTime? @map("resolved_at")
+  archivedAt      DateTime? @map("archived_at")
+
+  // Metadata
+  tags         String[] @map("tags")
+  metadata     Json     @default("{}") @map("metadata")
+  customFields Json     @default("{}") @map("custom_fields")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  customer       Customer?          @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  contact        CustomerContact?   @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  assignedToUser User?              @relation("ConversationAssignedTo", fields: [assignedTo], references: [id])
+  createdByUser  User               @relation("ConversationCreatedBy", fields: [createdBy], references: [id])
+  messages       Message[]
+  notes          ConversationNote[]
+
+  @@index([customerId])
+  @@index([contactId])
+  @@index([channel])
+  @@index([status])
+  @@index([assignedTo])
+  @@index([createdAt])
+  @@index([lastMessageAt])
+  @@index([channel, status])
+  @@index([assignedTo, status])
+  @@map("conversations")
+}
+
+model Message {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Conversation
+  conversationId String @map("conversation_id") @db.Uuid
+
+  // Message details
+  direction String  @db.VarChar(20) // inbound, outbound
+  channel   String  @db.VarChar(50) // whatsapp, email, sms
+  type      String? @db.VarChar(50) // text, image, video, audio, document, location, etc.
+
+  // Content
+  subject  String? @db.VarChar(255) // For emails
+  body     String? @db.Text
+  bodyHtml String? @map("body_html") @db.Text // HTML content for emails
+
+  // Attachments
+  attachments Json @default("[]") @map("attachments") // Array of {url, filename, mimeType, size}
+
+  // Status tracking
+  status            String  @default("sent") @db.VarChar(50) // sent, delivered, read, failed
+  providerMessageId String? @map("provider_message_id") @db.VarChar(255) // External provider ID
+
+  // Timestamps
+  sentAt      DateTime? @map("sent_at")
+  deliveredAt DateTime? @map("delivered_at")
+  readAt      DateTime? @map("read_at")
+  failedAt    DateTime? @map("failed_at")
+
+  // Error handling
+  errorMessage String? @map("error_message") @db.Text
+
+  // Metadata
+  metadata  Json     @default("{}") @map("metadata")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  messageLog   MessageLog?  @relation(fields: [messageLogId], references: [id], onDelete: SetNull)
+  messageLogId String?      @unique @map("message_log_id") @db.Uuid
+
+  @@index([conversationId])
+  @@index([channel])
+  @@index([direction])
+  @@index([status])
+  @@index([createdAt])
+  @@map("messages")
+}
+
+model ConversationNote {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  conversationId String  @map("conversation_id") @db.Uuid
+  content        String  @db.Text
+  isInternal     Boolean @default(true) @map("is_internal") // Not visible to customer
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  conversation  Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  createdByUser User         @relation(fields: [createdBy], references: [id])
+
+  @@index([conversationId])
+  @@index([createdBy])
+  @@map("conversation_notes")
+}
+
+model CustomerNote {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  customerId String  @map("customer_id") @db.Uuid
+  content    String  @db.Text
+  isInternal Boolean @default(true) @map("is_internal") // Not visible to customer
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  createdByUser User     @relation("CustomerNoteCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([customerId])
+  @@index([createdBy])
+  @@index([createdAt])
+  @@map("customer_notes")
+}
+
+// ============================================
+// CRM - SEGMENTATION & SMART LISTS
+// ============================================
+
+model SmartList {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Basic info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  isActive    Boolean @default(true) @map("is_active")
+  isSystem    Boolean @default(false) @map("is_system") // System lists cannot be deleted
+
+  // Filter configuration
+  filterConfig Json   @default("{}") @map("filter_config") // Complex filter structure
+  filterLogic  String @default("AND") @map("filter_logic") @db.VarChar(10) // AND, OR
+
+  // Auto-update
+  autoUpdate    Boolean   @default(true) @map("auto_update")
+  lastUpdatedAt DateTime? @map("last_updated_at")
+
+  // Count (cached)
+  memberCount Int @default(0) @map("member_count")
+
+  // Metadata
+  tags     String[] @map("tags")
+  metadata Json     @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdByUser User              @relation("SmartListCreatedBy", fields: [createdBy], references: [id])
+  members       SmartListMember[]
+
+  @@index([createdBy])
+  @@index([isActive])
+  @@index([isSystem])
+  @@map("smart_lists")
+}
+
+model SmartListMember {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  smartListId String @map("smart_list_id") @db.Uuid
+  customerId  String @map("customer_id") @db.Uuid
+
+  // Metadata
+  addedAt DateTime @default(now()) @map("added_at")
+
+  // Relations
+  smartList SmartList @relation(fields: [smartListId], references: [id], onDelete: Cascade)
+  customer  Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@unique([smartListId, customerId])
+  @@index([smartListId])
+  @@index([customerId])
+  @@map("smart_list_members")
+}
+
+// ============================================
+// CRM - LEAD SCORING
+// ============================================
+
+model LeadScoringRule {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Rule info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  category    String  @db.VarChar(50) // demographic, engagement, behavior, fit
+  isActive    Boolean @default(true) @map("is_active")
+  isSystem    Boolean @default(false) @map("is_system") // System rules cannot be deleted
+
+  // Rule configuration
+  condition Json @map("condition") // Filter condition (field, operator, value)
+  points    Int  @default(0) // Points to add/subtract
+
+  // Priority and order
+  priority  Int @default(0) // Higher priority rules evaluated first
+  sortOrder Int @default(0) @map("sort_order")
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  createdByUser User @relation("LeadScoringRuleCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([isActive])
+  @@index([category])
+  @@index([priority])
+  @@index([sortOrder])
+  @@map("lead_scoring_rules")
+}
+
+model LeadScoreHistory {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  customerId String @map("customer_id") @db.Uuid
+  oldScore   Int    @map("old_score")
+  newScore   Int    @map("new_score")
+  change     Int // newScore - oldScore
+
+  // What caused the change
+  triggerType String  @map("trigger_type") @db.VarChar(50) // rule_applied, manual, recalculate
+  triggerId   String? @map("trigger_id") @db.Uuid // ID of rule, interaction, etc.
+  reason      String? @db.Text // Human-readable reason
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+  @@index([createdAt])
+  @@index([triggerType])
+  @@map("lead_score_history")
+}
+
+// ============================================
+// CRM - AUTOMATIONS / WORKFLOWS
+// ============================================
+
+model Workflow {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Basic info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  isActive    Boolean @default(true) @map("is_active")
+
+  // Trigger configuration
+  triggerType   String @map("trigger_type") @db.VarChar(50) // lead_created, deal_stage_changed, etc.
+  triggerConfig Json   @default("{}") @map("trigger_config") // Trigger-specific configuration
+
+  // Steps configuration
+  steps Json @default("[]") @map("steps") // Array of { type, action, delay, config }
+
+  // Limits
+  maxSteps Int @default(10) @map("max_steps") // Maximum steps allowed (based on plan)
+
+  // Execution stats
+  executionCount Int       @default(0) @map("execution_count")
+  lastExecutedAt DateTime? @map("last_executed_at")
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdByUser User                @relation("WorkflowCreatedBy", fields: [createdBy], references: [id])
+  executions    WorkflowExecution[]
+
+  @@index([createdBy])
+  @@index([isActive])
+  @@index([triggerType])
+  @@map("workflows")
+}
+
+model WorkflowExecution {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  workflowId String @map("workflow_id") @db.Uuid
+
+  // Execution details
+  status       String  @default("running") @db.VarChar(50) // running, completed, failed, cancelled
+  triggerData  Json    @default("{}") @map("trigger_data") // Data from trigger event
+  currentStep  Int     @default(0) @map("current_step")
+  errorMessage String? @map("error_message") @db.Text
+
+  // Timestamps
+  startedAt   DateTime  @default(now()) @map("started_at")
+  completedAt DateTime? @map("completed_at")
+  nextStepAt  DateTime? @map("next_step_at") // When next step should execute (for delays)
+
+  // Relations
+  workflow Workflow               @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  logs     WorkflowExecutionLog[]
+
+  @@index([workflowId])
+  @@index([status])
+  @@index([startedAt])
+  @@index([nextStepAt])
+  @@map("workflow_executions")
+}
+
+// ============================================
+// CRM - WEB FORMS
+// ============================================
+
+model WebForm {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  // Basic info
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  isActive    Boolean @default(true) @map("is_active")
+
+  // Form configuration
+  fields   Json @default("[]") @map("fields") // Array of form fields
+  settings Json @default("{}") @map("settings") // Form settings (confirmation message, redirect URL, etc.)
+  styles   Json @default("{}") @map("styles") // Custom styles (colors, fonts, etc.)
+
+  // Embedding
+  embedCode String? @map("embed_code") @db.Text // Generated embed code
+  embedUrl  String? @map("embed_url") @db.VarChar(500) // Public URL for form
+
+  // Spam protection
+  recaptchaEnabled Boolean @default(false) @map("recaptcha_enabled")
+  recaptchaSiteKey String? @map("recaptcha_site_key") @db.VarChar(255)
+
+  // Metrics
+  viewCount       Int @default(0) @map("view_count")
+  submissionCount Int @default(0) @map("submission_count")
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdByUser User                @relation("WebFormCreatedBy", fields: [createdBy], references: [id])
+  submissions   WebFormSubmission[]
+
+  @@index([createdBy])
+  @@index([isActive])
+  @@map("web_forms")
+}
+
+model WebFormSubmission {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  formId String @map("form_id") @db.Uuid
+
+  // Submission data
+  data Json @default("{}") @map("data") // Form field values
+
+  // Source tracking
+  sourceUrl String? @map("source_url") @db.VarChar(500)
+  userAgent String? @map("user_agent") @db.Text
+  ipAddress String? @map("ip_address") @db.VarChar(50)
+
+  // Customer creation
+  customerId String? @map("customer_id") @db.Uuid // If submission created a customer
+
+  // Metadata
+  metadata Json @default("{}") @map("metadata")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  form     WebForm   @relation(fields: [formId], references: [id], onDelete: Cascade)
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  @@index([formId])
+  @@index([customerId])
+  @@index([createdAt])
+  @@map("web_form_submissions")
+}
+
+model WorkflowExecutionLog {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  executionId String @map("execution_id") @db.Uuid
+  stepIndex   Int    @map("step_index")
+  stepType    String @map("step_type") @db.VarChar(50) // action, delay, condition
+
+  // Execution details
+  status       String  @default("pending") @db.VarChar(50) // pending, running, completed, failed, skipped
+  actionType   String? @map("action_type") @db.VarChar(50)
+  actionConfig Json?   @map("action_config")
+  result       Json?   @map("result")
+  errorMessage String? @map("error_message") @db.Text
+
+  // Timestamps
+  executedAt DateTime? @map("executed_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  execution WorkflowExecution @relation(fields: [executionId], references: [id], onDelete: Cascade)
+
+  @@index([executionId])
+  @@index([stepIndex])
+  @@index([status])
+  @@map("workflow_execution_logs")
 }
 
 model Notification {

@@ -1,6 +1,7 @@
-import { Injectable, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException, NotFoundException, Inject } from '@nestjs/common';
 import { TenantPrismaService } from '../tenant-prisma.service';
 import { DataScopeService } from '../data-scope.service';
+import { BusinessEventEmitterService, BusinessEventTypes } from '../../../common/events';
 import {
   CreateInteractionDto,
   UpdateInteractionDto,
@@ -9,6 +10,9 @@ import {
   ScheduleInteractionDto,
   CompleteInteractionDto,
   InteractionSummaryDto,
+  CalendarFilterDto,
+  CreateRecurringActivityDto,
+  CreateReminderDto,
   InteractionType,
   InteractionStatus,
   InteractionOutcome,
@@ -22,12 +26,14 @@ export class InteractionService {
   constructor(
     private readonly tenantPrisma: TenantPrismaService,
     private readonly dataScope: DataScopeService,
+    @Inject(BusinessEventEmitterService)
+    private readonly eventEmitter: BusinessEventEmitterService,
   ) {}
 
   /**
    * Create a new interaction
    */
-  async create(createInteractionDto: CreateInteractionDto, userId: string): Promise<InteractionResponseDto> {
+  async create(createInteractionDto: CreateInteractionDto, userId: string | undefined): Promise<InteractionResponseDto> {
     try {
       const prisma = await this.tenantPrisma.getTenantClient();
 
@@ -59,11 +65,86 @@ export class InteractionService {
         }
       }
 
+      // Para tenant_admin sin usuario en BD del tenant, buscar un usuario admin como fallback
+      let createdByUserId: string | null = null;
+      
+      if (userId) {
+        // Verificar que el usuario existe en la BD del tenant
+        const user = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true, email: true },
+        });
+
+        if (user) {
+          createdByUserId = user.id;
+        } else {
+          // Si el usuario no existe en la BD del tenant, buscar un usuario admin como fallback
+          const adminUser = await prisma.user.findFirst({
+            where: { role: 'admin', isActive: true },
+            select: { id: true },
+          });
+          
+          if (adminUser) {
+            createdByUserId = adminUser.id;
+            this.logger.warn(`User ${userId} not found in tenant DB, using admin user ${adminUser.id} as fallback for interaction creation`);
+          }
+        }
+      } else {
+        // Si userId es undefined, buscar un usuario admin como fallback
+        const adminUser = await prisma.user.findFirst({
+          where: { role: 'admin', isActive: true },
+          select: { id: true },
+        });
+        
+        if (adminUser) {
+          createdByUserId = adminUser.id;
+          this.logger.warn(`No userId provided, using admin user ${adminUser.id} as fallback for interaction creation`);
+        }
+      }
+
+      if (!createdByUserId) {
+        throw new BadRequestException('Unable to determine user for interaction creation. No active admin user found in tenant database.');
+      }
+
+      // Handle recurrence if specified
+      let parentInteractionId: string | undefined = undefined;
+      if (createInteractionDto.isRecurring && createInteractionDto.recurrenceRule) {
+        // For recurring activities, the first one becomes the parent
+        parentInteractionId = undefined; // Will be set after creation if this is a child
+      }
+
+      // Combine customFields and metadata into metadata field (Prisma uses metadata, not customFields)
+      const metadata = {
+        ...(createInteractionDto.metadata || {}),
+        ...(createInteractionDto.customFields || {}),
+      };
+
       const interaction = await prisma.interaction.create({
         data: {
-          ...createInteractionDto,
+          customerId: createInteractionDto.customerId,
+          type: createInteractionDto.type,
+          direction: createInteractionDto.direction,
+          subject: createInteractionDto.subject,
           content: createInteractionDto.content || '',
-          createdBy: userId,
+          status: createInteractionDto.status || InteractionStatus.COMPLETED,
+          scheduledAt: createInteractionDto.scheduledAt ? new Date(createInteractionDto.scheduledAt) : null,
+          scheduledEndAt: createInteractionDto.scheduledEndAt ? new Date(createInteractionDto.scheduledEndAt) : null,
+          durationMinutes: createInteractionDto.durationMinutes,
+          priority: createInteractionDto.priority || 'normal',
+          assignedTo: createInteractionDto.assignedTo,
+          location: createInteractionDto.location,
+          locationUrl: createInteractionDto.locationUrl,
+          isRecurring: createInteractionDto.isRecurring || false,
+          recurrenceRule: createInteractionDto.recurrenceRule,
+          recurrenceEndDate: createInteractionDto.recurrenceEndDate ? new Date(createInteractionDto.recurrenceEndDate) : null,
+          parentInteractionId: parentInteractionId,
+          outcome: createInteractionDto.outcome,
+          nextAction: createInteractionDto.nextAction,
+          nextActionDate: createInteractionDto.nextActionDate ? new Date(createInteractionDto.nextActionDate) : null,
+          relatedOrderId: createInteractionDto.relatedOrderId,
+          relatedTaskId: createInteractionDto.relatedTaskId,
+          metadata: metadata,
+          createdBy: createdByUserId,
         },
         include: {
           customer: {
@@ -92,6 +173,26 @@ export class InteractionService {
         data: { lastContactAt: new Date() },
       });
 
+      // Emit event
+      const tenantContext = this.tenantPrisma.getTenantContext();
+      await this.eventEmitter.emit(BusinessEventTypes.INTERACTION_CREATED, {
+        interactionId: interaction.id,
+        customerId: interaction.customerId,
+        type: interaction.type,
+        direction: interaction.direction,
+        subject: interaction.subject,
+        status: interaction.status,
+        createdBy: createdByUserId,
+        timestamp: new Date(),
+        tenantContext: tenantContext ? {
+          tenantId: tenantContext.tenantId,
+          dbName: tenantContext.dbName,
+          userId: tenantContext.userId,
+          role: tenantContext.role,
+        } : undefined,
+      });
+
+      this.logger.log(`Interaction created: ${interaction.id} by user: ${createdByUserId}`);
       return this.mapToResponseDto(interaction);
     } catch (error) {
       this.logger.error(`Failed to create interaction: ${error.message}`, error.stack);
@@ -331,6 +432,18 @@ export class InteractionService {
       }
     }
 
+    if (filterDto.assignedTo) {
+      where.assignedTo = filterDto.assignedTo;
+    }
+
+    if (filterDto.priority) {
+      where.priority = filterDto.priority;
+    }
+
+    if (filterDto.isRecurring !== undefined) {
+      where.isRecurring = filterDto.isRecurring;
+    }
+
     return where;
   }
 
@@ -357,7 +470,23 @@ export class InteractionService {
       content: interaction.content,
       status: interaction.status,
       scheduledAt: interaction.scheduledAt?.toISOString(),
+      scheduledEndAt: interaction.scheduledEndAt?.toISOString(),
       durationMinutes: interaction.durationMinutes,
+      priority: interaction.priority,
+      assignedTo: interaction.assignedTo,
+      assignedToUser: interaction.assignedToUser ? {
+        id: interaction.assignedToUser.id,
+        firstName: interaction.assignedToUser.firstName,
+        lastName: interaction.assignedToUser.lastName,
+        email: interaction.assignedToUser.email,
+      } : undefined,
+      location: interaction.location,
+      locationUrl: interaction.locationUrl,
+      isRecurring: interaction.isRecurring,
+      recurrenceRule: interaction.recurrenceRule,
+      recurrenceEndDate: interaction.recurrenceEndDate?.toISOString(),
+      parentInteractionId: interaction.parentInteractionId,
+      completedAt: interaction.completedAt?.toISOString(),
       outcome: interaction.outcome,
       nextAction: interaction.nextAction,
       nextActionDate: interaction.nextActionDate?.toISOString(),
@@ -373,6 +502,7 @@ export class InteractionService {
         companyName: interaction.customer.companyName,
         type: interaction.customer.type,
       } : undefined,
+      createdBy: interaction.createdBy,
       createdByUser: interaction.createdByUser ? {
         id: interaction.createdByUser.id,
         firstName: interaction.createdByUser.firstName,
@@ -380,5 +510,393 @@ export class InteractionService {
         email: interaction.createdByUser.email,
       } : undefined,
     };
+  }
+
+  /**
+   * Get calendar view (month, week, or day)
+   */
+  async getCalendarView(
+    filterDto: CalendarFilterDto,
+    userId: string,
+    userPermissions: string[],
+  ): Promise<{ activities: InteractionResponseDto[]; dateRange: { start: string; end: string } }> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      // Calculate date range based on view type
+      const { startDate, endDate } = this.calculateDateRange(filterDto);
+
+      // Build where clause
+      const where: any = {
+        scheduledAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+        status: InteractionStatus.SCHEDULED, // Only show scheduled activities
+      };
+
+      if (filterDto.assignedTo) {
+        where.assignedTo = filterDto.assignedTo;
+      } else if (!this.dataScope.canViewAll(userPermissions)) {
+        // If no assignedTo filter, show only user's activities
+        where.assignedTo = userId;
+      }
+
+      if (filterDto.type) {
+        where.type = filterDto.type;
+      }
+
+      if (filterDto.priority) {
+        where.priority = filterDto.priority;
+      }
+
+      const activities = await prisma.interaction.findMany({
+        where,
+        orderBy: { scheduledAt: 'asc' },
+        include: {
+          customer: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              companyName: true,
+              type: true,
+            },
+          },
+          assignedToUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+          createdByUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+        },
+      });
+
+      return {
+        activities: activities.map(activity => this.mapToResponseDto(activity)),
+        dateRange: {
+          start: startDate.toISOString(),
+          end: endDate.toISOString(),
+        },
+      };
+    } catch (error: any) {
+      this.logger.error(`Failed to get calendar view: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Get today's activities for a user
+   */
+  async getTodayActivities(
+    userId: string,
+    userPermissions: string[],
+  ): Promise<InteractionResponseDto[]> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      const where: any = {
+        scheduledAt: {
+          gte: today,
+          lt: tomorrow,
+        },
+        status: InteractionStatus.SCHEDULED,
+      };
+
+      // Apply data scope
+      if (!this.dataScope.canViewAll(userPermissions)) {
+        where.assignedTo = userId;
+      }
+
+      const activities = await prisma.interaction.findMany({
+        where,
+        orderBy: { scheduledAt: 'asc' },
+        include: {
+          customer: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              companyName: true,
+              type: true,
+            },
+          },
+          assignedToUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+          createdByUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+        },
+      });
+
+      return activities.map(activity => this.mapToResponseDto(activity));
+    } catch (error: any) {
+      this.logger.error(`Failed to get today's activities: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Create recurring activity
+   */
+  async createRecurringActivity(
+    createDto: CreateRecurringActivityDto,
+    userId: string,
+  ): Promise<InteractionResponseDto[]> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      // Create parent interaction
+      const parent = await this.create(createDto, userId);
+
+      // Generate recurring instances
+      const instances = this.generateRecurringInstances(
+        createDto.scheduledAt!,
+        createDto.recurrenceEndDate,
+        createDto.recurrenceRule,
+      );
+
+      // Create child interactions
+      const createdInstances: InteractionResponseDto[] = [parent];
+      for (const instanceDate of instances) {
+        const childDto: CreateInteractionDto = {
+          ...createDto,
+          scheduledAt: instanceDate.toISOString(),
+          isRecurring: false, // Children are not marked as recurring
+          parentInteractionId: parent.id,
+        };
+        const child = await this.create(childDto, userId);
+        createdInstances.push(child);
+      }
+
+      this.logger.log(`Created recurring activity with ${createdInstances.length} instances`);
+      return createdInstances;
+    } catch (error: any) {
+      this.logger.error(`Failed to create recurring activity: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Add reminder to activity
+   */
+  async addReminder(
+    interactionId: string,
+    reminderDto: CreateReminderDto,
+    userId: string,
+  ): Promise<void> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      const interaction = await prisma.interaction.findUnique({
+        where: { id: interactionId },
+      });
+
+      if (!interaction) {
+        throw new NotFoundException(`Interaction with ID ${interactionId} not found`);
+      }
+
+      if (!interaction.scheduledAt) {
+        throw new BadRequestException('Cannot add reminder to activity without scheduled time');
+      }
+
+      const reminderAt = new Date(interaction.scheduledAt);
+      reminderAt.setMinutes(reminderAt.getMinutes() - reminderDto.reminderMinutes);
+
+      await prisma.activityReminder.create({
+        data: {
+          interactionId,
+          reminderMinutes: reminderDto.reminderMinutes,
+          reminderAt,
+        },
+      });
+
+      this.logger.log(`Reminder added to interaction ${interactionId}`);
+    } catch (error: any) {
+      this.logger.error(`Failed to add reminder: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  /**
+   * Complete an activity
+   */
+  async completeActivity(
+    id: string,
+    completeDto: CompleteInteractionDto,
+    userId: string,
+  ): Promise<InteractionResponseDto> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+
+      const interaction = await prisma.interaction.findUnique({
+        where: { id },
+      });
+
+      if (!interaction) {
+        throw new NotFoundException(`Interaction with ID ${id} not found`);
+      }
+
+      const updateData: any = {
+        status: InteractionStatus.COMPLETED,
+        completedAt: new Date(),
+      };
+
+      if (completeDto.content !== undefined) {
+        updateData.content = completeDto.content;
+      }
+
+      if (completeDto.durationMinutes !== undefined) {
+        updateData.durationMinutes = completeDto.durationMinutes;
+      }
+
+      if (completeDto.outcome !== undefined) {
+        updateData.outcome = completeDto.outcome;
+      }
+
+      if (completeDto.nextAction !== undefined) {
+        updateData.nextAction = completeDto.nextAction;
+      }
+
+      if (completeDto.nextActionDate !== undefined) {
+        updateData.nextActionDate = completeDto.nextActionDate ? new Date(completeDto.nextActionDate) : null;
+      }
+
+      const updated = await prisma.interaction.update({
+        where: { id },
+        data: updateData,
+        include: {
+          customer: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              companyName: true,
+              type: true,
+            },
+          },
+          assignedToUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+          createdByUser: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+            },
+          },
+        },
+      });
+
+      return this.mapToResponseDto(updated);
+    } catch (error: any) {
+      this.logger.error(`Failed to complete activity: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
+  // ============================================
+  // PRIVATE HELPER METHODS
+  // ============================================
+
+  /**
+   * Calculate date range for calendar view
+   */
+  private calculateDateRange(filterDto: CalendarFilterDto): { startDate: Date; endDate: Date } {
+    let startDate: Date;
+    let endDate: Date;
+
+    if (filterDto.view === 'month') {
+      startDate = new Date(filterDto.year, filterDto.month - 1, 1);
+      endDate = new Date(filterDto.year, filterDto.month, 0, 23, 59, 59);
+    } else if (filterDto.view === 'week') {
+      if (!filterDto.week) {
+        throw new BadRequestException('Week number is required for week view');
+      }
+      // Calculate start of week (assuming week starts on Monday)
+      const jan1 = new Date(filterDto.year, 0, 1);
+      const daysOffset = (filterDto.week - 1) * 7;
+      startDate = new Date(jan1);
+      startDate.setDate(jan1.getDate() + daysOffset - jan1.getDay() + 1); // Monday
+      startDate.setHours(0, 0, 0, 0);
+      endDate = new Date(startDate);
+      endDate.setDate(endDate.getDate() + 6);
+      endDate.setHours(23, 59, 59, 999);
+    } else {
+      // day view
+      if (!filterDto.day) {
+        throw new BadRequestException('Day is required for day view');
+      }
+      startDate = new Date(filterDto.year, filterDto.month - 1, filterDto.day);
+      startDate.setHours(0, 0, 0, 0);
+      endDate = new Date(startDate);
+      endDate.setHours(23, 59, 59, 999);
+    }
+
+    return { startDate, endDate };
+  }
+
+  /**
+   * Generate recurring instances based on recurrence rule
+   */
+  private generateRecurringInstances(
+    startDate: string,
+    endDate: string,
+    rule: string,
+  ): Date[] {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const instances: Date[] = [];
+
+    let current = new Date(start);
+
+    while (current <= end) {
+      instances.push(new Date(current));
+
+      if (rule === 'daily') {
+        current.setDate(current.getDate() + 1);
+      } else if (rule === 'weekly') {
+        current.setDate(current.getDate() + 7);
+      } else if (rule === 'monthly') {
+        current.setMonth(current.getMonth() + 1);
+      } else {
+        // Unknown rule, break
+        break;
+      }
+    }
+
+    return instances;
   }
 }

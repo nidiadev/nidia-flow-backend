@@ -170,6 +170,85 @@ export interface LeadConvertedEvent {
   timestamp: Date;
 }
 
+// Eventos de Deals/Oportunidades
+export interface DealCreatedEvent {
+  dealId: string;
+  dealName: string;
+  customerId: string;
+  stageId: string;
+  amount: number;
+  createdBy: string;
+  timestamp: Date;
+}
+
+export interface DealStageChangedEvent {
+  dealId: string;
+  oldStageId: string;
+  newStageId: string;
+  changedBy: string;
+  timestamp: Date;
+}
+
+export interface DealWonEvent {
+  dealId: string;
+  dealName: string;
+  amount: number;
+  wonBy: string;
+  timestamp: Date;
+}
+
+export interface DealLostEvent {
+  dealId: string;
+  dealName: string;
+  lostReason: string;
+  lostBy: string;
+  timestamp: Date;
+}
+
+// Eventos de Lead Scoring
+export interface LeadScoreChangedEvent {
+  customerId: string;
+  oldScore: number;
+  newScore: number;
+  change: number;
+  triggerType: string;
+  triggerId?: string;
+  timestamp: Date;
+}
+
+export interface LeadScoreThresholdCrossedEvent {
+  customerId: string;
+  oldScore: number;
+  newScore: number;
+  threshold: number;
+  direction: 'up' | 'down';
+  timestamp: Date;
+}
+
+// Eventos de Conversaciones/Inbox
+export interface ConversationCreatedEvent {
+  conversationId: string;
+  channel: string;
+  customerId?: string;
+  createdBy: string;
+  timestamp: Date;
+}
+
+export interface ConversationAssignedEvent {
+  conversationId: string;
+  assignedTo: string;
+  assignedBy: string;
+  timestamp: Date;
+}
+
+export interface ConversationStatusChangedEvent {
+  conversationId: string;
+  oldStatus: string;
+  newStatus: string;
+  changedBy: string;
+  timestamp: Date;
+}
+
 // Eventos de Comunicaciones
 export interface MessageSentEvent {
   messageId: string;
@@ -291,6 +370,31 @@ export const BusinessEventTypes = {
   CUSTOMER_CREATED: 'customer.created',
   CUSTOMER_STATUS_CHANGED: 'customer.status.changed',
   LEAD_CONVERTED: 'lead.converted',
+  
+  // Lead Scoring
+  LEAD_SCORE_CHANGED: 'lead.score.changed',
+  LEAD_SCORE_THRESHOLD_CROSSED: 'lead.score.threshold.crossed',
+  
+  // Deals/Oportunidades
+  DEAL_CREATED: 'deal.created',
+  DEAL_STAGE_CHANGED: 'deal.stage.changed',
+  DEAL_WON: 'deal.won',
+  DEAL_LOST: 'deal.lost',
+  
+  // Conversaciones/Inbox
+  CONVERSATION_CREATED: 'conversation.created',
+  CONVERSATION_ASSIGNED: 'conversation.assigned',
+  CONVERSATION_STATUS_CHANGED: 'conversation.status.changed',
+  
+  // Interacciones
+  INTERACTION_CREATED: 'interaction.created',
+  INTERACTION_UPDATED: 'interaction.updated',
+  INTERACTION_STATUS_CHANGED: 'interaction.status.changed',
+  
+  // Notas de Clientes
+  CUSTOMER_NOTE_CREATED: 'customer.note.created',
+  CUSTOMER_NOTE_UPDATED: 'customer.note.updated',
+  CUSTOMER_NOTE_DELETED: 'customer.note.deleted',
   
   // Comunicaciones
   MESSAGE_SENT: 'message.sent',

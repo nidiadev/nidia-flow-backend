@@ -12,7 +12,11 @@ import {
   MaxLength,
   Min,
   Max,
-  Matches
+  Matches,
+  ValidateIf,
+  registerDecorator,
+  ValidationOptions,
+  ValidationArguments
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
@@ -44,6 +48,30 @@ export enum LeadSource {
 }
 
 /**
+ * Custom validator: At least one contact method (email, phone, mobile, or whatsapp) must be provided
+ * This validator should be applied at the class level, not on individual properties
+ */
+function HasAtLeastOneContactMethod(validationOptions?: ValidationOptions) {
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      name: 'hasAtLeastOneContactMethod',
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      validator: {
+        validate(value: any, args: ValidationArguments) {
+          const obj = args.object as CreateCustomerDto;
+          return !!(obj.email || obj.phone || obj.mobile || obj.whatsapp);
+        },
+        defaultMessage(args: ValidationArguments) {
+          return 'At least one contact method (email, phone, mobile, or whatsapp) must be provided';
+        },
+      },
+    });
+  };
+}
+
+/**
  * Create Customer DTO
  */
 export class CreateCustomerDto extends BaseCustomFieldsDto {
@@ -55,17 +83,16 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @IsEnum(CustomerType)
   type: CustomerType;
 
-  @ApiPropertyOptional({ 
-    description: 'Lead source',
+  @ApiProperty({ 
+    description: 'Lead source - where the customer came from',
     enum: LeadSource,
     example: LeadSource.WEBSITE
   })
-  @IsOptional()
-  @IsEnum(LeadSource)
-  leadSource?: LeadSource;
+  @IsEnum(LeadSource, { message: 'Lead source is required and must be a valid option' })
+  leadSource: LeadSource;
 
-  @ApiPropertyOptional({ 
-    description: 'Lead score (0-100)',
+  @ApiProperty({ 
+    description: 'Lead score (0-100). If not provided, will be calculated automatically',
     minimum: 0,
     maximum: 100,
     example: 75
@@ -74,7 +101,7 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @IsNumber()
   @Min(0)
   @Max(100)
-  leadScore?: number;
+  leadScore?: number; // Optional, will be calculated if not provided
 
   @ApiProperty({ 
     description: 'First name',
@@ -87,68 +114,98 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @MaxLength(100)
   firstName: string;
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Last name',
+    minLength: 1,
     maxLength: 100,
     example: 'Doe'
   })
-  @IsOptional()
   @IsString()
+  @MinLength(1, { message: 'Last name is required' })
   @MaxLength(100)
-  lastName?: string;
+  lastName: string;
 
-  @ApiPropertyOptional({ 
-    description: 'Company name',
+  @ApiProperty({ 
+    description: 'Company name - required for proper customer identification',
+    minLength: 1,
     maxLength: 255,
     example: 'Acme Corp'
   })
-  @IsOptional()
   @IsString()
+  @MinLength(1, { message: 'Company name is required' })
   @MaxLength(255)
-  companyName?: string;
+  companyName: string;
 
-  @ApiPropertyOptional({ 
-    description: 'Email address',
+  @ApiProperty({ 
+    description: 'Email address - required for communication',
     example: 'john.doe@example.com'
   })
-  @IsOptional()
-  @IsEmail()
-  email?: string;
+  @IsEmail({}, { message: 'Email must be valid' })
+  @IsString()
+  @MinLength(1, { message: 'Email is required' })
+  @MaxLength(255)
+  email: string;
 
   @ApiPropertyOptional({ 
-    description: 'Phone number',
+    description: 'Phone number with country code (E.164 format). At least one contact method is required',
     example: '+57 300 123 4567'
   })
   @IsOptional()
   @IsString()
-  @Matches(/^[\+]?[0-9\s\-\(\)]+$/, { message: 'Invalid phone number format' })
+  @Matches(/^\+[1-9]\d{1,14}$/, { 
+    message: 'Phone number must include country code in E.164 format (e.g., +573001234567)' 
+  })
+  @Transform(({ value }) => {
+    if (!value) return value;
+    // Remove spaces and ensure it starts with +
+    const cleaned = value.replace(/\s/g, '');
+    return cleaned.startsWith('+') ? cleaned : `+${cleaned}`;
+  })
   phone?: string;
 
   @ApiPropertyOptional({ 
-    description: 'Mobile number',
+    description: 'Mobile number with country code (E.164 format). At least one contact method is required',
     example: '+57 300 123 4567'
   })
   @IsOptional()
   @IsString()
-  @Matches(/^[\+]?[0-9\s\-\(\)]+$/, { message: 'Invalid mobile number format' })
+  @Matches(/^\+[1-9]\d{1,14}$/, { 
+    message: 'Mobile number must include country code in E.164 format (e.g., +573001234567)' 
+  })
+  @Transform(({ value }) => {
+    if (!value) return value;
+    // Remove spaces and ensure it starts with +
+    const cleaned = value.replace(/\s/g, '');
+    return cleaned.startsWith('+') ? cleaned : `+${cleaned}`;
+  })
   mobile?: string;
 
-  @ApiPropertyOptional({ 
-    description: 'WhatsApp number',
+  @ApiProperty({ 
+    description: 'WhatsApp number with country code (E.164 format) - required for communication',
     example: '+57 300 123 4567'
   })
-  @IsOptional()
   @IsString()
-  @Matches(/^[\+]?[0-9\s\-\(\)]+$/, { message: 'Invalid WhatsApp number format' })
-  whatsapp?: string;
-
-  @ApiPropertyOptional({ 
-    description: 'Address line 1',
-    example: 'Calle 123 #45-67'
+  @MinLength(1, { message: 'WhatsApp number is required' })
+  @Matches(/^\+[1-9]\d{1,14}$/, { 
+    message: 'WhatsApp number must include country code in E.164 format (e.g., +573001234567)' 
   })
-  @IsOptional()
+  @Transform(({ value }) => {
+    if (!value) return value;
+    // Remove spaces and ensure it starts with +
+    const cleaned = value.replace(/\s/g, '');
+    return cleaned.startsWith('+') ? cleaned : `+${cleaned}`;
+  })
+  whatsapp: string;
+
+  @ApiProperty({ 
+    description: 'Address line 1',
+    example: 'Calle 123 #45-67',
+    minLength: 1
+  })
   @IsString()
-  addressLine1?: string;
+  @MinLength(1, { message: 'Address line 1 is required' })
+  @MaxLength(255)
+  addressLine1: string;
 
   @ApiPropertyOptional({ 
     description: 'Address line 2',
@@ -158,14 +215,15 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @IsString()
   addressLine2?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'City',
-    example: 'Bogotá'
+    example: 'Bogotá',
+    minLength: 1
   })
-  @IsOptional()
   @IsString()
+  @MinLength(1, { message: 'City is required' })
   @MaxLength(100)
-  city?: string;
+  city: string;
 
   @ApiPropertyOptional({ 
     description: 'State/Province',
@@ -185,15 +243,14 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @MaxLength(20)
   postalCode?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Country code (ISO 3166-1 alpha-2)',
     example: 'CO',
     default: 'CO'
   })
-  @IsOptional()
   @IsString()
   @Matches(/^[A-Z]{2}$/, { message: 'Country must be a valid ISO 3166-1 alpha-2 code' })
-  country?: string = 'CO';
+  country: string = 'CO';
 
   @ApiPropertyOptional({ 
     description: 'Latitude',
@@ -211,32 +268,35 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @IsNumber({ maxDecimalPlaces: 8 })
   longitude?: number;
 
-  @ApiPropertyOptional({ 
-    description: 'Industry',
-    example: 'Technology'
+  @ApiProperty({ 
+    description: 'Industry - important for segmentation and analysis',
+    example: 'Technology',
+    minLength: 1
   })
-  @IsOptional()
-  @IsString()
+  @IsString({ message: 'Industry is required' })
+  @MinLength(1, { message: 'Industry is required' })
   @MaxLength(100)
-  industry?: string;
+  industry: string;
 
-  @ApiPropertyOptional({ 
-    description: 'Customer segment',
-    example: 'B2B'
+  @ApiProperty({ 
+    description: 'Customer segment (B2B, B2C, etc.) - critical for sales and marketing strategies',
+    example: 'B2C',
+    minLength: 1
   })
-  @IsOptional()
-  @IsString()
+  @IsString({ message: 'Customer segment is required' })
+  @MinLength(1, { message: 'Customer segment is required' })
   @MaxLength(50)
-  segment?: string;
+  segment: string;
 
-  @ApiPropertyOptional({ 
-    description: 'Tax ID (NIT/RFC)',
-    example: '900123456-1'
+  @ApiProperty({ 
+    description: 'Tax ID (NIT/RFC) - required for invoicing in Colombia',
+    example: '900123456-1',
+    minLength: 1
   })
-  @IsOptional()
-  @IsString()
+  @IsString({ message: 'Tax ID is required for invoicing' })
+  @MinLength(1, { message: 'Tax ID is required' })
   @MaxLength(50)
-  taxId?: string;
+  taxId: string;
 
   @ApiPropertyOptional({ 
     description: 'Credit limit',

@@ -1,9 +1,11 @@
-import { Injectable, CanActivate, ExecutionContext, ForbiddenException, BadRequestException } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException, BadRequestException, Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { TenantService } from '../tenant.service';
 
 @Injectable()
 export class TenantGuard implements CanActivate {
+  private readonly logger = new Logger(TenantGuard.name);
+
   constructor(
     private reflector: Reflector,
     private tenantService: TenantService,
@@ -12,13 +14,29 @@ export class TenantGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
+    const authHeader = request.headers?.authorization;
+
+    this.logger.debug(`[TENANT_GUARD] Checking tenant access for: ${request.method} ${request.url}`);
+    this.logger.debug(`[TENANT_GUARD] User present: ${!!user}, Auth header: ${!!authHeader}`);
 
     if (!user) {
+      this.logger.warn('[TENANT_GUARD] User not authenticated');
+      this.logger.warn(`[TENANT_GUARD] Request details: ${request.method} ${request.url}`);
+      this.logger.warn(`[TENANT_GUARD] Auth header: ${authHeader ? 'present' : 'missing'}`);
+      this.logger.warn(`[TENANT_GUARD] Request.user: ${JSON.stringify(request.user)}`);
       throw new ForbiddenException('User not authenticated');
     }
 
     // Super admins can access any tenant
     if (user.systemRole === 'super_admin') {
+      this.logger.debug('[TENANT_GUARD] Super admin bypassing tenant check');
+      return true;
+    }
+
+    // Tenant admins and tenant users can use their tenantId from JWT
+    if ((user.systemRole === 'tenant_admin' || user.systemRole === 'tenant_user') && user.tenantId) {
+      this.logger.debug(`[TENANT_GUARD] Using tenantId from JWT: ${user.tenantId}`);
+      request.tenantId = user.tenantId;
       return true;
     }
 
@@ -26,6 +44,7 @@ export class TenantGuard implements CanActivate {
     const tenantId = this.extractTenantId(request);
     
     if (!tenantId) {
+      this.logger.warn(`[TENANT_GUARD] Tenant ID not found. User: ${user.email}, systemRole: ${user.systemRole}, user.tenantId: ${user.tenantId}`);
       throw new BadRequestException('Tenant ID not provided');
     }
 
@@ -91,8 +110,8 @@ export class TenantGuard implements CanActivate {
       return;
     }
 
-    // Tenant admins can only access their own tenant
-    if (user.systemRole === 'tenant_admin') {
+    // Tenant admins and tenant users can only access their own tenant
+    if (user.systemRole === 'tenant_admin' || user.systemRole === 'tenant_user') {
       if (user.tenantId !== tenantId) {
         throw new ForbiddenException('Access denied to this tenant');
       }

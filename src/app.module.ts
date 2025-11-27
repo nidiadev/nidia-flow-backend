@@ -4,6 +4,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TenantModule } from './tenant/tenant.module';
+import { TenantProvisioningModule } from './tenant/tenant-provisioning.module';
 import { PlansModule } from './plans/plans.module';
 import { ModulesModule } from './modules/modules.module';
 import { OrdersModule } from './orders/orders.module';
@@ -42,17 +43,31 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
         };
       })(),
     }),
-    // Registrar queue de provisioning
+    // Queue de provisioning registrada en TenantProvisioningModule
+    // Registrar queue de recordatorios de actividades
     BullModule.registerQueue({
-      name: 'tenant-provisioning',
+      name: 'activity-reminders',
+      defaultJobOptions: {
+        attempts: 2,
+        backoff: {
+          type: 'exponential',
+          delay: 2000,
+        },
+        removeOnComplete: 50,
+        removeOnFail: 50,
+      },
+    }),
+    // Registrar queue de workflows
+    BullModule.registerQueue({
+      name: 'workflows',
       defaultJobOptions: {
         attempts: 3,
         backoff: {
           type: 'exponential',
-          delay: 5000, // 5s, 10s, 20s
+          delay: 5000,
         },
-        removeOnComplete: 100, // Mantener últimos 100 completados
-        removeOnFail: 100, // Mantener últimos 100 fallidos
+        removeOnComplete: 100,
+        removeOnFail: 100,
       },
     }),
     EventsModule, // Módulo global de eventos (incluye EventEmitterModule)
@@ -60,7 +75,8 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     UsersModule,
     ModulesModule, // Módulo para gestión de módulos del sistema - DEBE estar ANTES de TenantModule para que tenga prioridad en el routing
     PlansModule, // Módulo independiente para gestión de planes
-    TenantModule, // TenantModule depende de AuthModule
+    TenantModule, // TenantModule depende de AuthModule - DEBE estar antes de TenantProvisioningModule
+    TenantProvisioningModule, // Módulo separado para el procesador de provisioning (debe estar después de TenantModule para que los servicios globales estén disponibles)
     OrdersModule,
     TasksModule,
   ],

@@ -439,6 +439,89 @@ export class CustomerContactService {
   /**
    * Map database entity to response DTO
    */
+  /**
+   * Find all contacts with pagination and filters
+   */
+  async findAll(
+    search?: string,
+    customerId?: string,
+    includeInactive?: boolean,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<{
+    data: CustomerContactResponseDto[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      totalPages: number;
+    };
+  }> {
+    try {
+      const prisma = await this.tenantPrisma.getTenantClient();
+      
+      const where: any = {};
+      
+      if (!includeInactive) {
+        where.isActive = true;
+      }
+      
+      if (customerId) {
+        where.customerId = customerId;
+      }
+      
+      if (search) {
+        where.OR = [
+          { firstName: { contains: search, mode: 'insensitive' } },
+          { lastName: { contains: search, mode: 'insensitive' } },
+          { position: { contains: search, mode: 'insensitive' } },
+          { department: { contains: search, mode: 'insensitive' } },
+          { email: { contains: search, mode: 'insensitive' } },
+          { phone: { contains: search } },
+          { mobile: { contains: search } },
+        ];
+      }
+      
+      const skip = (page - 1) * limit;
+      
+      const [contacts, total] = await Promise.all([
+        prisma.customerContact.findMany({
+          where,
+          skip,
+          take: limit,
+          orderBy: [
+            { isPrimary: 'desc' },
+            { createdAt: 'desc' },
+          ],
+          include: {
+            customer: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                companyName: true,
+              },
+            },
+          },
+        }),
+        prisma.customerContact.count({ where }),
+      ]);
+      
+      return {
+        data: contacts.map(contact => this.mapToResponseDto(contact)),
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit),
+        },
+      };
+    } catch (error) {
+      this.logger.error(`Failed to find all contacts: ${error.message}`, error.stack);
+      throw error;
+    }
+  }
+
   private mapToResponseDto(contact: any): CustomerContactResponseDto {
     return {
       id: contact.id,

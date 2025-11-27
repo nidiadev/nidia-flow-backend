@@ -15,7 +15,7 @@ type TenantPrismaClient = InstanceType<typeof TenantPrismaClientClass>;
 
 interface TenantContext {
   tenantId: string;
-  userId: string;
+  userId: string | undefined; // Puede ser undefined para tenant_admin sin usuario en BD del tenant
   dbName: string;
   role?: string;
 }

@@ -11,8 +11,10 @@ import { PermissionsService } from './services/permissions.service';
 import { PermissionResolverService } from './services/permission-resolver.service';
 import { PermissionsGuard } from './guards/permissions.guard';
 import { RolesGuard } from './guards/roles.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UsersModule } from '../users/users.module';
 import { TenantModule } from '../tenant/tenant.module';
+import { PlansModule } from '../plans/plans.module';
 
 @Global() // Hacer AuthModule global para que PassportModule y JwtStrategy estén disponibles en todos los módulos
 @Module({
@@ -27,6 +29,7 @@ import { TenantModule } from '../tenant/tenant.module';
     }),
     forwardRef(() => UsersModule), // Usar forwardRef para manejar dependencias circulares
     forwardRef(() => TenantModule), // Importar TenantModule para tener acceso a TenantService, TenantGuard y TenantModulesService
+    forwardRef(() => PlansModule), // Importar PlansModule para usar PlansService en AuthService
   ],
   providers: [
     AuthService,
@@ -36,6 +39,7 @@ import { TenantModule } from '../tenant/tenant.module';
     PermissionResolverService,
     PermissionsGuard,
     RolesGuard,
+    JwtAuthGuard, // JwtAuthGuard debe estar en providers para que esté disponible
   ],
   controllers: [AuthController, PermissionsController],
   exports: [
@@ -44,6 +48,7 @@ import { TenantModule } from '../tenant/tenant.module';
     PermissionResolverService,
     PermissionsGuard, 
     RolesGuard,
+    JwtAuthGuard, // Exportar JwtAuthGuard para que otros módulos puedan usarlo
     PassportModule, // Exportar PassportModule para que otros módulos puedan usar las estrategias
     JwtStrategy, // Exportar JwtStrategy explícitamente
   ],
