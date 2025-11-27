@@ -61,19 +61,36 @@ export class DealService {
       // Use stage probability if not provided
       const probability = createDto.probability ?? stage.probability;
 
-      // Create deal
+      // Resolve createdBy - fallback to admin user if userId is undefined
+      let resolvedCreatedBy = userId;
+      if (!resolvedCreatedBy) {
+        const adminUser = await prisma.user.findFirst({
+          where: { 
+            role: 'admin',
+            isActive: true,
+          },
+        });
+        if (!adminUser) {
+          throw new BadRequestException('No active admin user found. Cannot create deal without creator.');
+        }
+        resolvedCreatedBy = adminUser.id;
+        this.logger.warn(`Deal created without userId, using admin user: ${adminUser.id}`);
+      }
+
+      // Create deal - use direct field IDs instead of relation syntax
+      // This avoids Prisma validation issues when using include
       const deal = await prisma.deal.create({
         data: {
           name: createDto.name,
           description: createDto.description,
           customerId: createDto.customerId,
           stageId: createDto.stageId,
+          createdBy: resolvedCreatedBy,
+          assignedTo: createDto.assignedTo || null,
           probability,
           amount: createDto.amount,
           currency: createDto.currency || 'COP',
           expectedCloseDate: createDto.expectedCloseDate ? new Date(createDto.expectedCloseDate) : null,
-          assignedTo: createDto.assignedTo,
-          createdBy: userId,
           tags: createDto.tags || [],
           notes: createDto.notes,
           customFields: createDto.customFields || {},
@@ -85,7 +102,7 @@ export class DealService {
               stageId: createDto.stageId,
               stageName: stage.name,
               changedAt: new Date().toISOString(),
-              changedBy: userId,
+              changedBy: resolvedCreatedBy,
             },
           ],
         },

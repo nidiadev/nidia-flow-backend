@@ -23,6 +23,16 @@ export class WorkflowEventHandlerService {
   async handleCustomerCreated(event: any) {
     this.logger.log(`Customer created event received: ${event.customerId}`);
     
+    // Si se proporciona contexto del tenant en el evento, establecerlo antes de usar TenantPrismaService
+    if (event.tenantContext && !this.tenantPrisma.getTenantContext()) {
+      this.tenantPrisma.setTenantContext({
+        tenantId: event.tenantContext.tenantId,
+        userId: event.tenantContext.userId,
+        dbName: event.tenantContext.dbName,
+        role: event.tenantContext.role,
+      });
+    }
+    
     // Check if customer is a lead
     const client = await this.tenantPrisma.getTenantClient();
     const customer = await client.customer.findUnique({

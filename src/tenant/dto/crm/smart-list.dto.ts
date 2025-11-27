@@ -64,6 +64,7 @@ export class FilterConditionDto {
   operator: FilterOperator;
 
   @ApiPropertyOptional({ description: 'Filter value (can be string, number, array, etc.)' })
+  @IsOptional()
   value?: any;
 
   @ApiPropertyOptional({ description: 'Second value for BETWEEN operator' })

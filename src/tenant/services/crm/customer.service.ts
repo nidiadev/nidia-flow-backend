@@ -29,24 +29,83 @@ export class CustomerService {
   /**
    * Create a new customer
    */
-  async create(createCustomerDto: CreateCustomerDto, userId: string): Promise<CustomerResponseDto> {
+  async create(createCustomerDto: CreateCustomerDto, userId: string | undefined, userPermissions?: string[]): Promise<CustomerResponseDto> {
     try {
       const prisma = await this.tenantPrisma.getTenantClient();
       
-      // Validate userId exists in tenant database
-      if (!userId) {
-        throw new BadRequestException('User ID is required to create a customer');
-      }
+      // Para tenant_admin sin usuario en BD del tenant, buscar un usuario admin como fallback
+      let createdByUserId: string | null = null;
+      
+      if (userId) {
+        // Verificar que el usuario existe en la BD del tenant
+        const user = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true, email: true },
+        });
 
-      // Verify user exists in tenant database
-      const user = await prisma.user.findUnique({
-        where: { id: userId },
-        select: { id: true, email: true },
-      });
-
-      if (!user) {
-        this.logger.error(`User with ID ${userId} not found in tenant database`);
-        throw new BadRequestException(`User with ID ${userId} not found. Please ensure you are authenticated correctly.`);
+        if (user) {
+          createdByUserId = user.id;
+        } else {
+          // Usuario no encontrado en BD del tenant
+          // Si el usuario tiene view_all, buscar un usuario admin en la BD del tenant como fallback
+          const canViewAll = userPermissions && (
+            userPermissions.includes('*') || 
+            userPermissions.includes('view_all') || 
+            userPermissions.includes('*:view_all')
+          );
+          
+          if (!canViewAll) {
+            this.logger.error(`User with ID ${userId} not found in tenant database and user doesn't have view_all permission`);
+            throw new BadRequestException(`User with ID ${userId} not found in tenant database. Please ensure you are authenticated correctly or have appropriate permissions.`);
+          }
+          
+          // Buscar un usuario admin en la BD del tenant como fallback
+          const adminUser = await prisma.user.findFirst({
+            where: {
+              role: 'admin',
+              isActive: true,
+            },
+            select: { id: true, email: true },
+            orderBy: { createdAt: 'asc' }, // Usar el primer admin creado
+          });
+          
+          if (adminUser) {
+            this.logger.warn(`User with ID ${userId} not found in tenant database, but user has view_all permission. Using admin user ${adminUser.id} (${adminUser.email}) as createdBy.`);
+            createdByUserId = adminUser.id;
+          } else {
+            this.logger.error(`No admin user found in tenant database to use as createdBy fallback`);
+            throw new BadRequestException('No admin user found in tenant database. Please ensure there is at least one admin user in the tenant.');
+          }
+        }
+      } else {
+        // userId es undefined - verificar permisos y buscar admin como fallback
+        const canViewAll = userPermissions && (
+          userPermissions.includes('*') || 
+          userPermissions.includes('view_all') || 
+          userPermissions.includes('*:view_all')
+        );
+        
+        if (!canViewAll) {
+          throw new BadRequestException('User ID is required to create a customer');
+        }
+        
+        // Buscar un usuario admin en la BD del tenant como fallback
+        const adminUser = await prisma.user.findFirst({
+          where: {
+            role: 'admin',
+            isActive: true,
+          },
+          select: { id: true, email: true },
+          orderBy: { createdAt: 'asc' },
+        });
+        
+        if (adminUser) {
+          this.logger.debug(`Creating customer without userId (user has view_all permission). Using admin user ${adminUser.id} (${adminUser.email}) as createdBy.`);
+          createdByUserId = adminUser.id;
+        } else {
+          this.logger.error(`No admin user found in tenant database to use as createdBy fallback`);
+          throw new BadRequestException('No admin user found in tenant database. Please ensure there is at least one admin user in the tenant.');
+        }
       }
       
       // Validate at least one contact method is provided
@@ -79,17 +138,26 @@ export class CustomerService {
       // Generate lead score if not provided
       const leadScore = createCustomerDto.leadScore ?? this.calculateInitialLeadScore(createCustomerDto);
 
+      // Construir data para crear el customer
+      // createdByUserId siempre debe tener un valor válido en este punto
+      if (!createdByUserId) {
+        throw new BadRequestException('Unable to determine user for customer creation');
+      }
+
       const customer = await prisma.customer.create({
         data: {
           ...createCustomerDto,
           leadScore,
           createdByUser: {
-            connect: { id: userId },
+            connect: { id: createdByUserId },
           },
         },
       });
 
-      // Emitir evento de cliente creado
+      // Obtener contexto del tenant para incluirlo en el evento
+      const tenantContext = this.tenantPrisma.getTenantContext();
+      
+      // Emitir evento de cliente creado con contexto del tenant
       await this.eventEmitter.emit(BusinessEventTypes.CUSTOMER_CREATED, {
         customerId: customer.id,
         customerType: customer.type,
@@ -100,11 +168,18 @@ export class CustomerService {
         phone: customer.phone,
         leadSource: customer.leadSource,
         assignedTo: customer.assignedTo,
-        createdBy: userId,
+        createdBy: createdByUserId,
         timestamp: new Date(),
+        // Incluir contexto del tenant para que los handlers puedan usarlo
+        tenantContext: tenantContext ? {
+          tenantId: tenantContext.tenantId,
+          dbName: tenantContext.dbName,
+          userId: tenantContext.userId,
+          role: tenantContext.role,
+        } : undefined,
       });
 
-      this.logger.log(`Customer created: ${customer.id} by user: ${userId}`);
+      this.logger.log(`Customer created: ${customer.id} by user: ${createdByUserId}`);
       
       return this.mapToResponseDto(customer);
     } catch (error) {

@@ -257,6 +257,7 @@ export class WebFormService {
             lastName: submitDto.data.lastName || '',
             email: submitDto.data.email,
             phone: submitDto.data.phone,
+            whatsapp: submitDto.data.whatsapp || submitDto.data.phone || '+573000000000',
             companyName: submitDto.data.companyName || submitDto.data.company,
             leadSource: (settings?.defaultLeadSource as LeadSource) || LeadSource.WEBSITE,
             type: CustomerType.LEAD,

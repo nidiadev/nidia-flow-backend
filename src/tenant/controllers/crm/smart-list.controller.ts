@@ -9,7 +9,6 @@ import {
   Param,
   Query,
   UseGuards,
-  ValidationPipe,
   Request,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
@@ -26,6 +25,7 @@ import {
   BulkActionDto,
 } from '../../dto/crm/smart-list.dto';
 import { ApiResponseDto } from '../../dto/base/base.dto';
+import { createTenantValidationPipe } from '../../config/validation.config';
 
 @ApiTags('CRM - Smart Lists (Segmentation)')
 @Controller('crm/smart-lists')
@@ -39,9 +39,20 @@ export class SmartListController {
   @ApiOperation({ summary: 'Create a new smart list' })
   @ApiResponse({ status: 201, description: 'Smart list created successfully', type: SmartListResponseDto })
   async create(
-    @Body(ValidationPipe) createDto: CreateSmartListDto,
+    @Body(createTenantValidationPipe()) createDto: CreateSmartListDto,
     @Request() req: any,
   ): Promise<ApiResponseDto<SmartListResponseDto>> {
+    // Debug: Log the received DTO
+    console.log('Received CreateSmartListDto:', JSON.stringify(createDto, null, 2));
+    console.log('FilterConfig:', JSON.stringify(createDto.filterConfig, null, 2));
+    if (createDto.filterConfig?.conditions) {
+      console.log('Conditions:', JSON.stringify(createDto.filterConfig.conditions, null, 2));
+      createDto.filterConfig.conditions.forEach((cond, idx) => {
+        console.log(`Condition ${idx}:`, JSON.stringify(cond, null, 2));
+        console.log(`Condition ${idx} keys:`, Object.keys(cond));
+        console.log(`Condition ${idx} all properties:`, Object.getOwnPropertyNames(cond));
+      });
+    }
     const smartList = await this.smartListService.create(createDto, req.user.userId);
     return {
       success: true,
@@ -55,7 +66,7 @@ export class SmartListController {
   @ApiOperation({ summary: 'Get all smart lists' })
   @ApiResponse({ status: 200, description: 'Smart lists retrieved successfully' })
   async findMany(
-    @Query(ValidationPipe) filters: SmartListFilterDto,
+    @Query(createTenantValidationPipe()) filters: SmartListFilterDto,
     @Request() req: any,
   ): Promise<ApiResponseDto<{ data: SmartListResponseDto[]; pagination: any }>> {
     const result = await this.smartListService.findMany(filters, req.user.userId);
@@ -88,7 +99,7 @@ export class SmartListController {
   @ApiResponse({ status: 200, description: 'Smart list updated successfully', type: SmartListResponseDto })
   async update(
     @Param('id') id: string,
-    @Body(ValidationPipe) updateDto: UpdateSmartListDto,
+    @Body(createTenantValidationPipe()) updateDto: UpdateSmartListDto,
     @Request() req: any,
   ): Promise<ApiResponseDto<SmartListResponseDto>> {
     const smartList = await this.smartListService.update(id, updateDto, req.user.userId);
@@ -160,7 +171,7 @@ export class SmartListController {
   @ApiResponse({ status: 200, description: 'Bulk action executed successfully' })
   async executeBulkAction(
     @Param('id') id: string,
-    @Body(ValidationPipe) actionDto: BulkActionDto,
+    @Body(createTenantValidationPipe()) actionDto: BulkActionDto,
     @Request() req: any,
   ): Promise<ApiResponseDto<{ affected: number }>> {
     const result = await this.smartListService.executeBulkAction(id, actionDto, req.user.userId);

@@ -10,6 +10,7 @@ import {
   Min,
   Max
 } from 'class-validator';
+import { Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
 import { BaseCustomFieldsDto, SearchDto, DateRangeDto } from '../base/base.dto';
 
@@ -356,6 +357,7 @@ export class CalendarFilterDto {
     description: 'Year',
     example: 2024
   })
+  @Type(() => Number)
   @IsNumber()
   year: number;
 
@@ -365,6 +367,7 @@ export class CalendarFilterDto {
     minimum: 1,
     maximum: 12
   })
+  @Type(() => Number)
   @IsNumber()
   @Min(1)
   @Max(12)
@@ -376,6 +379,7 @@ export class CalendarFilterDto {
     maximum: 53
   })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   @Min(1)
   @Max(53)
@@ -387,6 +391,7 @@ export class CalendarFilterDto {
     maximum: 31
   })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   @Min(1)
   @Max(31)

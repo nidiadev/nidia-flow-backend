@@ -114,34 +114,37 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   @MaxLength(100)
   firstName: string;
 
-  @ApiPropertyOptional({ 
+  @ApiProperty({ 
     description: 'Last name',
+    minLength: 1,
     maxLength: 100,
     example: 'Doe'
   })
-  @IsOptional()
   @IsString()
+  @MinLength(1, { message: 'Last name is required' })
   @MaxLength(100)
-  lastName?: string;
+  lastName: string;
 
-  @ApiPropertyOptional({ 
-    description: 'Company name',
+  @ApiProperty({ 
+    description: 'Company name - required for proper customer identification',
+    minLength: 1,
     maxLength: 255,
     example: 'Acme Corp'
   })
-  @IsOptional()
   @IsString()
+  @MinLength(1, { message: 'Company name is required' })
   @MaxLength(255)
-  companyName?: string;
+  companyName: string;
 
-  @ApiPropertyOptional({ 
-    description: 'Email address (required if no phone/mobile/whatsapp provided)',
+  @ApiProperty({ 
+    description: 'Email address - required for communication',
     example: 'john.doe@example.com'
   })
-  @ValidateIf((o) => !o.phone && !o.mobile && !o.whatsapp)
-  @IsEmail({}, { message: 'Email must be valid or provide at least one phone number' })
-  @HasAtLeastOneContactMethod({ message: 'At least one contact method (email, phone, mobile, or whatsapp) is required' })
-  email?: string;
+  @IsEmail({}, { message: 'Email must be valid' })
+  @IsString()
+  @MinLength(1, { message: 'Email is required' })
+  @MaxLength(255)
+  email: string;
 
   @ApiPropertyOptional({ 
     description: 'Phone number with country code (E.164 format). At least one contact method is required',
@@ -177,12 +180,12 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
   })
   mobile?: string;
 
-  @ApiPropertyOptional({ 
-    description: 'WhatsApp number with country code (E.164 format). At least one contact method is required',
+  @ApiProperty({ 
+    description: 'WhatsApp number with country code (E.164 format) - required for communication',
     example: '+57 300 123 4567'
   })
-  @IsOptional()
   @IsString()
+  @MinLength(1, { message: 'WhatsApp number is required' })
   @Matches(/^\+[1-9]\d{1,14}$/, { 
     message: 'WhatsApp number must include country code in E.164 format (e.g., +573001234567)' 
   })
@@ -192,7 +195,7 @@ export class CreateCustomerDto extends BaseCustomFieldsDto {
     const cleaned = value.replace(/\s/g, '');
     return cleaned.startsWith('+') ? cleaned : `+${cleaned}`;
   })
-  whatsapp?: string;
+  whatsapp: string;
 
   @ApiProperty({ 
     description: 'Address line 1',

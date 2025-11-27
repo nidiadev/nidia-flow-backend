@@ -197,7 +197,7 @@ export class CrmReportsService {
     const where: any = {
       ...this.dataScope.getDealScope(userPermissions, userId, {}),
       status: 'won',
-      closedAt: { not: null },
+      wonAt: { not: null },
     };
 
     if (sellerId) {
@@ -209,7 +209,7 @@ export class CrmReportsService {
       select: {
         id: true,
         createdAt: true,
-        closedAt: true,
+        wonAt: true,
         assignedTo: true,
       },
     });
@@ -225,7 +225,7 @@ export class CrmReportsService {
 
     const daysToClose = wonDeals.map((deal) => {
       const created = new Date(deal.createdAt).getTime();
-      const closed = new Date(deal.closedAt!).getTime();
+      const closed = new Date(deal.wonAt!).getTime();
       return Math.floor((closed - created) / (1000 * 60 * 60 * 24));
     });
 
@@ -264,9 +264,7 @@ export class CrmReportsService {
     const deals = await prisma.deal.findMany({
       where,
       include: {
-        stage: {
-          orderBy: { sortOrder: 'asc' },
-        },
+        stage: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -456,11 +454,11 @@ export class CrmReportsService {
           where: {
             ...sellerWhere,
             status: 'won',
-            closedAt: { not: null },
+            wonAt: { not: null },
           },
           select: {
             createdAt: true,
-            closedAt: true,
+            wonAt: true,
           },
         });
 
@@ -468,7 +466,7 @@ export class CrmReportsService {
           wonDealsWithDates.length > 0
             ? wonDealsWithDates.reduce((sum, deal) => {
                 const days =
-                  (new Date(deal.closedAt!).getTime() -
+                  (new Date(deal.wonAt!).getTime() -
                     new Date(deal.createdAt).getTime()) /
                   (1000 * 60 * 60 * 24);
                 return sum + days;
@@ -509,16 +507,28 @@ export class CrmReportsService {
   ): Promise<any> {
     const prisma = await this.tenantPrisma.getTenantClient();
 
-    const where = {
-      ...this.dataScope.getDealScope(userPermissions, userId, {}),
+    const scopeWhere = this.dataScope.getDealScope(userPermissions, userId, {});
+    
+    // Build where clause explicitly to avoid any closedAt references
+    const where: any = {
+      ...scopeWhere,
       status: 'lost',
     };
 
-    if (dateFrom) {
-      where.closedAt = { ...where.closedAt, gte: dateFrom };
+    // Remove any closedAt if it exists (shouldn't, but just in case)
+    if (where.closedAt) {
+      delete where.closedAt;
     }
-    if (dateTo) {
-      where.closedAt = { ...where.closedAt, lte: dateTo };
+
+    // Set lostAt filter
+    if (dateFrom || dateTo) {
+      where.lostAt = {};
+      if (dateFrom) {
+        where.lostAt.gte = dateFrom;
+      }
+      if (dateTo) {
+        where.lostAt.lte = dateTo;
+      }
     }
 
     const lostDeals = await prisma.deal.findMany({
@@ -552,7 +562,7 @@ export class CrmReportsService {
         name: deal.name,
         customerName: deal.customer.companyName,
         amount: Number(deal.amount),
-        lostAt: deal.closedAt,
+        lostAt: deal.lostAt,
       });
       return acc;
     }, {} as Record<string, any>);

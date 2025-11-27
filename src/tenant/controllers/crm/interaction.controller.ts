@@ -71,7 +71,7 @@ export class InteractionController {
   })
   async create(
     @Body(ValidationPipe) createInteractionDto: CreateInteractionDto,
-    @CurrentUser('userId') userId: string,
+    @CurrentUser('userId') userId?: string,
   ): Promise<ApiResponseDto<InteractionResponseDto>> {
     const interaction = await this.interactionService.create(createInteractionDto, userId);
     return {

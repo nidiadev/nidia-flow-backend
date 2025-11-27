@@ -1,6 +1,7 @@
-import { Injectable, Logger, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException, NotFoundException, Inject } from '@nestjs/common';
 import { TenantPrismaService } from '../tenant-prisma.service';
 import { DataScopeService } from '../data-scope.service';
+import { BusinessEventEmitterService, BusinessEventTypes } from '../../../common/events';
 import {
   CreateInteractionDto,
   UpdateInteractionDto,
@@ -25,12 +26,14 @@ export class InteractionService {
   constructor(
     private readonly tenantPrisma: TenantPrismaService,
     private readonly dataScope: DataScopeService,
+    @Inject(BusinessEventEmitterService)
+    private readonly eventEmitter: BusinessEventEmitterService,
   ) {}
 
   /**
    * Create a new interaction
    */
-  async create(createInteractionDto: CreateInteractionDto, userId: string): Promise<InteractionResponseDto> {
+  async create(createInteractionDto: CreateInteractionDto, userId: string | undefined): Promise<InteractionResponseDto> {
     try {
       const prisma = await this.tenantPrisma.getTenantClient();
 
@@ -62,12 +65,59 @@ export class InteractionService {
         }
       }
 
+      // Para tenant_admin sin usuario en BD del tenant, buscar un usuario admin como fallback
+      let createdByUserId: string | null = null;
+      
+      if (userId) {
+        // Verificar que el usuario existe en la BD del tenant
+        const user = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true, email: true },
+        });
+
+        if (user) {
+          createdByUserId = user.id;
+        } else {
+          // Si el usuario no existe en la BD del tenant, buscar un usuario admin como fallback
+          const adminUser = await prisma.user.findFirst({
+            where: { role: 'admin', isActive: true },
+            select: { id: true },
+          });
+          
+          if (adminUser) {
+            createdByUserId = adminUser.id;
+            this.logger.warn(`User ${userId} not found in tenant DB, using admin user ${adminUser.id} as fallback for interaction creation`);
+          }
+        }
+      } else {
+        // Si userId es undefined, buscar un usuario admin como fallback
+        const adminUser = await prisma.user.findFirst({
+          where: { role: 'admin', isActive: true },
+          select: { id: true },
+        });
+        
+        if (adminUser) {
+          createdByUserId = adminUser.id;
+          this.logger.warn(`No userId provided, using admin user ${adminUser.id} as fallback for interaction creation`);
+        }
+      }
+
+      if (!createdByUserId) {
+        throw new BadRequestException('Unable to determine user for interaction creation. No active admin user found in tenant database.');
+      }
+
       // Handle recurrence if specified
       let parentInteractionId: string | undefined = undefined;
       if (createInteractionDto.isRecurring && createInteractionDto.recurrenceRule) {
         // For recurring activities, the first one becomes the parent
         parentInteractionId = undefined; // Will be set after creation if this is a child
       }
+
+      // Combine customFields and metadata into metadata field (Prisma uses metadata, not customFields)
+      const metadata = {
+        ...(createInteractionDto.metadata || {}),
+        ...(createInteractionDto.customFields || {}),
+      };
 
       const interaction = await prisma.interaction.create({
         data: {
@@ -93,8 +143,8 @@ export class InteractionService {
           nextActionDate: createInteractionDto.nextActionDate ? new Date(createInteractionDto.nextActionDate) : null,
           relatedOrderId: createInteractionDto.relatedOrderId,
           relatedTaskId: createInteractionDto.relatedTaskId,
-          customFields: createInteractionDto.customFields || {},
-          createdBy: userId,
+          metadata: metadata,
+          createdBy: createdByUserId,
         },
         include: {
           customer: {
@@ -123,6 +173,26 @@ export class InteractionService {
         data: { lastContactAt: new Date() },
       });
 
+      // Emit event
+      const tenantContext = this.tenantPrisma.getTenantContext();
+      await this.eventEmitter.emit(BusinessEventTypes.INTERACTION_CREATED, {
+        interactionId: interaction.id,
+        customerId: interaction.customerId,
+        type: interaction.type,
+        direction: interaction.direction,
+        subject: interaction.subject,
+        status: interaction.status,
+        createdBy: createdByUserId,
+        timestamp: new Date(),
+        tenantContext: tenantContext ? {
+          tenantId: tenantContext.tenantId,
+          dbName: tenantContext.dbName,
+          userId: tenantContext.userId,
+          role: tenantContext.role,
+        } : undefined,
+      });
+
+      this.logger.log(`Interaction created: ${interaction.id} by user: ${createdByUserId}`);
       return this.mapToResponseDto(interaction);
     } catch (error) {
       this.logger.error(`Failed to create interaction: ${error.message}`, error.stack);
