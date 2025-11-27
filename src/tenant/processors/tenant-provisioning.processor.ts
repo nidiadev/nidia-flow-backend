@@ -1,7 +1,8 @@
 import { Processor, WorkerHost, OnWorkerEvent } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
-import { Logger, Injectable, OnModuleDestroy, Scope } from '@nestjs/common';
+import { Logger, Injectable, OnModuleDestroy, Scope, Inject, Optional } from '@nestjs/common';
 import * as crypto from 'crypto';
+import { resolve } from 'path';
 import { TenantProvisioningService } from '../services/tenant-provisioning.service';
 import { TenantService } from '../tenant.service';
 import { UsersService } from '../../users/users.service';
@@ -30,10 +31,10 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
   private redis: Redis;
 
   constructor(
-    private readonly provisioningService: TenantProvisioningService,
-    private readonly tenantService: TenantService,
-    private readonly usersService: UsersService,
-    private readonly plansService: PlansService,
+    @Optional() @Inject(TenantProvisioningService) private readonly provisioningService: TenantProvisioningService,
+    @Optional() @Inject(TenantService) private readonly tenantService: TenantService,
+    @Optional() @Inject(UsersService) private readonly usersService: UsersService,
+    @Optional() @Inject(PlansService) private readonly plansService: PlansService,
   ) {
     super();
     this.logger.log('🔧 [PROCESSOR] TenantProvisioningProcessor constructor called');
@@ -174,15 +175,25 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
       });
       await job.updateProgress(50);
 
-      await this.provisioningService.runTenantMigration({
-        host: dbHost,
-        port: dbPort,
-        database: dbName,
-        username: dbUsername,
-        password: dbPassword,
-      });
+      this.logger.log(`[${tenantId}] 🔄 Starting migration process for database ${dbName}...`);
+      try {
+        await this.provisioningService.runTenantMigration({
+          host: dbHost,
+          port: dbPort,
+          database: dbName,
+          username: dbUsername,
+          password: dbPassword,
+        });
+        this.logger.log(`[${tenantId}] ✅ Migration process completed successfully`);
+      } catch (migrationError: any) {
+        this.logger.error(`[${tenantId}] ❌ Migration process failed:`, migrationError);
+        this.logger.error(`[${tenantId}] Migration error message: ${migrationError.message}`);
+        this.logger.error(`[${tenantId}] Migration error stack: ${migrationError.stack}`);
+        throw migrationError;
+      }
 
       // CRITICAL VERIFICATION: Verify database still exists after migrations
+      this.logger.log(`[${tenantId}] 🔍 Verifying database exists after migrations...`);
       const dbExistsAfterMigration = await this.provisioningService.databaseExists(dbName);
       if (!dbExistsAfterMigration) {
         const errorMsg = `❌ CRITICAL: Database ${dbName} disappeared after migrations. Cannot proceed.`;
@@ -247,8 +258,10 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
       }
       this.logger.log(`✅ Final verification: Database ${dbName} exists and provisioning is complete`);
 
-      // Activar tenant, crear suscripción y activar usuario en SuperAdmin
+      // Activar tenant, crear suscripción y activar usuario en SuperAdmin y tenant DB
+      this.logger.log(`[${tenantId}] Step 5: Activating tenant and user...`);
       await this.activateTenant(tenantId, adminEmail, planId, slug);
+      this.logger.log(`[${tenantId}] ✅ activateTenant completed successfully`);
 
       this.logger.log(`✅ Provisioning completed successfully for tenant ${tenantId}`);
       
@@ -395,9 +408,72 @@ export class TenantProvisioningProcessor extends WorkerHost implements OnModuleD
         where: { id: user.id },
         data: { isActive: true },
       });
-      this.logger.log(`✅ User ${user.id} activated for tenant ${tenantId}`);
+      this.logger.log(`✅ User ${user.id} (${adminEmail}) activated in SuperAdmin database`);
     } else {
       this.logger.warn(`⚠️ User with email ${adminEmail} not found in SuperAdmin database`);
+    }
+
+    // 5. Activar usuario en la base de datos del tenant
+    try {
+      const tenant = await prisma.tenant.findUnique({
+        where: { id: tenantId },
+        select: { dbName: true, dbHost: true, dbPort: true, dbUsername: true, dbPasswordEncrypted: true },
+      });
+
+      if (!tenant) {
+        this.logger.error(`❌ Tenant ${tenantId} not found, cannot activate user in tenant database`);
+        return;
+      }
+
+      // Descifrar contraseña
+      const dbPassword = this.decryptPassword(tenant.dbPasswordEncrypted);
+      
+      // Construir URL de conexión usando credenciales admin (no las del tenant)
+      const adminConnectionUrl = process.env.DATABASE_URL;
+      if (!adminConnectionUrl) {
+        this.logger.error(`❌ DATABASE_URL not configured, cannot activate user in tenant database`);
+        return;
+      }
+
+      const adminUrl = new URL(adminConnectionUrl);
+      const adminUser = adminUrl.username;
+      const adminPassword = adminUrl.password;
+      const adminHost = adminUrl.hostname;
+      const adminPort = adminUrl.port || '5432';
+
+      const tenantConnectionUrl = `postgresql://${adminUser}:${encodeURIComponent(adminPassword)}@${adminHost}:${adminPort}/${tenant.dbName}?schema=public`;
+      
+      const tenantPrismaPath = resolve(process.cwd(), 'generated', 'tenant-prisma');
+      const { PrismaClient } = require(tenantPrismaPath);
+      const tenantClient = new PrismaClient({
+        datasources: {
+          db: {
+            url: tenantConnectionUrl,
+          },
+        },
+      });
+
+      await tenantClient.$connect();
+      
+      // Activar usuario en la base de datos del tenant
+      const tenantUser = await tenantClient.user.findUnique({
+        where: { email: adminEmail },
+      });
+
+      if (tenantUser) {
+        await tenantClient.user.update({
+          where: { id: tenantUser.id },
+          data: { isActive: true },
+        });
+        this.logger.log(`✅ User ${tenantUser.id} (${adminEmail}) activated in tenant database ${tenant.dbName}`);
+      } else {
+        this.logger.warn(`⚠️ User with email ${adminEmail} not found in tenant database ${tenant.dbName}`);
+      }
+
+      await tenantClient.$disconnect();
+    } catch (error: any) {
+      this.logger.error(`❌ Failed to activate user in tenant database: ${error.message}`, error);
+      // No lanzamos error, el tenant ya está activo, pero logueamos el error
     }
   }
 

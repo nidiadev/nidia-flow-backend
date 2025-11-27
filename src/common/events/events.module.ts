@@ -1,4 +1,4 @@
-import { Module, Global } from '@nestjs/common';
+import { Module, Global, forwardRef } from '@nestjs/common';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { JwtModule } from '@nestjs/jwt';
 import { TenantModule } from '../../tenant/tenant.module';
@@ -34,7 +34,7 @@ import { EventsController } from './events.controller';
       secret: process.env.JWT_SECRET || 'your-secret-key',
       signOptions: { expiresIn: '15m' },
     }),
-    TenantModule,
+    forwardRef(() => TenantModule),
   ],
   controllers: [EventsController],
   providers: [

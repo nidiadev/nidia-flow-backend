@@ -386,6 +386,16 @@ export const BusinessEventTypes = {
   CONVERSATION_ASSIGNED: 'conversation.assigned',
   CONVERSATION_STATUS_CHANGED: 'conversation.status.changed',
   
+  // Interacciones
+  INTERACTION_CREATED: 'interaction.created',
+  INTERACTION_UPDATED: 'interaction.updated',
+  INTERACTION_STATUS_CHANGED: 'interaction.status.changed',
+  
+  // Notas de Clientes
+  CUSTOMER_NOTE_CREATED: 'customer.note.created',
+  CUSTOMER_NOTE_UPDATED: 'customer.note.updated',
+  CUSTOMER_NOTE_DELETED: 'customer.note.deleted',
+  
   // Comunicaciones
   MESSAGE_SENT: 'message.sent',
   MESSAGE_RECEIVED: 'message.received',

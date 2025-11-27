@@ -179,7 +179,7 @@ export class AuditLoggerService {
       },
       userId: event.createdBy,
       timestamp: event.timestamp,
-    });
+    }, event.tenantContext);
   }
 
   @OnEvent(BusinessEventTypes.CUSTOMER_STATUS_CHANGED)
@@ -328,8 +328,18 @@ export class AuditLoggerService {
   /**
    * Método auxiliar para crear logs de auditoría
    */
-  private async createAuditLog(logData: Partial<AuditLogEvent>) {
+  private async createAuditLog(logData: Partial<AuditLogEvent>, tenantContext?: any) {
     try {
+      // Si se proporciona contexto del tenant en el evento, establecerlo antes de usar TenantPrismaService
+      if (tenantContext && !this.prisma.getTenantContext()) {
+        this.prisma.setTenantContext({
+          tenantId: tenantContext.tenantId,
+          userId: tenantContext.userId,
+          dbName: tenantContext.dbName,
+          role: tenantContext.role,
+        });
+      }
+      
       const client = await this.prisma.getTenantClient();
 
       await client.auditLog.create({

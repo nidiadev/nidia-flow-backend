@@ -3,7 +3,8 @@ import { BullModule } from '@nestjs/bullmq';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CustomerController } from '../controllers/crm/customer.controller';
 import { InteractionController } from '../controllers/crm/interaction.controller';
-import { CustomerContactController } from '../controllers/crm/customer-contact.controller';
+import { CustomerNoteController } from '../controllers/crm/customer-note.controller';
+import { CustomerContactController, CustomerContactByCustomerController } from '../controllers/crm/customer-contact.controller';
 import { DealController } from '../controllers/crm/deal.controller';
 import { DealStageController } from '../controllers/crm/deal-stage.controller';
 import { InboxController } from '../controllers/crm/inbox.controller';
@@ -15,6 +16,7 @@ import { WorkflowController } from '../controllers/crm/workflow.controller';
 import { WebFormController, PublicWebFormController } from '../controllers/crm/web-form.controller';
 import { CustomerService } from '../services/crm/customer.service';
 import { InteractionService } from '../services/crm/interaction.service';
+import { CustomerNoteService } from '../services/crm/customer-note.service';
 import { CustomerContactService } from '../services/crm/customer-contact.service';
 import { DealService } from '../services/crm/deal.service';
 import { DealStageService } from '../services/crm/deal-stage.service';
@@ -52,7 +54,9 @@ import { CommunicationsModule } from './communications.module';
   controllers: [
     CustomerController,
     InteractionController,
+    CustomerNoteController,
     CustomerContactController,
+    CustomerContactByCustomerController,
     DealController,
     DealStageController,
     InboxController,
@@ -67,6 +71,7 @@ import { CommunicationsModule } from './communications.module';
   providers: [
     CustomerService,
     InteractionService,
+    CustomerNoteService,
     CustomerContactService,
     DealService,
     DealStageService,

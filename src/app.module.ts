@@ -75,8 +75,8 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     UsersModule,
     ModulesModule, // Módulo para gestión de módulos del sistema - DEBE estar ANTES de TenantModule para que tenga prioridad en el routing
     PlansModule, // Módulo independiente para gestión de planes
-    TenantProvisioningModule, // Módulo separado para el procesador de provisioning (debe estar antes de TenantModule)
-    TenantModule, // TenantModule depende de AuthModule
+    TenantModule, // TenantModule depende de AuthModule - DEBE estar antes de TenantProvisioningModule
+    TenantProvisioningModule, // Módulo separado para el procesador de provisioning (debe estar después de TenantModule para que los servicios globales estén disponibles)
     OrdersModule,
     TasksModule,
   ],

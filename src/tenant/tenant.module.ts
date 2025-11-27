@@ -33,6 +33,9 @@ import { TenantModulesController } from './controllers/modules.controller';
 import { TenantModulesService } from './services/modules.service';
 import { DataScopeService } from './services/data-scope.service';
 import { DashboardService } from './services/dashboard.service';
+import { TenantUserIndexService } from './services/tenant-user-index.service';
+import { TenantUsersService } from './services/users.service';
+import { TenantUsersController } from './controllers/users.controller';
 
 @Global() // Hacer el módulo global para que TenantPrismaService esté disponible en todos los submódulos
 @Module({
@@ -64,6 +67,8 @@ import { DashboardService } from './services/dashboard.service';
     TenantModulesService,
     DataScopeService,
     DashboardService,
+    TenantUserIndexService,
+    TenantUsersService,
     TenantGuard,
     TenantPermissionsGuard,
     TenantPrismaInterceptor,
@@ -77,6 +82,7 @@ import { DashboardService } from './services/dashboard.service';
     // TenantProvisioningController movido a TenantProvisioningModule
     DashboardController,
     TenantModulesController,
+    TenantUsersController,
   ],
   exports: [
     TenantService, // Exportar TenantService para que esté disponible en otros módulos
@@ -85,6 +91,7 @@ import { DashboardService } from './services/dashboard.service';
     TenantProvisioningService,
     TenantModulesService, // Exportar TenantModulesService para uso en AuthModule
     DataScopeService, // Exportar DataScopeService para uso en servicios de tenant
+    TenantUserIndexService, // Exportar TenantUserIndexService para uso en AuthModule y otros servicios
     TenantGuard, // Exportar TenantGuard para que esté disponible en otros módulos
     TenantPermissionsGuard,
     TenantPrismaInterceptor,

@@ -285,6 +285,75 @@ export class WebSocketEventService {
   }
 
   /**
+   * Listener para eventos de interacciones
+   */
+  @OnEvent(BusinessEventTypes.INTERACTION_CREATED)
+  async handleInteractionCreated(event: any) {
+    const tenantId = event.tenantContext?.tenantId || 'default';
+    await this.broadcastToTenant(tenantId, 'interaction:created', {
+      interactionId: event.interactionId,
+      customerId: event.customerId,
+      type: event.type,
+      direction: event.direction,
+      subject: event.subject,
+      status: event.status,
+      createdBy: event.createdBy,
+    });
+  }
+
+  @OnEvent(BusinessEventTypes.INTERACTION_UPDATED)
+  async handleInteractionUpdated(event: any) {
+    const tenantId = event.tenantContext?.tenantId || 'default';
+    await this.broadcastToTenant(tenantId, 'interaction:updated', {
+      interactionId: event.interactionId,
+      customerId: event.customerId,
+      type: event.type,
+      status: event.status,
+    });
+  }
+
+  @OnEvent(BusinessEventTypes.INTERACTION_STATUS_CHANGED)
+  async handleInteractionStatusChanged(event: any) {
+    const tenantId = event.tenantContext?.tenantId || 'default';
+    await this.broadcastToTenant(tenantId, 'interaction:status-changed', {
+      interactionId: event.interactionId,
+      customerId: event.customerId,
+      oldStatus: event.oldStatus,
+      newStatus: event.newStatus,
+    });
+  }
+
+  @OnEvent(BusinessEventTypes.CUSTOMER_NOTE_CREATED)
+  async handleCustomerNoteCreated(event: any) {
+    const tenantId = event.tenantContext?.tenantId || 'default';
+    await this.broadcastToTenant(tenantId, 'customer:note:created', {
+      noteId: event.noteId,
+      customerId: event.customerId,
+      createdBy: event.createdBy,
+    });
+  }
+
+  @OnEvent(BusinessEventTypes.CUSTOMER_NOTE_UPDATED)
+  async handleCustomerNoteUpdated(event: any) {
+    const tenantId = event.tenantContext?.tenantId || 'default';
+    await this.broadcastToTenant(tenantId, 'customer:note:updated', {
+      noteId: event.noteId,
+      customerId: event.customerId,
+      createdBy: event.createdBy,
+    });
+  }
+
+  @OnEvent(BusinessEventTypes.CUSTOMER_NOTE_DELETED)
+  async handleCustomerNoteDeleted(event: any) {
+    const tenantId = event.tenantContext?.tenantId || 'default';
+    await this.broadcastToTenant(tenantId, 'customer:note:deleted', {
+      noteId: event.noteId,
+      customerId: event.customerId,
+      createdBy: event.createdBy,
+    });
+  }
+
+  /**
    * Métodos auxiliares para broadcasting
    */
   private async broadcastToTenant(tenantId: string, eventType: string, payload: any) {
