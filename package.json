@@ -43,7 +43,8 @@
     "migrate:all-tenants": "ts-node scripts/migrate-all-tenants.ts",
     "assign:modules-to-plans": "ts-node scripts/assign-all-modules-to-plans.ts",
     "cleanup:duplicate-jobs": "ts-node scripts/cleanup-duplicate-jobs.ts",
-    "flush:redis": "ts-node scripts/flush-redis.ts"
+    "flush:redis": "ts-node scripts/flush-redis.ts",
+    "sync:tenant-index": "ts-node scripts/sync-tenant-user-index.ts"
   },
   "dependencies": {
     "@nestjs/bullmq": "^11.0.4",

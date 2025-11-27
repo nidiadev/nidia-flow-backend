@@ -672,6 +672,16 @@ exports.Prisma.ConversationNoteScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CustomerNoteScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  content: 'content',
+  isInternal: 'isInternal',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SmartListScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -978,6 +988,7 @@ exports.Prisma.ModelName = {
   Conversation: 'Conversation',
   Message: 'Message',
   ConversationNote: 'ConversationNote',
+  CustomerNote: 'CustomerNote',
   SmartList: 'SmartList',
   SmartListMember: 'SmartListMember',
   LeadScoringRule: 'LeadScoringRule',

@@ -50,6 +50,7 @@ model User {
   customersAssigned         Customer[]          @relation("CustomerAssignedTo")
   interactions              Interaction[]       @relation("InteractionCreatedBy")
   interactionsAssigned      Interaction[]       @relation("InteractionAssignedTo")
+  customerNotes             CustomerNote[]       @relation("CustomerNoteCreatedBy")
   ordersCreated             Order[]             @relation("OrderCreatedBy")
   ordersAssigned            Order[]             @relation("OrderAssignedTo")
   tasksCreated              Task[]              @relation("TaskCreatedBy")
@@ -167,6 +168,7 @@ model Customer {
   smartListMembers  SmartListMember[]
   leadScoreHistory  LeadScoreHistory[]
   WebFormSubmission WebFormSubmission[]
+  customerNotes     CustomerNote[]
 
   @@index([type])
   @@index([email])
@@ -1158,6 +1160,28 @@ model ConversationNote {
   @@index([conversationId])
   @@index([createdBy])
   @@map("conversation_notes")
+}
+
+model CustomerNote {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  customerId String  @map("customer_id") @db.Uuid
+  content    String  @db.Text
+  isInternal Boolean @default(true) @map("is_internal") // Not visible to customer
+
+  // Audit
+  createdBy String   @map("created_by") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  customer      Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  createdByUser User     @relation("CustomerNoteCreatedBy", fields: [createdBy], references: [id])
+
+  @@index([customerId])
+  @@index([createdBy])
+  @@index([createdAt])
+  @@map("customer_notes")
 }
 
 // ============================================

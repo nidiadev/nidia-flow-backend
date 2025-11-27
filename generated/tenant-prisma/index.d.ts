@@ -159,6 +159,11 @@ export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
  */
 export type ConversationNote = $Result.DefaultSelection<Prisma.$ConversationNotePayload>
 /**
+ * Model CustomerNote
+ * 
+ */
+export type CustomerNote = $Result.DefaultSelection<Prisma.$CustomerNotePayload>
+/**
  * Model SmartList
  * 
  */
@@ -646,6 +651,16 @@ export class PrismaClient<
     * ```
     */
   get conversationNote(): Prisma.ConversationNoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.customerNote`: Exposes CRUD operations for the **CustomerNote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CustomerNotes
+    * const customerNotes = await prisma.customerNote.findMany()
+    * ```
+    */
+  get customerNote(): Prisma.CustomerNoteDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.smartList`: Exposes CRUD operations for the **SmartList** model.
@@ -1275,6 +1290,7 @@ export namespace Prisma {
     Conversation: 'Conversation',
     Message: 'Message',
     ConversationNote: 'ConversationNote',
+    CustomerNote: 'CustomerNote',
     SmartList: 'SmartList',
     SmartListMember: 'SmartListMember',
     LeadScoringRule: 'LeadScoringRule',
@@ -1309,7 +1325,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "activityReminder" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "conversation" | "message" | "conversationNote" | "smartList" | "smartListMember" | "leadScoringRule" | "leadScoreHistory" | "workflow" | "workflowExecution" | "webForm" | "webFormSubmission" | "workflowExecutionLog" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
+      modelProps: "user" | "role" | "customer" | "customerContact" | "interaction" | "activityReminder" | "dealStage" | "deal" | "dealContact" | "dealProduct" | "category" | "product" | "productVariant" | "comboItem" | "inventoryMovement" | "order" | "orderItem" | "task" | "taskChecklist" | "taskDependency" | "payment" | "transaction" | "bankAccount" | "budgetCategory" | "messageTemplate" | "messageLog" | "conversation" | "message" | "conversationNote" | "customerNote" | "smartList" | "smartListMember" | "leadScoringRule" | "leadScoreHistory" | "workflow" | "workflowExecution" | "webForm" | "webFormSubmission" | "workflowExecutionLog" | "notification" | "file" | "savedReport" | "reportExecution" | "stockAlert" | "companySetting" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3459,6 +3475,80 @@ export namespace Prisma {
           }
         }
       }
+      CustomerNote: {
+        payload: Prisma.$CustomerNotePayload<ExtArgs>
+        fields: Prisma.CustomerNoteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CustomerNoteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CustomerNoteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>
+          }
+          findFirst: {
+            args: Prisma.CustomerNoteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CustomerNoteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>
+          }
+          findMany: {
+            args: Prisma.CustomerNoteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>[]
+          }
+          create: {
+            args: Prisma.CustomerNoteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>
+          }
+          createMany: {
+            args: Prisma.CustomerNoteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CustomerNoteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>[]
+          }
+          delete: {
+            args: Prisma.CustomerNoteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>
+          }
+          update: {
+            args: Prisma.CustomerNoteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>
+          }
+          deleteMany: {
+            args: Prisma.CustomerNoteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CustomerNoteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CustomerNoteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>[]
+          }
+          upsert: {
+            args: Prisma.CustomerNoteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CustomerNotePayload>
+          }
+          aggregate: {
+            args: Prisma.CustomerNoteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCustomerNote>
+          }
+          groupBy: {
+            args: Prisma.CustomerNoteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CustomerNoteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CustomerNoteCountArgs<ExtArgs>
+            result: $Utils.Optional<CustomerNoteCountAggregateOutputType> | number
+          }
+        }
+      }
       SmartList: {
         payload: Prisma.$SmartListPayload<ExtArgs>
         fields: Prisma.SmartListFieldRefs
@@ -4768,6 +4858,7 @@ export namespace Prisma {
     conversation?: ConversationOmit
     message?: MessageOmit
     conversationNote?: ConversationNoteOmit
+    customerNote?: CustomerNoteOmit
     smartList?: SmartListOmit
     smartListMember?: SmartListMemberOmit
     leadScoringRule?: LeadScoringRuleOmit
@@ -4869,6 +4960,7 @@ export namespace Prisma {
     customersAssigned: number
     interactions: number
     interactionsAssigned: number
+    customerNotes: number
     ordersCreated: number
     ordersAssigned: number
     tasksCreated: number
@@ -4901,6 +4993,7 @@ export namespace Prisma {
     customersAssigned?: boolean | UserCountOutputTypeCountCustomersAssignedArgs
     interactions?: boolean | UserCountOutputTypeCountInteractionsArgs
     interactionsAssigned?: boolean | UserCountOutputTypeCountInteractionsAssignedArgs
+    customerNotes?: boolean | UserCountOutputTypeCountCustomerNotesArgs
     ordersCreated?: boolean | UserCountOutputTypeCountOrdersCreatedArgs
     ordersAssigned?: boolean | UserCountOutputTypeCountOrdersAssignedArgs
     tasksCreated?: boolean | UserCountOutputTypeCountTasksCreatedArgs
@@ -4971,6 +5064,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountInteractionsAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InteractionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCustomerNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerNoteWhereInput
   }
 
   /**
@@ -5157,6 +5257,7 @@ export namespace Prisma {
     smartListMembers: number
     leadScoreHistory: number
     WebFormSubmission: number
+    customerNotes: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5170,6 +5271,7 @@ export namespace Prisma {
     smartListMembers?: boolean | CustomerCountOutputTypeCountSmartListMembersArgs
     leadScoreHistory?: boolean | CustomerCountOutputTypeCountLeadScoreHistoryArgs
     WebFormSubmission?: boolean | CustomerCountOutputTypeCountWebFormSubmissionArgs
+    customerNotes?: boolean | CustomerCountOutputTypeCountCustomerNotesArgs
   }
 
   // Custom InputTypes
@@ -5251,6 +5353,13 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountWebFormSubmissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WebFormSubmissionWhereInput
+  }
+
+  /**
+   * CustomerCountOutputType without action
+   */
+  export type CustomerCountOutputTypeCountCustomerNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerNoteWhereInput
   }
 
 
@@ -6155,6 +6264,7 @@ export namespace Prisma {
     customersAssigned?: boolean | User$customersAssignedArgs<ExtArgs>
     interactions?: boolean | User$interactionsArgs<ExtArgs>
     interactionsAssigned?: boolean | User$interactionsAssignedArgs<ExtArgs>
+    customerNotes?: boolean | User$customerNotesArgs<ExtArgs>
     ordersCreated?: boolean | User$ordersCreatedArgs<ExtArgs>
     ordersAssigned?: boolean | User$ordersAssignedArgs<ExtArgs>
     tasksCreated?: boolean | User$tasksCreatedArgs<ExtArgs>
@@ -6255,6 +6365,7 @@ export namespace Prisma {
     customersAssigned?: boolean | User$customersAssignedArgs<ExtArgs>
     interactions?: boolean | User$interactionsArgs<ExtArgs>
     interactionsAssigned?: boolean | User$interactionsAssignedArgs<ExtArgs>
+    customerNotes?: boolean | User$customerNotesArgs<ExtArgs>
     ordersCreated?: boolean | User$ordersCreatedArgs<ExtArgs>
     ordersAssigned?: boolean | User$ordersAssignedArgs<ExtArgs>
     tasksCreated?: boolean | User$tasksCreatedArgs<ExtArgs>
@@ -6297,6 +6408,7 @@ export namespace Prisma {
       customersAssigned: Prisma.$CustomerPayload<ExtArgs>[]
       interactions: Prisma.$InteractionPayload<ExtArgs>[]
       interactionsAssigned: Prisma.$InteractionPayload<ExtArgs>[]
+      customerNotes: Prisma.$CustomerNotePayload<ExtArgs>[]
       ordersCreated: Prisma.$OrderPayload<ExtArgs>[]
       ordersAssigned: Prisma.$OrderPayload<ExtArgs>[]
       tasksCreated: Prisma.$TaskPayload<ExtArgs>[]
@@ -6741,6 +6853,7 @@ export namespace Prisma {
     customersAssigned<T extends User$customersAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$customersAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     interactions<T extends User$interactionsArgs<ExtArgs> = {}>(args?: Subset<T, User$interactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     interactionsAssigned<T extends User$interactionsAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$interactionsAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InteractionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customerNotes<T extends User$customerNotesArgs<ExtArgs> = {}>(args?: Subset<T, User$customerNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ordersCreated<T extends User$ordersCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ordersAssigned<T extends User$ordersAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tasksCreated<T extends User$tasksCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$tasksCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7344,6 +7457,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: InteractionScalarFieldEnum | InteractionScalarFieldEnum[]
+  }
+
+  /**
+   * User.customerNotes
+   */
+  export type User$customerNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    where?: CustomerNoteWhereInput
+    orderBy?: CustomerNoteOrderByWithRelationInput | CustomerNoteOrderByWithRelationInput[]
+    cursor?: CustomerNoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerNoteScalarFieldEnum | CustomerNoteScalarFieldEnum[]
   }
 
   /**
@@ -9436,6 +9573,7 @@ export namespace Prisma {
     smartListMembers?: boolean | Customer$smartListMembersArgs<ExtArgs>
     leadScoreHistory?: boolean | Customer$leadScoreHistoryArgs<ExtArgs>
     WebFormSubmission?: boolean | Customer$WebFormSubmissionArgs<ExtArgs>
+    customerNotes?: boolean | Customer$customerNotesArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -9580,6 +9718,7 @@ export namespace Prisma {
     smartListMembers?: boolean | Customer$smartListMembersArgs<ExtArgs>
     leadScoreHistory?: boolean | Customer$leadScoreHistoryArgs<ExtArgs>
     WebFormSubmission?: boolean | Customer$WebFormSubmissionArgs<ExtArgs>
+    customerNotes?: boolean | Customer$customerNotesArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9606,6 +9745,7 @@ export namespace Prisma {
       smartListMembers: Prisma.$SmartListMemberPayload<ExtArgs>[]
       leadScoreHistory: Prisma.$LeadScoreHistoryPayload<ExtArgs>[]
       WebFormSubmission: Prisma.$WebFormSubmissionPayload<ExtArgs>[]
+      customerNotes: Prisma.$CustomerNotePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10052,6 +10192,7 @@ export namespace Prisma {
     smartListMembers<T extends Customer$smartListMembersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$smartListMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SmartListMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     leadScoreHistory<T extends Customer$leadScoreHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Customer$leadScoreHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LeadScoreHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     WebFormSubmission<T extends Customer$WebFormSubmissionArgs<ExtArgs> = {}>(args?: Subset<T, Customer$WebFormSubmissionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFormSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    customerNotes<T extends Customer$customerNotesArgs<ExtArgs> = {}>(args?: Subset<T, Customer$customerNotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10771,6 +10912,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WebFormSubmissionScalarFieldEnum | WebFormSubmissionScalarFieldEnum[]
+  }
+
+  /**
+   * Customer.customerNotes
+   */
+  export type Customer$customerNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    where?: CustomerNoteWhereInput
+    orderBy?: CustomerNoteOrderByWithRelationInput | CustomerNoteOrderByWithRelationInput[]
+    cursor?: CustomerNoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CustomerNoteScalarFieldEnum | CustomerNoteScalarFieldEnum[]
   }
 
   /**
@@ -43918,6 +44083,1098 @@ export namespace Prisma {
 
 
   /**
+   * Model CustomerNote
+   */
+
+  export type AggregateCustomerNote = {
+    _count: CustomerNoteCountAggregateOutputType | null
+    _min: CustomerNoteMinAggregateOutputType | null
+    _max: CustomerNoteMaxAggregateOutputType | null
+  }
+
+  export type CustomerNoteMinAggregateOutputType = {
+    id: string | null
+    customerId: string | null
+    content: string | null
+    isInternal: boolean | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerNoteMaxAggregateOutputType = {
+    id: string | null
+    customerId: string | null
+    content: string | null
+    isInternal: boolean | null
+    createdBy: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CustomerNoteCountAggregateOutputType = {
+    id: number
+    customerId: number
+    content: number
+    isInternal: number
+    createdBy: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CustomerNoteMinAggregateInputType = {
+    id?: true
+    customerId?: true
+    content?: true
+    isInternal?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerNoteMaxAggregateInputType = {
+    id?: true
+    customerId?: true
+    content?: true
+    isInternal?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CustomerNoteCountAggregateInputType = {
+    id?: true
+    customerId?: true
+    content?: true
+    isInternal?: true
+    createdBy?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CustomerNoteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerNote to aggregate.
+     */
+    where?: CustomerNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerNotes to fetch.
+     */
+    orderBy?: CustomerNoteOrderByWithRelationInput | CustomerNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CustomerNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CustomerNotes
+    **/
+    _count?: true | CustomerNoteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CustomerNoteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CustomerNoteMaxAggregateInputType
+  }
+
+  export type GetCustomerNoteAggregateType<T extends CustomerNoteAggregateArgs> = {
+        [P in keyof T & keyof AggregateCustomerNote]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCustomerNote[P]>
+      : GetScalarType<T[P], AggregateCustomerNote[P]>
+  }
+
+
+
+
+  export type CustomerNoteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CustomerNoteWhereInput
+    orderBy?: CustomerNoteOrderByWithAggregationInput | CustomerNoteOrderByWithAggregationInput[]
+    by: CustomerNoteScalarFieldEnum[] | CustomerNoteScalarFieldEnum
+    having?: CustomerNoteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CustomerNoteCountAggregateInputType | true
+    _min?: CustomerNoteMinAggregateInputType
+    _max?: CustomerNoteMaxAggregateInputType
+  }
+
+  export type CustomerNoteGroupByOutputType = {
+    id: string
+    customerId: string
+    content: string
+    isInternal: boolean
+    createdBy: string
+    createdAt: Date
+    updatedAt: Date
+    _count: CustomerNoteCountAggregateOutputType | null
+    _min: CustomerNoteMinAggregateOutputType | null
+    _max: CustomerNoteMaxAggregateOutputType | null
+  }
+
+  type GetCustomerNoteGroupByPayload<T extends CustomerNoteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CustomerNoteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CustomerNoteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CustomerNoteGroupByOutputType[P]>
+            : GetScalarType<T[P], CustomerNoteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CustomerNoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerId?: boolean
+    content?: boolean
+    isInternal?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerNote"]>
+
+  export type CustomerNoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerId?: boolean
+    content?: boolean
+    isInternal?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerNote"]>
+
+  export type CustomerNoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    customerId?: boolean
+    content?: boolean
+    isInternal?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["customerNote"]>
+
+  export type CustomerNoteSelectScalar = {
+    id?: boolean
+    customerId?: boolean
+    content?: boolean
+    isInternal?: boolean
+    createdBy?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CustomerNoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "content" | "isInternal" | "createdBy" | "createdAt" | "updatedAt", ExtArgs["result"]["customerNote"]>
+  export type CustomerNoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CustomerNoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CustomerNoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    customer?: boolean | CustomerDefaultArgs<ExtArgs>
+    createdByUser?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CustomerNotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CustomerNote"
+    objects: {
+      customer: Prisma.$CustomerPayload<ExtArgs>
+      createdByUser: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      customerId: string
+      content: string
+      isInternal: boolean
+      createdBy: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["customerNote"]>
+    composites: {}
+  }
+
+  type CustomerNoteGetPayload<S extends boolean | null | undefined | CustomerNoteDefaultArgs> = $Result.GetResult<Prisma.$CustomerNotePayload, S>
+
+  type CustomerNoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CustomerNoteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CustomerNoteCountAggregateInputType | true
+    }
+
+  export interface CustomerNoteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CustomerNote'], meta: { name: 'CustomerNote' } }
+    /**
+     * Find zero or one CustomerNote that matches the filter.
+     * @param {CustomerNoteFindUniqueArgs} args - Arguments to find a CustomerNote
+     * @example
+     * // Get one CustomerNote
+     * const customerNote = await prisma.customerNote.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CustomerNoteFindUniqueArgs>(args: SelectSubset<T, CustomerNoteFindUniqueArgs<ExtArgs>>): Prisma__CustomerNoteClient<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CustomerNote that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CustomerNoteFindUniqueOrThrowArgs} args - Arguments to find a CustomerNote
+     * @example
+     * // Get one CustomerNote
+     * const customerNote = await prisma.customerNote.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CustomerNoteFindUniqueOrThrowArgs>(args: SelectSubset<T, CustomerNoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CustomerNoteClient<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerNote that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteFindFirstArgs} args - Arguments to find a CustomerNote
+     * @example
+     * // Get one CustomerNote
+     * const customerNote = await prisma.customerNote.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CustomerNoteFindFirstArgs>(args?: SelectSubset<T, CustomerNoteFindFirstArgs<ExtArgs>>): Prisma__CustomerNoteClient<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CustomerNote that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteFindFirstOrThrowArgs} args - Arguments to find a CustomerNote
+     * @example
+     * // Get one CustomerNote
+     * const customerNote = await prisma.customerNote.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CustomerNoteFindFirstOrThrowArgs>(args?: SelectSubset<T, CustomerNoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__CustomerNoteClient<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CustomerNotes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CustomerNotes
+     * const customerNotes = await prisma.customerNote.findMany()
+     * 
+     * // Get first 10 CustomerNotes
+     * const customerNotes = await prisma.customerNote.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const customerNoteWithIdOnly = await prisma.customerNote.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CustomerNoteFindManyArgs>(args?: SelectSubset<T, CustomerNoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CustomerNote.
+     * @param {CustomerNoteCreateArgs} args - Arguments to create a CustomerNote.
+     * @example
+     * // Create one CustomerNote
+     * const CustomerNote = await prisma.customerNote.create({
+     *   data: {
+     *     // ... data to create a CustomerNote
+     *   }
+     * })
+     * 
+     */
+    create<T extends CustomerNoteCreateArgs>(args: SelectSubset<T, CustomerNoteCreateArgs<ExtArgs>>): Prisma__CustomerNoteClient<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CustomerNotes.
+     * @param {CustomerNoteCreateManyArgs} args - Arguments to create many CustomerNotes.
+     * @example
+     * // Create many CustomerNotes
+     * const customerNote = await prisma.customerNote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CustomerNoteCreateManyArgs>(args?: SelectSubset<T, CustomerNoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CustomerNotes and returns the data saved in the database.
+     * @param {CustomerNoteCreateManyAndReturnArgs} args - Arguments to create many CustomerNotes.
+     * @example
+     * // Create many CustomerNotes
+     * const customerNote = await prisma.customerNote.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CustomerNotes and only return the `id`
+     * const customerNoteWithIdOnly = await prisma.customerNote.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CustomerNoteCreateManyAndReturnArgs>(args?: SelectSubset<T, CustomerNoteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CustomerNote.
+     * @param {CustomerNoteDeleteArgs} args - Arguments to delete one CustomerNote.
+     * @example
+     * // Delete one CustomerNote
+     * const CustomerNote = await prisma.customerNote.delete({
+     *   where: {
+     *     // ... filter to delete one CustomerNote
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CustomerNoteDeleteArgs>(args: SelectSubset<T, CustomerNoteDeleteArgs<ExtArgs>>): Prisma__CustomerNoteClient<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CustomerNote.
+     * @param {CustomerNoteUpdateArgs} args - Arguments to update one CustomerNote.
+     * @example
+     * // Update one CustomerNote
+     * const customerNote = await prisma.customerNote.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CustomerNoteUpdateArgs>(args: SelectSubset<T, CustomerNoteUpdateArgs<ExtArgs>>): Prisma__CustomerNoteClient<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CustomerNotes.
+     * @param {CustomerNoteDeleteManyArgs} args - Arguments to filter CustomerNotes to delete.
+     * @example
+     * // Delete a few CustomerNotes
+     * const { count } = await prisma.customerNote.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CustomerNoteDeleteManyArgs>(args?: SelectSubset<T, CustomerNoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerNotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CustomerNotes
+     * const customerNote = await prisma.customerNote.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CustomerNoteUpdateManyArgs>(args: SelectSubset<T, CustomerNoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CustomerNotes and returns the data updated in the database.
+     * @param {CustomerNoteUpdateManyAndReturnArgs} args - Arguments to update many CustomerNotes.
+     * @example
+     * // Update many CustomerNotes
+     * const customerNote = await prisma.customerNote.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CustomerNotes and only return the `id`
+     * const customerNoteWithIdOnly = await prisma.customerNote.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CustomerNoteUpdateManyAndReturnArgs>(args: SelectSubset<T, CustomerNoteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CustomerNote.
+     * @param {CustomerNoteUpsertArgs} args - Arguments to update or create a CustomerNote.
+     * @example
+     * // Update or create a CustomerNote
+     * const customerNote = await prisma.customerNote.upsert({
+     *   create: {
+     *     // ... data to create a CustomerNote
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CustomerNote we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CustomerNoteUpsertArgs>(args: SelectSubset<T, CustomerNoteUpsertArgs<ExtArgs>>): Prisma__CustomerNoteClient<$Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CustomerNotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteCountArgs} args - Arguments to filter CustomerNotes to count.
+     * @example
+     * // Count the number of CustomerNotes
+     * const count = await prisma.customerNote.count({
+     *   where: {
+     *     // ... the filter for the CustomerNotes we want to count
+     *   }
+     * })
+    **/
+    count<T extends CustomerNoteCountArgs>(
+      args?: Subset<T, CustomerNoteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CustomerNoteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CustomerNote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CustomerNoteAggregateArgs>(args: Subset<T, CustomerNoteAggregateArgs>): Prisma.PrismaPromise<GetCustomerNoteAggregateType<T>>
+
+    /**
+     * Group by CustomerNote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CustomerNoteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CustomerNoteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CustomerNoteGroupByArgs['orderBy'] }
+        : { orderBy?: CustomerNoteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CustomerNoteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCustomerNoteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CustomerNote model
+   */
+  readonly fields: CustomerNoteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CustomerNote.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CustomerNoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    createdByUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CustomerNote model
+   */
+  interface CustomerNoteFieldRefs {
+    readonly id: FieldRef<"CustomerNote", 'String'>
+    readonly customerId: FieldRef<"CustomerNote", 'String'>
+    readonly content: FieldRef<"CustomerNote", 'String'>
+    readonly isInternal: FieldRef<"CustomerNote", 'Boolean'>
+    readonly createdBy: FieldRef<"CustomerNote", 'String'>
+    readonly createdAt: FieldRef<"CustomerNote", 'DateTime'>
+    readonly updatedAt: FieldRef<"CustomerNote", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CustomerNote findUnique
+   */
+  export type CustomerNoteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerNote to fetch.
+     */
+    where: CustomerNoteWhereUniqueInput
+  }
+
+  /**
+   * CustomerNote findUniqueOrThrow
+   */
+  export type CustomerNoteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerNote to fetch.
+     */
+    where: CustomerNoteWhereUniqueInput
+  }
+
+  /**
+   * CustomerNote findFirst
+   */
+  export type CustomerNoteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerNote to fetch.
+     */
+    where?: CustomerNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerNotes to fetch.
+     */
+    orderBy?: CustomerNoteOrderByWithRelationInput | CustomerNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerNotes.
+     */
+    cursor?: CustomerNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerNotes.
+     */
+    distinct?: CustomerNoteScalarFieldEnum | CustomerNoteScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerNote findFirstOrThrow
+   */
+  export type CustomerNoteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerNote to fetch.
+     */
+    where?: CustomerNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerNotes to fetch.
+     */
+    orderBy?: CustomerNoteOrderByWithRelationInput | CustomerNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CustomerNotes.
+     */
+    cursor?: CustomerNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CustomerNotes.
+     */
+    distinct?: CustomerNoteScalarFieldEnum | CustomerNoteScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerNote findMany
+   */
+  export type CustomerNoteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which CustomerNotes to fetch.
+     */
+    where?: CustomerNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CustomerNotes to fetch.
+     */
+    orderBy?: CustomerNoteOrderByWithRelationInput | CustomerNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CustomerNotes.
+     */
+    cursor?: CustomerNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CustomerNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CustomerNotes.
+     */
+    skip?: number
+    distinct?: CustomerNoteScalarFieldEnum | CustomerNoteScalarFieldEnum[]
+  }
+
+  /**
+   * CustomerNote create
+   */
+  export type CustomerNoteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CustomerNote.
+     */
+    data: XOR<CustomerNoteCreateInput, CustomerNoteUncheckedCreateInput>
+  }
+
+  /**
+   * CustomerNote createMany
+   */
+  export type CustomerNoteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CustomerNotes.
+     */
+    data: CustomerNoteCreateManyInput | CustomerNoteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CustomerNote createManyAndReturn
+   */
+  export type CustomerNoteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * The data used to create many CustomerNotes.
+     */
+    data: CustomerNoteCreateManyInput | CustomerNoteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerNote update
+   */
+  export type CustomerNoteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CustomerNote.
+     */
+    data: XOR<CustomerNoteUpdateInput, CustomerNoteUncheckedUpdateInput>
+    /**
+     * Choose, which CustomerNote to update.
+     */
+    where: CustomerNoteWhereUniqueInput
+  }
+
+  /**
+   * CustomerNote updateMany
+   */
+  export type CustomerNoteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CustomerNotes.
+     */
+    data: XOR<CustomerNoteUpdateManyMutationInput, CustomerNoteUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerNotes to update
+     */
+    where?: CustomerNoteWhereInput
+    /**
+     * Limit how many CustomerNotes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerNote updateManyAndReturn
+   */
+  export type CustomerNoteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * The data used to update CustomerNotes.
+     */
+    data: XOR<CustomerNoteUpdateManyMutationInput, CustomerNoteUncheckedUpdateManyInput>
+    /**
+     * Filter which CustomerNotes to update
+     */
+    where?: CustomerNoteWhereInput
+    /**
+     * Limit how many CustomerNotes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CustomerNote upsert
+   */
+  export type CustomerNoteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CustomerNote to update in case it exists.
+     */
+    where: CustomerNoteWhereUniqueInput
+    /**
+     * In case the CustomerNote found by the `where` argument doesn't exist, create a new CustomerNote with this data.
+     */
+    create: XOR<CustomerNoteCreateInput, CustomerNoteUncheckedCreateInput>
+    /**
+     * In case the CustomerNote was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CustomerNoteUpdateInput, CustomerNoteUncheckedUpdateInput>
+  }
+
+  /**
+   * CustomerNote delete
+   */
+  export type CustomerNoteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+    /**
+     * Filter which CustomerNote to delete.
+     */
+    where: CustomerNoteWhereUniqueInput
+  }
+
+  /**
+   * CustomerNote deleteMany
+   */
+  export type CustomerNoteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CustomerNotes to delete
+     */
+    where?: CustomerNoteWhereInput
+    /**
+     * Limit how many CustomerNotes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CustomerNote without action
+   */
+  export type CustomerNoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CustomerNote
+     */
+    select?: CustomerNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CustomerNote
+     */
+    omit?: CustomerNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CustomerNoteInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model SmartList
    */
 
@@ -63567,6 +64824,19 @@ export namespace Prisma {
   export type ConversationNoteScalarFieldEnum = (typeof ConversationNoteScalarFieldEnum)[keyof typeof ConversationNoteScalarFieldEnum]
 
 
+  export const CustomerNoteScalarFieldEnum: {
+    id: 'id',
+    customerId: 'customerId',
+    content: 'content',
+    isInternal: 'isInternal',
+    createdBy: 'createdBy',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CustomerNoteScalarFieldEnum = (typeof CustomerNoteScalarFieldEnum)[keyof typeof CustomerNoteScalarFieldEnum]
+
+
   export const SmartListScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -64035,6 +65305,7 @@ export namespace Prisma {
     customersAssigned?: CustomerListRelationFilter
     interactions?: InteractionListRelationFilter
     interactionsAssigned?: InteractionListRelationFilter
+    customerNotes?: CustomerNoteListRelationFilter
     ordersCreated?: OrderListRelationFilter
     ordersAssigned?: OrderListRelationFilter
     tasksCreated?: TaskListRelationFilter
@@ -64086,6 +65357,7 @@ export namespace Prisma {
     customersAssigned?: CustomerOrderByRelationAggregateInput
     interactions?: InteractionOrderByRelationAggregateInput
     interactionsAssigned?: InteractionOrderByRelationAggregateInput
+    customerNotes?: CustomerNoteOrderByRelationAggregateInput
     ordersCreated?: OrderOrderByRelationAggregateInput
     ordersAssigned?: OrderOrderByRelationAggregateInput
     tasksCreated?: TaskOrderByRelationAggregateInput
@@ -64140,6 +65412,7 @@ export namespace Prisma {
     customersAssigned?: CustomerListRelationFilter
     interactions?: InteractionListRelationFilter
     interactionsAssigned?: InteractionListRelationFilter
+    customerNotes?: CustomerNoteListRelationFilter
     ordersCreated?: OrderListRelationFilter
     ordersAssigned?: OrderListRelationFilter
     tasksCreated?: TaskListRelationFilter
@@ -64330,6 +65603,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberListRelationFilter
     leadScoreHistory?: LeadScoreHistoryListRelationFilter
     WebFormSubmission?: WebFormSubmissionListRelationFilter
+    customerNotes?: CustomerNoteListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
@@ -64383,6 +65657,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberOrderByRelationAggregateInput
     leadScoreHistory?: LeadScoreHistoryOrderByRelationAggregateInput
     WebFormSubmission?: WebFormSubmissionOrderByRelationAggregateInput
+    customerNotes?: CustomerNoteOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -64439,6 +65714,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberListRelationFilter
     leadScoreHistory?: LeadScoreHistoryListRelationFilter
     WebFormSubmission?: WebFormSubmissionListRelationFilter
+    customerNotes?: CustomerNoteListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
@@ -67527,6 +68803,74 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"ConversationNote"> | Date | string
   }
 
+  export type CustomerNoteWhereInput = {
+    AND?: CustomerNoteWhereInput | CustomerNoteWhereInput[]
+    OR?: CustomerNoteWhereInput[]
+    NOT?: CustomerNoteWhereInput | CustomerNoteWhereInput[]
+    id?: UuidFilter<"CustomerNote"> | string
+    customerId?: UuidFilter<"CustomerNote"> | string
+    content?: StringFilter<"CustomerNote"> | string
+    isInternal?: BoolFilter<"CustomerNote"> | boolean
+    createdBy?: UuidFilter<"CustomerNote"> | string
+    createdAt?: DateTimeFilter<"CustomerNote"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerNote"> | Date | string
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type CustomerNoteOrderByWithRelationInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    content?: SortOrder
+    isInternal?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    customer?: CustomerOrderByWithRelationInput
+    createdByUser?: UserOrderByWithRelationInput
+  }
+
+  export type CustomerNoteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CustomerNoteWhereInput | CustomerNoteWhereInput[]
+    OR?: CustomerNoteWhereInput[]
+    NOT?: CustomerNoteWhereInput | CustomerNoteWhereInput[]
+    customerId?: UuidFilter<"CustomerNote"> | string
+    content?: StringFilter<"CustomerNote"> | string
+    isInternal?: BoolFilter<"CustomerNote"> | boolean
+    createdBy?: UuidFilter<"CustomerNote"> | string
+    createdAt?: DateTimeFilter<"CustomerNote"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerNote"> | Date | string
+    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
+    createdByUser?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type CustomerNoteOrderByWithAggregationInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    content?: SortOrder
+    isInternal?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CustomerNoteCountOrderByAggregateInput
+    _max?: CustomerNoteMaxOrderByAggregateInput
+    _min?: CustomerNoteMinOrderByAggregateInput
+  }
+
+  export type CustomerNoteScalarWhereWithAggregatesInput = {
+    AND?: CustomerNoteScalarWhereWithAggregatesInput | CustomerNoteScalarWhereWithAggregatesInput[]
+    OR?: CustomerNoteScalarWhereWithAggregatesInput[]
+    NOT?: CustomerNoteScalarWhereWithAggregatesInput | CustomerNoteScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"CustomerNote"> | string
+    customerId?: UuidWithAggregatesFilter<"CustomerNote"> | string
+    content?: StringWithAggregatesFilter<"CustomerNote"> | string
+    isInternal?: BoolWithAggregatesFilter<"CustomerNote"> | boolean
+    createdBy?: UuidWithAggregatesFilter<"CustomerNote"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"CustomerNote"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CustomerNote"> | Date | string
+  }
+
   export type SmartListWhereInput = {
     AND?: SmartListWhereInput | SmartListWhereInput[]
     OR?: SmartListWhereInput[]
@@ -69060,6 +70404,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -69110,6 +70455,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -69160,6 +70506,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -69210,6 +70557,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -69417,6 +70765,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
@@ -69468,6 +70817,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -69519,6 +70869,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
@@ -69570,6 +70921,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -73117,6 +74469,74 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CustomerNoteCreateInput = {
+    id?: string
+    content: string
+    isInternal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutCustomerNotesInput
+    createdByUser: UserCreateNestedOneWithoutCustomerNotesInput
+  }
+
+  export type CustomerNoteUncheckedCreateInput = {
+    id?: string
+    customerId: string
+    content: string
+    isInternal?: boolean
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerNoteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutCustomerNotesNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutCustomerNotesNestedInput
+  }
+
+  export type CustomerNoteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteCreateManyInput = {
+    id?: string
+    customerId: string
+    content: string
+    isInternal?: boolean
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerNoteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SmartListCreateInput = {
     id?: string
     name: string
@@ -74961,6 +76381,12 @@ export namespace Prisma {
     none?: InteractionWhereInput
   }
 
+  export type CustomerNoteListRelationFilter = {
+    every?: CustomerNoteWhereInput
+    some?: CustomerNoteWhereInput
+    none?: CustomerNoteWhereInput
+  }
+
   export type OrderListRelationFilter = {
     every?: OrderWhereInput
     some?: OrderWhereInput
@@ -75095,6 +76521,10 @@ export namespace Prisma {
   }
 
   export type InteractionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CustomerNoteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -77533,6 +78963,36 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type CustomerNoteCountOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    content?: SortOrder
+    isInternal?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerNoteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    content?: SortOrder
+    isInternal?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CustomerNoteMinOrderByAggregateInput = {
+    id?: SortOrder
+    customerId?: SortOrder
+    content?: SortOrder
+    isInternal?: SortOrder
+    createdBy?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type SmartListCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -78472,6 +79932,13 @@ export namespace Prisma {
     connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
   }
 
+  export type CustomerNoteCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<CustomerNoteCreateWithoutCreatedByUserInput, CustomerNoteUncheckedCreateWithoutCreatedByUserInput> | CustomerNoteCreateWithoutCreatedByUserInput[] | CustomerNoteUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: CustomerNoteCreateOrConnectWithoutCreatedByUserInput | CustomerNoteCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: CustomerNoteCreateManyCreatedByUserInputEnvelope
+    connect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+  }
+
   export type OrderCreateNestedManyWithoutCreatedByUserInput = {
     create?: XOR<OrderCreateWithoutCreatedByUserInput, OrderUncheckedCreateWithoutCreatedByUserInput> | OrderCreateWithoutCreatedByUserInput[] | OrderUncheckedCreateWithoutCreatedByUserInput[]
     connectOrCreate?: OrderCreateOrConnectWithoutCreatedByUserInput | OrderCreateOrConnectWithoutCreatedByUserInput[]
@@ -78673,6 +80140,13 @@ export namespace Prisma {
     connectOrCreate?: InteractionCreateOrConnectWithoutAssignedToUserInput | InteractionCreateOrConnectWithoutAssignedToUserInput[]
     createMany?: InteractionCreateManyAssignedToUserInputEnvelope
     connect?: InteractionWhereUniqueInput | InteractionWhereUniqueInput[]
+  }
+
+  export type CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput = {
+    create?: XOR<CustomerNoteCreateWithoutCreatedByUserInput, CustomerNoteUncheckedCreateWithoutCreatedByUserInput> | CustomerNoteCreateWithoutCreatedByUserInput[] | CustomerNoteUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: CustomerNoteCreateOrConnectWithoutCreatedByUserInput | CustomerNoteCreateOrConnectWithoutCreatedByUserInput[]
+    createMany?: CustomerNoteCreateManyCreatedByUserInputEnvelope
+    connect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
   }
 
   export type OrderUncheckedCreateNestedManyWithoutCreatedByUserInput = {
@@ -78941,6 +80415,20 @@ export namespace Prisma {
     update?: InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput | InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput[]
     updateMany?: InteractionUpdateManyWithWhereWithoutAssignedToUserInput | InteractionUpdateManyWithWhereWithoutAssignedToUserInput[]
     deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
+  }
+
+  export type CustomerNoteUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<CustomerNoteCreateWithoutCreatedByUserInput, CustomerNoteUncheckedCreateWithoutCreatedByUserInput> | CustomerNoteCreateWithoutCreatedByUserInput[] | CustomerNoteUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: CustomerNoteCreateOrConnectWithoutCreatedByUserInput | CustomerNoteCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: CustomerNoteUpsertWithWhereUniqueWithoutCreatedByUserInput | CustomerNoteUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: CustomerNoteCreateManyCreatedByUserInputEnvelope
+    set?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    disconnect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    delete?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    connect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    update?: CustomerNoteUpdateWithWhereUniqueWithoutCreatedByUserInput | CustomerNoteUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: CustomerNoteUpdateManyWithWhereWithoutCreatedByUserInput | CustomerNoteUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: CustomerNoteScalarWhereInput | CustomerNoteScalarWhereInput[]
   }
 
   export type OrderUpdateManyWithoutCreatedByUserNestedInput = {
@@ -79347,6 +80835,20 @@ export namespace Prisma {
     update?: InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput | InteractionUpdateWithWhereUniqueWithoutAssignedToUserInput[]
     updateMany?: InteractionUpdateManyWithWhereWithoutAssignedToUserInput | InteractionUpdateManyWithWhereWithoutAssignedToUserInput[]
     deleteMany?: InteractionScalarWhereInput | InteractionScalarWhereInput[]
+  }
+
+  export type CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
+    create?: XOR<CustomerNoteCreateWithoutCreatedByUserInput, CustomerNoteUncheckedCreateWithoutCreatedByUserInput> | CustomerNoteCreateWithoutCreatedByUserInput[] | CustomerNoteUncheckedCreateWithoutCreatedByUserInput[]
+    connectOrCreate?: CustomerNoteCreateOrConnectWithoutCreatedByUserInput | CustomerNoteCreateOrConnectWithoutCreatedByUserInput[]
+    upsert?: CustomerNoteUpsertWithWhereUniqueWithoutCreatedByUserInput | CustomerNoteUpsertWithWhereUniqueWithoutCreatedByUserInput[]
+    createMany?: CustomerNoteCreateManyCreatedByUserInputEnvelope
+    set?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    disconnect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    delete?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    connect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    update?: CustomerNoteUpdateWithWhereUniqueWithoutCreatedByUserInput | CustomerNoteUpdateWithWhereUniqueWithoutCreatedByUserInput[]
+    updateMany?: CustomerNoteUpdateManyWithWhereWithoutCreatedByUserInput | CustomerNoteUpdateManyWithWhereWithoutCreatedByUserInput[]
+    deleteMany?: CustomerNoteScalarWhereInput | CustomerNoteScalarWhereInput[]
   }
 
   export type OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput = {
@@ -79771,6 +81273,13 @@ export namespace Prisma {
     connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
   }
 
+  export type CustomerNoteCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<CustomerNoteCreateWithoutCustomerInput, CustomerNoteUncheckedCreateWithoutCustomerInput> | CustomerNoteCreateWithoutCustomerInput[] | CustomerNoteUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerNoteCreateOrConnectWithoutCustomerInput | CustomerNoteCreateOrConnectWithoutCustomerInput[]
+    createMany?: CustomerNoteCreateManyCustomerInputEnvelope
+    connect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+  }
+
   export type CustomerContactUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<CustomerContactCreateWithoutCustomerInput, CustomerContactUncheckedCreateWithoutCustomerInput> | CustomerContactCreateWithoutCustomerInput[] | CustomerContactUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerContactCreateOrConnectWithoutCustomerInput | CustomerContactCreateOrConnectWithoutCustomerInput[]
@@ -79839,6 +81348,13 @@ export namespace Prisma {
     connectOrCreate?: WebFormSubmissionCreateOrConnectWithoutCustomerInput | WebFormSubmissionCreateOrConnectWithoutCustomerInput[]
     createMany?: WebFormSubmissionCreateManyCustomerInputEnvelope
     connect?: WebFormSubmissionWhereUniqueInput | WebFormSubmissionWhereUniqueInput[]
+  }
+
+  export type CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput = {
+    create?: XOR<CustomerNoteCreateWithoutCustomerInput, CustomerNoteUncheckedCreateWithoutCustomerInput> | CustomerNoteCreateWithoutCustomerInput[] | CustomerNoteUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerNoteCreateOrConnectWithoutCustomerInput | CustomerNoteCreateOrConnectWithoutCustomerInput[]
+    createMany?: CustomerNoteCreateManyCustomerInputEnvelope
+    connect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -80020,6 +81536,20 @@ export namespace Prisma {
     deleteMany?: WebFormSubmissionScalarWhereInput | WebFormSubmissionScalarWhereInput[]
   }
 
+  export type CustomerNoteUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<CustomerNoteCreateWithoutCustomerInput, CustomerNoteUncheckedCreateWithoutCustomerInput> | CustomerNoteCreateWithoutCustomerInput[] | CustomerNoteUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerNoteCreateOrConnectWithoutCustomerInput | CustomerNoteCreateOrConnectWithoutCustomerInput[]
+    upsert?: CustomerNoteUpsertWithWhereUniqueWithoutCustomerInput | CustomerNoteUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: CustomerNoteCreateManyCustomerInputEnvelope
+    set?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    disconnect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    delete?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    connect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    update?: CustomerNoteUpdateWithWhereUniqueWithoutCustomerInput | CustomerNoteUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: CustomerNoteUpdateManyWithWhereWithoutCustomerInput | CustomerNoteUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: CustomerNoteScalarWhereInput | CustomerNoteScalarWhereInput[]
+  }
+
   export type CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<CustomerContactCreateWithoutCustomerInput, CustomerContactUncheckedCreateWithoutCustomerInput> | CustomerContactCreateWithoutCustomerInput[] | CustomerContactUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: CustomerContactCreateOrConnectWithoutCustomerInput | CustomerContactCreateOrConnectWithoutCustomerInput[]
@@ -80158,6 +81688,20 @@ export namespace Prisma {
     update?: WebFormSubmissionUpdateWithWhereUniqueWithoutCustomerInput | WebFormSubmissionUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: WebFormSubmissionUpdateManyWithWhereWithoutCustomerInput | WebFormSubmissionUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: WebFormSubmissionScalarWhereInput | WebFormSubmissionScalarWhereInput[]
+  }
+
+  export type CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput = {
+    create?: XOR<CustomerNoteCreateWithoutCustomerInput, CustomerNoteUncheckedCreateWithoutCustomerInput> | CustomerNoteCreateWithoutCustomerInput[] | CustomerNoteUncheckedCreateWithoutCustomerInput[]
+    connectOrCreate?: CustomerNoteCreateOrConnectWithoutCustomerInput | CustomerNoteCreateOrConnectWithoutCustomerInput[]
+    upsert?: CustomerNoteUpsertWithWhereUniqueWithoutCustomerInput | CustomerNoteUpsertWithWhereUniqueWithoutCustomerInput[]
+    createMany?: CustomerNoteCreateManyCustomerInputEnvelope
+    set?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    disconnect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    delete?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    connect?: CustomerNoteWhereUniqueInput | CustomerNoteWhereUniqueInput[]
+    update?: CustomerNoteUpdateWithWhereUniqueWithoutCustomerInput | CustomerNoteUpdateWithWhereUniqueWithoutCustomerInput[]
+    updateMany?: CustomerNoteUpdateManyWithWhereWithoutCustomerInput | CustomerNoteUpdateManyWithWhereWithoutCustomerInput[]
+    deleteMany?: CustomerNoteScalarWhereInput | CustomerNoteScalarWhereInput[]
   }
 
   export type CustomerCreateNestedOneWithoutContactsInput = {
@@ -82201,6 +83745,34 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutConversationNotesInput, UserUpdateWithoutConversationNotesInput>, UserUncheckedUpdateWithoutConversationNotesInput>
   }
 
+  export type CustomerCreateNestedOneWithoutCustomerNotesInput = {
+    create?: XOR<CustomerCreateWithoutCustomerNotesInput, CustomerUncheckedCreateWithoutCustomerNotesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutCustomerNotesInput
+    connect?: CustomerWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCustomerNotesInput = {
+    create?: XOR<UserCreateWithoutCustomerNotesInput, UserUncheckedCreateWithoutCustomerNotesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerNotesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CustomerUpdateOneRequiredWithoutCustomerNotesNestedInput = {
+    create?: XOR<CustomerCreateWithoutCustomerNotesInput, CustomerUncheckedCreateWithoutCustomerNotesInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutCustomerNotesInput
+    upsert?: CustomerUpsertWithoutCustomerNotesInput
+    connect?: CustomerWhereUniqueInput
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutCustomerNotesInput, CustomerUpdateWithoutCustomerNotesInput>, CustomerUncheckedUpdateWithoutCustomerNotesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutCustomerNotesNestedInput = {
+    create?: XOR<UserCreateWithoutCustomerNotesInput, UserUncheckedCreateWithoutCustomerNotesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCustomerNotesInput
+    upsert?: UserUpsertWithoutCustomerNotesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCustomerNotesInput, UserUpdateWithoutCustomerNotesInput>, UserUncheckedUpdateWithoutCustomerNotesInput>
+  }
+
   export type SmartListCreatetagsInput = {
     set: string[]
   }
@@ -83072,6 +84644,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -83121,6 +84694,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -83175,6 +84749,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -83224,6 +84799,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -83308,6 +84884,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutCreatedByUserInput = {
@@ -83358,6 +84935,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutCreatedByUserInput = {
@@ -83418,6 +84996,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutAssignedToUserInput = {
@@ -83468,6 +85047,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutAssignedToUserInput = {
@@ -83629,6 +85209,34 @@ export namespace Prisma {
 
   export type InteractionCreateManyAssignedToUserInputEnvelope = {
     data: InteractionCreateManyAssignedToUserInput | InteractionCreateManyAssignedToUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CustomerNoteCreateWithoutCreatedByUserInput = {
+    id?: string
+    content: string
+    isInternal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    customer: CustomerCreateNestedOneWithoutCustomerNotesInput
+  }
+
+  export type CustomerNoteUncheckedCreateWithoutCreatedByUserInput = {
+    id?: string
+    customerId: string
+    content: string
+    isInternal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerNoteCreateOrConnectWithoutCreatedByUserInput = {
+    where: CustomerNoteWhereUniqueInput
+    create: XOR<CustomerNoteCreateWithoutCreatedByUserInput, CustomerNoteUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type CustomerNoteCreateManyCreatedByUserInputEnvelope = {
+    data: CustomerNoteCreateManyCreatedByUserInput | CustomerNoteCreateManyCreatedByUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -85024,6 +86632,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -85073,6 +86682,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -85280,6 +86890,35 @@ export namespace Prisma {
   export type InteractionUpdateManyWithWhereWithoutAssignedToUserInput = {
     where: InteractionScalarWhereInput
     data: XOR<InteractionUpdateManyMutationInput, InteractionUncheckedUpdateManyWithoutAssignedToUserInput>
+  }
+
+  export type CustomerNoteUpsertWithWhereUniqueWithoutCreatedByUserInput = {
+    where: CustomerNoteWhereUniqueInput
+    update: XOR<CustomerNoteUpdateWithoutCreatedByUserInput, CustomerNoteUncheckedUpdateWithoutCreatedByUserInput>
+    create: XOR<CustomerNoteCreateWithoutCreatedByUserInput, CustomerNoteUncheckedCreateWithoutCreatedByUserInput>
+  }
+
+  export type CustomerNoteUpdateWithWhereUniqueWithoutCreatedByUserInput = {
+    where: CustomerNoteWhereUniqueInput
+    data: XOR<CustomerNoteUpdateWithoutCreatedByUserInput, CustomerNoteUncheckedUpdateWithoutCreatedByUserInput>
+  }
+
+  export type CustomerNoteUpdateManyWithWhereWithoutCreatedByUserInput = {
+    where: CustomerNoteScalarWhereInput
+    data: XOR<CustomerNoteUpdateManyMutationInput, CustomerNoteUncheckedUpdateManyWithoutCreatedByUserInput>
+  }
+
+  export type CustomerNoteScalarWhereInput = {
+    AND?: CustomerNoteScalarWhereInput | CustomerNoteScalarWhereInput[]
+    OR?: CustomerNoteScalarWhereInput[]
+    NOT?: CustomerNoteScalarWhereInput | CustomerNoteScalarWhereInput[]
+    id?: UuidFilter<"CustomerNote"> | string
+    customerId?: UuidFilter<"CustomerNote"> | string
+    content?: StringFilter<"CustomerNote"> | string
+    isInternal?: BoolFilter<"CustomerNote"> | boolean
+    createdBy?: UuidFilter<"CustomerNote"> | string
+    createdAt?: DateTimeFilter<"CustomerNote"> | Date | string
+    updatedAt?: DateTimeFilter<"CustomerNote"> | Date | string
   }
 
   export type OrderUpsertWithWhereUniqueWithoutCreatedByUserInput = {
@@ -86169,6 +87808,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -86218,6 +87858,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -86272,6 +87913,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -86321,6 +87963,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -86926,6 +88569,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CustomerNoteCreateWithoutCustomerInput = {
+    id?: string
+    content: string
+    isInternal?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser: UserCreateNestedOneWithoutCustomerNotesInput
+  }
+
+  export type CustomerNoteUncheckedCreateWithoutCustomerInput = {
+    id?: string
+    content: string
+    isInternal?: boolean
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerNoteCreateOrConnectWithoutCustomerInput = {
+    where: CustomerNoteWhereUniqueInput
+    create: XOR<CustomerNoteCreateWithoutCustomerInput, CustomerNoteUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type CustomerNoteCreateManyCustomerInputEnvelope = {
+    data: CustomerNoteCreateManyCustomerInput | CustomerNoteCreateManyCustomerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutCustomersAssignedInput = {
     update: XOR<UserUpdateWithoutCustomersAssignedInput, UserUncheckedUpdateWithoutCustomersAssignedInput>
     create: XOR<UserCreateWithoutCustomersAssignedInput, UserUncheckedCreateWithoutCustomersAssignedInput>
@@ -86960,6 +88631,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -87009,6 +88681,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -87069,6 +88742,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -87118,6 +88792,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -87389,6 +89064,22 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"WebFormSubmission"> | Date | string
   }
 
+  export type CustomerNoteUpsertWithWhereUniqueWithoutCustomerInput = {
+    where: CustomerNoteWhereUniqueInput
+    update: XOR<CustomerNoteUpdateWithoutCustomerInput, CustomerNoteUncheckedUpdateWithoutCustomerInput>
+    create: XOR<CustomerNoteCreateWithoutCustomerInput, CustomerNoteUncheckedCreateWithoutCustomerInput>
+  }
+
+  export type CustomerNoteUpdateWithWhereUniqueWithoutCustomerInput = {
+    where: CustomerNoteWhereUniqueInput
+    data: XOR<CustomerNoteUpdateWithoutCustomerInput, CustomerNoteUncheckedUpdateWithoutCustomerInput>
+  }
+
+  export type CustomerNoteUpdateManyWithWhereWithoutCustomerInput = {
+    where: CustomerNoteScalarWhereInput
+    data: XOR<CustomerNoteUpdateManyMutationInput, CustomerNoteUncheckedUpdateManyWithoutCustomerInput>
+  }
+
   export type CustomerCreateWithoutContactsInput = {
     id?: string
     type?: string
@@ -87437,6 +89128,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutContactsInput = {
@@ -87487,6 +89179,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutContactsInput = {
@@ -87645,6 +89338,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutContactsInput = {
@@ -87695,6 +89389,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type DealContactUpsertWithWhereUniqueWithoutContactInput = {
@@ -87790,6 +89485,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutInteractionsInput = {
@@ -87840,6 +89536,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutInteractionsInput = {
@@ -87870,6 +89567,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -87919,6 +89617,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -87973,6 +89672,7 @@ export namespace Prisma {
     customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -88022,6 +89722,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -88354,6 +90055,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutInteractionsInput = {
@@ -88404,6 +90106,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutInteractionsInput = {
@@ -88440,6 +90143,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -88489,6 +90193,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -88549,6 +90254,7 @@ export namespace Prisma {
     customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -88598,6 +90304,7 @@ export namespace Prisma {
     customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -89100,6 +90807,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutDealsInput = {
@@ -89150,6 +90858,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutDealsInput = {
@@ -89214,6 +90923,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -89263,6 +90973,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -89317,6 +91028,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -89366,6 +91078,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -89677,6 +91390,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutDealsInput = {
@@ -89727,6 +91441,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type DealStageUpsertWithoutDealsInput = {
@@ -89803,6 +91518,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -89852,6 +91568,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -89912,6 +91629,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -89961,6 +91679,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -90889,6 +92608,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -90938,6 +92658,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -91278,6 +92999,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -91327,6 +93049,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -92272,6 +93995,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -92321,6 +94045,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -92516,6 +94241,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -92565,6 +94291,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -92638,6 +94365,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutOrdersInput = {
@@ -92688,6 +94416,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutOrdersInput = {
@@ -92719,6 +94448,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
     tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
@@ -92768,6 +94498,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
     tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
@@ -92822,6 +94553,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
     tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
@@ -92871,6 +94603,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
     tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
@@ -93201,6 +94934,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutOrdersInput = {
@@ -93251,6 +94985,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutOrdersCreatedInput = {
@@ -93288,6 +95023,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
     tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
@@ -93337,6 +95073,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
     tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
@@ -93397,6 +95134,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
     tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
@@ -93446,6 +95184,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
     tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
@@ -94129,6 +95868,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutTasksInput = {
@@ -94179,6 +95919,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutTasksInput = {
@@ -94210,6 +95951,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -94259,6 +96001,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -94313,6 +96056,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
@@ -94362,6 +96106,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
@@ -94614,6 +96359,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutTasksInput = {
@@ -94664,6 +96410,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserUpsertWithoutTasksAssignedInput = {
@@ -94701,6 +96448,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -94750,6 +96498,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -94810,6 +96559,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
@@ -94859,6 +96609,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
@@ -95056,6 +96807,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -95105,6 +96857,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -95265,6 +97018,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -95314,6 +97068,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -95810,6 +97565,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -95859,6 +97615,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -96009,6 +97766,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -96058,6 +97816,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -96107,6 +97866,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -96156,6 +97916,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -96221,6 +97982,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -96270,6 +98032,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -96319,6 +98082,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -96368,6 +98132,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -96433,6 +98198,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -96482,6 +98248,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -96555,6 +98322,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutMessageLogsInput = {
@@ -96605,6 +98373,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutMessageLogsInput = {
@@ -96718,6 +98487,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutMessageLogsInput = {
@@ -96768,6 +98538,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type MessageUpsertWithoutMessageLogInput = {
@@ -96871,6 +98642,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutConversationsInput = {
@@ -96921,6 +98693,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutConversationsInput = {
@@ -96993,6 +98766,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -97042,6 +98816,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -97096,6 +98871,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -97145,6 +98921,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -97314,6 +99091,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutConversationsInput = {
@@ -97364,6 +99142,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerContactUpsertWithoutConversationsInput = {
@@ -97448,6 +99227,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -97497,6 +99277,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -97557,6 +99338,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -97606,6 +99388,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -97995,6 +99778,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -98044,6 +99828,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -98174,6 +99959,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -98223,6 +100009,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -98242,6 +100029,442 @@ export namespace Prisma {
     dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
     conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUncheckedUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type CustomerCreateWithoutCustomerNotesInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignedToUser?: UserCreateNestedOneWithoutCustomersAssignedInput
+    createdByUser: UserCreateNestedOneWithoutCustomersCreatedInput
+    contacts?: CustomerContactCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
+    tasks?: TaskCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogCreateNestedManyWithoutCustomerInput
+    deals?: DealCreateNestedManyWithoutCustomerInput
+    conversations?: ConversationCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerUncheckedCreateWithoutCustomerNotesInput = {
+    id?: string
+    type?: string
+    leadSource?: string | null
+    leadScore?: number
+    firstName?: string | null
+    lastName?: string | null
+    companyName?: string | null
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string
+    latitude?: Decimal | DecimalJsLike | number | string | null
+    longitude?: Decimal | DecimalJsLike | number | string | null
+    industry?: string | null
+    segment?: string | null
+    taxId?: string | null
+    creditLimit?: Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: number
+    status?: string
+    isActive?: boolean
+    convertedFromLeadAt?: Date | string | null
+    firstPurchaseAt?: Date | string | null
+    lastPurchaseAt?: Date | string | null
+    lastContactAt?: Date | string | null
+    tags?: CustomerCreatetagsInput | string[]
+    notes?: string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: string | null
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    contacts?: CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutCustomerInput
+    messageLogs?: MessageLogUncheckedCreateNestedManyWithoutCustomerInput
+    deals?: DealUncheckedCreateNestedManyWithoutCustomerInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
+    smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+  }
+
+  export type CustomerCreateOrConnectWithoutCustomerNotesInput = {
+    where: CustomerWhereUniqueInput
+    create: XOR<CustomerCreateWithoutCustomerNotesInput, CustomerUncheckedCreateWithoutCustomerNotesInput>
+  }
+
+  export type UserCreateWithoutCustomerNotesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdByUser?: UserCreateNestedOneWithoutUsersCreatedInput
+    usersCreated?: UserCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    filesUploaded?: FileCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleCreateNestedManyWithoutCreatedByUserInput
+    workflowsCreated?: WorkflowCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCustomerNotesInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    firstName?: string | null
+    lastName?: string | null
+    phone?: string | null
+    avatarUrl?: string | null
+    role?: string
+    department?: string | null
+    position?: string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: boolean
+    lastLoginAt?: Date | string | null
+    hireDate?: Date | string | null
+    employeeId?: string | null
+    createdBy?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    usersCreated?: UserUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersCreated?: CustomerUncheckedCreateNestedManyWithoutCreatedByUserInput
+    customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
+    interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
+    ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
+    tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
+    tasksAssigned?: TaskUncheckedCreateNestedManyWithoutAssignedToUserInput
+    paymentsCreated?: PaymentUncheckedCreateNestedManyWithoutCreatedByUserInput
+    productsCreated?: ProductUncheckedCreateNestedManyWithoutCreatedByUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    filesUploaded?: FileUncheckedCreateNestedManyWithoutUploadedByUserInput
+    savedReportsCreated?: SavedReportUncheckedCreateNestedManyWithoutCreatedByUserInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedCreateNestedManyWithoutCreatedByUserInput
+    transactionsCreated?: TransactionUncheckedCreateNestedManyWithoutCreatedByUserInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedCreateNestedManyWithoutCompletedByUserInput
+    auditLogsUser?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    companySettingsUpdated?: CompanySettingUncheckedCreateNestedManyWithoutUpdatedByUserInput
+    dealsCreated?: DealUncheckedCreateNestedManyWithoutCreatedByUserInput
+    dealsAssigned?: DealUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationsCreated?: ConversationUncheckedCreateNestedManyWithoutCreatedByUserInput
+    conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedToUserInput
+    conversationNotes?: ConversationNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
+    smartListsCreated?: SmartListUncheckedCreateNestedManyWithoutCreatedByUserInput
+    leadScoringRulesCreated?: LeadScoringRuleUncheckedCreateNestedManyWithoutCreatedByUserInput
+    workflowsCreated?: WorkflowUncheckedCreateNestedManyWithoutCreatedByUserInput
+    webFormsCreated?: WebFormUncheckedCreateNestedManyWithoutCreatedByUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCustomerNotesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCustomerNotesInput, UserUncheckedCreateWithoutCustomerNotesInput>
+  }
+
+  export type CustomerUpsertWithoutCustomerNotesInput = {
+    update: XOR<CustomerUpdateWithoutCustomerNotesInput, CustomerUncheckedUpdateWithoutCustomerNotesInput>
+    create: XOR<CustomerCreateWithoutCustomerNotesInput, CustomerUncheckedCreateWithoutCustomerNotesInput>
+    where?: CustomerWhereInput
+  }
+
+  export type CustomerUpdateToOneWithWhereWithoutCustomerNotesInput = {
+    where?: CustomerWhereInput
+    data: XOR<CustomerUpdateWithoutCustomerNotesInput, CustomerUncheckedUpdateWithoutCustomerNotesInput>
+  }
+
+  export type CustomerUpdateWithoutCustomerNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignedToUser?: UserUpdateOneWithoutCustomersAssignedNestedInput
+    createdByUser?: UserUpdateOneRequiredWithoutCustomersCreatedNestedInput
+    contacts?: CustomerContactUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUpdateManyWithoutCustomerNestedInput
+    deals?: DealUpdateManyWithoutCustomerNestedInput
+    conversations?: ConversationUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type CustomerUncheckedUpdateWithoutCustomerNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    leadSource?: NullableStringFieldUpdateOperationsInput | string | null
+    leadScore?: IntFieldUpdateOperationsInput | number
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    companyName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    postalCode?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    latitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    longitude?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    segment?: NullableStringFieldUpdateOperationsInput | string | null
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    creditLimit?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    paymentTerms?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    convertedFromLeadAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastPurchaseAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastContactAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tags?: CustomerUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    customFields?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    contacts?: CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutCustomerNestedInput
+    messageLogs?: MessageLogUncheckedUpdateManyWithoutCustomerNestedInput
+    deals?: DealUncheckedUpdateManyWithoutCustomerNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
+    smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
+    leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+  }
+
+  export type UserUpsertWithoutCustomerNotesInput = {
+    update: XOR<UserUpdateWithoutCustomerNotesInput, UserUncheckedUpdateWithoutCustomerNotesInput>
+    create: XOR<UserCreateWithoutCustomerNotesInput, UserUncheckedCreateWithoutCustomerNotesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCustomerNotesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCustomerNotesInput, UserUncheckedUpdateWithoutCustomerNotesInput>
+  }
+
+  export type UserUpdateWithoutCustomerNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneWithoutUsersCreatedNestedInput
+    usersCreated?: UserUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUpdateManyWithoutCreatedByUserNestedInput
+    smartListsCreated?: SmartListUpdateManyWithoutCreatedByUserNestedInput
+    leadScoringRulesCreated?: LeadScoringRuleUpdateManyWithoutCreatedByUserNestedInput
+    workflowsCreated?: WorkflowUpdateManyWithoutCreatedByUserNestedInput
+    webFormsCreated?: WebFormUpdateManyWithoutCreatedByUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCustomerNotesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    position?: NullableStringFieldUpdateOperationsInput | string | null
+    permissions?: JsonNullValueInput | InputJsonValue
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    hireDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    employeeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    usersCreated?: UserUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersCreated?: CustomerUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    tasksAssigned?: TaskUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    paymentsCreated?: PaymentUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    productsCreated?: ProductUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    filesUploaded?: FileUncheckedUpdateManyWithoutUploadedByUserNestedInput
+    savedReportsCreated?: SavedReportUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    inventoryMovementsCreated?: InventoryMovementUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    transactionsCreated?: TransactionUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    taskChecklistsCompleted?: TaskChecklistUncheckedUpdateManyWithoutCompletedByUserNestedInput
+    auditLogsUser?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    companySettingsUpdated?: CompanySettingUncheckedUpdateManyWithoutUpdatedByUserNestedInput
+    dealsCreated?: DealUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    dealsAssigned?: DealUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationsCreated?: ConversationUncheckedUpdateManyWithoutCreatedByUserNestedInput
+    conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    conversationNotes?: ConversationNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     smartListsCreated?: SmartListUncheckedUpdateManyWithoutCreatedByUserNestedInput
     leadScoringRulesCreated?: LeadScoringRuleUncheckedUpdateManyWithoutCreatedByUserNestedInput
     workflowsCreated?: WorkflowUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -98272,6 +100495,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -98321,6 +100545,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -98408,6 +100633,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -98457,6 +100683,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -98587,6 +100814,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutSmartListMembersInput = {
@@ -98637,6 +100865,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutSmartListMembersInput = {
@@ -98750,6 +100979,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutSmartListMembersInput = {
@@ -98800,6 +101030,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserCreateWithoutLeadScoringRulesCreatedInput = {
@@ -98826,6 +101057,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -98875,6 +101107,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -98940,6 +101173,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -98989,6 +101223,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -99062,6 +101297,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutLeadScoreHistoryInput = {
@@ -99112,6 +101348,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     WebFormSubmission?: WebFormSubmissionUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutLeadScoreHistoryInput = {
@@ -99178,6 +101415,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutLeadScoreHistoryInput = {
@@ -99228,6 +101466,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserCreateWithoutWorkflowsCreatedInput = {
@@ -99254,6 +101493,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -99303,6 +101543,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -99402,6 +101643,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -99451,6 +101693,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -99684,6 +101927,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -99733,6 +101977,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -99830,6 +102075,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -99879,6 +102125,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -100013,6 +102260,7 @@ export namespace Prisma {
     conversations?: ConversationCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutWebFormSubmissionInput = {
@@ -100063,6 +102311,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedCreateNestedManyWithoutCustomerInput
     smartListMembers?: SmartListMemberUncheckedCreateNestedManyWithoutCustomerInput
     leadScoreHistory?: LeadScoreHistoryUncheckedCreateNestedManyWithoutCustomerInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutWebFormSubmissionInput = {
@@ -100180,6 +102429,7 @@ export namespace Prisma {
     conversations?: ConversationUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutWebFormSubmissionInput = {
@@ -100230,6 +102480,7 @@ export namespace Prisma {
     conversations?: ConversationUncheckedUpdateManyWithoutCustomerNestedInput
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type WorkflowExecutionCreateWithoutLogsInput = {
@@ -100320,6 +102571,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -100369,6 +102621,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -100434,6 +102687,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -100483,6 +102737,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -100532,6 +102787,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -100581,6 +102837,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -100646,6 +102903,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -100695,6 +102953,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -100744,6 +103003,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -100793,6 +103053,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -100888,6 +103149,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -100937,6 +103199,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -101264,6 +103527,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -101313,6 +103577,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -101378,6 +103643,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -101427,6 +103693,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -101476,6 +103743,7 @@ export namespace Prisma {
     customersAssigned?: CustomerCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskCreateNestedManyWithoutCreatedByUserInput
@@ -101525,6 +103793,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedCreateNestedManyWithoutAssignedToUserInput
     interactions?: InteractionUncheckedCreateNestedManyWithoutCreatedByUserInput
     interactionsAssigned?: InteractionUncheckedCreateNestedManyWithoutAssignedToUserInput
+    customerNotes?: CustomerNoteUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersCreated?: OrderUncheckedCreateNestedManyWithoutCreatedByUserInput
     ordersAssigned?: OrderUncheckedCreateNestedManyWithoutAssignedToUserInput
     tasksCreated?: TaskUncheckedCreateNestedManyWithoutCreatedByUserInput
@@ -101590,6 +103859,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -101639,6 +103909,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -101822,6 +104093,15 @@ export namespace Prisma {
     locationUrl?: string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CustomerNoteCreateManyCreatedByUserInput = {
+    id?: string
+    customerId: string
+    content: string
+    isInternal?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -102373,6 +104653,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUpdateManyWithoutCreatedByUserNestedInput
@@ -102422,6 +104703,7 @@ export namespace Prisma {
     customersAssigned?: CustomerUncheckedUpdateManyWithoutAssignedToUserNestedInput
     interactions?: InteractionUncheckedUpdateManyWithoutCreatedByUserNestedInput
     interactionsAssigned?: InteractionUncheckedUpdateManyWithoutAssignedToUserNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersCreated?: OrderUncheckedUpdateManyWithoutCreatedByUserNestedInput
     ordersAssigned?: OrderUncheckedUpdateManyWithoutAssignedToUserNestedInput
     tasksCreated?: TaskUncheckedUpdateManyWithoutCreatedByUserNestedInput
@@ -102516,6 +104798,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutCreatedByUserInput = {
@@ -102566,6 +104849,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutCreatedByUserInput = {
@@ -102656,6 +104940,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutAssignedToUserInput = {
@@ -102706,6 +104991,7 @@ export namespace Prisma {
     smartListMembers?: SmartListMemberUncheckedUpdateManyWithoutCustomerNestedInput
     leadScoreHistory?: LeadScoreHistoryUncheckedUpdateManyWithoutCustomerNestedInput
     WebFormSubmission?: WebFormSubmissionUncheckedUpdateManyWithoutCustomerNestedInput
+    customerNotes?: CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutAssignedToUserInput = {
@@ -102938,6 +105224,33 @@ export namespace Prisma {
     locationUrl?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customer?: CustomerUpdateOneRequiredWithoutCustomerNotesNestedInput
+  }
+
+  export type CustomerNoteUncheckedUpdateWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteUncheckedUpdateManyWithoutCreatedByUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    customerId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -104804,6 +107117,15 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type CustomerNoteCreateManyCustomerInput = {
+    id?: string
+    content: string
+    isInternal?: boolean
+    createdBy: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type CustomerContactUpdateWithoutCustomerInput = {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -105496,6 +107818,33 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdByUser?: UserUpdateOneRequiredWithoutCustomerNotesNestedInput
+  }
+
+  export type CustomerNoteUncheckedUpdateWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CustomerNoteUncheckedUpdateManyWithoutCustomerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isInternal?: BoolFieldUpdateOperationsInput | boolean
+    createdBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DealContactCreateManyContactInput = {

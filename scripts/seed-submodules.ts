@@ -31,12 +31,21 @@ const subModulesByModule: Record<string, SubModuleDefinition[]> = {
       permissions: ['crm:read', 'crm:write', 'crm:customers:read', 'crm:customers:write', 'crm:customers:delete'],
     },
     {
+      name: 'customer-contacts',
+      displayName: 'Contactos de Clientes',
+      description: 'Gestión de contactos y personas de contacto de clientes',
+      icon: 'UserCircle',
+      path: '/crm/contacts',
+      sortOrder: 2,
+      permissions: ['crm:read', 'crm:write', 'crm:customers:read', 'crm:customers:write'],
+    },
+    {
       name: 'pipeline',
       displayName: 'Pipeline',
       description: 'Vista Kanban del pipeline de oportunidades (Deals)',
       icon: 'TrendingUp',
       path: '/crm/pipeline',
-      sortOrder: 2,
+      sortOrder: 3,
       permissions: ['crm:read', 'crm:write', 'crm:deals:read', 'crm:deals:write'],
     },
     {
@@ -45,7 +54,7 @@ const subModulesByModule: Record<string, SubModuleDefinition[]> = {
       description: 'Bandeja única para WhatsApp, Email y SMS',
       icon: 'Inbox',
       path: '/crm/inbox',
-      sortOrder: 3,
+      sortOrder: 4,
       permissions: ['crm:read', 'crm:write', 'crm:conversations:read', 'crm:conversations:write'],
     },
     {
@@ -54,7 +63,7 @@ const subModulesByModule: Record<string, SubModuleDefinition[]> = {
       description: 'Vista de calendario para actividades y reuniones',
       icon: 'Calendar',
       path: '/crm/calendar',
-      sortOrder: 4,
+      sortOrder: 5,
       permissions: ['crm:read', 'crm:write', 'crm:activities:read', 'crm:activities:write'],
     },
     {
@@ -63,7 +72,7 @@ const subModulesByModule: Record<string, SubModuleDefinition[]> = {
       description: 'Segmentación dinámica de clientes con filtros avanzados',
       icon: 'List',
       path: '/crm/smart-lists',
-      sortOrder: 5,
+      sortOrder: 6,
       permissions: ['crm:read', 'crm:write', 'crm:segments:read', 'crm:segments:write'],
     },
     {
@@ -72,7 +81,7 @@ const subModulesByModule: Record<string, SubModuleDefinition[]> = {
       description: 'Sistema de puntuación automática de leads',
       icon: 'TrendingUp',
       path: '/crm/lead-scoring',
-      sortOrder: 6,
+      sortOrder: 7,
       permissions: ['crm:read', 'crm:write', 'crm:scoring:read', 'crm:scoring:write'],
     },
     {
@@ -81,7 +90,7 @@ const subModulesByModule: Record<string, SubModuleDefinition[]> = {
       description: 'Reportes y KPIs del CRM (pipeline, conversión, forecast)',
       icon: 'BarChart3',
       path: '/crm/reports',
-      sortOrder: 7,
+      sortOrder: 8,
       permissions: ['crm:read', 'reports:read', 'crm:reports:read'],
     },
     {
@@ -90,7 +99,7 @@ const subModulesByModule: Record<string, SubModuleDefinition[]> = {
       description: 'Workflows y automatizaciones del CRM',
       icon: 'Zap',
       path: '/crm/workflows',
-      sortOrder: 8,
+      sortOrder: 9,
       permissions: ['crm:read', 'crm:write', 'crm:workflows:read', 'crm:workflows:write'],
     },
     {
@@ -99,7 +108,7 @@ const subModulesByModule: Record<string, SubModuleDefinition[]> = {
       description: 'Constructor de formularios embebibles para captura de leads',
       icon: 'FileEdit',
       path: '/crm/web-forms',
-      sortOrder: 9,
+      sortOrder: 10,
       permissions: ['crm:read', 'crm:write', 'crm:forms:read', 'crm:forms:write'],
     },
   ],
