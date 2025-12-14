@@ -44,6 +44,168 @@ async function seed() {
       console.log('ℹ️  Super admin user already exists');
     }
 
+    // MODULES SEEDING
+    console.log('📦 Seeding modules...');
+
+    const modules = [
+      {
+        name: 'products',
+        displayName: 'Catálogo',
+        description: 'Gestión de productos, servicios y combos',
+        icon: 'Package',
+        path: '/products',
+        category: 'operations',
+        sortOrder: 1,
+        isActive: true,
+        isVisible: true,
+        subModules: [
+          {
+            name: 'catalog',
+            displayName: 'Productos',
+            description: 'Listado de productos',
+            icon: 'List',
+            path: '/products/catalog',
+            sortOrder: 1,
+            isActive: true,
+            isVisible: true,
+          },
+          {
+            name: 'categories',
+            displayName: 'Categorías',
+            description: 'Gestión de categorías',
+            icon: 'Layers',
+            path: '/products/categories',
+            sortOrder: 2,
+            isActive: true,
+            isVisible: true,
+          },
+          {
+            name: 'variants',
+            displayName: 'Variantes',
+            description: 'Gestión de variantes',
+            icon: 'Copy',
+            path: '/products/variants',
+            sortOrder: 3,
+            isActive: true,
+            isVisible: true,
+          },
+          {
+            name: 'attributes',
+            displayName: 'Atributos',
+            description: 'Gestión de atributos globales',
+            icon: 'List',
+            path: '/products/attributes',
+            sortOrder: 4,
+            isActive: true,
+            isVisible: true,
+          },
+          {
+            name: 'inventory',
+            displayName: 'Inventario',
+            description: 'Movimientos de inventario',
+            icon: 'ArrowRightLeft',
+            path: '/products/inventory',
+            sortOrder: 5,
+            isActive: true,
+            isVisible: true,
+          },
+           {
+            name: 'warehouses',
+            displayName: 'Bodegas',
+            description: 'Gestión de bodegas y sucursales',
+            icon: 'Building2',
+            path: '/products/warehouses',
+            sortOrder: 6,
+            isActive: true,
+            isVisible: true,
+          },
+          {
+            name: 'pricing',
+            displayName: 'Precios',
+            description: 'Gestión de precios',
+            icon: 'DollarSign',
+            path: '/products/pricing',
+            sortOrder: 7,
+            isActive: true,
+            isVisible: true,
+          },
+          {
+            name: 'alerts',
+            displayName: 'Alertas',
+            description: 'Alertas de stock',
+            icon: 'Bell',
+            path: '/products/alerts',
+            sortOrder: 8,
+            isActive: true,
+            isVisible: true,
+          },
+        ],
+      },
+      // ... other modules can remain or be re-added if this seed is meant to be idempotent
+    ];
+
+    for (const moduleData of modules) {
+      // Upsert module
+      const module = await prisma.moduleDefinition.upsert({
+        where: { name: moduleData.name },
+        update: {
+            displayName: moduleData.displayName,
+            description: moduleData.description,
+            icon: moduleData.icon,
+            path: moduleData.path,
+            category: moduleData.category,
+            sortOrder: moduleData.sortOrder,
+            isActive: moduleData.isActive,
+            isVisible: moduleData.isVisible,
+        },
+        create: {
+            name: moduleData.name,
+            displayName: moduleData.displayName,
+            description: moduleData.description,
+            icon: moduleData.icon,
+            path: moduleData.path,
+            category: moduleData.category,
+            sortOrder: moduleData.sortOrder,
+            isActive: moduleData.isActive,
+            isVisible: moduleData.isVisible,
+        },
+      });
+      console.log(`✅ Module upserted: ${module.name}`);
+
+      // Upsert submodules
+      for (const subModuleData of moduleData.subModules) {
+        const subModule = await prisma.subModuleDefinition.upsert({
+          where: {
+            moduleId_name: {
+              moduleId: module.id,
+              name: subModuleData.name,
+            },
+          },
+          update: {
+            displayName: subModuleData.displayName,
+            description: subModuleData.description,
+            icon: subModuleData.icon,
+            path: subModuleData.path,
+            sortOrder: subModuleData.sortOrder,
+            isActive: subModuleData.isActive,
+            isVisible: subModuleData.isVisible,
+          },
+          create: {
+            moduleId: module.id,
+            name: subModuleData.name,
+            displayName: subModuleData.displayName,
+            description: subModuleData.description,
+            icon: subModuleData.icon,
+            path: subModuleData.path,
+            sortOrder: subModuleData.sortOrder,
+            isActive: subModuleData.isActive,
+            isVisible: subModuleData.isVisible,
+          },
+        });
+        console.log(`  - SubModule upserted: ${subModule.name}`);
+      }
+    }
+
     // Create default plans (prices in Colombian Pesos - COP)
     const plans = [
       {

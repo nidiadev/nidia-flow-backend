@@ -15,11 +15,12 @@ import { BaseEntityDto } from '../base/base.dto';
  * Create Product Variant DTO
  */
 export class CreateProductVariantDto extends BaseEntityDto {
-  @ApiProperty({ 
-    description: 'Product ID this variant belongs to'
+  @ApiPropertyOptional({ 
+    description: 'Product ID this variant belongs to (taken from URL if not provided)'
   })
+  @IsOptional()
   @IsUUID()
-  productId: string;
+  productId?: string;
 
   @ApiProperty({ 
     description: 'Variant name',
