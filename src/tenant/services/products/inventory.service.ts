@@ -14,7 +14,7 @@ export class InventoryService {
   constructor(private readonly prisma: TenantPrismaService) {}
 
   async createMovement(createMovementDto: CreateInventoryMovementDto, createdBy: string): Promise<InventoryMovementResponseDto> {
-    const { productId, productVariantId, movementType, quantity, referenceType, referenceId, reason, costPerUnit } = createMovementDto;
+    const { productId, productVariantId, warehouseId, movementType, quantity, referenceType, referenceId, reason, costPerUnit } = createMovementDto;
     const client = await this.prisma.getTenantClient();
 
     // Verificar que el producto existe
@@ -42,38 +42,84 @@ export class InventoryService {
       }
     }
 
-    // Calcular nuevas cantidades
-    const currentQuantity = productVariantId ? productVariant.stockQuantity : product.stockQuantity;
-    let newQuantity: number;
-
-    switch (movementType) {
-      case 'in':
-        newQuantity = currentQuantity + quantity;
-        break;
-      case 'out':
-        if (currentQuantity < quantity) {
-          throw new BadRequestException('Insufficient stock for this operation');
-        }
-        newQuantity = currentQuantity - quantity;
-        break;
-      case 'adjustment':
-        newQuantity = quantity;
-        break;
-      default:
-        throw new BadRequestException('Invalid movement type');
+    // Verificar bodega si se especifica
+    if (warehouseId) {
+      const warehouse = await client.warehouse.findUnique({
+        where: { id: warehouseId },
+      });
+      if (!warehouse) {
+        throw new NotFoundException('Warehouse not found');
+      }
     }
 
     // Crear movimiento y actualizar stock en transacción
     const movement = await client.$transaction(async (tx) => {
-      // Crear movimiento de inventario
+      // 1. Calcular stock actual GLOBAL (del producto/variante)
+      const currentGlobalQuantity = productVariantId ? productVariant.stockQuantity : product.stockQuantity;
+      let newGlobalQuantity: number;
+
+      // 2. Calcular stock actual BODEGA (si aplica)
+      let currentWarehouseQuantity = 0;
+      let inventoryItem: { id: string; quantity: number } | null = null;
+
+      if (warehouseId) {
+        // Try to find existing inventory item
+        inventoryItem = await tx.inventoryItem.findFirst({
+          where: {
+            warehouseId,
+            productId,
+            productVariantId: productVariantId || null,
+          },
+        }) as { id: string; quantity: number } | null;
+
+        currentWarehouseQuantity = inventoryItem?.quantity || 0;
+      }
+
+      // 3. Calcular nuevas cantidades
+      let quantityChange = 0;
+
+      switch (movementType) {
+        case 'in':
+          quantityChange = quantity;
+          break;
+        case 'out':
+          // Validar stock suficiente (si es salida)
+          // Si se especifica bodega, validar stock en esa bodega
+          if (warehouseId && currentWarehouseQuantity < quantity) {
+             throw new BadRequestException(`Insufficient stock in the selected warehouse (Current: ${currentWarehouseQuantity})`);
+          }
+          // Si NO se especifica bodega, validar stock global (fallback)
+          if (!warehouseId && currentGlobalQuantity < quantity) {
+             throw new BadRequestException(`Insufficient global stock (Current: ${currentGlobalQuantity})`);
+          }
+          quantityChange = -quantity;
+          break;
+        case 'adjustment':
+          // Ajuste es absoluto.
+          // Si es bodega, el cambio es (nuevo - viejo)
+          if (warehouseId) {
+             quantityChange = quantity - currentWarehouseQuantity;
+          } else {
+             quantityChange = quantity - currentGlobalQuantity;
+          }
+          break;
+        default:
+          throw new BadRequestException('Invalid movement type');
+      }
+
+      newGlobalQuantity = currentGlobalQuantity + quantityChange;
+      const newWarehouseQuantity = warehouseId ? currentWarehouseQuantity + quantityChange : null;
+
+      // 4. Crear movimiento de inventario
       const newMovement = await tx.inventoryMovement.create({
         data: {
           productId,
           productVariantId,
+          warehouseId,
           movementType,
           quantity,
-          previousQuantity: currentQuantity,
-          newQuantity,
+          previousQuantity: warehouseId ? currentWarehouseQuantity : currentGlobalQuantity,
+          newQuantity: warehouseId ? newWarehouseQuantity : newGlobalQuantity,
           referenceType,
           referenceId,
           reason,
@@ -83,40 +129,51 @@ export class InventoryService {
         },
         include: {
           product: {
-            select: {
-              id: true,
-              name: true,
-              sku: true,
-            },
+            select: { id: true, name: true, sku: true },
           },
           productVariant: {
-            select: {
-              id: true,
-              name: true,
-              sku: true,
-            },
+            select: { id: true, name: true, sku: true },
           },
           createdByUser: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              email: true,
-            },
+            select: { id: true, firstName: true, lastName: true, email: true },
           },
         },
       });
 
-      // Actualizar stock del producto o variante
+      // 5. Actualizar stock BODEGA
+      if (warehouseId) {
+        if (inventoryItem) {
+          // Update existing inventory item
+          await tx.inventoryItem.update({
+            where: { id: inventoryItem.id },
+            data: {
+              quantity: newWarehouseQuantity!,
+              updatedAt: new Date(),
+            },
+          });
+        } else {
+          // Create new inventory item
+          await tx.inventoryItem.create({
+            data: {
+              warehouseId,
+              productId,
+              productVariantId: productVariantId || null,
+              quantity: newWarehouseQuantity!,
+            },
+          });
+        }
+      }
+
+      // 6. Actualizar stock GLOBAL
       if (productVariantId) {
         await tx.productVariant.update({
           where: { id: productVariantId },
-          data: { stockQuantity: newQuantity },
+          data: { stockQuantity: newGlobalQuantity },
         });
       } else {
         await tx.product.update({
           where: { id: productId },
-          data: { stockQuantity: newQuantity },
+          data: { stockQuantity: newGlobalQuantity },
         });
       }
 
@@ -272,11 +329,12 @@ export class InventoryService {
   }
 
   async adjustStock(adjustmentDto: StockAdjustmentDto, createdBy: string): Promise<InventoryMovementResponseDto> {
-    const { productId, productVariantId, newQuantity, reason } = adjustmentDto;
+    const { productId, productVariantId, warehouseId, newQuantity, reason } = adjustmentDto;
 
     return this.createMovement({
       productId,
       productVariantId,
+      warehouseId,
       movementType: 'adjustment',
       quantity: newQuantity,
       referenceType: 'adjustment',
@@ -295,6 +353,7 @@ export class InventoryService {
         const movement = await this.adjustStock({
           productId: update.productId,
           productVariantId: update.productVariantId,
+          warehouseId: update.warehouseId,
           newQuantity: update.newQuantity,
           reason: reason || 'Bulk stock update',
         }, createdBy);

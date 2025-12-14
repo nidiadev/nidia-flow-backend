@@ -12,6 +12,10 @@ export class CreateInventoryMovementDto {
   @IsString()
   productVariantId?: string;
 
+  @IsOptional()
+  @IsString()
+  warehouseId?: string;
+
   @IsString()
   movementType: InventoryMovementTypeString;
 
@@ -104,6 +108,11 @@ export class InventoryMovementResponseDto {
     name: string;
     sku: string;
   };
+  warehouseId?: string;
+  warehouse?: {
+    id: string;
+    name: string;
+  };
   movementType: InventoryMovementTypeString;
   quantity: number;
   previousQuantity?: number;
@@ -130,6 +139,10 @@ export class StockAdjustmentDto {
   @IsString()
   productVariantId?: string;
 
+  @IsOptional()
+  @IsString()
+  warehouseId?: string;
+
   @IsNumber()
   @Min(0)
   newQuantity: number;
@@ -146,6 +159,10 @@ export class BulkStockUpdateItemDto {
   @IsOptional()
   @IsString()
   productVariantId?: string;
+
+  @IsOptional()
+  @IsString()
+  warehouseId?: string;
 
   @IsNumber()
   @Min(0)
