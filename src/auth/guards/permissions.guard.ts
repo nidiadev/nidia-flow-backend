@@ -109,6 +109,8 @@ export class PermissionsGuard implements CanActivate {
         'orders:read', 'orders:write', 'orders:create', 'orders:update', 'orders:delete',
         'tasks:read', 'tasks:write', 'tasks:create', 'tasks:update', 'tasks:delete',
         'products:read', 'products:write', 'products:create', 'products:update', 'products:delete',
+        'products:attributes:read', 'products:attributes:write', 'products:attributes:delete',
+        'products:warehouses:read', 'products:warehouses:write', 'products:warehouses:delete',
         'accounting:read', 'accounting:write', 'accounting:create', 'accounting:update',
       ];
     }
@@ -125,7 +127,7 @@ export class PermissionsGuard implements CanActivate {
         'crm:workflows:read', 'crm:workflows:write',
         'orders:read', 'orders:write', 'orders:assign', 'orders:approve',
         'tasks:read', 'tasks:write', 'tasks:assign', 'tasks:complete',
-        'products:read', 'products:write', 'products:manage_inventory',
+        'products:read', 'products:write', 'products:manage_inventory', 'products:attributes:read', 'products:attributes:write', 'products:warehouses:read', 'products:warehouses:write',
         'accounting:read', 'accounting:reports',
         'reports:read', 'reports:create', 'reports:export',
         'users:read', 'users:write', 'users:invite',
